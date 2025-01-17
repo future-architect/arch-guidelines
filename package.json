@@ -1,0 +1,42 @@
+{
+  "name": "future-enterprise-arch-guidelines",
+  "version": "1.0.0",
+  "description": "Future Enterprise Arch Guidelines",
+  "main": "index.js",
+  "scripts": {
+    "watch": "vitepress dev . --open",
+    "build": "vitepress build .",
+    "lint": "npm run lint:format && npm run lint:js",
+    "lint:js": "eslint . .vitepress",
+    "lint:format": "prettier . --list-different",
+    "format": "prettier . --write"
+  },
+  "repository": {
+    "type": "git  ",
+    "url": "git+https://github.com/future-architect/arch-guidelines.git"
+  },
+  "keywords": [
+    "codingstandards"
+  ],
+  "author": "Future Corporation",
+  "license": "CC-BY-3.0",
+  "bugs": {
+    "url": "https://github.com/future-architect/arch-guidelines/issues"
+  },
+  "homepage": "https://future-architect.github.io/arch-guidelines/",
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.2.0",
+    "@eslint/js": "^9.17.0",
+    "eslint": "^9.17.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-vue": "^9.0.0",
+    "markdown-it-footnote": "^4.0.0",
+    "markdown-it-task-lists": "^2.1.1",
+    "npm-run-all2": "^7.0.0",
+    "prettier": "^3.4.2",
+    "vitepress": "^1.5.0",
+    "vitepress-plugin-mermaid": "^2.0.17",
+    "vue-github-button": "^3.1.3"
+  }
+}

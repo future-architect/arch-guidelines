@@ -1,0 +1,129 @@
+:root {
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: -webkit-linear-gradient(
+    120deg,
+    #0a1561 30%,
+    #e5004f
+  );
+}
+
+.dark {
+  --vp-home-hero-name-background: -webkit-linear-gradient(
+    120deg,
+    #fff 30%,
+    #e5004f
+  );
+}
+
+/* ヒーロー画像を透過させる */
+.image-src {
+  opacity: 0.1;
+}
+
+/* タイトルが長いので調整 */
+@media (min-width: 960px) {
+  .VPNavBarTitle .title {
+    font-size: 14px;
+    line-height: 18px;
+  }
+}
+@media (max-width: 820px) {
+  .VPNavBar .title {
+    max-width: calc(100vw - 450px);
+    font-size: 14px;
+    line-height: 18px;
+  }
+}
+@media (max-width: 768px) {
+  .VPNavBar .title {
+    max-width: calc(100vw - 120px);
+    font-size: 14px;
+    line-height: 18px;
+  }
+}
+
+/* ヒーローページタイトルの改行は<wbr>で調整するのでnowrapにする */
+.VPHero .main > .name {
+  white-space: nowrap;
+}
+
+/* メインコンテンツの幅を広げます。最大1920pxまでを許可します。 */
+#app .VPDoc.has-aside .content-container {
+  max-width: 1280px;
+}
+
+@media (min-width: 1440px) and (max-width: 1920px) {
+  /* 左上タイトル領域 */
+  #app .VPNavBar.has-sidebar .container > .title {
+    padding-left: 32px;
+    width: var(--vp-sidebar-width);
+  }
+
+  /* 左メニュー領域 */
+  #app .VPSidebar {
+    padding-left: 32px;
+    width: var(--vp-sidebar-width);
+  }
+
+  /* コンテンツ領域 */
+  #app .VPContent.has-sidebar {
+    padding-right: 0;
+    padding-left: var(--vp-sidebar-width);
+  }
+
+  /* ヘッダー領域 */
+  #app .VPNavBar.has-sidebar .content {
+    padding-right: 32px;
+    padding-left: var(--vp-sidebar-width);
+  }
+
+  /* ヘッダーの下線 */
+  #app .VPNavBar.has-sidebar .divider {
+    padding-left: var(--vp-sidebar-width);
+  }
+}
+
+@media (min-width: 1920px) {
+  :root {
+    --vp-layout-max-width: 1920px;
+  }
+}
+
+/* プリント用CSS */
+@media print {
+  .VPNav,
+  .VPLocalNav,
+  .VPSidebar,
+  .VPDocFooter {
+    display: none;
+  }
+  .VPContent.has-sidebar {
+    padding-left: 0;
+  }
+}
+
+.print-test {
+  .VPNav,
+  .VPLocalNav,
+  .VPSidebar,
+  .VPDocFooter {
+    display: none;
+  }
+  .VPContent.has-sidebar {
+    padding-left: 0;
+  }
+}
+
+h1,
+h2 {
+  page-break-before: always;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  page-break-after: avoid;
+}

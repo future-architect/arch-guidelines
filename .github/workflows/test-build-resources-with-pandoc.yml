@@ -1,0 +1,33 @@
+name: build-resources-with-pandoc
+
+on:
+  push:
+    branches:
+      - "*" # matches every branch that doesn't contain a '/'
+      - "*/*" # matches every branch containing a single '/'
+      - "**" # matches every branch
+      - "!master" # excludes master
+
+jobs:
+  build-resources-with-pandoc:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+      - uses: docker://pandoc/latex:2.19
+        with:
+          entrypoint: "/bin/sh"
+          args: "./build-resources-with-pandoc.sh"
+      - name: Archive resources
+        uses: actions/upload-artifact@v4
+        with:
+          name: pandoc_resources
+          path: ./public/resources/
+          retention-days: 1
+      - name: Archive Error resources
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: error_resources
+          path: ./documents/
+          retention-days: 1

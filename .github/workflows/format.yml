@@ -1,0 +1,28 @@
+name: 👔 Format
+
+on:
+  workflow_dispatch: null
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+      - name: Setup node
+        uses: actions/setup-node@v4
+      - name: Install deps
+        run: npm i -f
+      - name: Format
+        run: npm run format
+      - uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: Format
+          branch: format
+          branch-suffix: timestamp
+          title: Format

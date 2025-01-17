@@ -1,0 +1,28 @@
+---
+sidebarDepth: 4
+author: フューチャー株式会社
+layout: home
+hero:
+  name: "Slack<wbr>利用ガイドライン"
+  tagline: Slack Usage Guidelines
+  actions:
+    - theme: brand
+      text: Slack利用ガイドライン
+      link: ./slack_usage_guidelines.md
+---
+
+# Slack利用ガイドライン
+
+チーム開発する上で必要となるGitブランチフローの規約です。
+
+- [Slack利用ガイドライン](slack_usage_guidelines.md)
+
+次のリンクから単一ファイル版を取得できます。
+
+- [Markdown](https://github.com/future-architect/coding-standards/blob/master/documents/forSlack/slack_usage_guidelines.md)
+- [HTML(Single File)](https://github.com/future-architect/coding-standards/blob/gh-pages/resources/Slack利用ガイドライン.html) （[ブラウザで見る](https://future-architect.github.io/coding-standards/resources/Slack利用ガイドライン.html)）
+- [Word](https://github.com/future-architect/coding-standards/raw/gh-pages/resources/Slack利用ガイドライン.docx)
+
+ファイルは[Pandoc]を利用して作成しています。
+
+[pandoc]: https://pandoc.org/

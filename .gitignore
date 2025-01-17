@@ -1,0 +1,10 @@
+node_modules
+/docs/
+
+# JetBrains
+.idea
+
+# WSL
+*:Zone.Identifier
+
+/.vitepress/cache

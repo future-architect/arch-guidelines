@@ -1,0 +1,28 @@
+name: GHPages
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  deploy-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+      - uses: docker://pandoc/latex:2.19
+        with:
+          entrypoint: "/bin/sh"
+          args: "./build-resources-with-pandoc.sh"
+      - name: Install Packages
+        run: |
+          npm i -f
+      - name: Build all
+        run: |
+          npm run build
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+          force_orphan: true

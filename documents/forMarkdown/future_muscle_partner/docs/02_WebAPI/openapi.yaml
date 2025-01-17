@@ -1,0 +1,1373 @@
+openapi: 3.0.3
+info:
+  title: Future Muscle Partner API
+  description: パーソナルトレーナーのマッチングサービスAPI
+  version: 1.0.0
+tags:
+  - name: account
+    description: アカウント管理
+  - name: profile
+    description: プロフィール
+  - name: trainer
+    description: パーソナルトレーナー
+  - name: booking
+    description: 予約
+  - name: review
+    description: レビュー
+  - name: payment
+    description: 決済
+  - name: provider
+    description: パーソナルトレーニング提供者
+security:
+  - Bearer: []
+paths:
+  /login:
+    post:
+      tags:
+        - account
+      summary: API001 ログイン
+      operationId: login
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequest"
+      responses:
+        "200":
+          description: ログインに成功しました。
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "500":
+          $ref: "#/components/responses/InternalServer"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailable"
+  /logout:
+    post:
+      tags:
+        - account
+      summary: API002 ログアウト
+      operationId: logout
+      security: []
+      responses:
+        "200":
+          description: ログアウトに成功しました。
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServer"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailable"
+  /signup:
+    post:
+      tags:
+        - account
+      summary: API003 会員登録
+      operationId: signup
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SignupRequest"
+      responses:
+        "200":
+          description: 会員登録に成功しました。
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "500":
+          $ref: "#/components/responses/InternalServer"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailable"
+  /account:
+    delete:
+      tags:
+        - account
+      summary: API004 会員退会
+      operationId: deleteAccount
+      responses:
+        "200":
+          description: 会員退会に成功しました。
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalServer"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailable"
+  /profile/{trainee_id}:
+    get:
+      tags:
+        - profile
+      summary: API005 プロフィール表示
+      operationId: getUserProfile
+      responses:
+        "200":
+          description: プロフィールの取得に成功しました。
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Profile"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalServer"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailable"
+    put:
+      tags:
+        - profile
+      summary: API006 プロフィール更新
+      operationId: putUserProfile
+      parameters:
+        - name: trainee_id
+          in: path
+          description: トレーニーID
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProfileRequest"
+      responses:
+        "200":
+          description: プロフィールの更新に成功しました。
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalServer"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailable"
+  /trainers:
+    get:
+      tags:
+        - trainer
+      summary: API007 パーソナルトレーナー検索
+      operationId: searchTrainers
+      security: []
+      parameters:
+        - name: favorite_gym_name
+          in: query
+          description: 行きつけのジム名
+          required: true
+          schema:
+            type: string
+        - name: store_name
+          in: query
+          description: 店舗名
+          required: true
+          schema:
+            type: string
+        - name: training_start_at
+          in: query
+          description: トレーニング開始
+          schema:
+            type: string
+        - name: training_end_at
+          in: query
+          description: トレーニング終了時間
+          schema:
+            type: string
+        - name: budget
+          in: query
+          description: 予算
+          schema:
+            type: number
+            format: integer
+        - name: training_menu_typ
+          in: query
+          description: トレーニングメニュー区分
+          schema:
+            type: number
+            format: integer
+            enum: [1, 2, 3]
+      responses:
+        "200":
+          description: トレーナーの検索結果を取得しました。
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Trainers"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "500":
+          $ref: "#/components/responses/InternalServer"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailable"
+  /trainers/{trainer_id}/menus:
+    get:
+      tags:
+        - trainer
+      summary: API008 トレーニングメニュー取得
+      operationId: getTrainingMenu
+      security: []
+      parameters:
+        - name: trainer_id
+          in: path
+          description: トレーナーのID
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: トレーニングメニューを取得しました。
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TrainingMenus"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServer"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailable"
+
+  /trainers/{trainer_id}/profile:
+    get:
+      tags:
+        - trainer
+      summary: API009 トレーナープロフィール取得
+      operationId: getTrainerProfile
+      security: []
+      parameters:
+        - name: trainer_id
+          in: path
+          description: トレーナーのID
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: トレーナープロフィールを取得しました。
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Trainer"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServer"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailable"
+  /trainers/{trainer_id}/reviews:
+    get:
+      tags:
+        - trainer
+      summary: API010 トレーナー口コミ取得
+      operationId: getTrainerReviews
+      security: []
+      parameters:
+        - name: trainer_id
+          in: path
+          description: トレーナーのID
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: トレーナーの口コミを取得しました。
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Reviews"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServer"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailable"
+  /trainers/{trainer_id}/schedule:
+    get:
+      tags:
+        - trainer
+      summary: API011 トレーナースケジュール取得
+      operationId: getTrainerSchedule
+      security: []
+      parameters:
+        - name: trainer_id
+          in: path
+          description: トレーナーのID
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: トレーナーのスケジュールを取得しました。
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TrainerSchedules"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServer"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailable"
+  /bookings:
+    post:
+      tags:
+        - booking
+      summary: API012 トレーニング予約（仮登録）
+      operationId: bookTraining
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BookingRequest"
+      responses:
+        "200":
+          description: 予約が仮登録されました。
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/UnprocessableEntity"
+        "500":
+          $ref: "#/components/responses/InternalServer"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailable"
+  /bookings/{trainee_id}:
+    get:
+      tags:
+        - booking
+      summary: API013 予約済みトレーニング取得
+      operationId: getBookings
+      parameters:
+        - name: trainee_id
+          in: path
+          description: トレーニーID
+          required: true
+          schema:
+            type: string
+        - name: start_at
+          in: query
+          description: 開始日時
+          schema:
+            type: string
+        - name: end_at
+          in: query
+          description: 終了日時
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ユーザーの予約情報を取得しました。
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Bookings"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalServer"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailable"
+  /bookings/{booking_id}:
+    delete:
+      tags:
+        - booking
+      summary: API014 トレーニング予約削除
+      operationId: deleteBooking
+      parameters:
+        - name: booking_id
+          in: path
+          description: 予約ID
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 予約が削除されました。
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServer"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailable"
+  /bookings/{booking_id}/confirm:
+    post:
+      tags:
+        - booking
+      summary: API015 トレーニング予約（本登録）
+      operationId: confirmBooking
+      parameters:
+        - name: booking_id
+          in: path
+          description: 予約ID
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BookingConfirmationRequest"
+      responses:
+        "200":
+          description: 予約が本登録されました。
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/UnprocessableEntity"
+        "500":
+          $ref: "#/components/responses/InternalServer"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailable"
+  /booking/{booking_id}/status:
+    put:
+      tags:
+        - booking
+      summary: API016 トレーニング受講ステータス変更
+      operationId: updateTrainingStatus
+      parameters:
+        - name: booking_id
+          in: path
+          description: 予約ID
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TrainingStatusUpdateRequest"
+      responses:
+        "200":
+          description: ステータスが更新されました。
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/UnprocessableEntity"
+        "500":
+          $ref: "#/components/responses/InternalServer"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailable"
+  /payment:
+    post:
+      tags:
+        - payment
+      summary: API017 決済
+      operationId: makePayment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PaymentRequest"
+      responses:
+        "200":
+          description: 決済が完了しました。
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "422":
+          $ref: "#/components/responses/UnprocessableEntity"
+        "500":
+          $ref: "#/components/responses/InternalServer"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailable"
+  /reviews:
+    post:
+      tags:
+        - review
+      summary: API018 口コミ登録
+      operationId: postReview
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ReviewRequest"
+      responses:
+        "200":
+          description: 口コミ登録成功
+  /reviews/{review_id}:
+    put:
+      tags:
+        - review
+      summary: API019 口コミ修正
+      operationId: putReview
+      parameters:
+        - name: review_id
+          in: path
+          description: レビューID
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ReviewUpdateRequest"
+      responses:
+        "200":
+          description: 口コミ修正成功
+    delete:
+      tags:
+        - review
+      summary: API020 口コミ削除
+      operationId: deleteReview
+      parameters:
+        - name: review_id
+          in: path
+          description: 口コミID
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 口コミ削除成功
+  /trainer:
+    post:
+      tags:
+        - provider
+      summary: API021 トレーナー登録
+      operationId: postTrainer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Trainer"
+      responses:
+        "200":
+          description: トレーナー登録成功
+    put:
+      tags:
+        - provider
+      summary: API022 トレーナー属性更新
+      operationId: putTrainer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Trainer"
+      responses:
+        "200":
+          description: トレーナー属性更新成功
+  /training-menus:
+    post:
+      tags:
+        - provider
+      summary: API023 トレーニングメニュー登録
+      operationId: postTrainingMenu
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TrainingMenu"
+      responses:
+        "200":
+          description: トレーニングメニュー登録成功
+  /training-menus/{menu_id}:
+    put:
+      tags:
+        - provider
+      summary: API024 トレーニングメニュー更新
+      operationId: putTrainingMenu
+      parameters:
+        - name: menu_id
+          in: path
+          description: メニューID
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TrainingMenu"
+      responses:
+        "200":
+          description: トレーニングメニュー更新成功
+    delete:
+      tags:
+        - provider
+      summary: API025 トレーニングメニュー削除
+      operationId: deleteTrainingMenu
+      parameters:
+        - name: menu_id
+          in: path
+          description: メニューID
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: トレーニングメニュー削除成功
+
+components:
+  schemas:
+    ProblemDetailError:
+      description: A Problem Details object (RFC 9457)
+      type: object
+      properties:
+        title:
+          type: string
+          description: A short summary of the problem type. Written in English and readable for engineers (usually not suited for non technical stakeholders and not localized).
+          example: Service Unavailable
+        status:
+          type: integer
+          format: int32
+          description: The HTTP status code generated by the origin server for this occurrence of the problem.
+          minimum: 400
+          maximum: 600
+          exclusiveMaximum: true
+          example: 503
+        detail:
+          type: string
+          description: A human-readable explanation specific to this occurrence of the problem
+      example:
+        title: Description of the type of problem that occurred
+        status: 400 # HTTP response status, appropriate for the problem type
+        detail: Description of specific occurrence of the problem
+
+    LoginRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          description: メールアドレス
+        password:
+          type: string
+          format: password
+          description: パスワード
+    SignupRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          description: メールアドレス
+        password:
+          type: string
+          format: password
+          description: パスワード
+        name:
+          type: string
+          description: 名前
+    ProfileRequest:
+      type: object
+      properties:
+        trainee_name:
+          type: string
+          description: トレーニー名
+        display_name:
+          type: string
+          description: 表示名
+        self_introduction:
+          type: string
+          description: 自己紹介
+    PaymentRequest:
+      type: object
+      properties:
+        amount:
+          type: number
+          format: double
+          description: 支払金額
+        method:
+          type: string
+          description: 支払方法
+    BookingRequest:
+      type: object
+      properties:
+        menu_id:
+          type: string
+          description: トレーニングメニューのID
+        booking_status_typ:
+          type: string
+          enum: ["0"]
+          description: |
+            予約ステータス区分
+              0: 仮登録
+        trainee_id:
+          type: string
+          description: トレーニーID
+        training_start_at:
+          type: string
+          format: date
+          description: トレーニング開始日時
+        training_end_at:
+          type: string
+          format: date
+          description: トレーニング終了日時
+    BookingConfirmationRequest:
+      type: object
+      properties:
+        booking_status_typ:
+          type: string
+          enum: ["1"]
+          description: |
+            予約ステータス区分
+              1: 本登録
+    TrainingStatusUpdateRequest:
+      type: object
+      properties:
+        booking_status_typ:
+          type: string
+          enum: ["2", "3"]
+          description: |
+            予約ステータス区分
+              2: 受講中
+              3: 受講済み
+    ReviewRequest:
+      type: object
+      properties:
+        trainer_id:
+          type: string
+          description: トレーナーID
+        trainee_id:
+          type: string
+          description: トレー二ーID
+        comment:
+          type: string
+          description: レビューコメント
+    ReviewUpdateRequest:
+      type: object
+      properties:
+        review_id:
+          type: string
+          description: レビューID
+        comment:
+          type: string
+          description: レビューコメント
+    Profile:
+      type: object
+      properties:
+        trainee_id:
+          type: string
+          description: トレーニーID
+        trainee_name:
+          type: string
+          description: トレーニー名
+        display_name:
+          type: string
+          description: 表示名
+        self_introduction:
+          type: string
+          description: 自己紹介
+        thumbnail_url:
+          type: string
+          description: サムネイル画像URL
+    Bookings:
+      type: object
+      properties:
+        bokkings:
+          type: array
+          items:
+            $ref: "#/components/schemas/Booking"
+    Booking:
+      type: object
+      properties:
+        booking_id:
+          type: string
+          description: 予約ID
+        menu_id:
+          type: string
+          description: トレーニングメニューのID
+        trainer_id:
+          type: string
+          description: トレーナーのID
+        display_order:
+          type: string
+          description: 表示順序
+        menu_name:
+          type: string
+          description: メニュー名
+        menu_description:
+          type: string
+          description: メニュー説明
+        required_time:
+          type: integer
+          description: 所要時間
+        price:
+          type: integer
+          description: 料金
+        start_at:
+          type: string
+          format: date
+          description: 開始日時
+        end_at:
+          type: string
+          format: date
+          description: 終了日時
+        training_start_at:
+          type: string
+          format: date
+          description: トレーニング開始日時
+        training_end_at:
+          type: string
+          format: date
+          description: トレーニング終了日時
+    Trainers:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: 検索件数
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Trainer"
+    Trainer:
+      type: object
+      properties:
+        trainer_id:
+          type: string
+          description: トレーナーID
+        trainer_name:
+          type: string
+          description: トレーナー名
+        unit_price:
+          type: integer
+          description: 単価
+        business_start_at:
+          type: string
+          format: date
+          description: 営業開始時間
+        business_end_at:
+          type: string
+          format: date
+          description: 営業終了時間
+        public_mail_addr:
+          type: string
+          format: email
+          description: 公開メールアドレス
+        public_tel:
+          type: string
+          description: 公開電話番号
+        store_name:
+          type: string
+          description: 店舗名
+        gym_name:
+          type: string
+          description: ジム名
+        star_count:
+          type: number
+          format: float
+          description: 星の数
+    TrainerSchedules:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: 検索件数
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/TrainerSchedule"
+    TrainerSchedule:
+      type: object
+      properties:
+        trainer_id:
+          type: string
+          description: トレーナーID
+        trainer_name:
+          type: string
+          description: トレーナー名
+        date:
+          type: string
+          format: date
+          description: 日付け
+        booking_typ_0000:
+          type: string
+          enum: ["0", "1"]
+          description: |
+            予約区分 00:00-00:30
+              0: 未予約
+              1: 予約済み
+        booking_typ_0030:
+          type: string
+          enum: ["0", "1"]
+          description: |
+            予約区分 00:30-01:00
+              0: 未予約
+              1: 予約済み
+        booking_typ_0100:
+          type: string
+          enum: ["0", "1"]
+          description: |
+            予約区分 01:00-01:30
+              0: 未予約
+              1: 予約済み
+        booking_typ_0130:
+          type: string
+          enum: ["0", "1"]
+          description: |
+            予約区分 01:30-02:00
+              0: 未予約
+              1: 予約済み
+        booking_typ_0200:
+          type: string
+          enum: ["0", "1"]
+          description: |
+            予約区分 02:00-02:30
+              0: 未予約
+              1: 予約済み
+        booking_typ_0230:
+          type: string
+          enum: ["0", "1"]
+          description: |
+            予約区分 02:30-03:00
+              0: 未予約
+              1: 予約済み
+        booking_typ_0300:
+          type: string
+          description: |
+            予約区分 03:00-03:30
+              0: 未予約
+              1: 予約済み
+        booking_typ_0330:
+          type: string
+          enum: ["0", "1"]
+          description: |
+            予約区分 03:30-04:00
+              0: 未予約
+              1: 予約済み
+        booking_typ_0400:
+          type: string
+          enum: ["0", "1"]
+          description: |
+            予約区分 04:00-04:30
+              0: 未予約
+              1: 予約済み
+        booking_typ_0430:
+          type: string
+          enum: ["0", "1"]
+          description: |
+            予約区分 04:30-05:00
+              0: 未予約
+              1: 予約済み
+        booking_typ_0500:
+          type: string
+          enum: ["0", "1"]
+          description: |
+            予約区分 05:00-05:30
+              0: 未予約
+              1: 予約済み
+        booking_typ_0530:
+          type: string
+          enum: ["0", "1"]
+          description: |
+            予約区分 05:30-06:00
+              0: 未予約
+              1: 予約済み
+        booking_typ_0600:
+          type: string
+          description: |
+            予約区分 06:00-06:30
+              0: 未予約
+              1: 予約済み
+        booking_typ_0630:
+          type: string
+          enum: ["0", "1"]
+          description: |
+            予約区分 06:30-07:00
+              0: 未予約
+              1: 予約済み
+        booking_typ_0700:
+          type: string
+          enum: ["0", "1"]
+          description: |
+            予約区分 07:00-07:30
+              0: 未予約
+              1: 予約済み
+        booking_typ_0730:
+          type: string
+          enum: ["0", "1"]
+          description: |
+            予約区分 07:30-08:00
+              0: 未予約
+              1: 予約済み
+        booking_typ_0800:
+          type: string
+          enum: ["0", "1"]
+          description: |
+            予約区分 08:00-08:30
+              0: 未予約
+              1: 予約済み
+        booking_typ_0830:
+          type: string
+          enum: ["0", "1"]
+          description: |
+            予約区分 08:30-09:00
+              0: 未予約
+              1: 予約済み
+        booking_typ_0900:
+          type: string
+          enum: ["0", "1"]
+          description: |
+            予約区分 09:00-09:30
+              0: 未予約
+              1: 予約済み
+        booking_typ_0930:
+          type: string
+          enum: ["0", "1"]
+          description: |
+            予約区分 09:30-10:00
+              0: 未予約
+              1: 予約済み
+        booking_typ_1000:
+          type: string
+          enum: ["0", "1"]
+          description: |
+            予約区分 10:00-10:30
+              0: 未予約
+              1: 予約済み
+        booking_typ_1030:
+          type: string
+          enum: ["0", "1"]
+          description: |
+            予約区分 10:30-11:00
+              0: 未予約
+              1: 予約済み
+        booking_typ_1100:
+          type: string
+          enum: ["0", "1"]
+          description: |
+            予約区分 11:00-11:30
+              0: 未予約
+              1: 予約済み
+        booking_typ_1130:
+          type: string
+          enum: ["0", "1"]
+          description: |
+            予約区分 11:30-12:00
+              0: 未予約
+              1: 予約済み
+        booking_typ_1200:
+          type: string
+          enum: ["0", "1"]
+          description: |
+            予約区分 12:00-12:30
+              0: 未予約
+              1: 予約済み
+        booking_typ_1230:
+          type: string
+          enum: ["0", "1"]
+          description: |
+            予約区分 12:30-13:00
+              0: 未予約
+              1: 予約済み
+        booking_typ_1300:
+          type: string
+          enum: ["0", "1"]
+          description: |
+            予約区分 13:00-13:30
+              0: 未予約
+              1: 予約済み
+        booking_typ_1330:
+          type: string
+          enum: ["0", "1"]
+          description: |
+            予約区分 13:30-14:00
+              0: 未予約
+              1: 予約済み
+        booking_typ_1400:
+          type: string
+          enum: ["0", "1"]
+          description: |
+            予約区分 14:00-14:30
+              0: 未予約
+              1: 予約済み
+        booking_typ_1430:
+          type: string
+          enum: ["0", "1"]
+          description: |
+            予約区分 14:30-15:00
+              0: 未予約
+              1: 予約済み
+        booking_typ_1500:
+          type: string
+          enum: ["0", "1"]
+          description: |
+            予約区分 15:00-15:30
+              0: 未予約
+              1: 予約済み
+        booking_typ_1530:
+          type: string
+          enum: ["0", "1"]
+          description: |
+            予約区分 15:30-16:00
+              0: 未予約
+              1: 予約済み
+        booking_typ_1600:
+          type: string
+          enum: ["0", "1"]
+          description: |
+            予約区分 16:00-16:30
+              0: 未予約
+              1: 予約済み
+        booking_typ_1630:
+          type: string
+          enum: ["0", "1"]
+          description: |
+            予約区分 16:30-17:00
+              0: 未予約
+              1: 予約済み
+        booking_typ_1700:
+          type: string
+          enum: ["0", "1"]
+          description: |
+            予約区分 17:00-17:30
+              0: 未予約
+              1: 予約済み
+        booking_typ_1730:
+          type: string
+          enum: ["0", "1"]
+          description: |
+            予約区分 17:30-18:00
+              0: 未予約
+              1: 予約済み
+        booking_typ_1800:
+          type: string
+          enum: ["0", "1"]
+          description: |
+            予約区分 18:00-18:30
+              0: 未予約
+              1: 予約済み
+        booking_typ_1830:
+          type: string
+          enum: ["0", "1"]
+          description: |
+            予約区分 18:30-19:00
+              0: 未予約
+              1: 予約済み
+        booking_typ_1900:
+          type: string
+          enum: ["0", "1"]
+          description: |
+            予約区分 19:00-19:30
+              0: 未予約
+              1: 予約済み
+        booking_typ_1930:
+          type: string
+          description: |
+            予約区分 19:30-20:00
+              0: 未予約
+              1: 予約済み
+        booking_typ_2000:
+          type: string
+          enum: ["0", "1"]
+          description: |
+            予約区分 20:00-20:30
+              0: 未予約
+              1: 予約済み
+        booking_typ_2030:
+          type: string
+          enum: ["0", "1"]
+          description: |
+            予約区分 20:30-21:00
+              0: 未予約
+              1: 予約済み
+        booking_typ_2100:
+          type: string
+          enum: ["0", "1"]
+          description: |
+            予約区分 21:00-21:30
+              0: 未予約
+              1: 予約済み
+        booking_typ_2130:
+          type: string
+          enum: ["0", "1"]
+          description: |
+            予約区分 21:30-22:00
+              0: 未予約
+              1: 予約済み
+        booking_typ_2200:
+          type: string
+          enum: ["0", "1"]
+          description: |
+            予約区分 22:00-22:30
+              0: 未予約
+              1: 予約済み
+        booking_typ_2230:
+          type: string
+          enum: ["0", "1"]
+          description: |
+            予約区分 22:30-23:00
+              0: 未予約
+              1: 予約済み
+        booking_typ_2300:
+          type: string
+          enum: ["0", "1"]
+          description: |
+            予約区分 23:00-23:30
+              0: 未予約
+              1: 予約済み
+        booking_typ_2330:
+          type: string
+          enum: ["0", "1"]
+          description: |
+            予約区分 23:30-24:00
+              0: 未予約
+              1: 予約済み
+    TrainingMenus:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: 検索件数
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/TrainingMenu"
+    TrainingMenu:
+      type: object
+      properties:
+        menu_id:
+          type: string
+        trainer_id:
+          type: string
+          description: トレーナーID
+        display_order:
+          type: string
+          description: 表示順序
+        menu_name:
+          type: string
+          description: メニュー名
+        menu_description:
+          type: string
+          description: メニュー説明
+        required_time:
+          type: integer
+          description: 所要時間
+        price:
+          type: integer
+          description: 料金
+    Reviews:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: 検索件数
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Review"
+    Review:
+      type: object
+      properties:
+        review_id:
+          type: string
+          description: レビューID
+        display_name:
+          type: string
+          description: トレーニーの表示名
+        trainer_name:
+          type: string
+          description: トレーナー名
+        comment:
+          type: string
+          description: レビューコメント
+        posted_at:
+          type: string
+          format: date
+          description: 投稿日時
+        star_count:
+          type: number
+          format: float
+          description: 星の数
+  responses:
+    BadRequest:
+      description: 400 Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ProblemDetailError"
+    Unauthorized:
+      description: 401 Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ProblemDetailError"
+    Forbidden:
+      description: 403 Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ProblemDetailError"
+    NotFound:
+      description: 404 Not Found
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ProblemDetailError"
+    Conflict:
+      description: 409 Conflict
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ProblemDetailError"
+    UnprocessableEntity:
+      description: 422 Unprocessable Content
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ProblemDetailError"
+    InternalServer:
+      description: 500 Internal Server
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ProblemDetailError"
+    ServiceUnavailable:
+      description: 503 Service Unavailable
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ProblemDetailError"
+  securitySchemes:
+    Bearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: "Bearer トークン認証"

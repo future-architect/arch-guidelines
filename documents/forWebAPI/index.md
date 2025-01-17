@@ -19,4 +19,4 @@ hero:
 
 次のリンクから単一ファイル版を取得できます。
 
-- [Markdown](https://github.com/future-architect/arch-guidelines/blob/master/documents/forWebAPI/web_api_guidelines.md)
+- [Markdown](https://github.com/future-architect/arch-guidelines/blob/main/documents/forWebAPI/web_api_guidelines.md)

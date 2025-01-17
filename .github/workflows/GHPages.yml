@@ -2,7 +2,7 @@ name: GHPages
 
 on:
   push:
-    branches: [master]
+    branches: [main]
 
 jobs:
   deploy-docs:

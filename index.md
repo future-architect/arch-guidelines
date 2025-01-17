@@ -9,7 +9,7 @@ hero:
       text: WebAPI設計ガイドライン
       link: ./documents/forWebAPI/
     - theme: alt
-      text: Markdownドキュメント規約規約
+      text: Markdown設計ドキュメント規約
       link: ./documents/forMarkdown/
     - theme: alt
       text: コードレビューガイドライン

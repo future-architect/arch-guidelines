@@ -19,9 +19,9 @@ hero:
 
 次のリンクから単一ファイル版を取得できます。
 
-- [Markdown](https://github.com/future-architect/coding-standards/blob/master/documents/forCodeReview/code_review.md)
-- [HTML(Single File)](https://github.com/future-architect/coding-standards/blob/gh-pages/resources/コードレビューガイドライン.html) （[ブラウザで見る](https://future-architect.github.io/coding-standards/resources/コードレビューガイドライン.html)）
-- [Word](https://github.com/future-architect/coding-standards/raw/gh-pages/resources/コードレビューガイドライン.docx)
+- [Markdown](https://github.com/future-architect/arch-guidelines/blob/master/documents/forCodeReview/code_review.md)
+- [HTML(Single File)](https://github.com/future-architect/arch-guidelines/blob/gh-pages/resources/コードレビューガイドライン.html) （[ブラウザで見る](https://future-architect.github.io/arch-guidelines/resources/コードレビューガイドライン.html)）
+- [Word](https://github.com/future-architect/arch-guidelines/raw/gh-pages/resources/コードレビューガイドライン.docx)
 
 ファイルは[Pandoc]を利用して作成しています。
 

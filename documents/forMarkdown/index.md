@@ -19,9 +19,9 @@ Markdown ベースの設計ドキュメントの規約をまとめる。
 
 次のリンクから単一ファイル版を取得できます。
 
-- [Markdown](https://github.com/future-architect/coding-standards/blob/master/documents/forMarkdown/markdown_design_document.md)
-- [HTML(Single File)](https://github.com/future-architect/coding-standards/blob/gh-pages/resources/Markdown設計ドキュメント規約.html) （[ブラウザで見る](https://future-architect.github.io/coding-standards/resources/Markdown設計ドキュメント規約.html)）
-- [Word](https://github.com/future-architect/coding-standards/raw/gh-pages/resources/Markdown設計ドキュメント規約.docx)
+- [Markdown](https://github.com/future-architect/arch-guidelines/blob/master/documents/forMarkdown/markdown_design_document.md)
+- [HTML(Single File)](https://github.com/future-architect/arch-guidelines/blob/gh-pages/resources/Markdown設計ドキュメント規約.html) （[ブラウザで見る](https://future-architect.github.io/arch-guidelines/resources/Markdown設計ドキュメント規約.html)）
+- [Word](https://github.com/future-architect/arch-guidelines/raw/gh-pages/resources/Markdown設計ドキュメント規約.docx)
 
 ファイルは[Pandoc]を利用して作成しています。
 

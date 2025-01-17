@@ -72,13 +72,14 @@ GitHubやGitLabなどのサービスを利用した、コーディングにつ�
 
 例えば、下表のような内容はフォーマッタやリンターに寄せることができる可能性が高い。
 
-| 自動化可能だと考えられる指摘例 | ツール例                                                                 |
-| :----------------------------- | :----------------------------------------------------------------------- |
-| 使われていないメソッドや関数   | Pythonの場合、Flake8 など                                                |
-| デッドコード                   | Pythonの場合、Vultureなど                                                |
-| デバック用のログの残骸         | JSの場合は、ESLint（console.logの検知など）。 Pythonの場合は、Pylintなど |
-| 不適切なレイヤーに対するimport | Pythonの場合、import-linterなど                                          |
-| //TODO コメントが残っている    | JSでは、eslint-plugin-no-inline-commentsなど                             |
+| 自動化可能だと考えられる指摘例       | ツール例                                                                             |
+| :----------------------------------- | :----------------------------------------------------------------------------------- |
+| 使われていないメソッドや関数         | Pythonの場合、Flake8 など                                                            |
+| デッドコード                         | Pythonの場合、Vultureなど                                                            |
+| デバック用のログの残骸               | JSの場合は、ESLint（console.logの検知など）。 Pythonの場合は、Pylintなど             |
+| 不適切なレイヤーに対するimport       | Pythonの場合、import-linterなど                                                      |
+| //TODO コメントが残っている          | JSでは、eslint-plugin-no-inline-commentsなど                                         |
+| フォーマッタが適用されているかどうか | JSでは `prettier --check "yourfile.js"`、Pythonでは `black --check yourfile.py` など |
 
 ## CIによるレビューコメント連携を行う
 

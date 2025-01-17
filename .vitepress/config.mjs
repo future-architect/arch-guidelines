@@ -104,7 +104,7 @@ export default defineConfig({
       },
     },
     editLink: {
-      pattern: repoUrl + "/edit/master/:path",
+      pattern: repoUrl + "/edit/main/:path",
     },
     outline: {
       level: "deep",

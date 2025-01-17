@@ -39,10 +39,10 @@
 
       <component
         :is="GithubButton"
-        href="https://github.com/future-architect/coding-standards"
+        href="https://github.com/future-architect/arch-guidelines"
         data-icon="octicon-star"
         data-show-count="true"
-        aria-label="Star future-architect/coding-standards on GitHub"
+        aria-label="Star future-architect/arch-guidelines on GitHub"
       >
         Star
       </component>

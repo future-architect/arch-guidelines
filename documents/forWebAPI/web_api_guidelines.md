@@ -2079,11 +2079,11 @@ Web APIの環境分離だが、クラウド環境のベストプラクティス�
 
 「サブドメインとサブパス」で、サブパス方式を選択した前提で、ドメインで環境を識別するパターンはいくつか考えられる。
 
-| 環境名            | ①環境上位                                                                       | ②サービス上位                                                                         | ③文字列結合                                                                     |
-| :---------------- | :------------------------------------------------------------------------------ | :------------------------------------------------------------------------------------ | :------------------------------------------------------------------------------ |
-| 本番環境          | api.example.com app.example.com                                                 | api.example.com app.example.com                                                       | api.example.com app.example.com                                                 |
-| 開発環境 検証環境 | api.dev.example.com app.dev.example.com api.stg.example.com app.stg.example.com | dev.api.example.com dev.app.example.com stg.api.example.com stg.app.example.com       | dev-api.example.com dev-app.example.com stg-api.example.com stg-app.example.com |
-| 説明              | stg, devに複数のサブドメインが存在することを考慮したパターン                    | api.example.comにサブドメインで環境を表現したパターン。 URLからどの環境か識別しやすい | {環境名}-{サービス種別}で命名し、独立させるパターン                             |
+| 環境名            | ①環境上位                                                                                | ②サービス上位                                                                            | ③文字列結合                                                                              |
+| :---------------- | :--------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------- |
+| 本番環境          | api.example.com<br>app.example.com                                                       | api.example.com<br>app.example.com                                                       | api.example.com<br>app.example.com                                                       |
+| 開発環境 検証環境 | api.dev.example.com<br>app.dev.example.com<br>api.stg.example.com<br>app.stg.example.com | dev.api.example.com<br>dev.app.example.com<br>stg.api.example.com<br>stg.app.example.com | dev-api.example.com<br>dev-app.example.com<br>stg-api.example.com<br>stg-app.example.com |
+| 説明              | stg, devに複数のサブドメインが存在することを考慮したパターン                             | api.example.comにサブドメインで環境を表現したパターン。 URLからどの環境か識別しやすい    | {環境名}-{サービス種別}で命名し、独立させるパターン                                      |
 
 本規約の推奨は以下の通り。
 

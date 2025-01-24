@@ -340,7 +340,7 @@ PostgreSQL 16時点では、以下のインデックス作成方法を選択で�
 
 ### ２．ユニークインデックス
 
-UNIQUE制約をつけたインデックスのことを強調したい場合に、ユニークインデックスと呼ぶことがある（参考: https://www.postgresql.jp/docs/16/indexes-unique.html）。
+UNIQUE制約をつけたインデックスのことを強調したい場合に、ユニークインデックスと呼ぶことがある（参考: <https://www.postgresql.jp/docs/16/indexes-unique.html>）。
 
 ```sql
 CREATE UNIQUE INDEX name ON table (column [, ...]);
@@ -544,7 +544,7 @@ PostgreSQLにはユーザーが使用可能な豊富な[データ型](https://ww
   - [Don't Do This - PostgreSQL wiki](https://wiki.postgresql.org/wiki/Don%27t_Do_This#Don.27t_use_varchar.28n.29_by_default) には、`varchar` ではなく `text` を使おうととあるが、これに従わず本規約では禁止とする。
   - システム開発、特に基幹系やそれに近い領域であると、システム間の連携が通常であり、連携用のWeb APIやファイルのスキーマ定義が求められる。その際に桁数の上限が存在しないとすると、連携先システムの都合（採用しているDBなどの制約）によっては対処ができない場合があるため
   - 桁数があると、テーブルサイズの見積もりにも役立つ
-  - `text` 型にindexを貼ると、データサイズによってはエラーになるため、通常インデックスを貼る用途は無いと考えられるが、万が一利用する場合は注意する（https://zenn.dev/onozaty/articles/postgresql-text-index）
+  - `text` 型にindexを貼ると、データサイズによってはエラーになるため、通常インデックスを貼る用途は無いと考えられるが、万が一利用する場合は注意する（<https://zenn.dev/onozaty/articles/postgresql-text-index>）
 - `serial`
   - 代わりに `bigint`（IDENTITYカラム）を用いる
   - 当初は呼び出し数が少ないと想定しても、想定以上のアクセス数が来ることや稼働が続くと、`integer`/`serial`で不足するケースも否定できない

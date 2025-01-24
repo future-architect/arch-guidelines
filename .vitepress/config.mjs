@@ -22,6 +22,13 @@ const links = {
       link: "/documents/forWebAPI/web_api_guidelines.html",
     },
   ],
+  "/documents/forDB/": [
+    { text: "Introduction", link: "/documents/forDB/" },
+    {
+      text: "PostgreSQL設計ガイドライン",
+      link: "/documents/forDB/postgresql_guidelines.html",
+    },
+  ],
   "/documents/forMarkdown/": [
     { text: "Introduction", link: "/documents/forMarkdown/" },
     {

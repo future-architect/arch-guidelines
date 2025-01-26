@@ -1,12 +1,15 @@
 name: build-resources-with-pandoc
 
 on:
+  pull_request:
+    branches: [main]
   push:
     branches:
       - "*" # matches every branch that doesn't contain a '/'
       - "*/*" # matches every branch containing a single '/'
       - "**" # matches every branch
       - "!main" # excludes master
+    tags: ["!**"]
 
 jobs:
   build-resources-with-pandoc:
@@ -20,6 +23,7 @@ jobs:
           args: "./build-resources-with-pandoc.sh"
       - name: Archive resources
         uses: actions/upload-artifact@v4
+        id: artifact-upload-step
         with:
           name: pandoc_resources
           path: ./public/resources/
@@ -31,3 +35,15 @@ jobs:
           name: error_resources
           path: ./documents/
           retention-days: 1
+      - uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { postCustomForArchiveResources } = await import('${{ github.workspace }}/scripts/pr-comment.mjs')
+
+            await postCustomForArchiveResources({
+              github,
+              context,
+              core,
+              url: '${{steps.artifact-upload-step.outputs.artifact-url}}'
+            })

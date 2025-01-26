@@ -31,7 +31,7 @@ export async function postCustomForArchiveResources({ github, context, url }) {
     await createOrUpdateComment(pullRequestNumber);
   } else {
     console.log(
-      "No open pull request found for this push. Logging publish information to console:"
+      "No open pull request found for this push. Logging publish information to console:",
     );
     console.log(`\n${"=".repeat(50)}`);
     console.log(body);
@@ -67,7 +67,7 @@ export async function postCustomForArchiveResources({ github, context, url }) {
     });
 
     return comments.data.find((comment) =>
-      comment.body.includes(botCommentIdentifier)
+      comment.body.includes(botCommentIdentifier),
     );
   }
 

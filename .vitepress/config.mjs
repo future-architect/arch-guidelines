@@ -29,6 +29,13 @@ const links = {
       link: "/documents/forDB/postgresql_guidelines.html",
     },
   ],
+  "/documents/forGitBranch/": [
+    { text: "Introduction", link: "/documents/forGitBranch/" },
+    {
+      text: "Gitブランチフロー規約",
+      link: "/documents/forGitBranch/git_branch_standards.html",
+    },
+  ],
   "/documents/forMarkdown/": [
     { text: "Introduction", link: "/documents/forMarkdown/" },
     {

@@ -46,7 +46,7 @@ const links = {
   "/documents/forCodeReview/": [
     { text: "Introduction", link: "/documents/forCodeReview/" },
     {
-      text: "Slack利用ガイドライン",
+      text: "コードレビューガイドライン",
       link: "/documents/forCodeReview/code_review.html",
     },
   ],
@@ -119,7 +119,73 @@ export default defineConfig({
     nav: [
       {
         text: "Guidelines",
-        items: [],
+        items: [
+          {
+            text: "Web API",
+            items: [
+              {
+                text: "Introduction",
+                link: "/documents/forWebAPI/",
+              },
+              {
+                text: "Web API設計ガイドライン",
+                link: "/documents/forWebAPI/web_api_guidelines.html",
+              },
+            ],
+          },
+          {
+            text: "DB",
+            items: [
+              {
+                text: "Introduction",
+                link: "/documents/forDB/",
+              },
+              {
+                text: "PostgreSQL設計ガイドライン",
+                link: "/documents/forDB/postgresql_guidelines.html",
+              },
+            ],
+          },
+          {
+            text: "Markdown",
+            items: [
+              {
+                text: "Introduction",
+                link: "/documents/forMarkdown/",
+              },
+              {
+                text: "Markdown設計ドキュメント規約",
+                link: "/documents/forMarkdown/markdown_design_document.html",
+              },
+            ],
+          },
+          {
+            text: "レビュー",
+            items: [
+              {
+                text: "Introduction",
+                link: "/documents/forCodeReview/",
+              },
+              {
+                text: "コードレビューガイドライン",
+                link: "/documents/forCodeReview/code_review.html",
+              },
+            ],
+          },
+          {
+            text: "Slack",
+            items: [
+              {
+                text: "Introduction",
+                link: "/documents/forSlack/",
+              },
+              {
+                text: "Slack利用ガイドライン",
+                link: "/documents/forSlack/slack_usage_guidelines.html",
+              },
+            ],
+          },
+        ],
       },
       {
         text: "About Us",

@@ -58,3 +58,9 @@ cd ${ROOT_DIR}/documents/forCodeReview
 
 pandoc ./code_review.md -s --self-contained --number-sections --toc -t html5 -c ${CSS_PATH} -o ${RESOURCES_DIR}/コードレビューガイドライン.html
 pandoc ./code_review.md --toc --reference-doc=${STYLE_DOCX_PATH} -s -o ${RESOURCES_DIR}/コードレビューガイドライン.docx
+
+# Git
+cd ${ROOT_DIR}/documents/forGitBranch
+
+pandoc ./git_branch_standards.md -s --self-contained --number-sections --toc -t html5 -c ${CSS_PATH} -o ${RESOURCES_DIR}/Gitブランチフロー規約.html
+pandoc ./git_branch_standards.md --toc --reference-doc=${STYLE_DOCX_PATH} -s -o ${RESOURCES_DIR}/Gitブランチフロー規約.docx

@@ -36,13 +36,6 @@ const links = {
       link: "/documents/forGitBranch/git_branch_standards.html",
     },
   ],
-  "/documents/forGitBranch/": [
-    { text: "Introduction", link: "/documents/forGitBranch/" },
-    {
-      text: "Gitブランチフロー規約",
-      link: "/documents/forGitBranch/git_branch_standards.html",
-    },
-  ],
   "/documents/forMarkdown/": [
     { text: "Introduction", link: "/documents/forMarkdown/" },
     {

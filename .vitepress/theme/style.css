@@ -131,3 +131,14 @@ h5,
 h6 {
   page-break-after: avoid;
 }
+
+/* h2 タグにカウンターリセットを追加 */
+h2 {
+  counter-reset: section;
+}
+
+/* h3 タグに連番を振る */
+h3::before {
+  counter-increment: section;
+  content: counter(section) ". ";
+}

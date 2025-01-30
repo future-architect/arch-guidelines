@@ -171,14 +171,14 @@ Web APIのホスティング戦略とは、Web APIのエンドポイントをど
 以下に受注の例を挙げる。
 
 - ネストのみで提供
-  - 【POST】/customers/{customer_id}/orders 受注の作成
-  - 【GET】/customers/{customer_id}/orders 取引先に紐づいた受注の検索
+  - 【POST】`/customers/{customer_id}/orders` 受注の作成
+  - 【GET】`/customers/{customer_id}/orders` 取引先に紐づいた受注の検索
 - フラットのみで提供
-  - 【PUT】/orders/{order_id} 受注情報の編集
-  - 【DELETE】/orders/{order_id} 受注の取り消し
+  - 【PUT】`/orders/{order_id}` 受注情報の編集
+  - 【DELETE】`/orders/{order_id}` 受注の取り消し
 - 両方で提供
-  - 【GET】/orders/{order_id} 受注情報の取得
-  - 【GET】/customers/{customer_id}/orders/{order_id} 本来不要にしても良いが、開発者体験のためにサポート
+  - 【GET】`/orders/{order_id}` 受注情報の取得
+  - 【GET】`/customers/{customer_id}/orders/{order_id}` 本来不要にしても良いが、開発者体験のためにサポート
 
 上記例では、以下を強調するためにネスト／フラットを混在させている。
 
@@ -284,7 +284,7 @@ paths:
 
 Web APIの応答には、RFC 8594 \- Sunset HTTPヘッダーフィールド（[日本語訳](https://tex2e.github.io/rfc-translater/html/rfc8594.html)）にあるように、非推奨の提示ができる。RFC 8594はInformationalであり標準ではないが、抑えておくべき内容である。
 
-以下に /v1/orders/{order_id} が廃止予定になった場合の応答例を示す。
+以下に `/v1/orders/{order_id}` が廃止予定になった場合の応答例を示す。
 
 ```json
 HTTP/1.1 200 OK
@@ -440,7 +440,7 @@ PUTもリソースの作成を許容すると、POSTとの使い分けに悩む�
 また、以下のようなチーム体制に起因する理由も考えられる。
 
 - 開発～保守運用まで見据えた場合に、メンバーのスキルセットによって、設計の一貫性を保てない懸念がある場合
-  - 例えば、POST /users/1/updateProfile といったエンドポイントを作成してしまう懸念があり、教育／レビュー体制／静的解析で防ぐことが難しいと考えられる場合
+  - 例えば、`POST /users/1/updateProfile` といったエンドポイントを作成してしまう懸念があり、教育／レビュー体制／静的解析で防ぐことが難しいと考えられる場合
 
 全てのシステムがREST志向に適する訳ではないので、条件に応じてJSON-RPCなどの採用を検討する。RESTに囚われすぎず、エンドポイントは `/api/bl001` `/rpc/bl001` などで表現、メソッドはPOSTに限定するなどの設計をしても良い。
 
@@ -520,8 +520,8 @@ PATCHメソッドはリソースの部分更新をサポートするが、どの
 
 操作内容:
 
-1. 名前を "John Smith" に変更
-2. メールアドレスを "john.smith@example.com" に変更
+1. 名前を `John Smith` に変更
+2. メールアドレスを `john.smith@example.com` に変更
 3. 自宅電話番号を変更
 4. 新しい住所フィールドを追加
 
@@ -1077,6 +1077,8 @@ Server-Timing: cache;desc="Cache Read";dur=23.4, db;dur=50, app;dur=75.3
 
 「DB設計標準」より、排他制御のためにDB側の各テーブルにはバージョン番号が存在することを前提とする。この場合、REST APIにおいて楽観ロックを実現する方法は下表の通り。
 
+<div class="img-bg-transparent">
+
 |      |                    | ①If-MatchヘッダとETagヘッダ                                                                                        | ②結果エンティティにおけるETag                                                        | ③バージョン番号 ★推奨                                                      |
 | :--- | :----------------- | :----------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------- | :------------------------------------------------------------------------- |
 | 概要 | 処理フロー         | [![uml][lock_ifmatch_etag_img]][lock_ifmatch_etag_url]                                                             | [![uml][lock_entity_etag_img]][lock_entity_etag_url]                                 | [![uml][lock_version_no_img]][lock_version_no_url]                         |
@@ -1087,6 +1089,8 @@ Server-Timing: cache;desc="Cache Read";dur=23.4, db;dur=50, app;dur=75.3
 |      | API呼び出し数      | ❌️多くなる                                                                                                        | ✅️                                                                                  | ✅️                                                                        |
 |      | バルク機能         | ❌️                                                                                                                | ❌️できない                                                                          | ✅️可能                                                                    |
 |      | サマリ             | 開発生産性やUXとしては不利だが、REST原理主義を守りたい場合に採用                                                   | バルク更新が不要であれば、適度にREST思想を守っておりベターな選択                     | 一覧検索後、バルク更新が必要であれば採用すべき                             |
+
+</div>
 
 [lock_ifmatch_etag_img]: https://mermaid.ink/img/pako:eNqNk0FLG0EUx7_KMKcKCSZpLHUpAbFWPAiBpgg6PYy7L8nA7mw6mT2UsNBmqYggBEF7qLS0hObQQwxG8VD8MuNu_Bid7CRGKQb39Pa_v_ef_1vetLDtO4At3IQPAXAbXjNaE9QjHOmnQYVkNmtQLtGqy4DL__Ut2F0pbxBuvhgqWyoZ2ULraxW0yCR4TXRz9en2dy_pno6GvwxtoKzGTZ-FCrkcMsToopN8P321K0otglMDgq2dce3oIl94XlzKENwQzAb9_jIXvg-fEGIxbUTJt2Fychb3r28HP1X7KN47fGqsZL8TH_wYx0JrFVqzCH6RXy4QnCpz0i08Gq787mG41Gmjmt2k0q5b6P4BrZnl8lL4IOzMT0UdFf1V7SsV9VR0rqLPqq2LSLX7poO6Eo2-9OLOvhnGqI8NXpz8rPssuE2YWMTdQXL8dZ5FMV9AZQG2zx0mmc_RG8pccNCz0Z9LbbAwseQOzmAPhEeZo_exNZYJlnXwxuPq0oEqDVxJMOGhRmkg_bcfuY0tKQLIYOEHtTq2qlRny-Cg4VA5XeYpovd12_e9Owh0IF9smguQ3oPwH4EJIcQ?type=png
 [lock_ifmatch_etag_url]: https://mermaid.live/edit#pako:eNqNk0FLG0EUx7_KMKcKCSZpLHUpAbFWPAiBpgg6PYy7L8nA7mw6mT2UsNBmqYggBEF7qLS0hObQQwxG8VD8MuNu_Bid7CRGKQb39Pa_v_ef_1vetLDtO4At3IQPAXAbXjNaE9QjHOmnQYVkNmtQLtGqy4DL__Ut2F0pbxBuvhgqWyoZ2ULraxW0yCR4TXRz9en2dy_pno6GvwxtoKzGTZ-FCrkcMsToopN8P321K0otglMDgq2dce3oIl94XlzKENwQzAb9_jIXvg-fEGIxbUTJt2Fychb3r28HP1X7KN47fGqsZL8TH_wYx0JrFVqzCH6RXy4QnCpz0i08Gq787mG41Gmjmt2k0q5b6P4BrZnl8lL4IOzMT0UdFf1V7SsV9VR0rqLPqq2LSLX7poO6Eo2-9OLOvhnGqI8NXpz8rPssuE2YWMTdQXL8dZ5FMV9AZQG2zx0mmc_RG8pccNCz0Z9LbbAwseQOzmAPhEeZo_exNZYJlnXwxuPq0oEqDVxJMOGhRmkg_bcfuY0tKQLIYOEHtTq2qlRny-Cg4VA5XeYpovd12_e9Owh0IF9smguQ3oPwH4EJIcQ
@@ -1381,6 +1385,8 @@ sequenceDiagram
 
 非同期処理の設計パターンとして、非同期タスクの完了時の通知をどのように行うかで下表の2パターンが存在する。
 
+<div class="img-bg-transparent">
+
 |            | ①ポーリング方式                                                                                                      | ②ブロッキング方式（サーバプッシュ方式）                                                                                                                        |
 | :--------- | :------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 説明       | 非同期タスクの終了まで、クライアントがポーリングで結果取得を繰り返す                                                 | 非同期タスク終了後、サーバ側から結果を通知する                                                                                                                 |
@@ -1390,6 +1396,8 @@ sequenceDiagram
 | 即時性     | ⚠️ポーリング間隔分、遅延が発生                                                                                       | ✅️イベント駆動の組み合わせで対応可能                                                                                                                          |
 | リソース   | ✅️分散しやすい                                                                                                      | ⚠️コネクションが接続し続けるため、富豪的である                                                                                                                 |
 | 接続性     | ✅️高い                                                                                                              | ✅️SSEの場合高い。WebSocketの場合、企業内のプロキシなどにブロックされる可能性がわずかに上がる                                                                  |
+
+</div>
 
 [async_polling_img]: https://mermaid.ink/img/pako:eNqtVFtrE0EU_ivDPLekRn1ZpNAakeKlxVYKshAmu5N0dbOzzswqJQTcXW0rSWlQm1q11hctisZbi9h6-S9ONzH_wtlubk1SSMCwD5kz53znfN-3e3JQIzqGCmT4toMtDScMlKEoq1pA_mxEuaEZNrI4OG8a2OK98XmcmpiZ6o0nJntjE2zR0uYQu6Va0WUEOjo-HqEoYGZ6dg7EKLYJ5SzGkIlZElnIXGQGi0qiTFnSAlNAfetlUCpWX2wL77fwvgvvowL-7n0LCuvnUnT8z70D4X0Q_mvh_xDeo9pesfbks3A3hVcIXu0GpRXhecL15LGrQ2JSASpEmoZtjnUVHruW99H0CoiPxcFEIytsmFPhTZKakhVh_an46TNnVTgi_zKOuMOicBs231TjKuEYkDuYgoG41cuFYKcxc6tgtDG3YSVtSjIUMzYkeHXTq5cfC7co3EL4SJWW39RKS8KtNDtGiCYhNpghpmlYGZAmFHCJCTSStU3MDdLI6mvzxQsnuhyLRIpFsrUgjpkSjuovHdkZjh2sebUHO-3cxGRHqx4hTvJwDExfGti9TtTQwBAUW_rQTgaV4uH-UreHfVlWn-9Wy5_CCRsSY_3Ez2g4fQfVVura0aNjiv8iaRuv_UUMRawfo2ad8N8Lfytk5a8Ea-Xg10Y4V-3nl6C0enjwVLir169dFu474b6V73nV_xpUng3ESyd3LZMgPelQU_JQYfXhunDvB8v7wt0Q7nZXiyNucARmMc0iQ5eLNxe2USFfwFkcCaHjNHJMHu6bvExFDiez8s2ACqcOHoGUOJkFqKSRyeTJsXXEm1u7FZXb9gYh7TPWDU7olWjVH238_D-jXldr?type=png
 [async_polling_url]: https://mermaid.live/edit#pako:eNqtVFtrE0EU_ivDPLekRn1ZpNAakeKlxVYKshAmu5N0dbOzzswqJQTcXW0rSWlQm1q11hctisZbi9h6-S9ONzH_wtlubk1SSMCwD5kz53znfN-3e3JQIzqGCmT4toMtDScMlKEoq1pA_mxEuaEZNrI4OG8a2OK98XmcmpiZ6o0nJntjE2zR0uYQu6Va0WUEOjo-HqEoYGZ6dg7EKLYJ5SzGkIlZElnIXGQGi0qiTFnSAlNAfetlUCpWX2wL77fwvgvvowL-7n0LCuvnUnT8z70D4X0Q_mvh_xDeo9pesfbks3A3hVcIXu0GpRXhecL15LGrQ2JSASpEmoZtjnUVHruW99H0CoiPxcFEIytsmFPhTZKakhVh_an46TNnVTgi_zKOuMOicBs231TjKuEYkDuYgoG41cuFYKcxc6tgtDG3YSVtSjIUMzYkeHXTq5cfC7co3EL4SJWW39RKS8KtNDtGiCYhNpghpmlYGZAmFHCJCTSStU3MDdLI6mvzxQsnuhyLRIpFsrUgjpkSjuovHdkZjh2sebUHO-3cxGRHqx4hTvJwDExfGti9TtTQwBAUW_rQTgaV4uH-UreHfVlWn-9Wy5_CCRsSY_3Ez2g4fQfVVura0aNjiv8iaRuv_UUMRawfo2ad8N8Lfytk5a8Ea-Xg10Y4V-3nl6C0enjwVLir169dFu474b6V73nV_xpUng3ESyd3LZMgPelQU_JQYfXhunDvB8v7wt0Q7nZXiyNucARmMc0iQ5eLNxe2USFfwFkcCaHjNHJMHu6bvExFDiez8s2ACqcOHoGUOJkFqKSRyeTJsXXEm1u7FZXb9gYh7TPWDU7olWjVH238_D-jXldr
@@ -1926,6 +1934,8 @@ Auth0やEntraIDなどのIdP（Identity Provider）を利用して認証する構
 
 「フロントエンド認証フロー」によって、アクセストークンを取得できたとする。Web APIへの認証については大別して以下の2つの方式がある。
 
+<div class="img-bg-transparent">
+
 |                     | 1.ベアラートークン方式                                                                                                                                                                         | 2.セッショントークン方式                                                                                                                                                 |
 | :------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | フロー図            | [![uml][beare_token_flow_img]][beare_token_flow_link]                                                                                                                                          | [![uml][session_token_flow_img]][session_token_flow_url]                                                                                                                 |
@@ -1937,6 +1947,8 @@ Auth0やEntraIDなどのIdP（Identity Provider）を利用して認証する構
 | セキュリティ        | ⚠️アクセストークンをローカルストレージやCookieに保持する必要がある                                                                                                                             | ✅️アクセストークンはWeb API認証後に破棄可能であり、保持期間を最小化できる                                                                                               |
 | curlとの相性        | ✅️比較的容易                                                                                                                                                                                  | ⚠️少し手順が複雑                                                                                                                                                         |
 | ローカル開発環境    | ✅️容易                                                                                                                                                                                        | ✅️容易                                                                                                                                                                  |
+
+</div>
 
 [beare_token_flow_img]: https://mermaid.ink/img/pako:eNqFVM9rE0EU_leGOUiElt73UAithyBKIAdBFmTdTJLFZCduZhUphe6MSCKKpShUSA79gYQkbQ9BMDSlf8xLYjz1X_DNJNvWTWpvM2--9733fW9mtqjL84xatMZeh8x32abnFAOnYvuEVJ1AeK5XdXxBctk0cWrk99fzP63D5GE6p8-mnc_jL2cgf4IagtpdAGUzGvWMvdRL29fnT7lghL9hgea3SPbxxiOQfZPfABWBOgLVA9UH-Qui9ryA6oDEMm2QA1B1iE5HF81J3dRDltX19XTOIkuxJKXFvnBLTrnM_CIjD0hNOIKB3BvvdkHuPNQk6dwqkpiGYknXLXVA7YA81l0hr2ZcIFiiK0kTtRNKvxvmbyAPNLk8RL7RxSVERxD90BoRpsv1E3r-lfwfIEklWkDlxgps0St4LEgKNz0g_HxucsyLeZnN24F5CwQTZ1o3OH_loSHvQZ0YVBdUN2bpmQjOsju6bI1P9pe6dVdtNAXUPiilZ4DBqGs8j9AjvFDJayH3pgefIPpwy6NsxiKLSJJae3tnzZkveHO1PkNwZ3fR6eS4OW0P5xnxUO6DXw3ra54vAl6rMld43L8aNm6GcU_Js0mzMf44iEvG0zMiewbdMsYN6AqtsKDieHl86lsab1NRYhVmUwuXeVZwwrKwqe1vI9QJBc-9811qiSBkKzTgYbFErYJTruEurObxys__iesovvHnnN_sWd4TPHgy-1zMH7P9F53-O84?type=png
 [beare_token_flow_link]: https://mermaid.live/edit#pako:eNqFVM9rE0EU_leGOUiElt73UAithyBKIAdBFmTdTJLFZCduZhUphe6MSCKKpShUSA79gYQkbQ9BMDSlf8xLYjz1X_DNJNvWTWpvM2--9733fW9mtqjL84xatMZeh8x32abnFAOnYvuEVJ1AeK5XdXxBctk0cWrk99fzP63D5GE6p8-mnc_jL2cgf4IagtpdAGUzGvWMvdRL29fnT7lghL9hgea3SPbxxiOQfZPfABWBOgLVA9UH-Qui9ryA6oDEMm2QA1B1iE5HF81J3dRDltX19XTOIkuxJKXFvnBLTrnM_CIjD0hNOIKB3BvvdkHuPNQk6dwqkpiGYknXLXVA7YA81l0hr2ZcIFiiK0kTtRNKvxvmbyAPNLk8RL7RxSVERxD90BoRpsv1E3r-lfwfIEklWkDlxgps0St4LEgKNz0g_HxucsyLeZnN24F5CwQTZ1o3OH_loSHvQZ0YVBdUN2bpmQjOsju6bI1P9pe6dVdtNAXUPiilZ4DBqGs8j9AjvFDJayH3pgefIPpwy6NsxiKLSJJae3tnzZkveHO1PkNwZ3fR6eS4OW0P5xnxUO6DXw3ra54vAl6rMld43L8aNm6GcU_Js0mzMf44iEvG0zMiewbdMsYN6AqtsKDieHl86lsab1NRYhVmUwuXeVZwwrKwqe1vI9QJBc-9811qiSBkKzTgYbFErYJTruEurObxys__iesovvHnnN_sWd4TPHgy-1zMH7P9F53-O84

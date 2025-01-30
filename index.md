@@ -12,6 +12,9 @@ hero:
       text: DB設計ガイドライン
       link: ./documents/forDB/
     - theme: alt
+      text: Gitブランチフロー規約
+      link: ./documents/forGitBranch/
+    - theme: alt
       text: Markdown設計ドキュメント規約
       link: ./documents/forMarkdown/
     - theme: alt

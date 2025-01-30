@@ -154,6 +154,19 @@ export default defineConfig({
             ],
           },
           {
+            text: "Git",
+            items: [
+              {
+                text: "Introduction",
+                link: "/documents/forGitBranch/",
+              },
+              {
+                text: "Gitブランチフロー規約",
+                link: "/documents/forGitBranch/git_branch_standards.html",
+              },
+            ],
+          },
+          {
             text: "Markdown",
             items: [
               {

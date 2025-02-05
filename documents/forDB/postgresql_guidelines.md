@@ -586,7 +586,7 @@ CREATE TABLE sales_category (
 INSERT INTO sales_category (category_code) VALUES ('DUMMY');
 ```
 
-SQLで検索すると、表示上は `DUMMY` に見えるが、`CONCAT()` で文字列結合すると `DUMMY   123` と半角スペースでパディングされた値に `123` が追加されていることがわかる。
+SQLで検索すると、表示上は `DUMMY` に見えるが、`CONCAT()` で文字列結合すると半角スペースでパディングされた値に `123` が追加されていることがわかる。
 
 ```sql
 # SELECT category_code, CONCAT(category_code, '123') FROM sales_category;

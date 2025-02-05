@@ -41,6 +41,18 @@ export PUPPETEER_EXECUTABLE_PATH="/usr/bin/chromium-browser"
 # mermaid-filterのインストール
 npm i -g mermaid-filter@1.4.7
 
+# Web API
+cd ${ROOT_DIR}/documents/forWebAPI
+
+pandoc ./web_api_guidelines.md -s --self-contained --number-sections --toc -t html5 -c ${CSS_PATH} -o ${RESOURCES_DIR}/Web API設計ガイドライン.html
+pandoc ./web_api_guidelines.md --toc --reference-doc=${STYLE_DOCX_PATH} -s -o ${RESOURCES_DIR}/Web API設計ガイドライン.docx
+
+# PostgreSQL
+cd ${ROOT_DIR}/documents/forDB
+
+pandoc ./postgresql_guidelines.md -s --self-contained --number-sections --toc -t html5 -c ${CSS_PATH} -o ${RESOURCES_DIR}/PostgreSQL設計ガイドライン.html
+pandoc ./postgresql_guidelines.md --toc --reference-doc=${STYLE_DOCX_PATH} -s -o ${RESOURCES_DIR}/PostgreSQL設計ガイドライン.docx
+
 # Markdown
 cd ${ROOT_DIR}/documents/forMarkdown
 

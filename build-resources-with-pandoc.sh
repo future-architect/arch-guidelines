@@ -44,8 +44,8 @@ npm i -g mermaid-filter@1.4.7
 # Web API
 cd ${ROOT_DIR}/documents/forWebAPI
 
-pandoc ./web_api_guidelines.md -s --self-contained --number-sections --toc -t html5 -c ${CSS_PATH} -o ${RESOURCES_DIR}/Web API設計ガイドライン.html
-pandoc ./web_api_guidelines.md --toc --reference-doc=${STYLE_DOCX_PATH} -s -o ${RESOURCES_DIR}/Web API設計ガイドライン.docx
+pandoc ./web_api_guidelines.md -s --self-contained --number-sections --toc -t html5 -c ${CSS_PATH} -o ${RESOURCES_DIR}/WebAPI設計ガイドライン.html
+pandoc ./web_api_guidelines.md --toc --reference-doc=${STYLE_DOCX_PATH} -s -o ${RESOURCES_DIR}/WebAPI設計ガイドライン.docx
 
 # PostgreSQL
 cd ${ROOT_DIR}/documents/forDB

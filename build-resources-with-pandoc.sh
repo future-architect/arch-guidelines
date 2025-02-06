@@ -53,6 +53,12 @@ cd ${ROOT_DIR}/documents/forDB
 pandoc ./postgresql_guidelines.md -s --self-contained --number-sections --toc -t html5 -c ${CSS_PATH} -o ${RESOURCES_DIR}/PostgreSQL設計ガイドライン.html
 pandoc ./postgresql_guidelines.md --toc --reference-doc=${STYLE_DOCX_PATH} -s -o ${RESOURCES_DIR}/PostgreSQL設計ガイドライン.docx
 
+# Terraform
+cd ${ROOT_DIR}/documents/forTerraform
+
+pandoc ./terraform_guidelines.md -s --self-contained --number-sections --toc -t html5 -c ${CSS_PATH} -o ${RESOURCES_DIR}/Terraform設計ガイドライン.html
+pandoc ./terraform_guidelines.md --toc --reference-doc=${STYLE_DOCX_PATH} -s -o ${RESOURCES_DIR}/Terraform設計ガイドライン.docx
+
 # Markdown
 cd ${ROOT_DIR}/documents/forMarkdown
 

@@ -268,7 +268,7 @@ s3_buckets = {
 
 :::
 
-❌️ variableをanyを安易に利用し、存在しないキーを指定してしまう例
+❌️ variableにanyを安易に利用し、存在しないキーを指定してしまう例
 
 :::code-group
 
@@ -370,7 +370,7 @@ resource "aws_instance" "foo_example_webapi" {
 
 for_eachの2重ループは、次の2つのうちどちらかを指すことが多い。
 
-1. for_eachを付けたリソースにおいて、[Dynamic Blocks](https://developer.hashicorp.com/terraform/language/expressions/dynamic-blocks) でfor_eachが使う方法
+1. for_eachを付けたリソースにおいて、[Dynamic Blocks](https://developer.hashicorp.com/terraform/language/expressions/dynamic-blocks) でfor_eachを使う方法
 2. ネストした変数を元に、擬似的に多重のfor_eachを実現する方法
 
 ▼例: Dynamoic Blocks で for_eachを用いる
@@ -641,7 +641,7 @@ Azure Providerには2025年1月時点で、デフォルトタグのサポート�
   - ≒ Data Sourceが直接参照しているリソースに変更がある場合、それらの変更が適用されたあと、Data Sourceの読み取りが再実行される
   - ≒ Data Source自体を変更していないのに、リソースが known after apply という差分が出てしまう
 
-対応策は、[#data-resource-dependencies](https://developer.hashicorp.com/terraform/language/data-sources#data-resource-dependencies) に記載があるように、Local変数を経由すると良いとある。
+対応策は、[#data-resource-dependencies](https://developer.hashicorp.com/terraform/language/data-sources#data-resource-dependencies) に記載があるように、Local変数を経由すると良い。
 
 推奨は以下の通り。
 
@@ -1742,7 +1742,7 @@ Terraform自体は2～3回/年のペースで、新しいマイナーバージ�
   - 一定間隔で組み込むことで、計画にも組み込みやすい
   - Terraform自体と、Providerの2つのバージョンを合わせて実施するか、あるいは交互に上げるなど、詳細なルールはチームにマッチした方法を検討すると良い
 
-（参考）[チーム開発におけるTerraformバージョンアップ戦略 - TECHSCORE BLOG](https://blog.techscore.com/entry/2023/12/15/080000)
+【参考】[チーム開発におけるTerraformバージョンアップ戦略 - TECHSCORE BLOG](https://blog.techscore.com/entry/2023/12/15/080000)
 
 ## 自動バージョン更新ツール
 
@@ -1753,7 +1753,7 @@ DependabotやRenovateを利用することで、TerraformやProviderの新しい
 - バージョンアップは「バージョンアップポリシー」節で記載通り、定次で行う方針である。そのためBOTによるプルリクエスト通知は行わない
   - バージョンアップを行う時期を予め決めておくこと方針であるため、ノイズにしかならないため
 
-（参考） [Dependabot で Terraform Provider を自動的にアップデートしよう - kakakakakku blog](https://kakakakakku.hatenablog.com/entry/2024/02/29/215713)
+【参考】 [Dependabot で Terraform Provider を自動的にアップデートしよう - kakakakakku blog](https://kakakakakku.hatenablog.com/entry/2024/02/29/215713)
 
 ## バージョンアップ時の動作検証
 
@@ -1866,7 +1866,7 @@ terraform state push
 terraform state rm {削除対象}
 ```
 
-（参考）
+【参考】
 
 - [Command: state mv | Terraform | HashiCorp Developer](https://developer.hashicorp.com/terraform/cli/commands/state/mv?optInFrom=terraform-io)
 - [複数の Terraform リソースを一度に別の tfstate ファイルに移動する](https://zenn.dev/toshikish/articles/61db8661cb28ba)
@@ -1947,7 +1947,7 @@ AWSでterraform planのみ実行できるようにする例を示す。ReadOnlyA
 }
 ```
 
-（参考）
+【参考】
 
 - [Terraform v1.10 からは S3 Backend の State Lock に DynamoDB が必要なくなる](https://zenn.dev/terraform_jp/articles/terraform-s3-state-lock)
 - [[AWS × Terraform] plan できるけど apply できない GitOps な IAM ユーザポリシーの設定方法 | DevelopersIO](https://dev.classmethod.jp/articles/terraform-iam-policy-not-apply-but-plan/)
@@ -2102,7 +2102,7 @@ terraform fmt
 terraform validate
 ```
 
-pre-commitの構築については、 [pre-commit](https://terraform-docs.io/how-to/pre-commit-hooks/) というツールを利用しても良い。そうしたツールを利用しない場合は、以下のような手順を踏む。
+pre-commitの構築は、 [pre-commit](https://terraform-docs.io/how-to/pre-commit-hooks/) を利用しても良い。利用しない場合は、以下のような手順を踏む。
 
 1. `.githooks/pre-commit` フォルダにスクリプトを追加し、gitコミット
 2. `chmod +x .githooks/pre-commit` で権限付与

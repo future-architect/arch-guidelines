@@ -4,7 +4,7 @@ author: フューチャー株式会社
 layout: home
 hero:
   name: "Terraform設計ガイドライン"
-  tagline: Web API Design Guidelines
+  tagline: Terraform Design Guidelines
   actions:
     - theme: brand
       text: Terraform設計ガイドライン

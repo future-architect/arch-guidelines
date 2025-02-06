@@ -65,13 +65,13 @@ Terraformはインフラを宣言的にコード管理するツールである�
 
 # 命名規則
 
-2024年3月30日に、HashiCorp社から念願のスタイルガイド（[Style Guide \- Configuration Language](https://developer.hashicorp.com/terraform/language/style)）が発表された。
+2024年3月30日に、HashiCorp社から念願のスタイルガイド（[Style Guide | HashiCorp Developer](https://developer.hashicorp.com/terraform/language/style)）が発表された。
 
 原則これに準ずることを推奨する。
 
 例えば、以下のような記載がある。
 
-- アンダースコア区切り（例: `example_variable_name`)
+- アンダースコア区切り（例: `example_variable_name`）
 - リソース種別をリソース名に含めない
 - リソース タイプと名前を二重引用符で囲む
 
@@ -95,7 +95,7 @@ resource aws_instance webAPI-aws-instance {...}
 
 ソースコードのコメントを入れる方法は3種類ある。
 
-| #                         | ① `#`                                             | ② `//`                                            | ③ `/* */`                              |
+| #                         | （1） `#`                                         | （2） `//`                                        | （3） `/* */`                          |
 | :------------------------ | :------------------------------------------------ | :------------------------------------------------ | :------------------------------------- |
 | 説明                      | 1行のコメントを入れる場合に使われる               | `#` と同じ様に1行のコメントを入れる場合に使われる | 複数行のコメントを入れる場合に使われる |
 | VS Codeショートカット利用 | ✅️複数行にまたがる場合でも、エディタの補完が効く | ー                                                | ー                                     |
@@ -110,12 +110,12 @@ resource aws_instance webAPI-aws-instance {...}
 
 Terraformの変数には以下の2種類がある。
 
-| #                    | ①[Input Variables](https://developer.hashicorp.com/terraform/language/values/variables)      | ②[Local Values](https://developer.hashicorp.com/terraform/language/values/locals) |
-| :------------------- | :------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------- |
-| 項目                 | Terraformの入力値を定義するために使用する。モジュールではほぼ必須で扱う                      | Terraform設定内でのみ使用される内部の値を定義するために使用する                   |
-| 外部から上書き       | ✅️可能                                                                                      | ❌️不可                                                                           |
-| 式の利用             | ❌️不可。他のVariableを参照しての新しいVariable定義や関数の利用不可                          | ✅️他のLocal Valuesから新しいLocal Valueを定義可能で、関数や式展開を利用可能      |
-| 環境ごとの値切り替え | ✅️ `-var`、`-var-file`オプションか、`terraform.tfvars` か、環境変数 `TF_VAR_xxx` で指定する | ✅️マップなどで環境別に保持                                                       |
+| #                    | （1）[Input Variables](https://developer.hashicorp.com/terraform/language/values/variables)  | （2）[Local Values](https://developer.hashicorp.com/terraform/language/values/locals) |
+| :------------------- | :------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------ |
+| 項目                 | Terraformの入力値を定義するために使用する。モジュールではほぼ必須で扱う                      | Terraform設定内でのみ使用される内部の値を定義するために使用する                       |
+| 外部から上書き       | ✅️可能                                                                                      | ❌️不可                                                                               |
+| 式の利用             | ❌️不可。他のVariableを参照しての新しいVariable定義や関数の利用不可                          | ✅️他のLocal Valuesから新しいLocal Valueを定義可能で、関数や式展開を利用可能          |
+| 環境ごとの値切り替え | ✅️ `-var`、`-var-file`オプションか、`terraform.tfvars` か、環境変数 `TF_VAR_xxx` で指定する | ✅️マップなどで環境別に保持                                                           |
 
 推奨は以下の通り。
 
@@ -130,11 +130,11 @@ Terraformの変数には以下の2種類がある。
 Terraformではコレクション型として、tuple、list、map、objectといったデータ形式が提供されている。  
 それぞれの特徴は以下の通りであり、用途に合わせて利用する形式を選択すること。
 
-| #            | ①tuple             | ②list                                                            | ①map                                                                        | ②object                                                                    |
+| #            | （1）tuple         | （2）list                                                        | （1）map                                                                    | （2）object                                                                |
 | :----------- | :----------------- | :--------------------------------------------------------------- | :-------------------------------------------------------------------------- | :------------------------------------------------------------------------- |
 | 説明         | 固定長の要素のペア | 同じ型で任意数の要素を保持                                       | キーと値のペア。タグのようなフラットな構造で利用                            | 異なる型のプロパティを持つ複数の属性を格納する。構造的なデータの場合に利用 |
 | 宣言         | `["v1", "2"]`      | `["v1", "v2"]`                                                   | `{ k1 = "v1", 2 = "v2" }`                                                   | `{ attr1 = "v1", attr2 = "v2" }`                                           |
-| 要素の参照   | `tuple[0]`         | `list[0]`                                                        | map[“key”]                                                                  | `object.attr1`                                                             |
+| 要素の参照   | `tuple[0]`         | `list[0]`                                                        | map["key"]                                                                  | `object.attr1`                                                             |
 | 可変性       | ✅️不可変          | ⚠️可変                                                           | ⚠️可変                                                                      | ✅️不可変                                                                  |
 | 型の混在     | ✅️可能            | ❌️不可 ※`list(any)`は互換性のために存在するため、原則使用しない | ❌️値の型が全て同じ ※`map(any)`は互換性のために存在するため、原則使用しない | ✅️可能                                                                    |
 | for_each相性 | ❌️向かない        | ⚠️setに変換する必要                                              | ✅️良い                                                                     | ⚠️mapに変換する必要                                                        |
@@ -160,7 +160,7 @@ variable "instance_types" {
 ▼例: mapの宣言
 
 ```tf
-variable “map” {
+variable "map" {
     default = {
         key1 = "value1"
         key2 = "value2"
@@ -183,7 +183,8 @@ variable "object" {
 }
 ```
 
-またこれらは組み合わせて使用することもできる  
+またこれらは組み合わせて使用できる。
+
 ▼例: map(object)の宣言
 
 ```tf
@@ -198,27 +199,29 @@ variable "map_object" {
 推奨は以下の通り。
 
 - 並び順に意味を持ち、値の意味が不明瞭になりがちな、`tuple` は利用せず、代わりに`list` `map` `object` を利用する
-- モジュールの引数など、値の型が固定化できない可能性がある場合、よりキーが明示的にできる、`map` ではなく `object` を利用する
-- `list` `list(any)` は利用せず、 `list(string)` などの型宣言を行う
-- `map` `map(any)` は利用せず、 `map(string)` などの型宣言を行う
+- 値の型が固定化できない場合は、`map` ではなく `object` を利用する
+- モジュールの引数には、キーが明示的に宣言できるため `map` ではなく `object` を利用する
+- `list` `list(any)` は利用せず、 `list(string)` などの型宣言する
+- `map` `map(any)` は利用せず、 `map(string)` などの型宣言する
 
 参考：
 
-- [Types and Values \- Configuration Language | Terraform | HashiCorp Developer](https://developer.hashicorp.com/terraform/language/expressions/types#maps-objects)
+- [Types and Values](https://developer.hashicorp.com/terraform/language/expressions/types#maps-objects)
 
 ## any型
 
-[Type Constraints \- Configuration Language](https://developer.hashicorp.com/terraform/language/expressions/type-constraints#dynamic-types-the-any-constraint) に 「anyは動的にデータを処理する場合にのみ使用する。それ以外では常に正確な型制約を記述する」とある。
+[Type Constraints](https://developer.hashicorp.com/terraform/language/expressions/type-constraints#dynamic-types-the-any-constraint) に 「anyは動的にデータを処理する場合にのみ使用する。それ以外では常に正確な型制約を記述する」とある。
 
 推奨は以下の通り。
 
 - 原則 `any` は利用しない
-- できる限り、`object` など具体的な型に代替できないか考える（`any` では入力の指定ミスが発生する余地が増えてしまうため）
+- できる限り、`object` など具体的な型に代替できないか考える（`any` では入力間違えする余地が増えてしまうため）
 
 ✅️ variableをobjectで定義
 
-```tf
--- variables.tf --
+:::code-group
+
+```tf [variables.tf]
 variable "s3_buckets" {
   type = map(object({
     bucket_name = string
@@ -239,8 +242,13 @@ resource "aws_s3_bucket" "buckets" {
     enabled = each.value.versioning.enabled
   }
 }
+```
 
--- terraform.tfvars ---
+:::
+
+:::code-group
+
+```tf [terraform.tfvars]
 s3_buckets = {
   bucket_name1 = {
     bucket_name = "my-logs-bucket"
@@ -259,10 +267,13 @@ s3_buckets = {
 }
 ```
 
-❌️ variableをanyを安易に利用し、存在しないキーを指定
+:::
 
-```tf
--- variables.tf --
+❌️ variableにanyを安易に利用し、存在しないキーを指定してしまう例
+
+:::code-group
+
+```tf [variables.tf]
 variable "s3_buckets" {
   type = any
 }
@@ -277,8 +288,13 @@ resource "aws_s3_bucket" "buckets" {
     enabled = var.s3_buckets[each.key]["versioning"]["enabled"]
   }
 }
+```
 
--- terraform.tfvars ---
+:::
+
+:::code-group
+
+```tf [terraform.tfvars]
 s3_buckets = {
   bucket_name1 = {
     bucket_name = "my-logs-bucket"
@@ -295,14 +311,15 @@ s3_buckets = {
 }
 ```
 
+:::
+
 ## リソース属性参照
 
-[References to Values \- Configuration Language | Terraform | HashiCorp Developer](https://developer.hashicorp.com/terraform/language/expressions/references#references-to-resource-attributes) に記載があるように、 `{resource種別}.{resource名}.{属性}` の形式でリソース名を参照できる。
+[References to Values | HashiCorp Developer](https://developer.hashicorp.com/terraform/language/expressions/references#references-to-resource-attributes) に記載があるように、 `{resource種別}.{resource名}.{属性}` の形式でリソース名を参照できる。
 
 ```tf
 resource "aws_lambda_function" "foo_example_api" {
   # ...中略...
-
   environment {
     variables = {
       DYNAMO_TABLE_ORDER : aws_dynamodb_table.foo_example_order.name, # DynamoDBのテーブル名を環境変数に指定
@@ -318,9 +335,9 @@ resource "aws_lambda_function" "foo_example_api" {
 
 ## countとfor_each
 
-動的に複数のリソースを作成する手段として、`count` がよく使われていたがいくつかの課題があった。2019年8月にリリースの `v0.12.6` で `for_each` 構文が追加され、動的リソース作成の適用範囲が広がった。しかし、公式のStyle Guideには [count と for_each は控えめに使用する](https://developer.hashicorp.com/terraform/language/style#code-style) とあるように、込み入った作りにすると可読性は低下する。そのため使い所を考える必要がある。
+動的に複数のリソースを作成する手段として、`count` がよく使われていたがいくつかの課題があった。2019年8月リリースの `v0.12.6` で `for_each` 構文が追加され、動的リソース作成の適用範囲が広がった。しかし、公式のStyle Guideには [count と for_each は控えめに使用する](https://developer.hashicorp.com/terraform/language/style#code-style) とあるように、込み入った作りにすると可読性は低下する。そのため使い所を考える必要がある。
 
-| #                      | ①count                                                                                 | ②for_each                                                                                                                         |
+| #                      | （1）count                                                                             | （2）for_each                                                                                                                     |
 | :--------------------- | :------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------- |
 | 説明                   | リソースやモジュールを特定の数だけ作成する場合に利用する                               | リソースやモジュールを一意のキーと関連付けて作成する場合に利用する                                                                |
 | ステートの保持方法     | 配列                                                                                   | マップ（配列をfor_eachにわたす場合は、[toset](https://developer.hashicorp.com/terraform/language/functions/toset)する必要がある） |
@@ -340,7 +357,6 @@ resource "aws_lambda_function" "foo_example_api" {
 ```tf
 resource "aws_instance" "foo_example_webapi" {
   count = "dev" == terraform.workspace ? 0 : 1  # dev環境では作成しない
-
   # ...中略...
 }
 ```
@@ -349,16 +365,16 @@ resource "aws_instance" "foo_example_webapi" {
 
 - [Terraform の count と for_each の使い分け — tellme.tokyo](https://tellme.tokyo/post/2022/06/12/terraform-count-for-each/)
 - [Terraformerとしてコードを書いて思うこと | フューチャー技術ブログ](https://future-architect.github.io/articles/20211029a/)
-- [Terraform for_eachの堅牢な使い方 \- Paper2 Blog](https://paper2.hatenablog.com/entry/2024/12/28/173440#%E9%87%8D%E8%A6%81%E3%81%AA%E5%88%B6%E7%B4%84%E3%82%AD%E3%83%BC%E3%81%AFknown-value%E3%81%A7%E3%81%AA%E3%81%91%E3%82%8C%E3%81%B0%E3%81%84%E3%81%91%E3%81%AA%E3%81%84)
+- [Terraform for_eachの堅牢な使い方 - Paper2 Blog](https://paper2.hatenablog.com/entry/2024/12/28/173440#%E9%87%8D%E8%A6%81%E3%81%AA%E5%88%B6%E7%B4%84%E3%82%AD%E3%83%BC%E3%81%AFknown-value%E3%81%A7%E3%81%AA%E3%81%91%E3%82%8C%E3%81%B0%E3%81%84%E3%81%91%E3%81%AA%E3%81%84)
 
 ## for_eachの2重ループ
 
 for_eachの2重ループは、次の2つのうちどちらかを指すことが多い。
 
-1. for_eachを付けたリソースにおいて、[Dynamic Blocks](https://developer.hashicorp.com/terraform/language/expressions/dynamic-blocks) でfor_eachが使う方法
+1. for_eachを付けたリソースにおいて、[Dynamic Blocks](https://developer.hashicorp.com/terraform/language/expressions/dynamic-blocks) でfor_eachを使う方法
 2. ネストした変数を元に、擬似的に多重のfor_eachを実現する方法
 
-▼1の例
+▼例: Dynamoic Blocks で for_eachを用いる
 
 ```tf
 locals {
@@ -403,7 +419,7 @@ resource "aws_instance" "example" {
 }
 ```
 
-②の下表で示す設計パターンがある。
+（2）の下表で示す設計パターンがある。
 
 | #          | flatten利用パターン                                                                                                                                           | module利用パターン                                                                                     |
 | :--------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------ | :----------------------------------------------------------------------------------------------------- |
@@ -451,8 +467,9 @@ resource "aws_instance" "foo_example" {
 
 ▼例: module利用パターン
 
-```tf
--- main.tf --
+:::code-group
+
+```tf [main.tf]
 locals {
   instances = {
     "ap-northeast-1a" = [
@@ -473,8 +490,13 @@ module "ec2_instances" {
   zone      = each.key
   instances = each.value
 }
+```
 
--- modules/multiple_ec2/main.tf --
+:::
+
+:::code-group
+
+```tf [modules/multiple_ec2/main.tf]
 variable "zone" {
   type = string
 }
@@ -498,10 +520,12 @@ resource "aws_instance" "example" {
 }
 ```
 
+:::
+
 推奨は以下の通り。
 
-- for_eachを付けたリソースにおいて、Dynamic Blocks で for_eachの利用は特に制限はない。可読性などを考慮して適切に利用すること
-- ネストした変数の繰り返し処理は、原則、①flattenを利用し、コードベースをシンプルに保つ
+- for_eachを付けたリソースにおいて、Dynamic Blocks で for_eachを利用することの制限はない。可読性などを考慮して適切に利用すること
+- ネストした変数の繰り返し処理は、原則、（1）flattenを利用し、コードベースをシンプルに保つ
 - モジュール化の是非は「modules」章を参考にする
 
 【参考】
@@ -510,7 +534,7 @@ resource "aws_instance" "example" {
 
 ## For Expressions
 
-[For Expressions](https://developer.hashicorp.com/terraform/language/expressions/for)は式であり、入力は `list` `set` `tuple` `map` `object` を受け付け、出力は `[ for ]` は `tuple` を、`{ for }` は `object` を返す。
+[For Expressions](https://developer.hashicorp.com/terraform/language/expressions/for)は式である。入力は `list` `set` `tuple` `map` `object` を受け付け、出力は `[ for ]` は `tuple` を、`{ for }` は `object` を返す。
 
 ▼例: リストからマップ `{"alice" = 5, "bob" = 3, "charlie" = 7}` を出力
 
@@ -525,7 +549,7 @@ output "name_lengths" {
 }
 ```
 
-`for` は `if` と組み合わせて使用することもできる。AND条件やOR条件も設定可能である。
+`for` は `if` と組み合わせて使用できる。AND条件やOR条件も設定可能である。
 
 ▼複雑なforの例
 
@@ -558,7 +582,7 @@ output "filtered_employees" {
 
 # プロジェクト共通なタグ
 
-AWS Providerではデフォルトのタグを設定することができる。全てのリソースに振り下ろして良い内容である場合は、Provider側で定義することで、各リソース側の定義をシンプルに保つことができる。なお、各リソース側で同名のタグ名を指定した場合は、各リソース側の値が優先して使用される。
+AWS Providerではデフォルトのタグを設定できる。全てのリソースに振り下ろして良い内容である場合は、Provider側で定義することで、各リソース側の定義をシンプルに保つことができる。なお、各リソース側で同名のタグ名を指定した場合は、各リソース側の値が優先して使用される。
 
 ▼例: `default_tags` に共通的なタグを設定
 
@@ -587,7 +611,7 @@ provider "aws" {
 関連:
 
 - [Terraform で構築した AWS リソースにタグを一括付与する方法 (default_tags) | yuu26-memo](https://blog.yuu26.com/terraform-aws-default-tags/)
-- [かゆいところに手が届く、Terraformの書き方 (configuration_aliasesの使い方) \- Qiita](https://qiita.com/kaedemalu/items/d148c86f901f654f2930)
+- [かゆいところに手が届く、Terraformの書き方 (configuration_aliasesの使い方) - Qiita](https://qiita.com/kaedemalu/items/d148c86f901f654f2930)
 
 ::: warning Azure Providerのデフォルトタグ  
 Azure Providerには2025年1月時点で、デフォルトタグのサポートが存在しない。  
@@ -598,7 +622,7 @@ Azure Providerには2025年1月時点で、デフォルトタグのサポート�
 
 [TerraformでIAM Policyを書く方法5つ | DevelopersIO](https://dev.classmethod.jp/articles/writing-iam-policy-with-terraform/) にあるように、IAM Policyの管理方法には複数の手法が考えられる。
 
-| #                        | ①JSONファイル                                                                                          | ②ヒアドキュメント                                  | ③jsonencode                                         | ④Data Source                                                                                                                                        |
+| #                        | （1）JSONファイル                                                                                      | （2）ヒアドキュメント                              | （3）jsonencode                                     | （4）Data Source                                                                                                                                    |
 | :----------------------- | :----------------------------------------------------------------------------------------------------- | :------------------------------------------------- | :-------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 説明                     | fileやtemplatefileの関数で、JSONファイルを読み取る方式。外出ししたJSONファイルを共有したい場合に有効。 | ヒアドキュメントでJSONを記載する方式。ファイル分割 | HCL形式でポリシーを記載し、jsonencodeで変換する方式 | Data Souceの[iam_policy_document](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document)を利用する方式 |
 | 一覧性                   | ❌️別ファイル                                                                                          | ✅️同一ファイル                                    | ✅️同一ファイル                                     | ❌️別ファイル（リソース種別ごとにファイルを分ける方針に従った場合）                                                                                 |
@@ -608,17 +632,17 @@ Azure Providerには2025年1月時点で、デフォルトタグのサポート�
 
 推奨は以下の通り。
 
-- 一覧性は犠牲になるが、Terraformの文法や慣習に沿って開発ができる、④Data Source を用いる
+- 一覧性は犠牲になるが、Terraformの文法や慣習に沿って開発ができる、（4）Data Source を用いる
 
 # Data Sourceの引数に他のリソースを直接参照させない
 
-[Terraformでコードを変更していないリソースが known after apply となってしまう場合にどうすればよいか \- 電通総研 テックブログ](https://tech.dentsusoken.com/entry/2023/08/07/Terraform%E3%81%A7%E3%82%B3%E3%83%BC%E3%83%89%E3%82%92%E5%A4%89%E6%9B%B4%E3%81%97%E3%81%A6%E3%81%84%E3%81%AA%E3%81%84%E3%83%AA%E3%82%BD%E3%83%BC%E3%82%B9%E3%81%8C_known_after_apply_%E3%81%A8%E3%81%AA%E3%81%A3) にも記載があるように、[Data Sources](https://developer.hashicorp.com/terraform/language/data-sources#data-resource-dependencies) には以下の仕様がある。
+[Terraformでコードを変更していないリソースが known after apply となってしまう場合にどうすればよいか - 電通総研 テックブログ](https://tech.dentsusoken.com/entry/2023/08/07/Terraform%E3%81%A7%E3%82%B3%E3%83%BC%E3%83%89%E3%82%92%E5%A4%89%E6%9B%B4%E3%81%97%E3%81%A6%E3%81%84%E3%81%AA%E3%81%84%E3%83%AA%E3%82%BD%E3%83%BC%E3%82%B9%E3%81%8C_known_after_apply_%E3%81%A8%E3%81%AA%E3%81%A3) にも記載があるように、[Data Sources](https://developer.hashicorp.com/terraform/language/data-sources#data-resource-dependencies) には以下の仕様がある。
 
 - Data Sourceの引数が他のリソースを直接参照している場合、参照先のリソースがData Sourceの depends_on に含まれている場合と同じように扱われる
   - ≒ Data Sourceが直接参照しているリソースに変更がある場合、それらの変更が適用されたあと、Data Sourceの読み取りが再実行される
   - ≒ Data Source自体を変更していないのに、リソースが known after apply という差分が出てしまう
 
-対応策は、[#data-resource-dependencies](https://developer.hashicorp.com/terraform/language/data-sources#data-resource-dependencies) に記載があるように、Local変数を経由すると良いとある。
+対応策は、[#data-resource-dependencies](https://developer.hashicorp.com/terraform/language/data-sources#data-resource-dependencies) に記載があるように、Local変数を経由すると良い。
 
 推奨は以下の通り。
 
@@ -682,16 +706,16 @@ resource "aws_security_group" "example_sg" {
 }
 ```
 
-# スタンドアロンリソースとインライン
+# スタンドアローンリソースとインライン
 
-[aws_route_table | Resources | hashicorp/aws | Terraform](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route_table) のように、スタンドアロンのリソースと、インラインで定義できるリソースの2種類が提供されている場合がある。例であげたルートテーブルの場合は、共存が不可能であるためどちらかを選択する必要がある。
+[aws_route_table | Resources | hashicorp/aws | Terraform](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route_table) のように、スタンドアローンのリソースと、インラインで定義できるリソースの2種類が提供されている場合がある。例であげたルートテーブルの場合は、共存が不可能であるためどちらかを選択する必要がある。
 
-▼例1: スタンドアロンリソース
+▼例1: スタンドアローンリソース
 
 ```tf
-resource "aws_vpc" "example" {...中略...}
+resource "aws_vpc" "example" {...}
 
-resource "aws_internet_gateway" "example" {...中略...}
+resource "aws_internet_gateway" "example" {...}
 
 resource "aws_route_table" "example" {
   vpc_id = aws_vpc.example.id
@@ -707,9 +731,9 @@ resource "aws_route" "example_route" {
 ▼例2: インラインの例
 
 ```tf
-resource "aws_vpc" "example" {...中略...}
+resource "aws_vpc" "example" {...}
 
-resource "aws_internet_gateway" "example" {...中略...}
+resource "aws_internet_gateway" "example" {...}
 
 resource "aws_route_table" "example" {
   vpc_id = aws_vpc.example.id
@@ -721,7 +745,7 @@ resource "aws_route_table" "example" {
 }
 ```
 
-| #        | ①スタンドアロンリソース                                                       | ②インライン                                                                      |
+| #        | （1）スタンドアローンリソース                                                 | （2）インライン                                                                  |
 | :------- | :---------------------------------------------------------------------------- | :------------------------------------------------------------------------------- |
 | 説明     | ルートが独立したリソースとして定義されるため、個々のルートを直接管理する方針  | ルーティングテーブルとそのルートが一か所にまとまっているため、関連性が明確である |
 | 可読性   | ❌️ルーティングテーブルとルートが分かれているため、関連性は比較的把握しにくい | ✅️手動で操作したルールがある場合は、インラインルールの方が定義を見つけやすい    |
@@ -729,9 +753,9 @@ resource "aws_route_table" "example" {
 
 推奨は以下の通り。
 
-- ①スタンドアロンリソースを利用する
+- （1）スタンドアローンリソースを利用する
   - 可読性は多少低下するが、ルート追加などの作業で、余計な差分が出てしまい運用負荷が上がってしまうことを避けるため
-  - クラスタリングソフトなど、IaC以外から変更がある場合は実用上①にする必要がある。そういった要件にも対応できるよう防御的にしたいため
+  - クラスタリングソフトなど、IaC以外から変更がある場合は実用上（1）にする必要がある。そういった要件にも対応できるよう防御的にしたいため
   - インラインでdynamicブロックなどを用いてループさせる場合、パラメータがまして複雑になることを避けるため
 
 【参考】
@@ -747,43 +771,43 @@ APIアクセスキーやDBパスワードのような機微に扱うべき情報
 
 それぞれの管理方針について説明する。
 
-## １．Terraform外で生成された機密情報の扱い
+## Terraform外で生成された機密情報の扱い
 
 Terraformでは機密情報をGit管理せずに扱うためのいくつかの機能や手法が存在する。
 
-| #        | ①環境変数                                                                                                                                             | ②Data Sources                                                                                                                    | ③Ephemeral Value | ④Terraform外で管理                                                                                                          |
-| :------- | :---------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------- | :--------------- | :-------------------------------------------------------------------------------------------------------------------------- |
-| 説明     | `TF_VAR_{変数名}` という形式で、Terraform上の変数として利用可能。v0.14で追加された、sensitive属性をtrueにすると、terraform planのマスキング表示が可能 | data構文でシークレットストア（AWS Secrets Manager、GCP Secret Manager、Azure KeyVaultなど)の情報を指定し、実行時に認識させる方法 | v1.10で追加。    | 対象項目をignore_changesに指定し、tfファイルでダミーの初期値を指定、Terraform外（またはlocal-execなど）で目的の値に更新する |
-| tfコード | ✅️除外可能                                                                                                                                           | ✅️除外可能                                                                                                                      | （調査中）       | ✅️除外可能                                                                                                                 |
-| plan表示 | ✅️マスキング。sensitive=true                                                                                                                         | ❌️表示される                                                                                                                    | （調査中）       | ✅️除外可能                                                                                                                 |
-| ステート | ❌️平文で保存                                                                                                                                         | ❌️平文で保存                                                                                                                    | （調査中）       | ✅️除外可能（※操作状況によってはstateに取り込まれる可能性は残る）                                                           |
+| #        | （1）環境変数                                                                                                                                         | （2）Data Sources                                                                                                                | （3）Ephemeral Value | （4）Terraform外で管理                                                                                                      |
+| :------- | :---------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------- | :------------------- | :-------------------------------------------------------------------------------------------------------------------------- |
+| 説明     | `TF_VAR_{変数名}` という形式で、Terraform上の変数として利用可能。v0.14で追加された、sensitive属性をtrueにすると、terraform planのマスキング表示が可能 | data構文でシークレットストア（AWS Secrets Manager、GCP Secret Manager、Azure KeyVaultなど)の情報を指定し、実行時に認識させる方法 | v1.10で追加。        | 対象項目をignore_changesに指定し、tfファイルでダミーの初期値を指定、Terraform外（またはlocal-execなど）で目的の値に更新する |
+| tfコード | ✅️除外可能                                                                                                                                           | ✅️除外可能                                                                                                                      | （調査中）           | ✅️除外可能                                                                                                                 |
+| plan表示 | ✅️マスキング。sensitive=true                                                                                                                         | ❌️表示される                                                                                                                    | （調査中）           | ✅️除外可能                                                                                                                 |
+| ステート | ❌️平文で保存                                                                                                                                         | ❌️平文で保存                                                                                                                    | （調査中）           | ✅️除外可能（※操作状況によってはstateに取り込まれる可能性は残る）                                                           |
 
 推奨は以下の通り。
 
-- ステートに機密情報を残しにくい、「④Terraform外で管理」を選択する
+- ステートに機密情報を残しにくい、「（4）Terraform外で管理」を選択する
 
-## ２．Terraformでインフラ構築する際に作成された機密情報
+## Terraformでインフラ構築する際に作成された機密情報
 
 Terraformを利用してパスワードなどの機密情報を作成する場合がある。下表のような分類が存在する。
 
-| #        | ①サービス組み込みの方法                                                    | ②[random_password](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password)                                                                     |
-| :------- | :------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 説明     | AWS RDSにおける `manage_master_user_password` のような仕組みを利用する方法 | resource “random_password” を使用すると暗号化乱数ジェネレータにより自動生成される。sensitive属性をtrueにすると、terraform planのマスキング表示が可能。類似にrandom_stringもある |
-| 汎用性   | ❌️クラウドサービス側の対応次第                                            | ✅️一般的に利用が可能                                                                                                                                                           |
-| tfコード | ✅️除外可能                                                                | ✅️除外可能                                                                                                                                                                     |
-| plan表示 | ✅️除外可能                                                                | ✅️random_passwordの場合はsensitive無しで、マスキング可能                                                                                                                       |
-| ステート | ✅️排除可能                                                                | ❌️平文で保存                                                                                                                                                                   |
+| #        | （1）サービス組み込みの方法                                                | （2）[random_password](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password)                                                       |
+| :------- | :------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 説明     | AWS RDSにおける `manage_master_user_password` のような仕組みを利用する方法 | resource "random_password" で暗号化乱数ジェネレータにより自動生成される。sensitive属性をtrueにすると、terraform planのマスキング表示が可能。類似にrandom_stringもある |
+| 汎用性   | ❌️クラウドサービス側の対応次第                                            | ✅️一般的に利用が可能                                                                                                                                                 |
+| tfコード | ✅️除外可能                                                                | ✅️除外可能                                                                                                                                                           |
+| plan表示 | ✅️除外可能                                                                | ✅️random_passwordの場合はsensitive無しで、マスキング可能                                                                                                             |
+| ステート | ✅️排除可能                                                                | ❌️平文で保存                                                                                                                                                         |
 
 本ガイドラインの推奨は以下。
 
-- 可能であれば①を採用する
+- 可能であれば（1）を採用する
   - [Terraform で AWS に DB を構築するとき manage_master_user_password を使っていますか？](https://tech.dentsusoken.com/entry/terraform_manage_master_user_password) にあるようにAWS RDSは `manage_master_user_password` の利用する
   - [Azure Container AppsのSecret管理とIaC](https://zenn.dev/aishift/articles/01ac0622cff568) にあるように、Azureデータベースサービス は`Azure Key Vault Reference`の利用を利用する
-- ②はステートに機密情報が残ってしまうため、それが許容できる場合のみに利用する。許容できない場合は「１．Terraform外で生成された機密情報の扱い」節を参考に、Terraform外で管理できないか検討する
+- （2）はステートに機密情報が残ってしまうため、それが許容できる場合のみに利用する。許容できない場合は「１．Terraform外で生成された機密情報の扱い」節を参考に、Terraform外で管理できないか検討する
 
 【参考】
 
-- [セキュアなTerraformの使い方 ～ 機密情報をコードに含めず環境構築するにはどうしたらいいの？ \- Speaker Deck](https://speakerdeck.com/harukasakihara/sekiyuanaterraformfalseshi-ifang-ji-mi-qing-bao-wokodonihan-mezuhuan-jing-gou-zhu-surunihadousitaraiifalse)
+- [セキュアなTerraformの使い方 ～ 機密情報をコードに含めず環境構築するにはどうしたらいいの？ - Speaker Deck](https://speakerdeck.com/harukasakihara/sekiyuanaterraformfalseshi-ifang-ji-mi-qing-bao-wokodonihan-mezuhuan-jing-gou-zhu-surunihadousitaraiifalse)
 - [[Terraform] 誤解されがちなignore_changesの動き・機密情報はstateに保持されるのか？ | DevelopersIO](https://dev.classmethod.jp/articles/note-about-terraform-ignore-changes/)
 - [Terraform 1.10がGAになり、Ephemeral Valuesが使えるようになりました | DevelopersIO](https://dev.classmethod.jp/articles/terraform-1-10-is-now-generally-available/)
 
@@ -793,19 +817,22 @@ terraform planで表示されるリソース数が多い場合に、本来削除
 
 代表的な手法を下表にあげる。
 
-| #              | ①クラウドリソース上の削除保護を有効化                                                                                                                                                                                                                                                                                                                                        | ②lifecycleブロックの [prevent_destroy](https://developer.hashicorp.com/terraform/tutorials/state/resource-lifecycle)を有効化                                                         | ③IAM権限で保護                                                                                                                |
-| :------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------- |
-| 説明           | AWSでは、EC2、ALB、RDS、DynamoDBなどで、 [enable_deletion_protection](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb#enable_deletion_protection-1) や[deletion_protection](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_instance#deletion_protection-1) を有効にすると、一度無効化にしないと削除不可となる | `lifecycle {prevent_destroy = true}` を指定することで、リソースの再作成を伴うapplyをエラーで落とすことができる                                                                       | IAM権限で削除操作自体を制限する。特定のリソースのみ削除権限のハードルを上げる設計や、タグと組み合わせて保護する設計が存在する |
-| 視認性         | ✅️管理コンソール上で、設定状況が確認可能                                                                                                                                                                                                                                                                                                                                    | ⚠️Terraformコード上で確認                                                                                                                                                            | ❌️IAM権限と突き合わせが必要                                                                                                  |
-| 汎用性         | ❌️対応しているリソースは一部である                                                                                                                                                                                                                                                                                                                                          | ✅️任意のリソースに適用可能 ✅️Terraform上で一貫性がある定義が可能                                                                                                                   | ✅️削除したくない任意のリソースに対する変更権限をなくすことが可能                                                             |
-| ルールの強制力 | ✅️Terraform外の操作であっても有効                                                                                                                                                                                                                                                                                                                                           | ❌️Terraform操作のみが保護対象 ❌️リソース定義がファイルに残っている場合のみ有効。リソース定義ごとファイルから削除した場合は、prevent_destory=falseにしてapplyを経由せずに削除される | ✅️IAM権限で誤操作防止できるため、強い制約を適用できる                                                                        |
-| 運用コスト     | ✅️クラウドプロバイダーが提供する機能で多くのユースケースに向いており、一律有効化しても害は少ない                                                                                                                                                                                                                                                                            | ❌️どのリソースに付与するか設計ポリシーが必要                                                                                                                                        | ❌️設計コスト、運用コストが高い ❌️誤設定の懸念がある                                                                         |
+| #              | （1）クラウドリソース上の削除保護を有効化                                                                                                                                                         | （2）lifecycleブロックの [prevent_destroy](https://developer.hashicorp.com/terraform/tutorials/state/resource-lifecycle)を有効化                                                          | （3）IAM権限で保護                                                                                                            |
+| :------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------- |
+| 説明           | AWSでは、EC2、ALB、RDS、DynamoDBなどで、 [enable_deletion_protection][enable_deletion_protection] や[deletion_protection][deletion_protection] を有効にすると、一度無効化にしないと削除不可となる | `lifecycle {prevent_destroy = true}` を指定することで、リソースの再作成を伴うapplyをエラーで落とすことができる                                                                            | IAM権限で削除操作自体を制限する。特定のリソースのみ削除権限のハードルを上げる設計や、タグと組み合わせて保護する設計が存在する |
+| 視認性         | ✅️管理コンソール上で、設定状況が確認可能                                                                                                                                                         | ⚠️Terraformコード上で確認                                                                                                                                                                 | ❌️IAM権限と突き合わせが必要                                                                                                  |
+| 汎用性         | ❌️対応しているリソースは一部である                                                                                                                                                               | ✅️任意のリソースに適用可能 <br> ✅️Terraform上で一貫性がある定義が可能                                                                                                                   | ✅️削除したくない任意のリソースに対する変更権限をなくすことが可能                                                             |
+| ルールの強制力 | ✅️Terraform外の操作であっても有効                                                                                                                                                                | ❌️Terraform操作のみが保護対象 <br> ❌️リソース定義がファイルに残っている場合のみ有効。リソース定義ごとファイルから削除した場合は、prevent_destory=falseにしてapplyを経由せずに削除される | ✅️IAM権限で誤操作防止できるため、強い制約を適用できる                                                                        |
+| 運用コスト     | ✅️クラウドプロバイダーが提供する機能で多くのユースケースに向いており、一律有効化しても害は少ない                                                                                                 | ❌️どのリソースに付与するか設計ポリシーが必要                                                                                                                                             | ❌️設計コスト、運用コストが高い <br> ❌️誤設定の懸念がある                                                                    |
 
-本ガイドラインの方針は以下の通り。
+[enable_deletion_protection]: https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb#enable_deletion_protection-1
+[deletion_protection]: https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_instance#deletion_protection-1
 
-- ①に該当する削除保護は、一律有効に設定する
-- ②prevent_destory=trueは1の削除保護が存在せず、かつ再作成がありえるが、再作成されたら困るリソースのみに設定する。例えば、AWSでは一部のEC2やAPI Gatewayなどが該当する。削除されたら困るかつ再作成されることはないリソースに対しては、視認性を下げるだけのため指定する必要はない
-- ③重要なS3バケットやVPCネットワーキング系が該当するが、IAM権限の設計が複雑化し、運用難易度が上がるためこれの利用は最低限に抑える
+推奨は以下の通り。
+
+- （1）に該当する削除保護は、一律有効に設定する
+- （2）prevent_destory=trueは1の削除保護が存在せず、かつ再作成がありえるが、再作成されたら困るリソースのみに設定する。例えば、AWSでは一部のEC2やAPI Gatewayなどが該当する。削除されたら困るかつ再作成されることはないリソースに対しては、視認性を下げるだけのため指定する必要はない
+- （3）重要なS3バケットやVPCネットワーキング系が該当するが、IAM権限の設計が複雑化し、運用難易度が上がるためこれの利用は最低限に抑える
 
 ▼例: クラウドリソースの削除保護を有効化
 
@@ -831,7 +858,7 @@ resource "aws_s3_bucket" "important_bucket" {
 
 - [prevent_destroy does not prevent destruction when removing a resource from the configuration · Issue #17599 · hashicorp/terraform · GitHub](https://github.com/hashicorp/terraform/issues/17599)
 - [terraform applyをより安全に実行するためにできること](https://blog.mmmcorp.co.jp/2022/10/31/terraform-apply-safely/) のように、タグとIAM権限で保護する手法がある
-- [AWS S3でバケット自体も中身も削除禁止のバケットを作る \- もりはやメモφ(・ω・ )](https://blog.morihaya.tech/entry/2019/02/02/112211) のように、本気で消したくないのは、 IAM権限でRootアカウントに限って削除不可とする設計が可能
+- [AWS S3でバケット自体も中身も削除禁止のバケットを作る - もりはやメモφ(・ω・ )](https://blog.morihaya.tech/entry/2019/02/02/112211) のように、本気で消したくないのは、IAM権限でRootアカウント以外は削除不可とする設計が可能
 
 # 環境識別子
 
@@ -847,20 +874,23 @@ resource "aws_s3_bucket" "important_bucket" {
 
 Terraformで複数のデプロイメント環境を切り替える方法は下表のように複数案存在する。ここでのバックエンド分離とは、ステートを環境ごとに別のオブジェクトストレージに配備することを指す。
 
-| #                | ①ディレクトリ分離                                                                                                                                                                                                                                       | ②ワークスペース分離                                                                                                                                                                                                                                                                                           | ③変数ファイル分離                                                                |
-| :--------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :------------------------------------------------------------------------------- |
-| 説明             | 環境ごとに異なるディレクトリを作成する方法。環境ごとに差分が大きくなりえる場合に有効。通常はモジュールと組み合わせることが多い。[Googleのベストプラクティス](https://cloud.google.com/docs/terraform/best-practices/root-modules?hl=ja)で推奨されている | Workspaceを利用し、同一構成で異なる状態を管理する方法。環境毎の差分が少なく抑えられる場合に有効。[公式](https://developer.hashicorp.com/terraform/cli/workspaces#when-not-to-use-multiple-workspaces)では単一のバックエンドを利用するときに利用するとあり、環境分離に用いることはやんわり否定している旨がある | 環境ごとに変数ファイルを用意し、apply時に指定する方法。-var-fileの指定が少し手間 |
-| 環境切替手段     | `cd dev`                                                                                                                                                                                                                                                | `terraform workspace select dev`                                                                                                                                                                                                                                                                              | `terraform apply \-var-file="env/dev.tfvars"`                                    |
-| 誤操作対策       | 環境名のディレクトリが表示されるよう、.bashrc などを調整                                                                                                                                                                                                | .bashrcなどにワークスペース表示するロジックを追加                                                                                                                                                                                                                                                             | ❓️ \-var-file の環境名を確認                                                    |
-| モジュール化     | ほぼ必須（ファイルコピーを抑えるため）                                                                                                                                                                                                                  | 任意                                                                                                                                                                                                                                                                                                          | 任意                                                                             |
-| バックエンド分離 | ✅️可能                                                                                                                                                                                                                                                 | ✅️`terraform \-chdir=env/dev init` で可能                                                                                                                                                                                                                                                                    | ✅️`terraform \-chdir=env/dev init` で可能                                       |
-| 柔軟性           | ✅️環境ごとに完全に分離されたファイルを持つため、カスタマイズが容易                                                                                                                                                                                     | ❌️全環境で同一の構成を保つ必要がある場合がある。countで微調整は可能                                                                                                                                                                                                                                          | ❌️全環境で同一の構成を保つ必要がある場合がある。countで微調整は可能             |
-| 保守性           | ✅️モジュールを用いることで、環境毎に愚直にファイルコピーされることは無くなる                                                                                                                                                                           | ✅️実体は全環境で1つにできるため、統制を図りやすい                                                                                                                                                                                                                                                            | ✅️実体は全環境で1つにできるため、統制を図りやすい                               |
-| 設定値の一覧性   | ⚠️環境ごとにファイルが別                                                                                                                                                                                                                                | ✅️locals.tf などに集約                                                                                                                                                                                                                                                                                       | ⚠️環境ごとにファイルが別                                                         |
-| 環境間差異の確認 | ✅️main.tf をdiffで可能                                                                                                                                                                                                                                 | ⚠️countで環境切り替えの有無を確認                                                                                                                                                                                                                                                                             | ⚠️countで環境切り替えの有無を確認                                                |
-| 環境増加の対応   | ✅️環境別のルートモジュールに対して、main.tf などのエントリーポイントを追加                                                                                                                                                                             | ✅️ワークスペースを追加するコマンド実行で済む                                                                                                                                                                                                                                                                 | ✅️変数ファイルの追加のみ                                                        |
+| #                | （1）ディレクトリ分離                                                                                                                                                                         | （2）ワークスペース分離                                                                                                                                                                                                    | （3）変数ファイル分離                                                            |
+| :--------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------- |
+| 説明             | 環境ごとに異なるディレクトリを作成する方法。環境ごとに差分が大きくなりえる場合に有効。通常はモジュールと組み合わせることが多い。[Googleのベストプラクティス][google_practice]で推奨されている | Workspaceを利用し、同一構成で異なる状態を管理する方法。環境毎の差分が少なく抑えられる場合に有効。[公式][workspace]では単一のバックエンドを利用するときに利用するとあり、環境分離に用いることはやんわり否定している旨がある | 環境ごとに変数ファイルを用意し、apply時に指定する方法。-var-fileの指定が少し手間 |
+| 環境切替手段     | `cd dev`                                                                                                                                                                                      | `terraform workspace select dev`                                                                                                                                                                                           | `terraform apply -var-file="env/dev.tfvars"`                                     |
+| 誤操作対策       | 環境名のディレクトリが表示されるよう、.bashrc などを調整                                                                                                                                      | .bashrcなどにワークスペース表示するロジックを追加                                                                                                                                                                          | ❓️ -var-file の環境名を確認                                                     |
+| モジュール化     | ほぼ必須（ファイルコピーを抑えるため）                                                                                                                                                        | 任意                                                                                                                                                                                                                       | 任意                                                                             |
+| バックエンド分離 | ✅️可能                                                                                                                                                                                       | ✅️`terraform -chdir=env/dev init` で可能                                                                                                                                                                                  | ✅️`terraform -chdir=env/dev init` で可能                                        |
+| 柔軟性           | ✅️環境ごとに完全に分離されたファイルを持つため、カスタマイズが容易                                                                                                                           | ❌️全環境で同一の構成を保つ必要がある場合がある。countで微調整は可能                                                                                                                                                       | ❌️全環境で同一の構成を保つ必要がある場合がある。countで微調整は可能             |
+| 保守性           | ✅️モジュールを用いることで、環境毎に愚直にファイルコピーされることは無くなる                                                                                                                 | ✅️実体は全環境で1つにできるため、統制を図りやすい                                                                                                                                                                         | ✅️実体は全環境で1つにできるため、統制を図りやすい                               |
+| 設定値の一覧性   | ⚠️環境ごとにファイルが別                                                                                                                                                                      | ✅️locals.tf などに集約                                                                                                                                                                                                    | ⚠️環境ごとにファイルが別                                                         |
+| 環境間差異の確認 | ✅️main.tf をdiffで可能                                                                                                                                                                       | ⚠️countで環境切り替えの有無を確認                                                                                                                                                                                          | ⚠️countで環境切り替えの有無を確認                                                |
+| 環境増加の対応   | ✅️環境別のルートモジュールに対して、main.tf などのエントリーポイントを追加                                                                                                                   | ✅️ワークスペースを追加するコマンド実行で済む                                                                                                                                                                              | ✅️変数ファイルの追加のみ                                                        |
 
-▼例: ①ディレクトリ分離
+[google_practice]: https://cloud.google.com/docs/terraform/best-practices/root-modules?hl=ja
+[workspace]: https://developer.hashicorp.com/terraform/cli/workspaces#when-not-to-use-multiple-workspaces
+
+▼例: （1）ディレクトリ分離
 
 ```sh
 infrastructure
@@ -880,7 +910,7 @@ infrastructure
           └── ...
 ```
 
-▼例: ②ワークスペース分離（①と比較すると、envフォルダ無し）
+▼例: （2）ワークスペース分離（（1）と比較すると、envフォルダ無し）
 
 ```sh
 infrastructure
@@ -896,7 +926,7 @@ infrastructure
           └── ...
 ```
 
-▼例: ③変数ファイル分離（②と比較すると、ステート単位にenvフォルダと.tfvarsが追加）
+▼例: （3）変数ファイル分離（（2）と比較すると、ステート単位にenvフォルダと.tfvarsが追加）
 
 ```sh
 infrastructure
@@ -918,23 +948,23 @@ infrastructure
 
 推奨は以下の通り。
 
-- ①ディレクトリ分離 を選択する
+- （1）ディレクトリ分離 を選択する
   - ワークスペースを用いないため、Terraform の学習コストを多少なり下げることができる
   - 特定の環境だけにリソースを追加する必要がある場合、count分出来はなくルートモジュール側に追加できる脱出ハッチがあり、柔軟性がある
   - モジュールと組み合わせることで、デプロイメント環境ごとの統制も図りやすい
 - ワークスペースは、環境分離で利用することは公式ドキュメントから推奨されている訳ではないと考えられるため
   - `count = terraform.workspace == "dev" ? 0 : 1` といったコードの頻出により、可読性が低下するため
-  - count制御の場合、どの環境にどのリソースがデプロイされているかの把握が、①のディレクトリ分離より下がるため
+  - count制御の場合、どの環境にどのリソースがデプロイされているかの把握が、（1）のディレクトリ分離より下がるため
 
 ::: tip Terraform Stacks
 
 - [Terraform Stacksの構成要素を図解してみる | DevelopersIO](https://dev.classmethod.jp/articles/terraform-stacks-illustration/)
-- [Terraform Stacks の機能と使い方を紹介 \- APC 技術ブログ](https://techblog.ap-com.co.jp/entry/2024/10/21/190000)
+- [Terraform Stacks の機能と使い方を紹介 - APC 技術ブログ](https://techblog.ap-com.co.jp/entry/2024/10/21/190000)
 
 :::
 
 ::: tip ワークスペース分離を採用した場合  
-過去の経緯などで②ワークスペース分離を採用しているチームも多く、実際これを採用して困ったという話もあまり聞かない。  
+過去の経緯などで（2）ワークスペース分離を採用しているチームも多く、実際これを採用して困ったという話もあまり聞かない。  
 ワークスペース分離の場合、locals.tf は全環境で共用する。そのため環境別の値を保持する場合は以下の例にあるように、変数＞環境の順で定義する
 
 ▼Local Valuesの例
@@ -952,7 +982,6 @@ locals {
 
 resource "aws_lambda_function" "example" {
   # ...中略...
-
   environment {
     variables = {
       LOG_LEVEL = local.ec_order_api.log_level[terraform.workspace]
@@ -963,7 +992,7 @@ resource "aws_lambda_function" "example" {
 
 :::
 
-::: tips ワークスペース分離を採用した場合、ローカル変数の環境別管理  
+::: tip ワークスペース分離を採用した場合、ローカル変数の環境別管理
 もし、locals、variableなどに環境情報をまとめる場合は、上記の順番で記載すること。
 
 ✅ 良い点:
@@ -996,11 +1025,11 @@ locals {
 
 マルチリージョン構成は以下の分類ができる。
 
-| #    | ①一部のサービスのみ利用                                                                                               | ②待機系として構築                                                                            |
+| #    | （1）一部のサービスのみ利用                                                                                           | （2）待機系として構築                                                                        |
 | :--- | :-------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------- |
 | 説明 | us-east-1など一部のリージョンでのみ利用可能なサービスを利用するため、部分的に他リージョンでリソースを構築するパターン | BCP/DR対策として、メインのリージョンと同等のサービスを、WARM/HOTスタンバイさせておくパターン |
 
-①の場合は、以下のように `alias` を指定できる。
+（1）の場合は、以下のように `alias` を指定できる。
 
 ```tf
 provider "aws" {
@@ -1019,18 +1048,18 @@ resource "aws_hogehoge" "sample_resource" {
 }
 ```
 
-②の場合は、 [サービスの多国展開を支えるTerraform構成 | フューチャー技術ブログ](https://future-architect.github.io/articles/20240315a/) を参考にする。
+（2）の場合は、 [サービスの多国展開を支えるTerraform構成 | フューチャー技術ブログ](https://future-architect.github.io/articles/20240315a/) を参考にする。
 
 【参考】
 
-- [かゆいところに手が届く、Terraformの書き方 (configuration_aliasesの使い方) \- Qiita](https://qiita.com/kaedemalu/items/d148c86f901f654f2930)
+- [かゆいところに手が届く、Terraformの書き方 (configuration_aliasesの使い方) - Qiita](https://qiita.com/kaedemalu/items/d148c86f901f654f2930)
 - [Terraform連載2024を開始します & TerraformにおけるDR戦略を考える | フューチャー技術ブログ](https://future-architect.github.io/articles/20240311a/)
 
 # ファイル粒度
 
 ファイルをどの粒度で作成するかについて、複数の手法が存在する。
 
-|            | ①main.tf 集約                                                                                  | ②論理グループ化                                                                         | ③リソース種別分離                                                                                                                                 |
+|            | （1）main.tf 集約                                                                              | （2）論理グループ化                                                                     | （3）リソース種別分離                                                                                                                             |
 | :--------- | :--------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------ |
 | 例         | main.tf <br>---<br>backend.tf <br>providers.tf <br>terraform.tf <br>locals.tf <br>variables.tf | network.tf <br>storage.tf <br>db.tf <br>compute.tf <br>---<br> ・・・                   | s3_bucket.tf <br>s3_bucket_acl.tf <br>s3_bucket_cors_configuration.tf <br>---<br> ・・・                                                          |
 | 説明       | main.tfにリソース定義を一括で記載するケース。                                                  | 何かしらの論理グループごとにmain.tfを分割したパターン。論理グループの作成粒度が肝となる | Terraformのリソース種別ごとにファイルを分割するパターン。例えば、S3バケットを新規作成する場合も、複数のファイルへ定義の追加が必要となる場合がある |
@@ -1040,14 +1069,14 @@ resource "aws_hogehoge" "sample_resource" {
 
 本ガイドラインの推奨は以下。
 
-- ①main.tf 集約を採用する（公式ガイドに則り、`main.tf` `backend.tf` `providers.tf` `terraform.tf` `locals.tf` `variables.tf` などを作成する）
-  - ルートモジュールは、「環境分離」がディレクトリ分離である限り、保守運用観点から原則子モジュールを呼び出すため、子モジュールが適切な抽象化がなされていれば、リソース数は爆発しないはずである
-  - 子モジュールは、モジュール標準構成に則ると①となる
+- （1）main.tf 集約を採用する（公式ガイドに則り、`main.tf` `backend.tf` `providers.tf` `terraform.tf` `locals.tf` `variables.tf` などを作成する）
+  - ルートモジュールは、「環境分離」がディレクトリ分離である限り、保守運用観点から原則子モジュールを呼び出す。子モジュールが適切な抽象化がなされていれば、リソース数は爆発しないはずである
+  - 子モジュールは、モジュール標準構成に則ると（1）となる
 
 ::: tip もし環境分離にワークスペースを用いた場合  
-もし環境分離にワークスペースを採用した場合は、ルートモジュールは③を、子モジュールは①を採用する。ワークスペース利用時は、環境毎のコード統制を取るために、モジュール化を行う積極的なモチベーションは低いと考えられる。そのため、リソース定義が増える傾向にあるためである。
+もし環境分離にワークスペースを採用した場合は、ルートモジュールは（3）を、子モジュールは（1）を採用する。ワークスペース利用時は、環境毎のコード統制を取るために、モジュール化を行う積極的なモチベーションは低いと考えられる。そのため、リソース定義が増える傾向にあるためである。
 
-③の粒度でファイルを作成したが、もしリソース数が多い場合は別の軸でファイルを分割したくなる。推奨は以下の通り。
+（3）の粒度でファイルを作成したが、もしリソース数が多い場合は別の軸でファイルを分割したくなる。推奨は以下の通り。
 
 - 機能分類など論理グループを元に分割を許容する。
   - 例: `lambda_function_foo.tf` と `lambda_function_bar.tf`
@@ -1057,13 +1086,13 @@ resource "aws_hogehoge" "sample_resource" {
 
 # リソースの宣言順
 
-[Style Guide \- Configuration Language \> resource-order](https://developer.hashicorp.com/terraform/language/style#resource-order) に記載があるように、コード内のリソースの定義順はTerraformの実行に影響を与えず、読みやすいよう整理すると良い。Terraformのリソース定義の宣言順は、リソース間に依存関係があれば、依存関係の親から子の順番に記載することが望ましいとされる。リソース定義間の依存が存在しない場合の、宣言順は以下のパターンが考えられる。
+[Style Guide > resource-order](https://developer.hashicorp.com/terraform/language/style#resource-order) に記載があるように、コード内のリソースの定義順はTerraformの実行に影響を与えず、読みやすいよう整理すると良い。Terraformのリソース定義の宣言順は、リソース間に依存関係があれば、依存関係の親から子の順番に記載することが望ましいとされる。リソース定義間の依存が存在しない場合の、宣言順は以下のパターンが考えられる。
 
-| #      | ①グループ化なし                                                                                         | ②グループ化あり                                                                                                                                 |
-| :----- | :------------------------------------------------------------------------------------------------------ | :---------------------------------------------------------------------------------------------------------------------------------------------- |
-| 説明   | .tfファイルに記載する際に、機能分類などの単位で論理的にグルーピングせず、作成しようとした順に並べる方式 | 機能分類などを元に、コメントなどを工夫しリソースの定義順をグルーピングする方式                                                                  |
-| 可読性 | ❌️どこに何があるかわかりにくい                                                                         | ✅️わかりやすい                                                                                                                                 |
-| 難易度 | ✅️容易である                                                                                           | ❌️どういう分類にするか設計の余地があり、後々破綻のリスクがある ❌️誤った分類に記載してしまうリスクがあり、チームメンバーの合意形成や教育が必要 |
+| #      | （1）グループ化なし                                                                                     | （2）グループ化あり                                                                                                                                   |
+| :----- | :------------------------------------------------------------------------------------------------------ | :---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 説明   | .tfファイルに記載する際に、機能分類などの単位で論理的にグルーピングせず、作成しようとした順に並べる方式 | 機能分類などを元に、コメントなどを工夫しリソースの定義順をグルーピングする方式                                                                        |
+| 可読性 | ❌️どこに何があるかわかりにくい                                                                         | ✅️わかりやすい                                                                                                                                       |
+| 難易度 | ✅️容易である                                                                                           | ❌️どのような分類にするか設計の余地があり、後々破綻のリスクがある <br>❌️誤った分類に記載してしまうリスクがあり、チームメンバーの合意形成や教育が必要 |
 
 推奨は以下の通り。
 
@@ -1076,30 +1105,22 @@ resource "aws_hogehoge" "sample_resource" {
 # グループ 1: ユーザ管理機能
 # ==============================
 
-resource "aws_lambda_function" "user_create" {
-  # ・・・
-}
+resource "aws_lambda_function" "user_create" {...}
 
-resource "aws_lambda_function" "user_delete" {
-  # ・・・
-}
+resource "aws_lambda_function" "user_delete" {...}
 
 # ==============================
 # グループ 2: オーダー管理機能
 # ==============================
 
-resource "aws_lambda_function" "order_create" {
-  # ・・・
-}
+resource "aws_lambda_function" "order_create" {...}
 
-resource "aws_lambda_function" "order_cancel" {
-  # ・・・
-}
+resource "aws_lambda_function" "order_cancel" {...}
 ```
 
 グループ化の有無に関わらず、リソース定義の並び順についてはいくつかの方針が考えられる。
 
-| #      | ①作成順                                  | ②アルファベット順                         | ③セマンティック                                                 |
+| #      | （1）作成順                              | （2）アルファベット順                     | （3）セマンティック                                             |
 | :----- | :--------------------------------------- | :---------------------------------------- | :-------------------------------------------------------------- |
 | 説明   | リソースの定義は基本的に追記する方式。   | アルファベット順に並べる方式。            | 重要度順や、CRUD順など何かしらの意味を持たせる方式              |
 | 可読性 | ⚠️場合によっては理解しにくい可能性がある | ✅️マネジメントコンソールに近い表示となる | ✅️ハマれば理解しやすい                                         |
@@ -1108,19 +1129,19 @@ resource "aws_lambda_function" "order_cancel" {
 推奨は以下の通り。
 
 - リソース間に依存関係があれば、依存関係の親から子の順番に記載する
-- 原則、①の作成順で構築する
+- 原則、（1）の作成順で構築する
   - 通常、重要なリソースから順番に作成していくと考えられるため
   - 適切なグループ分けがなされている前提であれば、作成順で十分可読性が高いと考えられるため
   - アルファベット順にしてリソースを途中に差し込むと、Git上のdiffが見にくくなる割に、可読性などに大きく影響しないため
 - `variables.tf` の変数は、アルファベット順に記載する
-  - [Style Guide \- Configuration Language | Terraform | HashiCorp Developer](https://developer.hashicorp.com/terraform/language/style#file-names) にそのように推奨されているため
+  - [Style Guide](https://developer.hashicorp.com/terraform/language/style#file-names) にそのように推奨されているため
 - 以下のリソースの場合は、1に従う必要はない
   - Amazon CloudWatch Logsのように、ある別リソースに対となるようなリソースである場合は、親側のリソース順に合わせて記載する
   - 例えば、CloudWatch Logsの定義を忘れていて後で追加した場合も、親側のリソース順と同じになるように入れ替える
 
 # リソースのパラメータ順
 
-[Style Guide \- Configuration Language \> resource-order](https://developer.hashicorp.com/terraform/language/style#resource-order) に記載がある順序に加え、一部拡張した記載順を推奨する。
+[Style Guide > resource-order](https://developer.hashicorp.com/terraform/language/style#resource-order) に記載がある順序に加え、一部拡張した記載順を推奨する。
 
 1. 存在すれば、countやfor_each
 2. リソースが定義するノンブロックパラメータ
@@ -1174,7 +1195,7 @@ Terraformのコード管理で、複数のステート間で共有したいリ�
 - シンボリックリンク可能なファイルは `terraform.tf` 、 `providers.tf`、のみとする
   - `providers.tf` も、`default_tags` がステート間で異なる場合は共有不可とする
 
-▼シンボリックリンクの例
+▼例: シンボリックリンクの利用
 
 ```sh
 infrastructure
@@ -1195,13 +1216,13 @@ infrastructure
 
 # ファイルレイアウト
 
-[JSON Configuration Syntax \- Terraform](https://developer.hashicorp.com/terraform/language/syntax/json) にあるように、Terraform は `.tf` （HCL）だけではなく、JSONで記載することができる。この場合は、`.tf.json` という拡張子が推奨される。スクリプトなどでコード生成する場合に、JSONの方が扱いやすい場合があるとされる。
+[JSON Configuration Syntax](https://developer.hashicorp.com/terraform/language/syntax/json) にあるように、Terraform は `.tf` （HCL）だけではなく、JSONでも記載できる。この場合は、`.tf.json` という拡張子が推奨される。コード生成する場合、JSONの方が扱いやすい場合があるとされる。
 
 推奨は以下の通り。
 
 - 原則、JSON形式の出力は許可しない。`.tf` 形式で出力する
-  - 出力したコードも、通常チームでコードレビューを行う必要があり、少しでも可読性を上げたいため
-  - JSON形式でもコメントは `//` プロパティで可能だが、少し独自な仕様であるため（【参考】 [JSON Configuration Syntax \- Terraform](https://developer.hashicorp.com/terraform/language/syntax/json#comment-properties)）
+  - 出力したコードも、通常チームでコードレビューする必要があり、少しでも可読性を上げたいため
+  - JSON形式でもコメントは `//` プロパティで可能だが、少し独自な仕様であるため（【参考】 [JSON Configuration Syntax](https://developer.hashicorp.com/terraform/language/syntax/json#comment-properties)）
 - 以下の場合に全て該当する場合は、部分的に JSON形式を許容する
   - Terraformコードがツールから作成され、直接開発者がメンテナンスしない運用フローが確立されている場合
   - どうしても、 `.tf` （`.hcl`）形式の出力が難しい場合
@@ -1231,7 +1252,7 @@ infrastructure
 ```
 
 ::: tip ステートを分離した場合のmodules配下のディレクトリ設計  
-`app` `network` などステートを分離した場合、 `app` あるいは `network` それぞれからしか呼ばれないモジュールとなる。その場合、 `modules/app` `modules/network` といった構成を取りたくなるかもしれないが、フラットで管理して良い。モジュールの命名で区別がつくことが多いため。  
+`app` `network` などでステートを分離した場合、それぞれからしか呼ばれないモジュールが大半である。その場合、 `modules/app` `modules/network` といった構成を取りたくなるかもしれないが、フラットで管理する。モジュールの命名で区別がつくことが多いため支障は無い。  
 :::
 
 ## モジュール化対象
@@ -1242,7 +1263,7 @@ infrastructure
 
 - デプロイ・破棄・更新頻度が同等である（≒ライフサイクルが同じである）リソースを同じモジュールとする
 - ライフサイクルが異なるものは、将来的な拡張性を高めるためにモジュールを分離する
-- 単一のリソースをラップしたモジュール（抽象度が低いモジュール）は作成しない（例えば、5リソース以上を目処とする。具体的な数値はチームごとに決定する）
+- 単一のリソースをラップしたモジュール（抽象度が低いモジュール）は作成しない（例えば、5～10リソース以上を目処とする。具体的な数値はチームごとに決定する）
   - モジュールの抽象度が低い場合は、環境毎の `main.tf` に直接記載する
   - ただし、for_each化したリソースから呼ばれている場合は1箇所から呼ばれていてもモジュール化を許容する
   - 全てモジュール化しようといった、原理主義化しない（良い抽象化が思いつかない場合は、環境毎のmain.tf に直接書いて良い）
@@ -1256,7 +1277,6 @@ infrastructure
 ```tf
 module "module2_instance" {
   source = "../module2"
-
   # ...中略...
 }
 
@@ -1302,7 +1322,7 @@ variable "instance_count" {
 
 【参考】
 
-- [Terraform Module Designs \- Speaker Deck](https://speakerdeck.com/tmknom/terraform-module-designs)
+- [Terraform Module Designs - Speaker Deck](https://speakerdeck.com/tmknom/terraform-module-designs)
 
 ## 機能配置
 
@@ -1326,10 +1346,10 @@ variable "instance_count" {
 推奨は以下の通り。
 
 - 原則、利用禁止とする
-  - プロジェクト固有の拡張を行う必要がある場合に、対応できないケースが多い
+  - プロジェクト固有の拡張が必要な場合に、対応できないケースが多い
     - サードパーティモジュールからリソースの差異がある場合のハンドリングが難しいため
   - モジュールの削除、非公開化のリスクがある
-    - コードをフォークなどで緩和可能だが、コードの保守運用が発生しメリットが減少する
+    - コードのフォークなどで緩和可能だが、保守運用が発生しメリットが減少する
     - 予期しないモジュールの更新により、期待したリソースの作成ができなくなることを防ぐため
   - 可読性の向上のため
     - サードパーティモジュールは汎用的に書かれていることが多く、自身で不要なパラメータについてもチェック対象になりうるため
@@ -1340,7 +1360,7 @@ variable "instance_count" {
 
 # カスタムメッセージ
 
-[precondition、postcondition](https://developer.hashicorp.com/terraform/language/expressions/custom-conditions)を利用することで、事前条件、事後条件を設定することができる。`validation`との違いを下表にまとめる。
+[precondition、postcondition](https://developer.hashicorp.com/terraform/language/expressions/custom-conditions)を利用することで、事前条件、事後条件を設定できる。`validation`との違いを下表にまとめる。
 
 | #              | validation                                             | precondition                                        | postcondition                                                                  |
 | :------------- | :----------------------------------------------------- | :-------------------------------------------------- | :----------------------------------------------------------------------------- |
@@ -1391,13 +1411,11 @@ resource "aws_instance" "example" {
 
 # ステート保管方法
 
-ステートファイルは誤削除や破損すると復旧が困難である。また「機密情報」章のとおり、機微な情報が含まれる場合があるため、適切な管理が必要である。
+ステートファイルは誤削除や破損すると復旧が困難である。また「機密情報」章のとおり、機微な情報が含まれる場合に備え、適切な管理が必要である。
 
-ステートの保管方法として、ローカル／リモートステート化の2つの方法が存在する。
+ステートの保管方法として、ローカルまたはリモートステートの方法が考えられる。
 
-▼ローカル・リモート
-
-| #        | ①ローカル保存                                                 | ②リモートステート化                                       |
+| #        | （1）ローカル保存                                             | （2）リモートステート化                                   |
 | :------- | :------------------------------------------------------------ | :-------------------------------------------------------- |
 | 説明     | 自PCのローカルディスクに保存する。Git管理と合わせることが多い | クラウドのオブジェクトストレージ等に保存する              |
 | 手軽さ   | ✅️Backendの設定・構築が必要なくすぐに始められる              | ❌️事前にBackendとなるオブジェクトストレージの設定が必要  |
@@ -1407,7 +1425,7 @@ resource "aws_instance" "example" {
 
 推奨は以下の通り。
 
-- ②のリモートステート化が必須
+- （2）のリモートステート化が必須
 - オブジェクトストレージにステートを保管する
 - ステート専用のバケットを用意しアクセス権を適切に設定する（他用途のバケットに相乗りしない）
 - バケットには削除保護や、バージョニング設定を必須とする（古いバージョンも改廃せず、無期限で良い）
@@ -1415,25 +1433,24 @@ resource "aws_instance" "example" {
   - 以前はロック機能を使用するためにDynamoDBが必要だったがv1.10から不要になった
   - （例）[Terraform v1.10 からは S3 Backend の State Lock に DynamoDB が必要なくなる](https://zenn.dev/terraform_jp/articles/terraform-s3-state-lock)
 
-また、リモートステートの場合、デプロイメント環境ごとのステートファイルをどのように管理すべきか、下表の方式が考えられる。
+また、リモートステートの場合、デプロイメント環境ごとのステートファイルをどのように管理すべきか、中央集権型または分離型の方式が考えられる。
 
-▼中央集権型・分離型
+| #            | （1）中央集権型                                                                                                     | （2）分離型                                                                                                                          |
+| :----------- | :------------------------------------------------------------------------------------------------------------------ | :----------------------------------------------------------------------------------------------------------------------------------- |
+| 説明         | ステートファイルを一か所のストレージで集中管理する                                                                  | 環境別・ロール別で管理する。オブジェクトストレージも環境別に分離する                                                                 |
+| 管理コスト   | ✅️prod環境等で厳重に管理することでアクセス権限の管理を容易にする                                                   | ❌️管理対象が分散し手間が増える                                                                                                      |
+| セキュリティ | ✅️prod環境等で厳重に管理することでアクセス権限の管理を容易にする                                                   | ✅️環境別にアクセス権を与えることで、きめ細かい権限管理を実現 <br> ✅️分散管理することで破壊的な操作や外部攻撃からの影響を限定できる |
+| 柔軟性       | ❌️全環境、一律であるためデプロイメント環境によって、承認フローが同一とならざるを得ないため、開発推進の面でマイナス | ✅️開発環境だけ、手動でのデプロイを許容するといった柔軟な対応が可能                                                                  |
 
-| #            | ①中央集権型                                                                                                         | ②分離型                                                                                                                         |
-| :----------- | :------------------------------------------------------------------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------ |
-| 説明         | ステートファイルを一か所のストレージで集中管理する                                                                  | 環境別・ロール別で管理する。オブジェクトストレージも環境別に分離する                                                            |
-| 管理コスト   | ✅️prod環境等で厳重に管理することでアクセス権限の管理を容易にする                                                   | ❌️管理対象が分散し手間が増える                                                                                                 |
-| セキュリティ | ✅️prod環境等で厳重に管理することでアクセス権限の管理を容易にする                                                   | ✅️環境別にアクセス権を与えることで、きめ細かい権限管理を実現 ✅️分散管理することで破壊的な操作や外部攻撃からの影響を限定できる |
-| 柔軟性       | ❌️全環境、一律であるためデプロイメント環境によって、承認フローが同一とならざるを得ないため、開発推進の面でマイナス | ✅️開発環境だけ、手動でのデプロイを許容するといった柔軟な対応が可能                                                             |
+推奨は以下の通り。
 
-本ガイドラインの方針は以下の通り。
-
-- ②の環境別(prod,stg,dev)に分けて管理する
+- （2）の環境別(prod,stg,dev)に分けて管理する
+  - CI/CDでの利用を想定すると相性が良いため
 
 # ステートの粒度
 
 同一デプロイメント環境に対して、ある論理的なグループに従ってTerraformのステートを分割することがある。  
-ステートの分割を行うと下表のようなメリット、デメリットがある。
+ステートの分割は下表のようなメリット、デメリットがある。
 
 | 観点             | ステートを細かく分割する                                                                                  | ステートを大きな単位で持つ                                              |
 | :--------------- | :-------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------- |
@@ -1456,7 +1473,7 @@ resource "aws_instance" "example" {
 
 - 以下の技術レイヤーごとに分離する
   - ネットワーク（共有部分）、システム管理（クラウドアカウント設定、踏み台）、各アプリケーションの3レイヤーで分割（あるいは、ネットワークとその他の2レイヤーに分割）。ネットワークなど一度作成したらめったに変更しないものと、アプリで利用するコンピュート系は、ライフサイクルが大きく異なるため、一緒にするべきではない
-  - アプリで用いるコンピュート系リソースと、DB系リソースは分離する必要はない（結合度が高く、同じ単位で管理すると都合が良いことが多いため）
+  - アプリで用いるコンピュート系リソースと、DB系リソースは分離する必要はない（結合度が高く、同じ単位で管理すると多くのケースで都合が良い）
 - 開発チームが異なる（オーナーが異なる）場合は、ステートを分ける。同一チームで開発する場合は、ステートを分離する必要はない
 
 以下に例を上げる。
@@ -1524,19 +1541,19 @@ data "aws_subnet" "foo_example" {
 
 ▼リモートステートを保持するバケットの作成案
 
-|                | ①手組み                                                                                       | ②backend無しのterraformコマンド経由                                                                                                                                                                                                                                                                                         |
-| :------------- | :-------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 説明           | バケットを手動（管理コンソールまたはCLI）で作成する方式                                       | Terraform経由で、リモートステート用のバケットも作成する方法。 `-backend=false` にし、ステートファイルはGitコミットする方式。ステートファイルをGitコミットするのは避けた方が良い手順だが、バケットのみであれば1人しか操作しないためまず問題ない。あとから、terraform init \-backend-configでバックエンドを指定することも可能 |
-| 構築コスト     | ✅️構築は楽である                                                                             | ❌️少しトリッキーな運用が必要                                                                                                                                                                                                                                                                                               |
-| 引き継ぎコスト | ❌️バケットオプション（世代数やバックアップ設定）などの設定が、手順書などに記録する必要がある | ✅️構築手順書を最小化できる                                                                                                                                                                                                                                                                                                 |
-| 一貫性         | ❌️CLIやシェルスクリプトなど、インフラ構築のパターンが増えてしまう                            | ✅️Terraform上に完結することができる（各種インフラ設定がTerraformコード上に残る）                                                                                                                                                                                                                                           |
+|                | （1）手組み                                                                                   | （2）backend無しのterraformコマンド経由                                                                                                                                                                                                                                                                                    |
+| :------------- | :-------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 説明           | バケットを手動（管理コンソールまたはCLI）で作成する方式                                       | Terraform経由で、リモートステート用のバケットも作成する方法。 `-backend=false` にし、ステートファイルはGitコミットする方式。ステートファイルをGitコミットするのは避けた方が良い手順だが、バケットのみであれば1人しか操作しないためまず問題ない。あとから、terraform init -backend-configでバックエンドを指定することも可能 |
+| 構築コスト     | ✅️構築は楽である                                                                             | ❌️少しトリッキーな運用が必要                                                                                                                                                                                                                                                                                              |
+| 引き継ぎコスト | ❌️バケットオプション（世代数やバックアップ設定）などの設定が、手順書などに記録する必要がある | ✅️構築手順書を最小化できる                                                                                                                                                                                                                                                                                                |
+| 一貫性         | ❌️CLIやシェルスクリプトなど、インフラ構築のパターンが増えてしまう                            | ✅️Terraform上に完結することができる（各種インフラ設定がTerraformコード上に残る）                                                                                                                                                                                                                                          |
 
 推奨は以下の通り。
 
-- ②のbackend無しのterraform実行でバケットを作成する
+- （2）のbackend無しのterraform実行でバケットを作成する
   - 構築をできる限りコードベースで管理することの利点が大きく、デメリットが少ないため
   - 通常、複数の環境を構築する必要があるため、手動の手順を最小限にとどめておくことの利点が大きいため
-- ただし、Terraform経由での構築に統一するというポリシーに魅力を感じない場合、実利的に①を選択しても良い
+- ただし、Terraform経由での構築に統一するというポリシーに魅力を感じない場合、実利的に（1）を選択しても良い
 
 ## Terraform構築対象
 
@@ -1570,11 +1587,11 @@ Terraformを用いてIaC化する利点は数多く存在するが、以下の�
 
 # Providerが対応していない場合
 
-AWS、Google Cloud、Azureなどのクラウドでは新機能が活発にリリースされ、それらを上手く取り入れていくことが競争力に繋がる。TerraformのProviderも新機能が出る度に開発が行われるが、場合によってはまだ対応が完了していない機能を利用したい場合がある。もちろん、Provider側の開発にコントリビューションするなど様々な活動が考えられるが、業務としては現実的には何かしらの手段で凌ぐ必要がある場合が多い。
+AWS、Google Cloud、Azureなどクラウドでは新機能が活発にリリースされ、上手く取り入れることが競争力に繋がる。TerraformのProviderも新機能が出る度に開発が行われるが、Providerが未リリースの機能を利用したい場合がある。もちろん、Provider側の開発にコントリビューションするなど様々な活動が考えられるが、業務では何かしらの手段で凌ぐ必要がある場合が多い。
 
 このような場合は以下の対応案が考えられる。
 
-| #          | ①Terraform以外の手段で凌ぐ                                                                                                      | ②terraform_dataとlocal-exec                                                                                     |
+| #          | （1）Terraform以外の手段で凌ぐ                                                                                                  | （2）terraform_dataとlocal-exec                                                                                 |
 | :--------- | :------------------------------------------------------------------------------------------------------------------------------ | :-------------------------------------------------------------------------------------------------------------- |
 | 説明       | Provider側の対応ができるまで、管理コンソール上・Ansibleなどで管理する。Provider側が対応したら、過渡期対応のスクリプトを削除する | Terraformの `terraform_data` と `local-exec` プロビジョナを利用し、スクリプトを実行してリソースを作成・管理する |
 | 構築コスト | ✅️構築の難易度が最も低く、急ぎ利用可能                                                                                         | ❌️Terraformのお作法に沿ったスクリプト設計が必要（destoryも実装するなど）                                       |
@@ -1583,7 +1600,7 @@ AWS、Google Cloud、Azureなどのクラウドでは新機能が活発にリリ
 
 推奨は以下の通り。
 
-- 最新のバージョンでもProviderが対応していないは、②terraform_dataとlocal-exec を利用して構築する
+- 最新のバージョンでもProviderが対応していないは、（2）terraform_dataとlocal-exec を利用して構築する
 - Providerが正規で対応している場合は、terraform_dateを利用せず正規の機能で定義する
 - terraform_dataとlocal-execを利用する場合は、下表の設計ルールに従う
 
@@ -1594,7 +1611,7 @@ AWS、Google Cloud、Azureなどのクラウドでは新機能が活発にリリ
 | 1   | 実行コマンドが複数行になる場合は、別ファイルに切り出す | 複数行に及ぶ場合は、ヒアドキュメントではなく、スクリプトとして切り出す。1行のコマンドだけであれば、埋め込んでも良いが、オプションが長くなると可読性が長くなるため、別ファイル化を推奨する |
 | 2   | スクリプトの格納場所                                   | `{.tfファイルがあるディレクトリ}/scripts/` 配下に統一                                                                                                                                     |
 | 3   | ファイル名                                             | 作成: `create_xxx_resource.sh` 削除: `delete_xxx_resource.sh`                                                                                                                             |
-| 4   | 権限                                                   | 実行権限を忘れないこと。特にWindowsユーザはGit上で権限情報もコミットすること。 git update-index \--add \--chmod=+x [filename]                                                             |
+| 4   | 権限                                                   | 実行権限を忘れないこと。特にWindowsユーザはGit上で権限情報もコミットすること。 git update-index --add --chmod=+x [filename]                                                               |
 | 5   | スクリプトのLinter                                     | スクリプトには[ShellCheck](https://future-architect.github.io/articles/20210329/)などの静的解析をかける                                                                                   |
 | 6   | terraform_data                                         | `terraform_data` の命名は一貫性を持たせる。例えば、`custom_xxx_resource` など                                                                                                             |
 | 7   | パラメータは環境変数を利用                             | スクリプトに渡すパラメータは、環境変数として渡す                                                                                                                                          |
@@ -1652,9 +1669,9 @@ Terraform上で管理すべきバージョンは以下2種類存在する。
 
 なお、モジュールについてのバージョンは「モジュール」章を参照すること。
 
-### 1\. Terraform自体のバージョン管理
+### 1. Terraform自体のバージョン管理
 
-Terraformはバージョンアップとともに、新しい構文や機能のサポートが追加されることが多く、チーム内で異なるバージョンを利用しているメンバーがいると、ある人の環境では動くが、他の人の環境では動かないといった問題がでてきてしまう。また、何かTerraformを用いたインフラ構築で不具合が出た際の再現性にも難があるため、利用バージョンの管理方式は重要である。例えば、以下のように `required_version` を指定することで、`1.10.0` 以上 `1.11.0` 未満であることを強制できる（※ `\~\>` の挙動については [Version Constraints \- Configuration Language | Terraform | HashiCorp Developer](https://developer.hashicorp.com/terraform/language/expressions/version-constraints) を参照）。他にもバージョンの完全一致を求める `=1.10.0` や、一定のバージョン以上であればメジャーバージョン違いも許容する `\>= 1.10.0` などを指定する流派がある。
+Terraformはバージョンアップとともに、新しい構文や機能のサポートが追加されることが多く、チーム内で異なるバージョンを利用しているメンバーがいると、ある人の環境では動くが、他の人の環境では動かないといった問題がでてきてしまう。また、何かTerraformを用いたインフラ構築で不具合が出た際の再現性にも難があるため、利用バージョンの管理方式は重要である。例えば、以下のように `required_version` を指定することで、`1.10.0` 以上 `1.11.0` 未満であることを強制できる（※ `~>` の挙動については [Version Constraints](https://developer.hashicorp.com/terraform/language/expressions/version-constraints) を参照）。他にもバージョンの完全一致を求める `=1.10.0` や、一定のバージョン以上であればメジャーバージョン違いも許容する `>= 1.10.0` などを指定する流派がある。
 
 ```tf
 terraform {
@@ -1687,14 +1704,14 @@ terraform {
 - `required_version` での指定は、 `= x.y.z` のように完全一致させる
   - 実際に利用するバージョンは `.terraform-version` で制御するため、同期を取ることで不要な混乱を防ぐ
   - メンバー間やCI・ローカル環境間で、パッチバージョン違いによる挙動の差を無くす
-  - メジャー、マイナー、パッチのどのバージョンアップでも、 `required_version` と `.terraform-version` の両方の変更を行うという運用で統一するため（パッチバージョンアップの場合は、 `required_version` の変更はしなくても良い、とすると手順漏れが出やすいため
+  - メジャー、マイナー、パッチのどのバージョンアップでも、 `required_version` と `.terraform-version` の両方を変更するという運用で統一するため（パッチバージョンアップの場合は、 `required_version` の変更はしなくても良い、とすると手順漏れが出やすいため
 - Windowsの場合はWSL上で開発する方針であることかつ、OpenTofuを利用しない場合は、枯れたtfenvを利用する
   - tfenv自体を更新する作業が発生した場合に面倒であるため、枯れた方が管理上、利便性が高い場面が多いため
   - tfenvで困るケース~~は~~の場合は、tenvを導入する
 
-### 2.Providerのバージョン管理
+### 2. Providerのバージョン管理
 
-公式のスタイルガイド（[Style Guide \- Configuration Language | Terraform | HashiCorp Developer](https://developer.hashicorp.com/terraform/language/style#version-pinning)）では、Providerはメジャーバージョン、マイナーバージョンを固定することが推奨とある。
+公式のスタイルガイド（[Style Guide](https://developer.hashicorp.com/terraform/language/style#version-pinning)）では、Providerはメジャーバージョン、マイナーバージョンを固定することが推奨とある。
 
 推奨は以下の通り。
 
@@ -1710,23 +1727,23 @@ Terraform自体は2～3回/年のペースで、新しいマイナーバージ�
 
 これとは別に、現場でよく採用されるバージョンアップの運用には以下3パターンが存在する。
 
-| 観点         | ①塩漬け運用                                                                                                                                                     | ②定次バージョンアップ                                                                                           | ③常に最新バージョン追随                                                                                                                                                                                                                    |
-| :----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 説明         | 基本的にはバージョンを固定し運用する。TerraformやProviderの新しいバージョンを利用する必要がある場合のみ、スポットの作業でバージョンを上げる                     | 1～4回/年の間隔で、定期的にバージョンアップする運用。予めバージョンアップ対応を計画時に埋め込みやすい利点がある | 最新のTerraformがリリースされ、周辺のエコシステムの対応が出揃ったタイミングでバージョンを上げるパターン                                                                                                                                    |
-| 運用コスト   | ✅️最小である                                                                                                                                                   | ⚠️契約時や、当初作業計画に織り込んでおく必要がある                                                              | ❌️リリースタイミングが読み切れないことが多く、計画への組み込みがしにくい。利用するProvider種別によっては頻度も高い ❌️Terraformリリースしてすぐのタイミングでは、不具合対応に寄るパッチリリースが多く、業務利用として安定性には懸念がある |
-| 開発生産性   | ❌️新しい機能が使えず、AIコード支援範囲が低下、調査工数が余計にかかるリスク ❌️VScodeのエクステンションによるバリデーションチェックと一致しなくなる             | ✅️一定間隔で新バージョンの利用が可能となり、生産性が高まりやすい                                               | ✅️最新機能を利用でき、開発生産性を上げることに繋げやすい ❌️Terraformリリースしてすぐのタイミングでは、不具合対応に寄るパッチリリースが多く、業務利用として安定性には懸念がある                                                           |
-| 作業難易度   | ❌️一度に大きくバージョンを上げることが多く、事故や予期せぬ不具合による調査工数がかかることが多い（それにより、さらにバージョンアップに消極的になる懸念がある） | ✅️影響度切り分けが比較的行いやすく、ナレッジ蓄積が可能                                                         | ✅️影響度切り分けが最も行いやすく、ナレッジ蓄積が可能                                                                                                                                                                                      |
-| セキュリティ | ❌️脆弱性が含まれるバージョンを利用し続けるセキュリティ上のリスク                                                                                               | ⚠️一定の間隔で更新することで、リスク軽減できる                                                                  | ✅️常に最新のセキュリティ対応が入ったバージョンを利用できる                                                                                                                                                                                |
+| 観点         | （1）塩漬け運用                                                                                                                                                 | （2）定次バージョンアップ                                                                                       | （3）常に最新バージョン追随                                                                                                                                                                                                                     |
+| :----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 説明         | 基本的にはバージョンを固定し運用する。TerraformやProviderの新しいバージョンを利用する必要がある場合のみ、スポットの作業でバージョンを上げる                     | 1～4回/年の間隔で、定期的にバージョンアップする運用。予めバージョンアップ対応を計画時に埋め込みやすい利点がある | 最新のTerraformがリリースされ、周辺のエコシステムの対応が出揃ったタイミングでバージョンを上げるパターン                                                                                                                                         |
+| 運用コスト   | ✅️最小である                                                                                                                                                   | ⚠️契約時や、当初作業計画に織り込んでおく必要がある                                                              | ❌️リリースタイミングが読み切れないことが多く、計画への組み込みがしにくい。利用するProvider種別によっては頻度も高い <br> ❌️Terraformリリースしてすぐのタイミングでは、不具合対応に寄るパッチリリースが多く、業務利用として安定性には懸念がある |
+| 開発生産性   | ❌️新しい機能が使えず、AIコード支援範囲が低下、調査工数が余計にかかるリスク <br> ❌️VScodeのエクステンションによるバリデーションチェックと一致しなくなる        | ✅️一定間隔で新バージョンの利用が可能となり、生産性が高まりやすい                                               | ✅️最新機能を利用でき、開発生産性を上げることに繋げやすい <br> ❌️Terraformリリースしてすぐのタイミングでは、不具合対応に寄るパッチリリースが多く、業務利用として安定性には懸念がある                                                           |
+| 作業難易度   | ❌️一度に大きくバージョンを上げることが多く、事故や予期せぬ不具合による調査工数がかかることが多い（それにより、さらにバージョンアップに消極的になる懸念がある） | ✅️影響度切り分けが比較的行いやすく、ナレッジ蓄積が可能                                                         | ✅️影響度切り分けが最も行いやすく、ナレッジ蓄積が可能                                                                                                                                                                                           |
+| セキュリティ | ❌️脆弱性が含まれるバージョンを利用し続けるセキュリティ上のリスク                                                                                               | ⚠️一定の間隔で更新することで、リスク軽減できる                                                                  | ✅️常に最新のセキュリティ対応が入ったバージョンを利用できる                                                                                                                                                                                     |
 
 推奨は以下の通り。
 
-- ②の一定周期でのバージョンアップ方式を採用する
+- （2）の一定周期でのバージョンアップ方式を採用する
   - セキュリティ観点でも、脆弱性が含まれるバージョンを使用し続けるのはガバナンス上、問題とされることが多い
   - 3ヶ月～半年程度の間隔で定期的に行うことで、経験を積み、バージョンを上げることに対して自信をつける
   - 一定間隔で組み込むことで、計画にも組み込みやすい
   - Terraform自体と、Providerの2つのバージョンを合わせて実施するか、あるいは交互に上げるなど、詳細なルールはチームにマッチした方法を検討すると良い
 
-（参考）[チーム開発におけるTerraformバージョンアップ戦略 \- TECHSCORE BLOG](https://blog.techscore.com/entry/2023/12/15/080000)
+【参考】[チーム開発におけるTerraformバージョンアップ戦略 - TECHSCORE BLOG](https://blog.techscore.com/entry/2023/12/15/080000)
 
 ## 自動バージョン更新ツール
 
@@ -1737,7 +1754,7 @@ DependabotやRenovateを利用することで、TerraformやProviderの新しい
 - バージョンアップは「バージョンアップポリシー」節で記載通り、定次で行う方針である。そのためBOTによるプルリクエスト通知は行わない
   - バージョンアップを行う時期を予め決めておくこと方針であるため、ノイズにしかならないため
 
-（参考） [Dependabot で Terraform Provider を自動的にアップデートしよう \- kakakakakku blog](https://kakakakakku.hatenablog.com/entry/2024/02/29/215713)
+【参考】 [Dependabot で Terraform Provider を自動的にアップデートしよう - kakakakakku blog](https://kakakakakku.hatenablog.com/entry/2024/02/29/215713)
 
 ## バージョンアップ時の動作検証
 
@@ -1745,7 +1762,7 @@ Terraformについてはマイナーアップデートの対応がメインだ�
 
 作業フローは以下が参考になる。
 
-▼[「楽」する前のTerraformバージョンアップ方針と運用整理（とポエム） \- 東京ガス内製開発チーム Tech Blog](https://tech-blog.tokyo-gas.co.jp/entry/2024/05/07/113451) の記事から引用
+▼[「楽」する前のTerraformバージョンアップ方針と運用整理（とポエム） - 東京ガス内製開発チーム Tech Blog](https://tech-blog.tokyo-gas.co.jp/entry/2024/05/07/113451) の記事から引用
 
 ![](image1.jpg)
 
@@ -1753,13 +1770,19 @@ Terraformについてはマイナーアップデートの対応がメインだ�
 
 2023年10月にリリースされた v1.6.0で `terraform test` がリリースされた。これにより、サードパーティ製のテストフレームワークである [Terratest などを](https://terratest.gruntwork.io/)扱う場合より、容易にテストを実行しやすい環境が整ってきた。`terraform test` で用いる run ブロックは、commandフィールドの値によって、 `plan` の結果のみでテストを行うか、`apply` で実際にリソースを作成した値でテストを行うか決定できる。
 
-```tf
--- s3_bucket.tf --
+:::code-group
+
+```tf [s3_bucket.tf]
 resource "aws_s3_bucket" "test001" {
   bucket = "${terraform.workspace}-${local.project_name}-test001"
 }
+```
 
--- s3_bucket.tftest.hcl --
+:::
+
+:::code-group
+
+```tf [s3_bucket.tftest.hcl]
 run "test" {
   command = plan
 
@@ -1778,7 +1801,7 @@ run "test" {
 
 下表で自動テストの4分類についてまとめる。
 
-| #            | ①ユニットテスト                                                                                                   | ②コントラクトテスト                                                                                                                                                                                                                              | ③インテグレーションテスト                                         | ④エンドツーエンドテスト                                                                                                                                                                                                                            |
+| #            | （1）ユニットテスト                                                                                               | （2）コントラクトテスト                                                                                                                                                                                                                          | （3）インテグレーションテスト                                     | （4）エンドツーエンドテスト                                                                                                                                                                                                                        |
 | :----------- | :---------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 別名         | 単体テスト                                                                                                        | 契約テスト                                                                                                                                                                                                                                       | 結合テスト                                                        | E2Eテスト                                                                                                                                                                                                                                          |
 | 説明         | リソースやモジュールに対して、`terraform test` の `plan` モードで実行し、例えばリソース名などが想定通りか確認する | モジュールに対するテスト。Input variable validation や [Preconditions and Postconditions](https://developer.hashicorp.com/terraform/language/expressions/custom-conditions?product_intent=terraform#preconditions-and-postconditions) で検証する | 複数のTerraformモジュールやリソースが正しく連携して動作するか確認 | [Check blocks](https://developer.hashicorp.com/terraform/language/checks)を用いて構築したインフラリソースの検証を行う。例えば、特定のエンドポイントにHTTPリクエストを送信し、ステータスコードが200であることや、証明書の期限チェックなどを検証可能 |
@@ -1786,7 +1809,7 @@ run "test" {
 | 利用コマンド | `terraform test` (command=plan)                                                                                   | `terraform plan` `terraform apply`                                                                                                                                                                                                               | `terraform test` (command=apply)                                  | `terraform plan` `terraform apply`                                                                                                                                                                                                                 |
 | テストサイズ | Large（※モック化しない場合）                                                                                      | Large                                                                                                                                                                                                                                            | Large                                                             | Large                                                                                                                                                                                                                                              |
 
-補足として、④エンドツーエンドテストで、以下のようなインフラ監視に近い項目も検知可能である。
+補足として、（4）エンドツーエンドテストで、以下のようなインフラ監視に近い項目も検知可能である。
 
 - AWS Budgesで予算を超過していないか
 - IAMロールがN日以上、未使用な状態になっていないか
@@ -1796,21 +1819,21 @@ run "test" {
 
 推奨は以下の通り。
 
-- `terraform test` （ユニットテスト、インテグレーションテスト）に原則、頼らない構築を行う
+- `terraform test` （ユニットテスト、インテグレーションテスト）に原則、頼らない
   - 通常、インフラ構築後にアプリケーションの動作確認を行い、要件を満たせれば良いはずである（逆に、Terraform上ではIaCとして想定通りの構築ができたとしても、アプリケーションが動かない場合は修正が必要となる）
   - プラットフォームエンジニアリングのように、特定のインフラ環境を生成するようなサービスを提供する。つまり、インフラ作成そのものが重要である場合は、`terraform test` を利用すると良い
-- ①ユニットテスト（※もし、実施する場合）
+- （1）ユニットテスト（※もし、実施する場合）
   - カレントディレクトリまたは、`tests/` にテストコードが配備可能だが、カレントディレクトリに配備すること
   - リソース種別単位のファイル名の規則に従っている場合、`s3_bucket.tftest.hcl` といったファイル名にする
   - テスト対象は、文字列結合や関数など複雑なロジックが入っているリソースやモジュールのみに絞り、テストコード量は必要最小限に絞ること（運用コストが高いため）
-- ②コントラクトテスト
+- （2）コントラクトテスト
   - 「バリデーション」章 の内容に準じる
-- ③インテグレーションテスト（※もし、実施する場合）
+- （3）インテグレーションテスト（※もし、実施する場合）
   - カレントディレクトリまたは、`tests/` にテストコードが配備可能だが、カレントディレクトリに配備すること
   - リソース種別単位のファイル名の規則に従っている場合、`s3_bucket.tftest.hcl` といったファイル名にする（ユニットテストと同一ファイルに混在することもありえる）
   - リソースを create & destory するため非常にコストが高いため、できる限り作成しない
   - mockの扱いについては、学習コストが高いため、費用対効果をよく確認して利用する
-- ④エンドツーエンドテスト
+- （4）エンドツーエンドテスト
   - インフラ監視と重複する項目はテストしない
     - terraformコマンドにインフラ構築で、保証したい内容のみを記述する。例えば監視側で検知すると、多くはチケット管理システムに起票され、運用フローに乗せて対応するが、terraform側のE2Eテストで検知した場合には、即時対応するか手動でチケット登録する必要があり手間である
   - 信用しすぎない
@@ -1825,7 +1848,7 @@ run "test" {
 
 - [Test Sizes](https://testing.googleblog.com/2010/12/test-sizes.html)
 - [Terraform連載2024 テストとモックを使ってみる | フューチャー技術ブログ](https://future-architect.github.io/articles/20240321a/)
-- [Terraformテスト入門 \- Speaker Deck](https://speakerdeck.com/msato/terraform-test)
+- [Terraformテスト入門 - Speaker Deck](https://speakerdeck.com/msato/terraform-test)
 
 # 性能
 
@@ -1833,7 +1856,7 @@ run "test" {
 
 ## リモートステートの最適化
 
-`terraform state` などのコマンドで、リモートステートを分離／統合することが可能である。ある程度、インフラ構築が固まってきたタイミングで、変更タイミング（ライフサイクル）などを基に、リモートステートの粒度を見直すと良い。
+`terraform state` などのコマンドで、リモートステートを分離／統合ができる。ある程度、インフラ構築が固まってきたタイミングで、変更タイミング（ライフサイクル）などを基に、リモートステートの粒度を見直すと良い。
 
 ▼リモートステートのpull、編集、push、削除が可能である
 
@@ -1844,7 +1867,7 @@ terraform state push
 terraform state rm {削除対象}
 ```
 
-（参考）
+【参考】
 
 - [Command: state mv | Terraform | HashiCorp Developer](https://developer.hashicorp.com/terraform/cli/commands/state/mv?optInFrom=terraform-io)
 - [複数の Terraform リソースを一度に別の tfstate ファイルに移動する](https://zenn.dev/toshikish/articles/61db8661cb28ba)
@@ -1879,7 +1902,7 @@ $ export TF_CLI_ARGS_plan=20
 
 terraformのplanやapplyの実行は、下表の権限付与の方針が考えられる。
 
-|              | ①最小権限の原則を追求                                                                                                                                                                                                          | ②強めの権限を付与                                                                                      |
+|              | （1）最小権限の原則を追求                                                                                                                                                                                                      | （2）強めの権限を付与                                                                                  |
 | :----------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------- |
 | 説明         | 利用するクラウドリソースに絞って権限を付与する方式                                                                                                                                                                             | 利用予定のサービスを絞らず、予め全リソースの参照／操作可能な権限を付与する方式                         |
 | セキュリティ | ✅️最もセキュアであると言える                                                                                                                                                                                                  | ❌️Terraform実行を行うサーバやアカウントが不正アクセスを受けた場合、より広範囲の被害に繋がる懸念がある |
@@ -1895,9 +1918,9 @@ terraformのplanやapplyの実行は、下表の権限付与の方針が考え�
 - 同一デプロイメント環境における、リモートステートごとに、実行ロールを分けない
   - リモートステートはシステムのライフサイクルによって統廃合されることもあり、実行ロールが陳腐化しやすいため
   - ただし、リモートステートごとに所有者となるチームが異なる場合は、分離した方が良い
-- 権限付与については、②の方式を許容する
+- 権限付与については、（2）の方式を許容する
   - Terraform実行のために本当に必要なサービスに絞り込むことは、コストが高く通常見合った効果が得られないため
-  - ただし、インフラチームとアプリチームが分離しており、アプリチーム側に権限を払い出す場合は、①に寄せる方がベターである場合もある
+  - ただし、インフラチームとアプリチームが分離しており、アプリチーム側に権限を払い出す場合は、（1）に寄せる方がベターである場合もある
 
 AWSでterraform planのみ実行できるようにする例を示す。ReadOnlyAccessとS3のロック権限（conditional writesする権限）が必要である。
 
@@ -1925,7 +1948,7 @@ AWSでterraform planのみ実行できるようにする例を示す。ReadOnlyA
 }
 ```
 
-（参考）
+【参考】
 
 - [Terraform v1.10 からは S3 Backend の State Lock に DynamoDB が必要なくなる](https://zenn.dev/terraform_jp/articles/terraform-s3-state-lock)
 - [[AWS × Terraform] plan できるけど apply できない GitOps な IAM ユーザポリシーの設定方法 | DevelopersIO](https://dev.classmethod.jp/articles/terraform-iam-policy-not-apply-but-plan/)
@@ -1934,20 +1957,20 @@ AWSでterraform planのみ実行できるようにする例を示す。ReadOnlyA
 
 ローカル端末上で `terraform plan` や `terraform apply` を許容すると、開発生産性を上げやすいがセキュリティの懸念がある。CI/CDワークフローでTerraformでの操作を自動化すると、人為的ミスが混入するリスクを減らすことができるが、試行錯誤しながらインフラ構築したい場面では俊敏性が下がる。踏み台サーバ上でterraformコマンドの実行を絞ることのメリットも複数ある。実行環境ごとの特徴を下表で説明する。
 
-| 項目           | ①CI/CD内で実行                                                                                                                                                                     | ②踏み台サーバで実行                                                                                                                                                                        | ③ローカルPCで実行                                                                    |
-| :------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------- |
-| 説明           | 手動でのTerrafom操作を無くし、CI/CD上でterraformのplan、applyを実行する方法。Gitワークフローでレビュー承認済みのみリリースするなど、厳格に管理できる。2、3と組み合わせることが多い | 特定のIPアドレスからのみアクセスを許可するなどセキュリティを強化可能。デプロイメント環境ごとに踏み台サーバを用意することが多い（dev, stgは相乗りだったとしても、prodは分離する必要がある） | ローカルでTerraformコードを修正し、そのままplanやapplyが実行可能                     |
-| 開発生産性     | ❌️試行錯誤を伴う構築には比較的不向き                                                                                                                                              | ✅️踏み台サーバ接続が少し程度                                                                                                                                                              | ✅️最速である                                                                        |
-| 誤操作防止     | ✅️手動ミスを減らせる                                                                                                                                                              | ❌️awscli経由で直接操作可                                                                                                                                                                  | ❌️awscli経由で直接操作可 ❌️Gitコミット無しで実行できてしまうなど、証拠が残りにくい |
-| セキュリティ   | ✅️クレデンシャルの流出に強い                                                                                                                                                      | ✅️IP制限が可能 ✅️クレデンシャルの流出に強い                                                                                                                                              | ❌️他の案に比べてセキュリティリスクが高い                                            |
-| 費用           | ❌️CI/CD費用                                                                                                                                                                       | ❌️踏み台サーバ費用                                                                                                                                                                        | ✅️                                                                                  |
-| 引き継ぎコスト | ✅️CI/CDの定義ファイルがコミットされているため、明示的                                                                                                                             | ❌️手動操作が入る分、運用マニュアル化が必須                                                                                                                                                | ❌️手動操作が入る分、運用マニュアル化が必須                                          |
+| 項目           | （1）CI/CD内で実行                                                                                                                                                                 | （2）踏み台サーバで実行                                                                                                                                                                    | （3）ローカルPCで実行                                                                     |
+| :------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------- |
+| 説明           | 手動でのTerrafom操作を無くし、CI/CD上でterraformのplan、applyを実行する方法。Gitワークフローでレビュー承認済みのみリリースするなど、厳格に管理できる。2、3と組み合わせることが多い | 特定のIPアドレスからのみアクセスを許可するなどセキュリティを強化可能。デプロイメント環境ごとに踏み台サーバを用意することが多い（dev, stgは相乗りだったとしても、prodは分離する必要がある） | ローカルでTerraformコードを修正し、そのままplanやapplyが実行可能                          |
+| 開発生産性     | ❌️試行錯誤を伴う構築には比較的不向き                                                                                                                                              | ✅️踏み台サーバ接続が少し程度                                                                                                                                                              | ✅️最速である                                                                             |
+| 誤操作防止     | ✅️手動ミスを減らせる                                                                                                                                                              | ❌️awscli経由で直接操作可                                                                                                                                                                  | ❌️awscli経由で直接操作可 <br> ❌️Gitコミット無しで実行できてしまうなど、証拠が残りにくい |
+| セキュリティ   | ✅️クレデンシャルの流出に強い                                                                                                                                                      | ✅️IP制限が可能 ✅️クレデンシャルの流出に強い                                                                                                                                              | ❌️他の案に比べてセキュリティリスクが高い                                                 |
+| 費用           | ❌️CI/CD費用                                                                                                                                                                       | ❌️踏み台サーバ費用                                                                                                                                                                        | ✅️                                                                                       |
+| 引き継ぎコスト | ✅️CI/CDの定義ファイルがコミットされているため、明示的                                                                                                                             | ❌️手動操作が入る分、運用マニュアル化が必須                                                                                                                                                | ❌️手動操作が入る分、運用マニュアル化が必須                                               |
 
 推奨は以下の通り。
 
-- 全てのデプロイメント環境において、ローカルPCでの `terraform apply` 操作は原則禁止として、②の踏み台サーバでの実行を基本とする
+- 全てのデプロイメント環境において、ローカルPCでの `terraform apply` 操作は原則禁止として、（2）の踏み台サーバでの実行を基本とする
   - IP制限や証跡を残すことで、リスク軽減や緊急時対応を可能とする
-- ②の踏み台サーバはterraformの実行のみを許可し、他の作業では利用しない環境とする  
+- （2）の踏み台サーバはterraformの実行のみを許可し、他の作業では利用しない環境とする  
   (applyが実行できる権限はとても強い権限を持つため、当該サーバの利用はterraform用途のみとし、他用途で利用されてないかの監視が必須なため。そのため、できるだけCI/CDを利用することを推奨する)
 - ローカルPC上は、dev環境でのplan操作のみ許容する
   - 開発生産性のため
@@ -1955,46 +1978,46 @@ AWSでterraform planのみ実行できるようにする例を示す。ReadOnlyA
   - 詳細は「開発ワークフロー」の章を参考にすること
 - どの方法であってもAWSであればAWS Config、AWS CloudTrail等にて変更の証跡を保存し追跡できるようにすること
 
-実行可能な操作を、Terraform実行環境別にまとめると下表となる。（凡例 ✅️実行可能 ❌️実行不可）
+実行可能な操作を、Terraform実行環境別にまとめると下表となる（凡例 ✅️実行可能 ❌️実行不可）
 
-| 環境                          | dev      |           | prod     |           | 説明                                                                                                                                                                          |
-| :---------------------------- | :------- | :-------- | :------- | :-------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|                               | plan実行 | apply実行 | plan実行 | apply実行 |                                                                                                                                                                               |
-| ①ローカルPC                   | ✅️      | ❌️       | ❌️      | ❌️       | planのみ可能                                                                                                                                                                  |
-| ②踏み台サーバ（環境毎に分離） | ✅️      | ✅️       | ✅️      | ✅️       | 手動での実行は踏み台サーバを経由することで、IP制限や証跡を残す。ローカルPCでapplyが可能であると抜け道となるため、許容させない                                                 |
-| ③CI/CD                        | ✅️      | ✅️       | ✅️      | ✅️       | 必要に応じて、CI/CDに組み込む。CI/CDでprod環境までapply可能にすると、踏み台サーバ側の権限が不要に見えるが、緊急対応のため、手動操作の脱出ハッチも残しておくほうがベターである |
+| 環境                            | dev      |           | prod     |           | 説明                                                                                                                                                                          |
+| :------------------------------ | :------- | :-------- | :------- | :-------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|                                 | plan実行 | apply実行 | plan実行 | apply実行 |                                                                                                                                                                               |
+| 1. ローカルPC                   | ✅️      | ❌️       | ❌️      | ❌️       | planのみ可能                                                                                                                                                                  |
+| 2. 踏み台サーバ（環境毎に分離） | ✅️      | ✅️       | ✅️      | ✅️       | 手動での実行は踏み台サーバを経由することで、IP制限や証跡を残す。ローカルPCでapplyが可能であると抜け道となるため、許容させない                                                 |
+| 3. CI/CD                        | ✅️      | ✅️       | ✅️      | ✅️       | 必要に応じて、CI/CDに組み込む。CI/CDでprod環境までapply可能にすると、踏み台サーバ側の権限が不要に見えるが、緊急対応のため、手動操作の脱出ハッチも残しておくほうがベターである |
 
-## ①CI/CD内で実行
+## CI/CD内で実行
 
-GitHub ActionsなどのCI/CDパイプラインでのterraformコマンドを実行するためには、何かしらの手段で認証を行う必要がある。代表的な方式に以下の2つの方法がある。
+GitHub ActionsなどのCI/CDパイプラインでのterraformコマンドを実行するためには、何かしらの手段で認証する必要がある。代表的な方式に以下の2つの方法がある。
 
-|              | ①環境変数による連携                                                                                                                                                                         | ②OpenID Connect連携                                                                                                                                               |
-| :----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 説明         | CI/CDパイプラインに必要なクレデンシャルやアクセスキーを環境変数として設定する                                                                                                               | CI/CDパイプラインにクレデンシャルを直接渡さずに、OIDC連携でIAM ロールが使えるようにさせる方式                                                                     |
-| 初期構築     | ✅️直感的であり最も容易                                                                                                                                                                     | ❌️比較すると複雑である                                                                                                                                           |
-| セキュリティ | ❌️CI/CD上の環境変数が、他のユーザから想定外のアクセスや、ログなどに誤出力される懸念がある ❌️登録した環境変数が、別の想定外のCI/CDパイプラインでも利用される懸念があるが、その検知が難しい | ✅️クレデンシャルの保存が不要となり、利用するトークンは一時的に発行されるものであるため、不正利用のリスクを低減可 ✅️特定のブランチに限定するなど細かな制御が可能 |
+|              | （1）環境変数による連携                                                                                                                                                                          | （2）OpenID Connect連携                                                                                                                                                |
+| :----------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 説明         | CI/CDパイプラインに必要なクレデンシャルやアクセスキーを環境変数として設定する                                                                                                                    | CI/CDパイプラインにクレデンシャルを直接渡さずに、OIDC連携でIAM ロールが使えるようにさせる方式                                                                          |
+| 初期構築     | ✅️直感的であり最も容易                                                                                                                                                                          | ❌️比較すると複雑である                                                                                                                                                |
+| セキュリティ | ❌️CI/CD上の環境変数が、他のユーザから想定外のアクセスや、ログなどに誤出力される懸念がある <br> ❌️登録した環境変数が、別の想定外のCI/CDパイプラインでも利用される懸念があるが、その検知が難しい | ✅️クレデンシャルの保存が不要となり、利用するトークンは一時的に発行されるものであるため、不正利用のリスクを低減可 <br> ✅️特定のブランチに限定するなど細かな制御が可能 |
 
 推奨は以下の通り。
 
-- ②のOpenID Connectを利用する。初期構築コストは少しばかり高いかも知れないが、一度対応すればそれ以降の運用コストは高くないため
+- （2）のOpenID Connectを利用する。初期構築コストは少しばかり高いかも知れないが、一度対応すればそれ以降の運用コストは高くないため
 
 【参考】 [Terraform とGitHub Actions | フューチャー技術ブログ](https://future-architect.github.io/articles/20230405a/)
 
-## ②踏み台サーバで実行
+## 踏み台サーバで実行
 
 監査ログなど必要な証跡を残すといった対応のため、特定のデプロイメント環境に対する `terraform apply` はAWSにおけるEC2サーバ上でのみに絞るといった運用を取る場合がある。このときは以下の設定や構成にすることを推奨する。
 
 - 作業用ユーザは利用者毎に作成する（共有アカウントを使用しない）
 - 認証はEC2にIAMロールをアタッチする（個別のアクセスキーなどを利用しない）
 
-## ③ローカル端末で認証
+## ローカル端末で認証
 
 ローカルPC上で `terraform plan` や `terraform apply` を、どのデプロイメント環境まで許可するかは、「Terraform実行環境」章を参考にする。仮にローカルPC上で実行を許容する場合は、利用するアクセスキーは強い権限を保持することとなる。そのためキーの漏洩はリスクが高く、安全なキーの保管や認証が必要である。各クラウドサービスのプラクティスは下表の通り。
 
 | #        | AWS                                                                              | Google Cloud                                                | Azure                                                                                                         |
 | :------- | :------------------------------------------------------------------------------- | :---------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------ |
 | MFA化    | ✅️必須                                                                          | ✅️必須                                                     | ✅️必須                                                                                                       |
-| 認証手法 | アクセスキー/シークレットキーを安全に保存・利用するためのツール、AWS Vaultを使用 | 対話型ログイン(gcloud auth application-default login)を使用 | 対話型ログイン(az login)を使用する。サービスプリンパル\<クライアントシークレット or X509 証明書\>は使用しない |
+| 認証手法 | アクセスキー/シークレットキーを安全に保存・利用するためのツール、AWS Vaultを使用 | 対話型ログイン(gcloud auth application-default login)を使用 | 対話型ログイン(az login)を使用する。サービスプリンパル <クライアントシークレット or X509 証明書> は使用しない |
 
 なお、AWSのMFA化については以下のようなツールも存在する。
 
@@ -2030,9 +2053,9 @@ Gitブランチフローの詳細は、[Gitブランチフロー規約 | Future 
 
 2025年1月時点での推奨を紹介する。
 
-| ツール                                                                                                                      | 説明                                                                                                          |
-| :-------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------ |
-| [HashiCorp Terraform \- Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=HashiCorp.terraform) | HashiCorp社が提供する公式ツール。コードハイライト、補完、検証、フォーマットなど総合的に開発支援を行ってくれる |
+| ツール                                                                                                                     | 説明                                                                                                          |
+| :------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------ |
+| [HashiCorp Terraform - Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=HashiCorp.terraform) | HashiCorp社が提供する公式ツール。コードハイライト、補完、検証、フォーマットなど総合的に開発支援を行ってくれる |
 
 ## フォーマッタ
 
@@ -2059,7 +2082,7 @@ trivy --exit-code 1 --ignorefile .trivyignore.yml config --severity CRITICAL,HIG
 
 [KICS](https://docs.gitlab.com/ee/user/application_security/iac_scanning/)(IaC脆弱性コードチェック) の実行は必要に応じて追加する。
 
-:: tip ワークスペース利用の場合  
+::: tip ワークスペース利用の場合  
 [TF_WORKSPACE](https://developer.hashicorp.com/terraform/cli/config/environment-variables#tf_workspace) の環境変数で利用しているTerraform ワークスペースの設定ができる。ワークスペースを利用している場合は `dev` をチェックする。
 
 ```sh
@@ -2071,7 +2094,7 @@ TF_WORKSPACE=dev tflint
 
 ## コミットフック
 
-[Style Guide \- Configuration Language | Terraform | HashiCorp Developer](https://developer.hashicorp.com/terraform/language/style#code-style)に、コミット前に [Git pre-commit hooks](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks) で `fmt` と `validate` の実施が推奨とある。その他のリンターを加えると、待ち時間が長くなるため、最低限にする。validateの場合のworkspace設定はdevのみに絞る。
+[Style Guide](https://developer.hashicorp.com/terraform/language/style#code-style)に、コミット前に [Git pre-commit hooks](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks) で `fmt` と `validate` の実施が推奨とある。その他のリンターを加えると、待ち時間が長くなるため、最低限にする。validateの場合のworkspace設定はdevのみに絞る。
 
 ▼コミットフックで実行するコマンド例
 
@@ -2080,23 +2103,23 @@ terraform fmt
 terraform validate
 ```
 
-pre-commitの構築については、 [pre-commit](https://terraform-docs.io/how-to/pre-commit-hooks/) というツールを利用しても良い。そうしたツールを利用しない場合は、以下のような手順を踏む。
+pre-commitの構築は、 [pre-commit](https://terraform-docs.io/how-to/pre-commit-hooks/) を利用しても良い。利用しない場合は、以下のような手順を踏む。
 
 1. `.githooks/pre-commit` フォルダにスクリプトを追加し、gitコミット
-2. `chmod \+x .githooks/pre-commit` で権限付与
-3. `git config \--local core.hooksPath .githooks` でコミットフックのパスを設定
+2. `chmod +x .githooks/pre-commit` で権限付与
+3. `git config --local core.hooksPath .githooks` でコミットフックのパスを設定
 
 ## CI/CD
 
-「開発フロー」に記載したように、なるべく自動化することを推奨する。また、[terraform-docsでドキュメントの自動生成 \- とことんDevOps](https://devops-blog.virtualtech.jp/entry/20230310/1678416395)  
+「開発フロー」に記載したように、なるべく自動化することを推奨する。また、[terraform-docsでドキュメントの自動生成 - とことんDevOps](https://devops-blog.virtualtech.jp/entry/20230310/1678416395)  
  のように、ドキュメント生成もCIサービス上で行うことが望ましい。
 
 プルリクエスト時のCIチェック内容は、[Anonymized, secure and free Terraform Cost Estimation](https://github.com/antonbabenko/terraform-cost-estimation) といったコスト観点も存在する。適宜取り入れること。  
-また、必要に応じて、[tfprovidercheck \- 危険な Terraform Provider の実行を防ぐ 仕組み](https://zenn.dev/shunsuke_suzuki/articles/tfprovidercheck-introduction)を導入する。
+また、必要に応じて、[tfprovidercheck - 危険な Terraform Provider の実行を防ぐ 仕組み](https://zenn.dev/shunsuke_suzuki/articles/tfprovidercheck-introduction)を導入する。
 
 # targetの使い所
 
-`terraform apply` 時に `--target` オプションを付けることで、操作対象のリソースを絞り込むことが可能となる。複数のリソースを指定する場合は、`{}`内にカンマ区切りで設定することができる。
+`terraform apply` 時に `--target` オプションを付けることで、操作対象のリソースを絞り込むことが可能となる。複数のリソースを指定する場合は、`{}`内にカンマ区切りで設定できる。
 
 ```sh
 terraform apply --target={aws_instance.example1,aws_security_group.example2,aws_s3_bucket.example3}
@@ -2124,7 +2147,7 @@ terraform apply --target={aws_instance.example1,aws_security_group.example2,aws_
 
 一般的に、Terraformを含んだコードのリポジトリ構成には次の案がある。
 
-|                  | ①アプリとインフラ分割                                                                                                                                                              | ②アプリとインフラ統合                                                                                                                                                                              |
+|                  | （1）アプリとインフラ分割                                                                                                                                                          | （2）アプリとインフラ統合                                                                                                                                                                          |
 | :--------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 説明             | Terraformコードを含めてインフラを、アプリケーションコードとは異なるリポジトリで管理する方針。アプリ/インフラのみに特化しやすい（逆に言うと、お互いの領域に無関心になる懸念もある） | Terraformコードを含めてインフラを、アプリケーションコードと同一リポジトリに管理する方針。infrastrucutreフォルダ配下にTerraformなどのインフラ系のコードを配置して、アプリケーションコードと区別する |
 | 整合性管理       | ❌️アプリ／インフラ両方を修正する必要がある改修（例えば、アプリで利用する環境変数の追加など）の場合、複数のプルリクエストの同期が必要であり、整合性の維持が難しい                  | ✅️アプリ／インフラ両方を修正する必要がある改修（例えば、アプリで利用する環境変数の追加など）の場合、1リポジトリのプルリクエストで同期を取ってレビュー・マージできる                               |
@@ -2133,8 +2156,8 @@ terraform apply --target={aws_instance.example1,aws_security_group.example2,aws_
 
 推奨は以下の通り。
 
-- アプリ開発メンバーもTerraformを触る必要がある場合は、②の統合する案を採用する
-- インフラリリース作業のメンバーを特定メンバーに絞りたい場合や、アプリまたはインフラのみ別チームへ引き継ぎが考えられる場合は、①を選定する
+- アプリ開発メンバーもTerraformを触る必要がある場合は、（2）の統合する案を採用する
+- インフラリリース作業のメンバーを特定メンバーに絞りたい場合や、アプリまたはインフラのみ別チームへ引き継ぎが考えられる場合は、（1）を選定する
 
 # ディレクトリ構成
 
@@ -2169,7 +2192,7 @@ infrastructure                      # アプリケーションコードとリポ
 
 # .gitignore
 
-ローカルPCでも、限られた環境（dev環境など）で限られた操作（`terraform plan` など）を許容するケースがあり、`terraform init` などで生じたキャッシュファイルをGit管理にするかどうか検討する必要がある。公式としては、[Dependency Lock File (.terraform.lock.hcl) \- Configuration Language](https://developer.hashicorp.com/terraform/language/files/dependency-lock#dependency-installation-behavior) にある通り、v0.14.0から追加されるようになった`terraform.lock.hcl` というロックファイルもGit管理が推奨だが、チームメンバーでWindows/Linux/Macなど複数プラットフォームを扱っていると、ハマりどころも多い。
+ローカルPCでも、限られた環境（dev環境など）で限られた操作（`terraform plan` など）を許容するケースがあり、`terraform init` などで生じたキャッシュファイルをGit管理にするかどうか検討する必要がある。公式としては、[Dependency Lock File (.terraform.lock.hcl)](https://developer.hashicorp.com/terraform/language/files/dependency-lock#dependency-installation-behavior) にある通り、v0.14.0から追加されるようになった`terraform.lock.hcl` というロックファイルもGit管理が推奨だが、チームメンバーでWindows/Linux/Macなど複数プラットフォームを扱っていると、ハマりどころも多い。
 
 推奨は以下の通り。
 
@@ -2181,5 +2204,5 @@ infrastructure                      # アプリケーションコードとリポ
 # 参考
 
 - [Terraform を使用するためのベスト プラクティス | Google Cloud](https://cloud.google.com/docs/terraform/best-practices-for-terraform?hl=ja)
-- [コードベースの構造と組織のベストプラクティス \- AWS 規範ガイダンス](https://docs.aws.amazon.com/ja_jp/prescriptive-guidance/latest/terraform-aws-provider-best-practices/structure.html)
+- [コードベースの構造と組織のベストプラクティス - AWS 規範ガイダンス](https://docs.aws.amazon.com/ja_jp/prescriptive-guidance/latest/terraform-aws-provider-best-practices/structure.html)
 - [最低限のTerraformコード規約を定義した | Zenn](https://zenn.dev/coconala/articles/create_code_policy)

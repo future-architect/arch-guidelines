@@ -26,7 +26,14 @@ const links = {
     { text: "Introduction", link: "/documents/forDB/" },
     {
       text: "PostgreSQL設計ガイドライン",
-      link: "/documents/forDB/postgresql_guidelines.html",
+      link: "/documents/forDB/terraform_guidelines.html",
+    },
+  ],
+  "/documents/forTerraform/": [
+    { text: "Introduction", link: "/documents/forTerraform/" },
+    {
+      text: "Terraform設計ガイドライン",
+      link: "/documents/forTerraform/postgresql_guidelines.html",
     },
   ],
   "/documents/forGitBranch/": [

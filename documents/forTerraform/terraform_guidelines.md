@@ -1596,7 +1596,7 @@ AWS、Google Cloud、Azureなどクラウドでは新機能が活発にリリー
 
 | #          | （1）Terraform以外の手段で凌ぐ                                                                                                  | （2）terraform_dataとlocal-exec                                                                                 |
 | :--------- | :------------------------------------------------------------------------------------------------------------------------------ | :-------------------------------------------------------------------------------------------------------------- |
-| 説明       | Provider側の対応ができるまで、管理コンソール上・Ansibleなどで管理する。Provider側が対応したら、過渡期対応のスクリプトを削除する | Terraformの `terraform_data` と `local-exec` プロビジョナを利用し、スクリプトを実行してリソースを作成・管理する |
+| 説明       | Provider側の対応ができるまで、シェルスクリプト・Ansibleなどで管理する。Provider側が対応したら、過渡期対応のスクリプトを削除する | Terraformの `terraform_data` と `local-exec` プロビジョナを利用し、スクリプトを実行してリソースを作成・管理する |
 | 構築コスト | ✅️構築の難易度が最も低く、急ぎ利用可能                                                                                         | ❌️Terraformのお作法に沿ったスクリプト設計が必要（destoryも実装するなど）                                       |
 | 運用性     | ❌️インフラ構築がTerraformだけに閉じず学習コストや、運用手順書などのマニュアル化が求められる                                    | ✅️Terraformで一元管理が可能で、運用コストを下げられる                                                          |
 | 学習コスト | ❌️Ansibleなどを利用する場合は、学習コストがかかる                                                                              | ⚠️terraform_dataの理解が必要                                                                                    |
@@ -1614,7 +1614,7 @@ AWS、Google Cloud、Azureなどクラウドでは新機能が活発にリリー
 | 1   | 実行コマンドが複数行になる場合は、別ファイルに切り出す | 複数行に及ぶ場合は、ヒアドキュメントではなく、スクリプトとして切り出す。1行のコマンドだけであれば、埋め込んでも良いが、オプションが長くなると可読性が長くなるため、別ファイル化を推奨する |
 | 2   | スクリプトの格納場所                                   | `{.tfファイルがあるディレクトリ}/scripts/` 配下に統一                                                                                                                                     |
 | 3   | ファイル名                                             | 作成: `create_xxx_resource.sh` 削除: `delete_xxx_resource.sh`                                                                                                                             |
-| 4   | 権限                                                   | 実行権限を忘れないこと。特にWindowsユーザはGit上で権限情報もコミットすること。 git update-index --add --chmod=+x [filename]                                                               |
+| 4   | 権限                                                   | 実行権限を忘れないこと。特にWindowsユーザはGit上で権限情報もコミットすること。 `git update-index --add --chmod=+x [filename]`                                                             |
 | 5   | スクリプトのLinter                                     | スクリプトには[ShellCheck](https://future-architect.github.io/articles/20210329/)などの静的解析をかける                                                                                   |
 | 6   | terraform_data                                         | `terraform_data` の命名は一貫性を持たせる。例えば、`custom_xxx_resource` など                                                                                                             |
 | 7   | パラメータは環境変数を利用                             | スクリプトに渡すパラメータは、環境変数として渡す                                                                                                                                          |
@@ -1661,7 +1661,7 @@ terraform_dataはTerraform 1.4で追加された機能で、null_resourceと機�
 
 その時点の最新バージョンを利用すること。
 
-## バージョン固定
+## バージョン固定
 
 Terraform上で管理すべきバージョンは以下2種類存在する。
 
@@ -1694,7 +1694,7 @@ terraform {
 
 チーム編成にも寄るが、クラウドインフラは複数のチームを横断的に対応することも多く、チームごとにTerraformのバージョンアップの追随ポリシーが異なることもあるので、バージョン管理ツールを導入することがベターである。
 
-バージョン管理については[tfenv](https://github.com/tfutils/tfenv) や [tenv](https://github.com/tofuutils/tenv)を用いることが多い。どちらも `.terraform-version` ファイルに以下のようにバージョンを記載することで、利用バージョンを固定する（tfenvを全員がインストールしていれば、バージョンを上げてtfenv上で新しいバージョンのTerraformのインストールを行ってくれる）ことができる。
+バージョン管理については[tfenv](https://github.com/tfutils/`tfenv`) や [tenv](https://github.com/tofuutils/tenv)を用いることが多い。どちらも `.terraform-version` ファイルに以下のようにバージョンを記載することで、利用バージョンを固定する（`tfenv`を全員がインストールしていれば、バージョンを上げて`tfenv`上で新しいバージョンのTerraformのインストールを行ってくれる）ことができる。
 
 ▼.terraform-version の例
 
@@ -1708,9 +1708,9 @@ terraform {
   - 実際に利用するバージョンは `.terraform-version` で制御するため、同期を取ることで不要な混乱を防ぐ
   - メンバー間やCI・ローカル環境間で、パッチバージョン違いによる挙動の差を無くす
   - メジャー、マイナー、パッチのどのバージョンアップでも、 `required_version` と `.terraform-version` の両方を変更するという運用で統一するため（パッチバージョンアップの場合は、 `required_version` の変更はしなくても良い、とすると手順漏れが出やすいため
-- Windowsの場合はWSL上で開発する方針であることかつ、OpenTofuを利用しない場合は、枯れたtfenvを利用する
-  - tfenv自体を更新する作業が発生した場合に面倒であるため、枯れた方が管理上、利便性が高い場面が多いため
-  - tfenvで困るケース~~は~~の場合は、tenvを導入する
+- Windowsの場合はWSL上で開発する方針であることかつ、OpenTofuを利用しない場合は、枯れた`tfenv`を利用する
+  - `tfenv`自体を更新する作業が発生した場合に面倒であるため、枯れた方が管理上、利便性が高い場面が多いため
+  - `tfenv`で困る場合は、`tenv` を導入する
 
 ### 2. Providerのバージョン管理
 
@@ -1974,7 +1974,7 @@ AWSでterraform planのみ実行できるようにする例を示す。ReadOnlyA
 - 全てのデプロイメント環境において、ローカルPCでの `terraform apply` 操作は原則禁止として、（2）の踏み台サーバでの実行を基本とする
   - IP制限や証跡を残すことで、リスク軽減や緊急時対応を可能とする
 - （2）の踏み台サーバはterraformの実行のみを許可し、他の作業では利用しない環境とする  
-  (applyが実行できる権限はとても強い権限を持つため、当該サーバの利用はterraform用途のみとし、他用途で利用されてないかの監視が必須なため。そのため、できるだけCI/CDを利用することを推奨する)
+  (applyが実行できる権限はとても強い権限を持つため、当該サーバの利用はTerraform用途のみとし、他用途で利用されてないかの監視が必須なため。そのため、できるだけCI/CDを利用することを推奨する)
 - ローカルPC上は、dev環境でのplan操作のみ許容する
   - 開発生産性のため
 - CI/CD上でのplan、applyは開発生産性の観点で、できる限り取り入れる。これ1本に統一することは必須ではない
@@ -2097,7 +2097,7 @@ TF_WORKSPACE=dev tflint
 
 ## コミットフック
 
-[Style Guide](https://developer.hashicorp.com/terraform/language/style#code-style)に、コミット前に [Git pre-commit hooks](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks) で `fmt` と `validate` の実施が推奨とある。その他のリンターを加えると、待ち時間が長くなるため、最低限にする。validateの場合のworkspace設定はdevのみに絞る。
+[Style Guide](https://developer.hashicorp.com/terraform/language/style#code-style)に、コミット前に [Git pre-commit hooks](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks) で `fmt` と `validate` の実施が推奨とある。その他のリンターを加えると、待ち時間が長くなるため、最低限にする。validateは実行速度が気になる場合はdevのみに絞っても良い。
 
 ▼コミットフックで実行するコマンド例
 
@@ -2137,7 +2137,9 @@ terraform apply --target={aws_instance.example1,aws_security_group.example2,aws_
 推奨は以下の通り。
 
 - featureブランチからterraform applyをするGitブランチ運用になっている場合、dev環境においては、target運用を許容する
-- いかなる場合も、stg／prod環境では、targetによる絞り込みは許可しない
+- 原則、stgはtargetによる絞り込みを許可しない
+  - stgで動作確認を長期間行う必要がある場合など一時的とし、恒常的な運用としない
+- いかなる場合も、prod環境では、targetによる絞り込みは許可しない
   - コードベースとインフラリソースの一貫性を重視する。もし、applyしたくないリソースがコミットされていれば、それを削除する方があるべきである
 
 ::: tip for_eachのリソースを指定する場合、  
@@ -2146,7 +2148,7 @@ terraform apply --target={aws_instance.example1,aws_security_group.example2,aws_
 
 # リポジトリ構成
 
-[バージョン管理に関するベスト プラクティス | Terraform | Google Cloud](https://cloud.google.com/docs/terraform/best-practices/version-control?hl=ja#team-boundaries) に記載がある通り、リポジトリはチームの境界に基づいて設計されるべきで、「承認要件と管理要件が異なる構成は、異なるソース管理リポジトリに分割する」という原則がある。
+[バージョン管理に関するベスト プラクティス | Google Cloud](https://cloud.google.com/docs/terraform/best-practices/version-control?hl=ja#team-boundaries) に記載がある通り、リポジトリはチームの境界に基づいて設計されるべきで、「承認要件と管理要件が異なる構成は、異なるソース管理リポジトリに分割する」という原則がある。
 
 一般的に、Terraformを含んだコードのリポジトリ構成には次の案がある。
 
@@ -2201,7 +2203,7 @@ infrastructure                      # アプリケーションコードとリポ
 
 - `.gitignore` は原則、 [Terraform.gitignore](https://github.com/github/gitignore/blob/main/Terraform.gitignore) の内容を利用する
 - `terraform.lock.hcl` も `.gitignore` に追加し、Git管理対象外とする
-- 「バージョン固定」章のとおり、パッチバージョンまでバージョンを明示的に固定する方針のため、ロックファイルをチームで共有する強い理由が存在しないため
+- [バージョン固定](#バージョン固定)章のとおり、パッチバージョンまでバージョンを明示的に固定する方針のため、ロックファイルをチームで共有する強い理由が存在しないため
 - 上記の前提として、バージョン管理が適切ではないProviderやModuleなどを利用しないこと
 
 # 参考

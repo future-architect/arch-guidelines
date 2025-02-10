@@ -1694,7 +1694,7 @@ terraform {
 
 チーム編成にも寄るが、クラウドインフラは複数のチームを横断的に対応することも多く、チームごとにTerraformのバージョンアップの追随ポリシーが異なることもあるので、バージョン管理ツールを導入することがベターである。
 
-バージョン管理については[`tfenv`](https://github.com/tfutils/`tfenv`) や [tenv](https://github.com/tofuutils/tenv)を用いることが多い。どちらも `.terraform-version` ファイルに以下のようにバージョンを記載することで、利用バージョンを固定する（`tfenv`を全員がインストールしていれば、バージョンを上げて`tfenv`上で新しいバージョンのTerraformのインストールを行ってくれる）ことができる。
+バージョン管理については[tfenv](https://github.com/tfutils/`tfenv`) や [tenv](https://github.com/tofuutils/tenv)を用いることが多い。どちらも `.terraform-version` ファイルに以下のようにバージョンを記載することで、利用バージョンを固定する（`tfenv`を全員がインストールしていれば、バージョンを上げて`tfenv`上で新しいバージョンのTerraformのインストールを行ってくれる）ことができる。
 
 ▼.terraform-version の例
 

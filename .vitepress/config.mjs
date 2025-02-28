@@ -33,7 +33,7 @@ const links = {
     { text: "Introduction", link: "/documents/forTerraform/" },
     {
       text: "Terraform設計ガイドライン",
-      link: "/documents/forTerraform/postgresql_guidelines.html",
+      link: "/documents/forTerraform/terraform_guidelines.html",
     },
   ],
   "/documents/forGitBranch/": [
@@ -157,6 +157,19 @@ export default defineConfig({
               {
                 text: "PostgreSQL設計ガイドライン",
                 link: "/documents/forDB/postgresql_guidelines.html",
+              },
+            ],
+          },
+          {
+            text: "Terraform",
+            items: [
+              {
+                text: "Introduction",
+                link: "/documents/forTerraform/",
+              },
+              {
+                text: "Terraform設計ガイドライン",
+                link: "/documents/forTerraform/terraform_guidelines.html",
               },
             ],
           },

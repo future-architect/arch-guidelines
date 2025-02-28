@@ -11,6 +11,9 @@ hero:
     - theme: brand
       text: DB設計ガイドライン
       link: ./documents/forDB/
+    - theme: brand
+      text: Terraform設計ガイドライン
+      link: ./documents/forTerraform/
     - theme: alt
       text: Gitブランチフロー規約
       link: ./documents/forGitBranch/

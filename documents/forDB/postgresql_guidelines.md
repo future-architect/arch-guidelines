@@ -2341,6 +2341,7 @@ VACUUM FULLは以下のような特殊なワークロードのテーブルに対
 
 - [Amazon RDS for PostgreSQL 環境の自動バキュームを理解する | Amazon Web Services ブログ](https://aws.amazon.com/jp/blogs/news/understanding-autovacuum-in-amazon-rds-for-postgresql-environments/)
 - [Cloud SQL for PostgreSQL - VACUUM について深く掘り下げるためのよくある質問と回答](https://cloud.google.com/blog/ja/products/databases/deep-dive-into-postgresql-vacuum-garbage-collector)
+- [PostgreSQL の autovacuum は定期的な VACUUM ANALYZE 実行の代替となる - ぱと隊長日誌](https://taityo-diary.hatenablog.jp/entry/2025/02/24/071321) にPostgreSQL 15のドキュメント更新で、定期的な `VACUUM ANALYZE` の実行の推奨が撤廃され、autovacuum の活用が前提となった旨の解説がある
 
 # ロケール
 

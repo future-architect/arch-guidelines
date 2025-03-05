@@ -30,7 +30,7 @@
     "eslint": "^9.17.0",
     "eslint-config-prettier": "^10.0.0",
     "eslint-config-standard": "^17.1.0",
-    "eslint-plugin-vue": "^9.0.0",
+    "eslint-plugin-vue": "^10.0.0",
     "markdown-it-footnote": "^4.0.0",
     "markdown-it-task-lists": "^2.1.1",
     "npm-run-all2": "^7.0.0",

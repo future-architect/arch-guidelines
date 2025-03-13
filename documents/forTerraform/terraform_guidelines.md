@@ -1606,7 +1606,7 @@ AWS、Google Cloud、Azureなどクラウドでは新機能が活発にリリー
 推奨は以下の通り。
 
 - 最新のバージョンでもProviderが対応していないは、（2）terraform_dataとlocal-exec を利用して構築する
-- Providerが正規で対応している場合は、terraform_dateを利用せず正規の機能で定義する
+- Providerが正規で対応している場合は、terraform_dataを利用せず正規の機能で定義する
 - terraform_dataとlocal-execを利用する場合は、下表の設計ルールに従う
 
 ▼terraform_dataとlocal-execを用いる場合のルール

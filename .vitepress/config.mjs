@@ -22,6 +22,13 @@ const links = {
       link: "/documents/forWebAPI/web_api_guidelines.html",
     },
   ],
+  "/documents/forBatch/": [
+    { text: "Introduction", link: "/documents/forBatch/" },
+    {
+      text: "バッチ設計ガイドライン",
+      link: "/documents/forBatch/batch_guidelines.html",
+    },
+  ],
   "/documents/forDB/": [
     { text: "Introduction", link: "/documents/forDB/" },
     {

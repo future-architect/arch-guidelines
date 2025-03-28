@@ -1893,7 +1893,7 @@ WHERE EXISTS(
 - 業務上不可欠でなければ（入力中データの破棄がどうしても許容できない限り）悲観的ロックな思想の画面設計を可能な限り避ける
 - DBによる行ロックは在庫の引き当てなど性能上クリティカルになりえる処理においてのみ検討する
 
-#### 楽観的ロック
+### 楽観的ロック
 
 以下の2案の設計方式があり、案2が推奨である。
 
@@ -1928,7 +1928,7 @@ WHERE EXISTS(
 ロック番号の代わりに、最終更新日時で比較することもあるが、より厳密に制御できるロック番号の利用を推奨する。
 :::
 
-#### 悲観的ロック
+### 悲観的ロック
 
 3層型C/Sアプリケーションにおいて、最初の一覧表示時点でSELECT FOR UPDATEで行ロックを取得して悲観的ロックを実現できない。HTTPリクエスト／レスポンスでDBトランザクション境界を超えるためである。そのため、SELECT FOR UPDATEは「楽観的ロック」節の方式2にあるような使用方法となる。
 
@@ -1936,7 +1936,7 @@ WHERE EXISTS(
 
 参考: [Webアプリケーションにおける誤った悲観ロックの実装方法（Q\&A形式）](https://satob.hatenablog.com/entry/2023/08/20/223055)
 
-#### DBによる行ロック
+### DBによる行ロック
 
 処理フローを下図に示す。
 
@@ -1975,110 +1975,9 @@ sequenceDiagram
 - [データベースの排他制御](https://fintan.jp/wp-content/uploads/2022/03/Database-Exclusion-Control.pdf)
 - [https://terasolunaorg.github.io/guideline/5.9.0.RELEASE/ja/ArchitectureInDetail/DataAccessDetail/ExclusionControl.html](https://terasolunaorg.github.io/guideline/5.9.0.RELEASE/ja/ArchitectureInDetail/DataAccessDetail/ExclusionControl.html#id4)
 
-#### オンライン中バッチ
+### オンライン中バッチ
 
-本規約ではオンライン中に実行されるバッチ処理をオンライン中バッチと定義する。2C／2Bのアプリは画面の閉局が通常は存在しないため、定期メンテナンス時間で実行されるジョブ以外は、全てオンライン中バッチとも言える。例えば、以下のようなユースケースが存在する。
-
-- ユーザーが商品在庫を手動で調整している最中にバッチ処理で自動在庫補充が行われる
-- 従業員のロール変更を登録している最中に、バッチ処理でリストが更新される
-
-バッチ起動のトリガーは例えば、例えば以下が考えられる。
-
-- システムI/Fファイルを日中オンライン開局中に受信し、テーブルを更新するバッチが起動
-- ユーザーが一括取り込みファイル（数千～数万件程度）をアップロードし、一括で更新するバッチが起動
-
-オンライン中バッチのうち、考慮が必要なケースを下表で記載する。
-
-| 項目                   | 1.通常バッチ | 2.オンライン中バッチA | 3.オンライン中バッチB                                                                                            | 4.オンライン中バッチC   |
-| :--------------------- | :----------- | :-------------------- | :--------------------------------------------------------------------------------------------------------------- | :---------------------- |
-| 条件: 同一時間帯に起動 | ー           | ✔                    | ✔                                                                                                               | ✔                      |
-| 条件: 同一テーブル更新 | ー           | ー                    | ✔                                                                                                               | ✔                      |
-| 条件: 同一カラム更新   | ー           | ー                    | ー                                                                                                               | ✔                      |
-| 排他制御の要否         | 不要         | 不要                  | 4と同様にするか、lock_noの更新無しでレコードを更新する。<br>バッチ同士の多重起動は別で制御するか冪等な作りとする | 個別検討が必要（※後述） |
-
-4の対応方法としては大別すると以下2つがある。
-
-| 対応方法                       | 説明                                                                                                                                                                                   |
-| :----------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1.バッチの起動スケジュール調整 | 例えば業務システムであれば閉局中に、2C／2Bアプリであればメンテナンス期間にバッチを実行できないか検討する。<br>バッチ処理実行で得られるはずだったユーザビリティやデータ鮮度が犠牲になる |
-| 2.排他制御を加える             | オンライン側とバッチ側の排他制御を加える                                                                                                                                               |
-
-1が難しい場合は、2の対応を検討する。次のような対応案がある。
-
-|      | 1.常にバッチで上書き                                                                                                             | 2.部分更新+NGリスト表示                                                                              |
-| :--- | :------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------- |
-| 説明 | バッチはリラン対応者がいないため、バッチでの更新を常に優先して、後勝ちで更新する。<br>場合によっては起動時にテーブルロックを取得 | バッチ起動時にロックが取れなかった、あるいはバッチ起動時刻より最終更新時刻が新しい場合はスキップする |
-| Pro  | ・実装がシンプル                                                                                                                 |                                                                                                      |
-| Cons | ・更新内容がバッチで知らず知らずのうち上書きされるおそれ<br>・タイミングによっては競合により、画面入力したデータが消えてしまう   | ・NGリストを表示する画面と業務運用が必要<br>・挙動の厳密な定義付けが難しい                           |
-
-それぞれ詳細を説明する。
-
-##### (1) 常にバッチで上書き
-
-オンライン側の更新フローではSELECT FOR UPDATEをしてもらう。ロックが競合した場合は、常にバッチが勝つように、画面側はNO WAITを指定する。バッチ側は一定期間（例えば数分）WAITするようにする。
-
-このパターンでは、オンライン／バッチの両方が同一テーブルを更新する場合にも、対応しやすいためより汎用的である。バッチ処理でオンライン処理と同じデータを編集する場合は、更新前にSELECT FOR UPDATEを取り、かつ画面側でも方式2とすることで、バッチ実行中のオンライン変更を禁止（待たせる）ことができる。PostgreSQLにおいてデフォルトではタイムアウトは無限であるため、オンライン側ではNO WAIT（ないしは数秒）、バッチ側ではオンラインタイムアウト時間まで待機させると良い。これにより、バッチ実行前にたまたまオンラインで変更があったとしても、楽観的ロックによる失敗をリトライする実装無しでバッチ処理を継続させることができる（※バッチの書き込みを常に優先させて良い場合）。
-
-<div class="img-bg-transparent">
-
-| ケース1: バッチがロックを先取り                  | ケース2: オンラインがロックを先取り                 |
-| :----------------------------------------------- | :-------------------------------------------------- |
-| [![][bach_lock_first_img]][batch_lock_first_url] | [![][online_lock_first_img]][online_lock_first_url] |
-
-</div>
-
-[bach_lock_first_img]: https://mermaid.ink/img/pako:eNqVlF1LG0EUhv_KMFcKSvF2L4SkiSC0tdRIoezNsDuaBbObbnYLRQR3B1qpQkWMIdQ2VVJtK_0Qv21JfszZzab_ovORpqarkO7FMDM87znvnjMzS9hwTIo1XKFPfWobNGeRBZeUdBvxr0xczzKsMrE9NFehLiIVBGwf2E8Iz_iYpjLlsoTCPWA1YJ8hPJL0ObADYMdpQS6rgr6UWBtYXU4u02SWeEZRwRvAGLBAtxUlrY1PTorsGoouVrr7B53mTnKyB-Fm1Hr7633PqXAnuFx2EEMjs_l7-buFUYURw7OeEY8KXu1wl-P9BEqTnG503u3wBN32FgR1xZl0UKt2lXOhlzMNTd-ZAlaFcBfCJrBDHiR-XYvauxDUuqfn8Vo1rRSWlUk0NfMIzT3MZQr5f-xKetBwLyGwL6Jk4TeZajtu1VJ-e-Kb8nbenHS2v08MnU3x8df16OrFxLCJetrox4foYg1WAhWE-00u-fjqT5Vv6nj_9PQ1tzU9VUH0YOZxZrowVN_7RVQVjJtHnWoNjSSHZ_HGKgTrSf0q2WrwHkLQkmMDwo_APnFvo9esiHjCv4aGUf7nARM_CeExsIa8IqvDn5BrItW52xqHx3CJuiVimfzZWBKUjr0iLVEda3xq0nniL3o61u1ljhLfc2af2wbWPNenY9h1_IUi1ubJYoWv_LLJI_fenP4uv-5PHOfvmpqW57j31UMl36vl30Q__RE?type=png
-[batch_lock_first_url]: https://mermaid.live/edit#pako:eNqVlF1LG0EUhv_KMFcKSvF2L4SkiSC0tdRIoezNsDuaBbObbnYLRQR3B1qpQkWMIdQ2VVJtK_0Qv21JfszZzab_ovORpqarkO7FMDM87znvnjMzS9hwTIo1XKFPfWobNGeRBZeUdBvxr0xczzKsMrE9NFehLiIVBGwf2E8Iz_iYpjLlsoTCPWA1YJ8hPJL0ObADYMdpQS6rgr6UWBtYXU4u02SWeEZRwRvAGLBAtxUlrY1PTorsGoouVrr7B53mTnKyB-Fm1Hr7633PqXAnuFx2EEMjs_l7-buFUYURw7OeEY8KXu1wl-P9BEqTnG503u3wBN32FgR1xZl0UKt2lXOhlzMNTd-ZAlaFcBfCJrBDHiR-XYvauxDUuqfn8Vo1rRSWlUk0NfMIzT3MZQr5f-xKetBwLyGwL6Jk4TeZajtu1VJ-e-Kb8nbenHS2v08MnU3x8df16OrFxLCJetrox4foYg1WAhWE-00u-fjqT5Vv6nj_9PQ1tzU9VUH0YOZxZrowVN_7RVQVjJtHnWoNjSSHZ_HGKgTrSf0q2WrwHkLQkmMDwo_APnFvo9esiHjCv4aGUf7nARM_CeExsIa8IqvDn5BrItW52xqHx3CJuiVimfzZWBKUjr0iLVEda3xq0nniL3o61u1ljhLfc2af2wbWPNenY9h1_IUi1ubJYoWv_LLJI_fenP4uv-5PHOfvmpqW57j31UMl36vl30Q__RE
-[online_lock_first_img]: https://mermaid.ink/img/pako:eNqNlO9r00AYx_-VcK8UNnyfF4PWdjBQJ65DkLw5ktsaWJOYJoKMgcmhTluwSNcy3KytZVWHv3BzOkv7xzxN2r7av-DlrutaG6QhhMvlc9_n-zxP7raRamoEyShPHrrEUElKx5s2zimGxC4L246u6hY2HGk9T2wJ5yWgR0Db4P9kz1kqYVkc8htAq0A_gf-d02dAW0B_zC5IJYXoc451ge7zwe9ZMokdNSvgElAK1FMMQXFri0tLUXRZ6v16Mjhqhc2D_kkD_Ne9zuHw3chp5C7iUslpTLq2lr6Vvpm5LjCsOvoj7JCIFzPM5eI4gFjTPy2Fbw9YgEG3DN7-RIAIjCzNkvUP_ea5IDUyHUXMihwjAT6SpZUby0D3wK-D3wR6zESCV9Vetw5edXB6FhT24mswrmf45iSsfPtPGUTi0vLqPWn9biqRSUt3Vu8nVjJzVQLo56gT_lfuqxJ0quFuKXhZmy_F2PAX7d2x6qD1Pix3wGN3K-g8DT_WLtov_jHG5S61JxMTcvM1lBcp-FLsnT-Ltx7XW75I5MvS75f_DA8b4B1fNjku26t6ecVhpcCTY80tgleLbt8TouxT0CpMGx39D5NRZ6yOaoEWUI7YOaxrbF9vR5SCnCzJEQXJbKiRDexuOQpSjB2GYtcx1x4bKpId2yULyDbdzSySN_BWnr25lsaUR4fCeJbtxwemefVONN0x7dviJOEHys5fP03Y1A?type=png
-[online_lock_first_url]: https://mermaid.live/edit#pako:eNqNlO9r00AYx_-VcK8UNnyfF4PWdjBQJ65DkLw5ktsaWJOYJoKMgcmhTluwSNcy3KytZVWHv3BzOkv7xzxN2r7av-DlrutaG6QhhMvlc9_n-zxP7raRamoEyShPHrrEUElKx5s2zimGxC4L246u6hY2HGk9T2wJ5yWgR0Db4P9kz1kqYVkc8htAq0A_gf-d02dAW0B_zC5IJYXoc451ge7zwe9ZMokdNSvgElAK1FMMQXFri0tLUXRZ6v16Mjhqhc2D_kkD_Ne9zuHw3chp5C7iUslpTLq2lr6Vvpm5LjCsOvoj7JCIFzPM5eI4gFjTPy2Fbw9YgEG3DN7-RIAIjCzNkvUP_ea5IDUyHUXMihwjAT6SpZUby0D3wK-D3wR6zESCV9Vetw5edXB6FhT24mswrmf45iSsfPtPGUTi0vLqPWn9biqRSUt3Vu8nVjJzVQLo56gT_lfuqxJ0quFuKXhZmy_F2PAX7d2x6qD1Pix3wGN3K-g8DT_WLtov_jHG5S61JxMTcvM1lBcp-FLsnT-Ltx7XW75I5MvS75f_DA8b4B1fNjku26t6ecVhpcCTY80tgleLbt8TouxT0CpMGx39D5NRZ6yOaoEWUI7YOaxrbF9vR5SCnCzJEQXJbKiRDexuOQpSjB2GYtcx1x4bKpId2yULyDbdzSySN_BWnr25lsaUR4fCeJbtxwemefVONN0x7dviJOEHys5fP03Y1A
-
-##### (2) 部分更新+NGリスト表示
-
-オンライン側の更新フローではSELECT FOR UPDATEをしてもらう。ロックが競合した場合は、バッチ側は対象レコードをスキップし、ロックが取れたレコードのみを更新する。このパターンの場合は、ユーザー操作で更新したレコードを、バッチでなるべく上書きしたくない背景が考えられるので、特定の更新日時以降のレコードは一律更新をスキップするなどの合わせ技な要件になることが考えられる。
-
-また、更新が失敗したレコードのリカバリーを諦めるか、リカバリー業務を追加するかの判断が必要となる。
-
-```mermaid
-sequenceDiagram
-    participant User as ユーザー
-    participant App as アプリケーション
-    participant DB as データベース
-    participant Batch as バッチ
-
-    User ->> App: 一覧検索を依頼
-    App ->> DB: 一覧検索 (SELECT)
-    activate App
-    DB -->> App: 検索結果を返す
-    App -->> User: 検索結果を表示
-    deactivate App
-
-    Batch ->> Batch: I/Fファイルを受信し起動
-
-    User ->> App: データ更新
-    App ->> DB: SELECT FOR UPDATE NOWAIT
-    activate App
-    DB -->> App: ロックを取得成功
-    deactivate App
-
-    Batch ->> DB: SELECT FOR UPDATE SKIP LOCKED（競合無視してロック取得）
-    activate Batch
-    DB -->> Batch: ロック可能なレコードのみ取得
-
-    App ->> DB: UPDATE
-    activate App
-    DB -->> App: 更新完了
-    deactivate App
-    App -->> User: 更新成功を画面に表示
-
-    Batch ->> DB: ロックが取得できたレコードを更新
-    DB -->> Batch: 更新成功
-    Batch ->> DB: 更新不可リストを書き出す (INSERT INTO 更新不可リストテーブル)
-    DB -->> Batch: 更新成功
-    deactivate Batch
-
-    User ->> App: 更新不可一覧を参照。必要に応じてリカバリー
-    App ->> DB: 更新不可リストの取得 (以下省略）
-```
+[バッチ設計ガイドライン](../forBatch/batch_guidelines.html#%E3%82%AA%E3%83%B3%E3%83%A9%E3%82%A4%E3%83%B3%E3%81%A8%E3%81%AE%E6%8E%92%E4%BB%96%E5%88%B6%E5%BE%A1) を参照すること。
 
 # テスト
 

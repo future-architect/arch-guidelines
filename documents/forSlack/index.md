@@ -26,3 +26,7 @@ hero:
 ファイルは[Pandoc]を利用して作成しています。
 
 [pandoc]: https://pandoc.org/
+
+## Articles
+
+- 2025.4.2 [Slack利用ガイドラインを公開しました](https://future-architect.github.io/articles/20250402a/)

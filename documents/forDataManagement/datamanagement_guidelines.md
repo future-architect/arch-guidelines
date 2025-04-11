@@ -218,7 +218,11 @@ head:
 
 またどうしても人が足りない場合はデータ基盤管理者をデータエンジニア、スチュWordが兼任することを許容する。ただし兼任としてしまうことで、データエンジニア、データスチュワードの行うデータマネジメントに対して、ガバナンスを効かせづらくなってしまうことが懸念点としてあげられる。
 
-[![](images/ロールの関係性.png)](https://mermaid.live/edit#pako:eNqrVkrOT0lVslJKy8kvT85ILCpRCHGJyVMAAsfox83tj5v3PG7a_3T-ruezlzxft_D5hLYXDa2xCrq6djXPpu18OmHik90zHjdOfNzQ-Kxz_4tVvUDG89mLXyybVqPghND_uGkRmLH2cXPb46b1j5s7gOqQZHc-bgZylz5uXg8Sae6MhbjACWJPx4Rn8-Y871wJsqR_wrOFHTX43BaTp6SjlJtalJuYmQL0VzXIqBilkozU3NQYJSsgMyU1LbE0pyRGKSavFqg0sbQkP7gyL1nJqqSoNFVHqSi_ND1DySotMacYyCstSEksSXXJTEwvSsyFixYk5kXl5yP4qSmZJflFvpCQBAdoLQDZiKen)
+```mermaid
+flowchart TD
+    A[データ基盤管理者] -->|方向付け、承認、監視| B[データアーキテクト、データスチュワード]
+    B -->|成果物、提案| A[データ基盤管理者]
+```
 
 各ロールの役割の一例を図示する。
 

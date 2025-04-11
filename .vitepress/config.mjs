@@ -43,6 +43,13 @@ const links = {
       link: "/documents/forTerraform/terraform_guidelines.html",
     },
   ],
+  "/documents/forDataManagement/": [
+    { text: "Introduction", link: "/documents/forDataManagement/" },
+    {
+      text: "データマネジメント設計ガイドライン",
+      link: "/documents/forDataManagement/datamanagement_guidelines.html",
+    },
+  ],
   "/documents/forGitBranch/": [
     { text: "Introduction", link: "/documents/forGitBranch/" },
     {

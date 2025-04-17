@@ -162,6 +162,19 @@ export default defineConfig({
             ],
           },
           {
+            text: "Batch",
+            items: [
+              {
+                text: "Introduction",
+                link: "/documents/forBatch/",
+              },
+              {
+                text: "バッチ設計ガイドライン",
+                link: "/documents/forBatch/batch_guidelines.html",
+              },
+            ],
+          },
+          {
             text: "DB",
             items: [
               {
@@ -170,7 +183,7 @@ export default defineConfig({
               },
               {
                 text: "PostgreSQL設計ガイドライン",
-                link: "/documents/forDB/postgresql_guidelines.html",
+                link: "/documents/forDB/postgresql_gbatch_guidelinesuidelines.html",
               },
             ],
           },

@@ -9,6 +9,9 @@ hero:
       text: WebAPI設計ガイドライン
       link: ./documents/forWebAPI/
     - theme: brand
+      text: バッチ設計ガイドライン
+      link: ./documents/forBatch/
+    - theme: brand
       text: DB設計ガイドライン
       link: ./documents/forDB/
     - theme: brand

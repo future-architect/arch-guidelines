@@ -2199,12 +2199,12 @@ infrastructure                      # アプリケーションコードとリポ
 
 # .gitignore
 
-ローカルPCでも、限られた環境（dev環境など）で限られた操作（`terraform plan` など）を許容するケースがあり、`terraform init` などで生じたキャッシュファイルをGit管理にするかどうか検討する必要がある。公式としては、[Dependency Lock File (.terraform.lock.hcl)](https://developer.hashicorp.com/terraform/language/files/dependency-lock#dependency-installation-behavior) にある通り、v0.14.0から追加されるようになった`terraform.lock.hcl` というロックファイルもGit管理が推奨だが、チームメンバーでWindows/Linux/Macなど複数プラットフォームを扱っていると、ハマりどころも多い。
+ローカルPCでも、限られた環境（dev環境など）で限られた操作（`terraform plan` など）を許容するケースがあり、`terraform init` などで生じたキャッシュファイルをGit管理にするかどうか検討する必要がある。公式としては、[Dependency Lock File (.terraform.lock.hcl)](https://developer.hashicorp.com/terraform/language/files/dependency-lock#dependency-installation-behavior) にある通り、v0.14.0から追加されるようになった`.terraform.lock.hcl` というロックファイルもGit管理が推奨だが、チームメンバーでWindows/Linux/Macなど複数プラットフォームを扱っていると、ハマりどころも多い。
 
 推奨は以下の通り。
 
 - `.gitignore` は原則、 [Terraform.gitignore](https://github.com/github/gitignore/blob/main/Terraform.gitignore) の内容を利用する
-- `terraform.lock.hcl` も `.gitignore` に追加し、Git管理対象外とする
+- `.terraform.lock.hcl` も `.gitignore` に追加し、Git管理対象外とする
 - [バージョン固定](#バージョン固定)章のとおり、パッチバージョンまでバージョンを明示的に固定する方針のため、ロックファイルをチームで共有する強い理由が存在しないため
 - 上記の前提として、バージョン管理が適切ではないProviderやModuleなどを利用しないこと
 

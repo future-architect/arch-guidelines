@@ -15,6 +15,13 @@ const repoUrl = pkg.repository.url
 
 /** @type {import("vitepress").DefaultTheme.Sidebar} */
 const links = {
+  "/documents/forWebFrontend/": [
+    { text: "Introduction", link: "/documents/forWebFrontend/" },
+    {
+      text: "Webフロントエンド設計ガイドライン",
+      link: "/documents/forWebFrontend/web_frontend_guidelines.html",
+    },
+  ],
   "/documents/forWebAPI/": [
     { text: "Introduction", link: "/documents/forWebAPI/" },
     {

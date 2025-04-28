@@ -596,6 +596,42 @@ JSON Merge Patch:
 - カスタムヘッダが増えることで、Web API仕様が複雑になりがちである。そのため、カスタムヘッダは必要最小限の追加とする
 - 命名は「スタイル」章を参照
 
+## 品質値
+
+特定のリクエストヘッダーでは、品質値 (Quality Value / q値)に0～1までの数値を指定することで、クライアントが取得したい形式やエンコードの優先度を指定することができる。
+
+[Quality values (品質値) - MDN Web Docs 用語集: ウェブ関連用語の定義 | MDN](https://developer.mozilla.org/ja/docs/Glossary/Quality_values) によると、q を使用できるヘッダーは下表である。
+
+| ヘッダー名      | 説明                                                                           | q値の利用例                                                      |
+| --------------- | ------------------------------------------------------------------------------ | ---------------------------------------------------------------- |
+| Accept          | メディアタイプ（MIMEタイプ）の優先度順に示す                                   | Accept: application/json;q=0.9, application/xml;q=0.8, _/_;q=0.1 |
+| Accept-Encoding | エンコーディング（圧縮形式など）の優先度順に示す                               | Accept-Encoding: gzip;q=1.0, deflate;q=0.6, br;q=0.4             |
+| Accept-Language | 自然言語の優先度順に示す                                                       | Accept-Language: en-US;q=0.9, ja-JP;q=0.8, en;q=0.7              |
+| TE              | 転送エンコーディング（trailers, chunked 以外）の優先度順に示す                 | TE: trailers, deflate;q=0.5                                      |
+| Want-Digest     | レスポンスに含めてほしい Digest ヘッダーのハッシュアルゴリズムの優先度順を示す | Want-Digest: sha-512;q=1.0, sha-256;q=0.8                        |
+
+推奨は以下の通り。
+
+- `Accept`
+  - 原則、qを利用しない
+  - 理由: 複数のレスポンス形式（例: JSONとXML）に対応するサーバー側の実装コストが高くなるため。APIの提供するフォーマットはURIや固定の仕様で明確にする
+- `Accept-Encoding`
+  - 原則、qを利用しない
+  - 理由
+    - [content-type](#content-type) にあるように、JSONのエンコードはUTF-8であるため
+    - 圧縮はリバースプロキシやCDNなどが透過的に処理することが多いため
+- `Accept-Language`
+  - 多言語対応などでは、限定的な利用を検討しても良いが、基本的には非推奨とする
+  - 理由
+    - エラーメッセージや、リソース（例: 商品名）で特定の言語を優先し、存在しない場合はフォールバック言語（例: 英語を優先、なければ日本語）で返すという用途には有効な場合があると考えられる
+    - しかし、多言語対応は、JSONの応答項目を英語用・ローカル言語用で分けるなど、アプリケーション層で対応することを第一に検討する
+- `TE`: 項目そのものを原則、使用しない
+- `Want-Digest`: 項目そのものを原則、使用しない
+
+::: info 参考
+[現場で役立つAPIデザイン p23 - Speaker Deck](http://api.example.com:80/articles/123/comments?key1=value1&key2=value2)
+:::
+
 # クエリパラメータ
 
 クエリーパラメータは以下のURLの `key1=value1&key2=value2` にあたる要素を指す。

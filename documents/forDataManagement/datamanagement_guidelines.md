@@ -55,19 +55,12 @@ head:
 
 # 用語定義
 
-- ビジネスユーザー
-  - データ基盤利用者のうち、業務部門のことを指す。業務の効率化、分析、調査などを行う。ITエンジニアとは限らない
-- データ資産
-  - 分析や可視化を通して業務改善や新規事業に活かせると考えられるデータ
-  - 構造データ、半構造データ、非構造データを問わない
-- 構造データ
-  - リレーショナルデータベース（RDBMS）のように、スキーマ（データの構造）をデータ書き込み時に定義・適用するデータ（Schema On Write）
-- 半構造データ
-  - オブジェクトストレージなどに保存されているCSV、JSON、Parquetなどのように、データ自体に構造情報（タグなど）を含むが、厳密なスキーマ定義は読み込み時に行われるデータ（Schema On Read）
-- 非構造データ
-  - 画像・音声・動画やオフィス系のファイルを指す
-- データソース
-  - データの発生源。本書では概ねシステム化されていることを前提とする
+- **ビジネスユーザー**: データ基盤利用者のうち、業務部門のことを指す。業務の効率化、分析、調査などを行う。ITエンジニアとは限らない
+- **データ資産**: 分析や可視化を通して業務改善や新規事業に活かせると考えられるデータ。構造データ、半構造データ、非構造データを問わない
+- **構造データ**: リレーショナルデータベース（RDBMS）のように、スキーマ（データの構造）をデータ書き込み時に定義・適用するデータ（Schema On Write）
+- **半構造データ**: オブジェクトストレージなどに保存されているCSV、JSON、Parquetなどのように、データ自体に構造情報（タグなど）を含むが、厳密なスキーマ定義は読み込み時に行われるデータ（Schema On Read）
+- **非構造データ**: 画像・音声・動画やオフィス系のファイルを指す
+- **データソース**: データの発生源。本書では概ねシステム化されていることを前提とする
 
 # データマネジメントにおける重要な視点
 
@@ -855,13 +848,15 @@ ISO/IEC・DMBOK版のどちらの評価基準を採用するかという話で�
 - 最新性
   - 適時性 (Timeliness)とも呼ばれる。指定された頻度・日時で連携されているか。鮮度ともよく表現される
 
-\[参考\]
+::: info 参考
 
 - [データの品質、 どう測る？](https://www.sci-japan.or.jp/vc-files/member/secure/speakers/20201013.pdf)
 - [データマネジメントの要！データ品質管理のことはじめ 第1回 データ品質管理とは](https://www.intellilink.co.jp/column/dx/2023/050800.aspx)
 - [データマネジメントの要！データ品質管理のことはじめ 第2回 データ品質管理の進め方](https://www.intellilink.co.jp/column/dx/2023/052200.aspx)
 - [【DMBOKで学ぶ】データ品質 | 楽水](https://rakusui.org/data_quality/)
 - [データの品質モデル（ISO/IEC 25012）について \- 千里霧中](https://goyoki.hatenablog.com/entry/2013/12/19/213502)
+
+:::
 
 ## 基礎品質、付加価値品質
 
@@ -1020,10 +1015,12 @@ terms:
   - もし、事前に定義した内容が実体と乖離した場合は、データオーナー側への問い合わせ数が増大してしまうため、定義（ドキュメント）と実体が一致するような仕組みとする
 - 一度に全データ資産に対して導入するのではなく、主要なデータフローに絞って1つずつ導入していき、推進計画を立案して実行する
 
-\[参考\]
+::: info 参考
 
 - [Data Contractの概要](https://zenn.dev/yohei/articles/2024-04-15-data-contract)
 - [しなやかなデータ連携に向けたdatacontract-cliへの貢献について紹介します](https://product.10x.co.jp/entry/2025/01/27/200416)
+
+:::
 
 ## データ品質強化による影響度
 
@@ -1594,7 +1591,9 @@ graph TD
 
 ※繰り返しだが、列非表示はマスキングであるため、データカタログに対して列非表示用のロールを追加する必要はない（実データはマスキングするが、データカタログの列定義は表示して良いため）。
 
-\[参考\] [列レベルのアクセス制御の概要 | BigQuery | Google Cloud](https://cloud.google.com/bigquery/docs/column-level-security-intro?hl=ja) にBigQueryの列レベル制御の方法について書かれている
+::: info 参考
+[列レベルのアクセス制御の概要 | BigQuery | Google Cloud](https://cloud.google.com/bigquery/docs/column-level-security-intro?hl=ja) にBigQueryの列レベル制御の方法について書かれている
+:::
 
 ▼実データの列レベルの制御のイメージ（※カタログの参照・編集ロールは省略）
 
@@ -2031,4 +2030,6 @@ Looker StudioとBigQueryのように、プロダクトによってはBIとデー
 - 監査ログが不正に改ざんされないよう、監査ログ自体へのアクセスも監査ログを出すようにする
 - 監査ログへのアクセスは、監査担当者のみが行えるようにする
 
-\[参考\] [PostgreSQL設計ガイドライン | 監査 | Future Enterprise Arch Guidelines](https://future-architect.github.io/arch-guidelines/documents/forDB/postgresql_guidelines.html#%E7%9B%A3%E6%9F%BB)
+::: info 参考
+[PostgreSQL設計ガイドライン | 監査 | Future Enterprise Arch Guidelines](/documents/forDB/postgresql_guidelines.html#%E7%9B%A3%E6%9F%BB)
+:::

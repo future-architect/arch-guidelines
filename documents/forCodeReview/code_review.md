@@ -20,7 +20,9 @@ head:
 
 コードレビューを楽しい場にするためにも、レビュアー／レビュイー が同じ方向性を向くことが重要である。同時に、人によってコメントなどの表現が揺れ、それにより認識齟齬があると楽しむ以前の問題であるため、守るべきルールも存在するはずである。このガイドラインは推奨する行動と、守るべきルールの両方を定義し、コードレビューをより有意義で学びが多く、生産性と品質を高める場とすることを目指す。
 
-- 参考: [コードレビューとは | GitLab](https://about.gitlab.com/ja-jp/topics/version-control/what-is-code-review/) にも似た旨の記載がある
+::: info 参考
+[コードレビューとは | GitLab](https://about.gitlab.com/ja-jp/topics/version-control/what-is-code-review/) にも似た旨の記載がある
+:::
 
 # 定義
 
@@ -94,7 +96,12 @@ Linterなどの検知結果をreviewdogなどと連携することで、形式�
 
 ## チームで合意した開発規約が存在し遵守しつつ育てる
 
-「[Javaコーディング規約](https://future-architect.github.io/coding-standards/documents/forJava/Java%E3%82%B3%E3%83%BC%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0%E8%A6%8F%E7%B4%84.html)」 「[SQLコーディング規約](https://future-architect.github.io/coding-standards/documents/forSQL/SQL%E3%82%B3%E3%83%BC%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0%E8%A6%8F%E7%B4%84%EF%BC%88PostgreSQL%EF%BC%89.html)」 「[AWSインフラ命名規約](https://future-architect.github.io/coding-standards/documents/forAWSResource/AWS%E3%82%A4%E3%83%B3%E3%83%95%E3%83%A9%E3%83%AA%E3%82%BD%E3%83%BC%E3%82%B9%E5%91%BD%E5%90%8D%E8%A6%8F%E7%B4%84.html)」 「[OpenAPI Specification 3.0.3規約](https://future-architect.github.io/coding-standards/documents/forOpenAPISpecification/OpenAPI_Specification_3.0.3.html)」など、チームで守るべきと合意形成されたコーディング規約や命名ルールが存在することを前提とする。また、これらに記載された内容をチームで改善し続ける運用とする。
+以下のような、チームで守るべきと合意形成されたコーディング規約や命名ルールが存在し、これらの内容をチームで改善し続ける運用であることを前提とする。
+
+- [Javaコーディング規約](https://future-architect.github.io/coding-standards/documents/forJava/Java%E3%82%B3%E3%83%BC%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0%E8%A6%8F%E7%B4%84.html)
+- [SQLコーディング規約](https://future-architect.github.io/coding-standards/documents/forSQL/SQL%E3%82%B3%E3%83%BC%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0%E8%A6%8F%E7%B4%84%EF%BC%88PostgreSQL%EF%BC%89.html)
+- [AWSインフラ命名規約](https://future-architect.github.io/coding-standards/documents/forAWSResource/AWS%E3%82%A4%E3%83%B3%E3%83%95%E3%83%A9%E3%83%AA%E3%82%BD%E3%83%BC%E3%82%B9%E5%91%BD%E5%90%8D%E8%A6%8F%E7%B4%84.html)
+- [OpenAPI Specification 3.0.3規約](https://future-architect.github.io/coding-standards/documents/forOpenAPISpecification/OpenAPI_Specification_3.0.3.html)
 
 # レビュー観点
 
@@ -161,7 +168,9 @@ SQL:
 - バックエンドについては、デシジョンテーブル（決定表）からテストケースを作成する
 ```
 
-関連: [コードレビューの観点 | google-eng-practices-ja](https://fujiharuka.github.io/google-eng-practices-ja/ja/review/reviewer/looking-for.html)
+::: tip 関連
+[コードレビューの観点 | google-eng-practices-ja](https://fujiharuka.github.io/google-eng-practices-ja/ja/review/reviewer/looking-for.html)
+:::
 
 # レビュイーの推奨行動
 
@@ -409,7 +418,7 @@ Markdown記法を活用することで、Descriptionやレビューコメント�
 
 ## マージはレビュイーが実施する
 
-[Gitブランチフロー規約](https://future-architect.github.io/coding-standards/documents/forGitBranch/git_branch_standards.html#%E3%83%9E%E3%83%BC%E3%82%B7%E3%82%99%E3%81%AF%E3%81%9F%E3%82%99%E3%82%8C%E3%81%8B%E3%82%99%E8%A1%8C%E3%81%86%E3%81%B8%E3%82%99%E3%81%8D%E3%81%8B)で記載された推奨ルールに従う。チームの自律性と生産性を重視するのであれば、レビュイーがマージすべきである。
+[Gitブランチフロー規約](/documents/forGitBranch/git_branch_standards.html#%E3%83%9E%E3%83%BC%E3%82%B7%E3%82%99%E3%81%AF%E3%81%9F%E3%82%99%E3%82%8C%E3%81%8B%E3%82%99%E8%A1%8C%E3%81%86%E3%81%B8%E3%82%99%E3%81%8D%E3%81%8B)で記載された推奨ルールに従う。チームの自律性と生産性を重視するのであれば、レビュイーがマージすべきである。
 
 信頼関係が構築できていれば、以下のようなやり取りが可能となり、スピード感が上がるためである。
 
@@ -432,7 +441,9 @@ typo修正など大したことがない修正であれば、やり取りを減�
 
 レビューは作成者を詰問する場ではなく、より良いものをチーム一丸となって作るという考えが重要である。
 
-- 参考: [プルリクエストを見る時、出す時に重要なマインドセット \- NRIネットコムBlog](https://tech.nri-net.com/entry/important_mindset_for_pull_requests)
+::: info 参考
+[プルリクエストを見る時、出す時に重要なマインドセット \- NRIネットコムBlog](https://tech.nri-net.com/entry/important_mindset_for_pull_requests)
+:::
 
 ## レビュー依頼へのリアクションはできるだけ即レス
 
@@ -450,8 +461,8 @@ typo修正など大したことがない修正であれば、やり取りを減�
 
 チーム開発において、レビュー待ちでの待機時間を最小化することでチームでの生産性を最大化できるとされる。
 
-- 参考: [どうして手を動かすよりもチーム内のコードレビューを優先するべきなのか \- Speaker Deck](https://speakerdeck.com/okashoi/dousiteshou-wodong-kasuyorimotimunei-nokodorebiyuwoyou-xian-surubekinanoka)
-
+::: info 参考
+[どうして手を動かすよりもチーム内のコードレビューを優先するべきなのか \- Speaker Deck](https://speakerdeck.com/okashoi/dousiteshou-wodong-kasuyorimotimunei-nokodorebiyuwoyou-xian-surubekinanoka)
 :::
 
 ## Reviewersを自分に設定する
@@ -565,7 +576,9 @@ GitHubでのコードレビューは、`Start a review` を行うと `Submit rev
 
 「なんとなく汚いです」は指摘ではない。悪いコードだと感じたのであれば、相手が納得できるように論理的に説明する。論理的に説明できないのであれば、指摘をすべきではない。
 
-- 引用: [デキるプログラマだけが知っているコードレビュー7つの秘訣 | PPT](https://www.slideshare.net/rootmoon/7-37892729) p26
+::: info 引用元
+[デキるプログラマだけが知っているコードレビュー7つの秘訣 | PPT](https://www.slideshare.net/rootmoon/7-37892729) p26
+:::
 
 ## 出典があれば追記できるとベター
 
@@ -596,7 +609,9 @@ Suggested changesを使わないほうが良い場合もある。
 - 変数名のリネーム（一箇所だけ変更してもビルドエラーになり、その後のリファクタリングが余計に面倒であるため）
 - 上記のリネームの例のように、リンターやテストに影響を与えるものは、レビューコメントという形でコメントする方が良い
 
-参考: [君は GitHub の Suggested change を知っているか？ \- BASEプロダクトチームブログ](https://devblog.thebase.in/entry/2018/12/02/130657)
+::: info 参考
+[君は GitHub の Suggested change を知っているか？ \- BASEプロダクトチームブログ](https://devblog.thebase.in/entry/2018/12/02/130657)
+:::
 
 ## nits（WANT以下）のコメントだけであれば、先にapproveする
 

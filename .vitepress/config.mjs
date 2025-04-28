@@ -208,6 +208,19 @@ export default defineConfig({
             ],
           },
           {
+            text: "DataManagement",
+            items: [
+              {
+                text: "Introduction",
+                link: "/documents/forDataManagement/",
+              },
+              {
+                text: "データマネジメント設計ガイドライン",
+                link: "/documents/forDataManagement/datamanagement_guidelines.html",
+              },
+            ],
+          },
+          {
             text: "Git",
             items: [
               {

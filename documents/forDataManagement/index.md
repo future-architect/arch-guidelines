@@ -4,7 +4,7 @@ author: フューチャー株式会社
 layout: home
 hero:
   name: "データマネジメント<wbr>設計ガイドライン"
-  tagline: data Management Design Guidelines
+  tagline: Data Management Design Guidelines
   actions:
     - theme: brand
       text: データマネジメント設計ガイドライン

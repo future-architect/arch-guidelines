@@ -18,7 +18,7 @@ Web API設計ガイドラインは、世の中のシステム開発プロジェ�
 
 # はじめに
 
-本規約はWeb APIを利用する開発者向けに、RESTライクなWeb APIの主な設計手法をまとめ、システム開発プロジェクトにおける設計のベースラインを提供するために作成された。本規約を用いることで、開発チームは何を設計すべきか、どのような判断を下すべきかについて共通認識を得ることができる。また、設計の属人性を軽減させ、ナレッジやツールの横展開を容易にすることを狙いにしている。
+本ガイドラインはWeb APIを利用する開発者向けに、RESTライクなWeb APIの主な設計手法をまとめ、システム開発プロジェクトにおける設計のベースラインを提供するために作成された。本ガイドラインを用いることで、開発チームは何を設計すべきか、どのような判断を下すべきかについて共通認識を得ることができる。また、設計の属人性を軽減させ、ナレッジやツールの横展開を容易にすることを狙いにしている。
 
 # 前提条件
 
@@ -28,7 +28,7 @@ Web API設計ガイドラインは、世の中のシステム開発プロジェ�
 - 業務システム向け Web API 提供である（サードパーティ向けに広く開発する Web API ではなく、限られたクライアントやシステムと連携すること。いわゆる、LSUDs（Large Set of Unknown Developers）ではなく、SSKDs（Small Set of Known Developers）が対象である
 - AWSなどのクラウド環境で構築される
 
-また、利用者は以下の技術を理解しているとし、本規約ではこれらについて解説はしない。
+また、利用者は以下の技術を理解しているとし、本ガイドラインではこれらについて解説はしない。
 
 - 基礎的なHTTPの知識
 - 基礎的なRESTの知識
@@ -42,7 +42,7 @@ Web APIのサーバサイドの設計についてまとめる。クライアン�
 
 ::: warning 有志で作成したドキュメントである
 
-- フューチャーアーキテクトには多くの部署や多様なプロジェクトが存在し、それぞれの状況に合わせて創意工夫された設計ポリシーが存在する。本規約はフューチャーアーキテクトの全ての部署／プロジェクトで利用されているわけではなく、有志が観点を持ち寄って新たに整理したものである
+- フューチャーアーキテクトには多くの部署や多様なプロジェクトが存在し、それぞれの状況に合わせて創意工夫された設計ポリシーが存在する。本ガイドラインはフューチャーアーキテクトの全ての部署／プロジェクトで利用されているわけではなく、有志が観点を持ち寄って新たに整理したものである
 - 相容れない部分があればその領域を書き換えて利用することを想定している
   - 例えば、現行システムがあればそれに沿った設計にすることで、現新比較など含めた品質担保が行いやすくなることが考えられる。こういったプロジェクト固有の背景や事情への配慮は、ガイドライン利用者が最終的に判断すること
 - 本ガイドラインに必ず従うことは求めておらず、設計案の提示と比較するための観点を利用者に提供することを主目的としている
@@ -123,7 +123,7 @@ Web APIのホスティング戦略とは、Web APIのエンドポイントをど
 | DNS管理  | 追加する                                                                  | メインのドメインと共用                                                                                         |
 | CORS設定 | 必要                                                                      | 不要                                                                                                           |
 
-本規約の推奨は以下の通り。
+推奨は以下の通り。
 
 - 同一ドメインで静的コンテンツ（HTML/CSS/JavaScript/画像など）を配信するか、配信する予定があるのであれば、 サブパス方式を利用する
 - APIサービスを独立して提供する想定であれば、`api.example.com` といったサブドメインを採用する。この際は `/api` は不要とする
@@ -141,7 +141,7 @@ Web APIのホスティング戦略とは、Web APIのエンドポイントをど
 | CORS設定             | 必要                                      | 不要                                      |
 | Cookie認証実施の場合 | APIごとに必要                             | どれか1つの認証で事足りる                 |
 
-本規約の推奨は以下の通り。
+推奨は以下の通り。
 
 - 各マイクロサービスの独立性を高める考えであれば、「1.サブドメイン方式」で提供する
 - サービスの粒度管理や認証などの観点から、同一ドメインで提供する場合、またはAPIゲートウェイで集約して提供する場合は、「2.サブパス方式」を採用する
@@ -164,7 +164,7 @@ Web APIのホスティング戦略とは、Web APIのエンドポイントをど
 | DELETE /articles/1 時の挙動 | 紐づいたコメントも消えることが直感的                                           | 記事に関連したコメントが消えることは必ずしも直感的ではない       |
 | まとめ                      | 親リソースに関連性が深い（一覧参照、削除時にカスケード削除される場合に適する） | 他のリソースと親子関係に無い、独立したリソースである場合に適する |
 
-本規約の推奨は以下の通り。
+推奨は以下の通り。
 
 - 【GET】親リソースに紐づいた子リソースを一覧検索で取得する可能性がある場合は、ネスト表現を採用する
 - 【POST】親リソースの配下にリソースを作成するのであれば、ネスト表現を採用する
@@ -200,8 +200,6 @@ Web APIのホスティング戦略とは、Web APIのエンドポイントをど
 
 バージョンの表現方法として、以下の3パターンが考えられる。
 
-それぞれメリット/デメリットがあるが、本来のREST思想とのギャップを許容しつつ、実用の観点から「1.パスベース」を推奨する
-
 | 評価観点                     | 1.パス方式 ※推奨                        | 2.HTTPヘッダ方式                                            | 3.サブドメイン方式                 |
 | :--------------------------- | :-------------------------------------- | :---------------------------------------------------------- | :--------------------------------- |
 | 説明                         | URIの一部にバージョン情報を付与する方法 | リクエストヘッダにバージョン情報を付与する方法              | ドメインで切り替える方法           |
@@ -214,9 +212,13 @@ Web APIのホスティング戦略とは、Web APIのエンドポイントをど
 | インフラ構成の複雑度         | ✅️                                     | ✅️                                                         | ⚠️（サブドメイン追加の作業が必要） |
 | ログ                         | ✅️バージョン番号もログに残りやすい     | ❌️ヘッダも出力しないとどのバージョンを使ったかわかりにくい | ✅️フルパスを出せば残る            |
 
+推奨は以下の通り。
+
+- 本来のREAST思想とのギャップがあるが、実用の観点から「1.パスベース」を利用する
+
 ## 後方互換性
 
-本規約の推奨は以下の通り。
+推奨は以下の通り。
 
 - Web APIは基本的に、なるべく「後方互換性」を維持するように機能改修する
 - 後方互換性を破壊する改修が必要で、クライアントへ移行期間の提供が必須な場合は、メジャーバージョンを上げて複数バージョンを一時的に提供する
@@ -244,7 +246,7 @@ Web APIのホスティング戦略とは、Web APIのエンドポイントをど
 | パッチバージョンアップ   | ・小さなバグ修正<br> ・エラーメッセージのtypo修正<br> ・APIドキュメント修正 |
 | マイナーバージョンアップ | ・新しいオプションが追加<br> ・性能改善、セキュリティ強化など               |
 
-本規約の推奨は以下の通り。
+推奨は以下の通り。
 
 - 後方互換性が無い改修が行われた場合は、メジャーバージョンアップを行う
 - Web APIの機能単位のバージョン管理の粒度は、メジャーバージョン粒度とする
@@ -307,14 +309,11 @@ Link: <https://api.example.com/v2/orders/{order_id}>; rel="alternate"
 }
 ```
 
-- Deprecation
-  - trueで廃止予定になったことを示す
-- Sunset
-  - 廃止予定の年月日を示す。特に無くても良い
-- Link
-  - 代替先のURLを提示。オプションである
+- **Deprecation**: trueで廃止予定になったことを示す
+- **Sunset**: 廃止予定の年月日を示す。特に無くても良い
+- **Link**: 代替先のURLを提示。オプションである
 
-本規約の推奨は以下の通り。
+推奨は以下の通り。
 
 - プライベートAPIの廃止は影響度調査を実施し、周知および調整を行う
 - 同時に、OpenAPI定義にdeprecated設定する
@@ -339,8 +338,8 @@ HTTPリクエストメソッドは[RFC 7231](https://datatracker.ietf.org/doc/ht
 | HEAD     | ✅️    | ✅️    | ヘッダー取得。GETと異なりレスポンスボディを取得しない                                                                                               |
 | GET      | ✅️    | ✅️    | 参照                                                                                                                                                |
 | POST     | ❌️    | ❌️    | リソース作成／更新／追加。非同期要求の場合も利用する。複雑な検索条件を指定する場合には、リクエストボディに記載しPOSTを利用するケースがある（※後述） |
-| PUT      | ❌️    | ✅️    | リクエストボディによってリソースを作成、または置き換える。リソースの新規作成もサポートするケースがあるが、本規約では原則禁止とする（※後述）         |
-| PATCH    | ❌️    | ⚠️     | 指定された項目だけ部分的に更新する。リソースの新規作成をサポートする場合もあるが、本規約では禁止とする（※後述）                                     |
+| PUT      | ❌️    | ✅️    | リクエストボディによってリソースを作成、または置き換える。リソースの新規作成もサポートするケースがあるが、本ガイドラインでは原則禁止とする（※後述） |
+| PATCH    | ❌️    | ⚠️     | 指定された項目だけ部分的に更新する。リソースの新規作成をサポートする場合もあるが、本ガイドラインでは禁止とする（※後述）                             |
 | DELETE   | ❌️    | ✅️    | リソースを削除する                                                                                                                                  |
 
 ## 複雑な検索条件が必要な場合にPOSTを用いてよいか
@@ -378,7 +377,7 @@ HTTPリクエストメソッドは[RFC 7231](https://datatracker.ietf.org/doc/ht
 
 PUTもリソースの作成を許容すると、POSTとの使い分けに悩む場合がある。
 
-本規約における推奨は以下の通り。
+本ガイドラインにおける推奨は以下の通り。
 
 1. 新規作成はPOSTを使用する
 2. PUTでリソースを新規作成するかどうかは基本的には非推奨、理由があれば対応して良い
@@ -395,7 +394,7 @@ PUTもリソースの作成を許容すると、POSTとの使い分けに悩む�
 
 ## サブリソース指定のPUTとPATCHの使い分け
 
-本規約の推奨は以下の通り。
+推奨は以下の通り。
 
 - リソースの更新はPATCHよりPUTの利用を推奨する
   - PUTで統一することで設計／開発工数を抑える方針とする
@@ -421,7 +420,7 @@ PUTもリソースの作成を許容すると、POSTとの使い分けに悩む�
 | REST思想との一致性 | ⚠️/copyが何かという点が議論されやすい | ✅️書籍API Design Patternsで紹介されており、比較的業界で受け入れられている | ⚠️世の中に浸透している手法は存在しない |
 | OpenAPIとの相性    | ✅️別のパスとして扱われる             | ✅️別のパスとして扱われる                                                  | ❌️記述が難しい                        |
 
-本規約の推奨は以下の通り。
+推奨は以下の通り。
 
 - できる限りHTTPメソッドで表現で対応するように務める
   - `batch` `copy` `move` `cancel` `undelete` などのHTTPメソッドでどうしても表現しにくかったり、パスが既存機能と重複する場合は、カスタムメソッドを導入する（後者は、1件登録の、`POST /orders` を作成したあと、後日バッチ登録を追加する場合に `POST /orders/batch` と区別するようなケースを指す）
@@ -471,7 +470,7 @@ POST、PUT、PATCH、DELETEを呼び出した場合、そのエンティティ�
 - POST、PUT、PATCHはリソースを返す
 - DELETEは204(No Content) を返す
 
-本規約の推奨は以下の通り。
+推奨は以下の通り。
 
 - フロントエンド側の要件でリソースを応答した方が都合が良ければ返す
 - フロントエンド側の要件で特に指定が無ければ、あえてエンティティを返す必要はない
@@ -482,7 +481,7 @@ POST、PUT、PATCH、DELETEを呼び出した場合、そのエンティティ�
 
 削除対象の子リソースがカスケードされて削除された場合に、削除された件数などを応答すべきではないかという議論がある。
 
-本規約の推奨は以下の通り。
+推奨は以下の通り。
 
 - フロントエンド側の要件でリソースを応答した方が都合が良ければ返す
   - DELETEのレスポンスで「何個消えたよ」という情報が欲しいケースがあれば追加する
@@ -494,7 +493,7 @@ POST、PUT、PATCH、DELETEを呼び出した場合、そのエンティティ�
 
 Idempotency-Keyヘッダという[IETF Draft（2024年12月時点ではDraft 05）](https://datatracker.ietf.org/doc/html/draft-ietf-httpapi-idempotency-key-header-05)があり、POSTやPATCHに冪等性を持たせる（例えば、同じリクエストが2回来たとしても重複で処理をしない性質を持たせること）について議論されている。主なユースケースは、ペイメントなどで多重の引き落としが許容されない場合が考えられる。特にマイクロサービスなシステム構成は要求失敗時にリトライを行うことが一般的であるため、多重で処理が成功してしまわないように制御する必要がある。
 
-本規約の推奨は以下の通り。
+推奨は以下の通り。
 
 - POSTやPATCHであっても、リトライ時の重複起動に備えて、できる限り冪等な設計とする
 - IETF Draftな状態であるが、`Idempotency-Key` を用いる
@@ -567,11 +566,11 @@ JSON Merge Patch:
 }
 ```
 
-本規約の推奨は以下の通り:
+本ガイドラインの推奨は以下の通り:
 
 - PATCHのリクエストボディはJSON Merge Patch形式に従う
 - JSON Merge Patchでハマりやすい、部分更新が出てきた場合は、PUTで処理できるエンドポイント設けるなど、PATCHにこだわりすぎない
-- 本規約では、[#nullの扱い](#nullの扱い)の章の通り値が存在しないことを `undefined` で表現し `null` を利用しない。そのため、PATCHで項目削除のために `null` を利用することは問題ない
+- 本ガイドラインでは、[#nullの扱い](#nullの扱い)の章の通り値が存在しないことを `undefined` で表現し `null` を利用しない。そのため、PATCHで項目削除のために `null` を利用することは問題ない
 - `Content-Type: application/merge-patch+json` で送信する。フレームワークなどの都合で対応できない場合は、 `Content-Type: application/json` も許容する
 
 ::: info 参考
@@ -591,7 +590,7 @@ JSON Merge Patch:
 | User-Agent      | クライアントが対向システムである場合、利用実績の把握の把握のため `User-Agent: SystemABC/1.0` などと指定しても良い |
 | Accept-Language | 多言語対応しているWeb APIの場合は指定可能にする                                                                   |
 
-カスタムヘッダーについて、本規約の推奨は以下の通り。
+カスタムヘッダーについて、推奨は以下の通り。
 
 - カスタムヘッダを追加する際は、その用途を明確化する
 - カスタムヘッダが増えることで、Web API仕様が複雑になりがちである。そのため、カスタムヘッダは必要最小限の追加とする
@@ -605,7 +604,7 @@ JSON Merge Patch:
 http://api.example.com:80/articles/123/comments?key1=value1&key2=value2
 ```
 
-本規約で特記すべき推奨事項はない。以下の事項に注意して利用する。
+本ガイドラインで特記すべき推奨事項はない。以下の事項に注意して利用する。
 
 - Web APIのURLはブラウザのアドレスバーに一般的に表示されないと考えられるが、第三者が一般ユーザーの開発者向けコンソールを開かせるといった攻撃も考えられる。そのため、クエリパラメータにはアクセストークンのような機密情報は載せず、HttpOnly属性を付けたCookieを利用する
 
@@ -613,7 +612,7 @@ http://api.example.com:80/articles/123/comments?key1=value1&key2=value2
 
 RFC 7231（[日本語訳](https://triple-underscore.github.io/RFC7231-ja.html)）の限り、POST／PUT／PATCH／DELETEでクエリパラメータを利用すること自体は禁止されているわけではない。
 
-しかし、本規約の推奨は以下の通り。
+しかし、推奨は以下の通り。
 
 - GET／HEAD以外のメソッドでのクエリパラメータの利用を原則禁止
 - POST、PUT、PATCHの場合は、リクエストボディを利用する
@@ -670,7 +669,7 @@ curl -X DELETE 'http://example.com/users/123?fields=email'
 | サーバサイドのパースの手間 | ⚠️多少の手間はある                      | ⚠️少し手間                                    | ✅️JSONであるため楽                                                                     |
 | 総合                       | バランスが良い                          | 1と大差が無い                                 | 視認性が悪いのが難点。POSTでリクエストボディでも良いのでは？という話になりがち          |
 
-本規約の推奨は以下の通り。
+推奨は以下の通り。
 
 - OpenAPI定義との相性や視認性が有利な、「1.カンマ区切り」を利用する
 
@@ -681,7 +680,7 @@ curl -X DELETE 'http://example.com/users/123?fields=email'
 | 説明 | ascを+記号、descを-記号で表現するパターン | ソート条件を別項目に切り出すパターン             |
 | 例   | sort=+publish_status,-release_at          | sort=publish_status,release_at&order_by=asc,desc |
 
-亜種パターンはそれぞれ以下のデメリットがあるので、本規約では利用しないとする。
+亜種パターンはそれぞれ以下のデメリットがあるので、本ガイドラインでは利用しないとする。
 
 - 昇降順に±
   - URLで「+」記号は半角スペース扱いになり、エスケープが必要。区別でハマる可能性があるため
@@ -702,7 +701,7 @@ curl -X DELETE 'http://example.com/users/123?fields=email'
 | 説明   | 複数のキーをカンマ区切りで接続する | 同じキー名で繰り返し指定する。 |
 | 例     | ?keys=k1,k2,k3                     | ?key=k1\&key=k2\&key=k3        |
 
-本規約の推奨は以下。
+推奨は以下の通り。
 
 - 「1.カンマ区切り」を利用する
   - 理由は、「ソート条件を複数指定」の章と同様である
@@ -717,7 +716,7 @@ curl -X DELETE 'http://example.com/users/123?fields=email'
 | 2.キーを文字列結合 | 区切り文字で結合する               | keys=aaa-8,bbb-121,ccc-32                                                                                |
 | 3.JSON             | 構造的に指定する                   | keys=\[{"device_id":"aaa","seq_no":8},{"device_id":"bbb","seq_no":121},{"device_id":"ccc","seq_no":32}\] |
 
-本規約の推奨は以下の通り:
+本ガイドラインの推奨は以下の通り:
 
 - 「2.キーを文字列結合」方式で対応する
 - そもそも、DB側でサロゲートキーを採番するようにし、リソースを一意に特定可能にする
@@ -726,7 +725,7 @@ curl -X DELETE 'http://example.com/users/123?fields=email'
 
 Web APIのクエリパラメータで `fields` を使って必要な項目だけに絞り込むことで、無駄なデータ転送を減少させることができる。一方で、OpenAPIのスキーマを元にしたコード生成との相性を考慮して導入の是非を考える必要がある。例えば、Goであれば、ゼロ値の場合にJSON項目に含めない（omitempty）設定が生成コードで可能かを確認する必要がある。サイズの比較については、gzip圧縮した後のペイロードサイズを比較する必要があり、思ったより効果が得られないケースも多い。
 
-本規約の推奨は以下の通り。
+推奨は以下の通り。
 
 - 開発工数が必要となるため、必要が無ければ導入しない
 - 導入する場合も、必要最低限の機能のみに追加する
@@ -743,7 +742,7 @@ Web APIのクエリパラメータで `fields` を使って必要な項目だけ
 
 HTTP ステータスコードの使い分けについて下表を示す。
 
-【凡例】✅:利用する ⚠️:（一時的に）利用する可能性がある 🆖:Webの仕様には則っているが本規約では利用しない
+【凡例】✅:利用する ⚠️:（一時的に）利用する可能性がある 🆖:Webの仕様には則っているが本ガイドラインでは利用しない
 
 | コード                    | 説明                                                                                                                                                                                                  | GET HEAD | POST | PUT | PATCH | DELETE |
 | :------------------------ | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------- | :--- | :-- | :---- | :----- |
@@ -757,7 +756,7 @@ HTTP ステータスコードの使い分けについて下表を示す。
 | 404 Not Found             | 存在しないリソースを指定した場合。 パスパラメータ指定で存在しなかった場合                                                                                                                             | ✅️      | ✅️  | ✅️ | ✅️   | ✅️    |
 | 405 Method Not Allowed    | 存在しないHTTPメソッドを指定                                                                                                                                                                          | ✅️      | ✅️  | ✅️ | ✅️   | ✅️    |
 | 409 Conflict              | 他のユーザーによる操作でリソースが更新された場合に、一意制約違反や、楽観／悲観ロックエラーが発生した場合                                                                                              |          | ✅️  | ✅️ | ✅️   | ✅️    |
-| 412 Precondition Failed   | If-Matchで楽観ロックを用いた更新を行う場合は、409ではなく412を用いる。本規約に準拠すると利用シーンは存在しない                                                                                        |          |      | 🆖  | 🆖    | 🆖     |
+| 412 Precondition Failed   | If-Matchで楽観ロックを用いた更新を行う場合は、409ではなく412を用いる。本ガイドラインに準拠すると利用シーンは存在しない                                                                                |          |      | 🆖  | 🆖    | 🆖     |
 | 413 Payload Too Large     | リクエストヘッダ、リクエストボディが条件を超えている場合                                                                                                                                              |          | ✅️  | ✅️ | ✅️   |        |
 | 414 URI Too Long          | リクエストされたURL長が規定より長い場合。OpenAPIスキーマを用いたチェックに通常まとめられるため、利用しない                                                                                            | ⚠️       |      |     |       |        |
 | 422 Unprocessable Entity  | 入力値が業務処理を行う条件を満たさない                                                                                                                                                                | ✅️      | ✅️  | ✅️ | ✅️   | ✅️    |
@@ -789,7 +788,7 @@ HTTPステータスコードをできる限り細かく使い分けることに�
 | 参照で404を返すのはどのようなパターンか                                                                    | パスパラメータ指定の場合は404を返す                            | GET /articles/1 でID=1の記事が無ければ、404 Not Foundを返すべきである                                                                                                                                                                                                                                                  |
 | POSTで404はありえるのか                                                                                    | POSTでも404はありえる                                          | POST /articles/1/comments でコメント投稿する場合に、/articles/1 が存在しない場合は404を返すべきである                                                                                                                                                                                                                  |
 | バリデーションエラーにおける、400と422の使い分けが不明瞭                                                   | スキーマチェックまでは400、それ以外は422にするという方針       | OpenAPIスキーマで検証できるレベルは400、422はビジネスロジック観点でのチェックレベル（例えば、在庫不足で出荷指示が行えなかったなど）とすれば、実装が揺れない区別となる                                                                                                                                                  |
-| PUTで新規作成した場合と更新した場合で201 Created, 200 OKを使い分けるべきか                                 | Yesだが、200に統一しても良い                                   | PUTで新規作成を許可する方針であれば、201と200を区別できるようにしたほうが、より標準的である。一方で開発上使い分けが面倒かつ、実務的なメリットも大きくないため、チーム方針で200に統一しても良い。本規約としては、201、200を使い分けることを推奨する                                                                     |
+| PUTで新規作成した場合と更新した場合で201 Created, 200 OKを使い分けるべきか                                 | Yesだが、200に統一しても良い                                   | PUTで新規作成を許可する方針であれば、201と200を区別できるようにしたほうが、より標準的である。一方で開発上使い分けが面倒かつ、実務的なメリットも大きくないため、チーム方針で200に統一しても良い。本ガイドラインとしては、201、200を使い分けることを推奨する                                                             |
 | DELETEを2回呼んだ場合の、2回目のステータスコードはどうするか                                               | 初回: 204 2回目: 404                                           | DELETEは冪等で作るべきとあるが、対象はリソースの状態である。そのため、ステータスコードは変化してよい。なお、最初からリソースが存在しなければ、初回で404を返す                                                                                                                                                          |
 | DELETEでリソースが存在しなかった場合、業務的には409 Conflictが正しいのでは                                 | 404                                                            | 論理的に、他の誰かが先に削除した場合は409 Conflictが正しいが、削除されたからリソースが存在しないのか、最初から存在しないのかの区別ができないため、404を返すしかない。論理削除の場合は409を返すことも可能であるが、内部設計に強く依存するため404で統一したい                                                            |
 | 権限が無いリソースをGETした場合、403 Forbiddenか404のどちらを返すべきか                                    | 404                                                            | 403を返すとデータが存在するというヒントを攻撃者に与えてしまうため、404を返す。社内向けの業務アプリの場合は開発者への切り分け情報の提供のため、403にしたいという要求もまま聞くが、許容しない。社内向けシステムだったとしても存在すること自体の情報を隠す必要がある業務がゼロで無い以上は、404で統一する方がベターである |
@@ -893,7 +892,7 @@ DBなどから取得したレコードをそのまま配列のままで返すの
 }
 ```
 
-本規約の推奨は以下である。
+本ガイドラインの推奨は以下である。
 
 - ISO8601形式を利用する
   - 可読性を理由とする
@@ -929,7 +928,7 @@ DBなどから取得したレコードをそのまま配列のままで返すの
 }
 ```
 
-本規約の推奨は以下。
+推奨は以下の通り。
 
 - モバイル対応予定が無く、プライベートなAPIであればコード値のみを返す
   - 区分値がDBにはコード値で格納されているとすると、値とのマッピングなしでDBからの取得結果をレスポンスにすることができ、開発をシンプルにできる
@@ -994,7 +993,7 @@ Content-Language: ja
 
 Web APIのサーバサイドでバリデーションエラーが発生した場合に、どの項目に不備があったかユーザーにフィードバックを行うため、JSON PATHでエラー箇所を返すと良い場面がある。
 
-本規約の推奨は以下。
+推奨は以下の通り。
 
 - 入力項目が少ないシンプルなフォーム画面しか存在しない場合は、対応しない
 - 複雑なフォーム画面がある場合は、フロントエンド側とUX方針を相談の上JSON PATHを返す設計にする
@@ -1003,7 +1002,7 @@ Web APIのサーバサイドでバリデーションエラーが発生した場�
 
 ## Content-Type
 
-本規約の推奨は以下の通り。
+推奨は以下の通り。
 
 - 必ずContent-Typeを設定する
 - 適切なメディアタイプを使用する（Web APIでは、`text/plain` より、`application/json` がより適切な場合が多い）。エラーの場合は `application/problem+json` が推奨である
@@ -1028,7 +1027,7 @@ Server-Timingヘッダーを用いることで、サーバー側での各領域�
 Server-Timing: cache;desc="Cache Read";dur=23.4, db;dur=50, app;dur=75.3
 ```
 
-本規約の方針は以下の通り。
+本ガイドラインの方針は以下の通り。
 
 - チューニングが必要なAPIに絞って、Server-Timingヘッダを使用する（予め全APIに組み込むのは費用対効果が悪い）
 - 測定項目は最小限かつ意味のあるものにする。例えば、DBアクセスが複数であればdb1, db2など分けても良い
@@ -1046,7 +1045,7 @@ Server-Timing: cache;desc="Cache Read";dur=23.4, db;dur=50, app;dur=75.3
 
 [Cache-Control](https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/Cache-Control) を用いるとブラウザやCDNやプロキシなどに対してキャッシュを制御するための指示を制御する事ができる。
 
-本規約の推奨と理由は以下の通り。
+本ガイドラインの推奨と理由は以下の通り。
 
 - 基本方針としてはレスポンスヘッダに `Cache-Control: no-store` を追加し、キャッシュを禁止する
   - 業務システムでは通常、権限設定がなされているためキャッシュにより機密情報が不用意に参照できてしまうことを防ぎたいため
@@ -1062,14 +1061,14 @@ Server-Timing: cache;desc="Cache Read";dur=23.4, db;dur=50, app;dur=75.3
 
 ## スキーマレベルの検証
 
-本規約の推奨は以下。
+推奨は以下の通り。
 
 - OpenAPI定義にて、なるべく細かくチェック可能なようにスキーマ情報を記載する。例えば、型、桁、範囲チェック、正規表現チェック、enumチェックなどがある
 - 複数項目を組み合わせたチェックや、DBを確認しないとならないチェック（例えば、マスタ存在チェック）などは、個別のアプリケーション側で実装する
 
 ## クライアントサイド側との機能配置
 
-本規約の推奨は以下。
+推奨は以下の通り。
 
 - クライアント側で入力チェックを行っていたとしても、サーバサイドでの入力チェックも同様に行う
 
@@ -1091,7 +1090,7 @@ Server-Timing: cache;desc="Cache Read";dur=23.4, db;dur=50, app;dur=75.3
 | ユーザー体験    | ⚠️わずかとは言え、初期表示が遅延。NW状況によっては不利                      | ✅️区分値のデータサイズはたかだかしれているので、一度ロードしてしまえば初期表示が高速化される |
 | 開発の手間      | ⚠️純静的な区分値の取得のためにフロントエンドからWeb APIを呼び出す手間がある | ✅️フロントエンドの開発／保守運用コストは減る                                                 |
 
-本規約の推奨は以下の通り。
+推奨は以下の通り。
 
 - モバイルアプリが登場しない場合は、2のフロントエンド側でのハードコード方式を採用する
   - この場合、区分値の追加でフロントエンド側のリリースも必要となるため、CI/CDなどでデプロイフローを整備する
@@ -1124,7 +1123,7 @@ Server-Timing: cache;desc="Cache Read";dur=23.4, db;dur=50, app;dur=75.3
 [lock_version_no_img]: https://mermaid.ink/img/pako:eNp9UkFLAkEY_SvDnApWXE0jlxDCIjoEQkVQ22HcHXVgd3YbZ4MQoVwC6bSX6pAUhOShQ0UWHvo3m7v9jEZHs5Ca0_fevO_N9zGvDg3HxFCDNXzoYWrgVYIqDNk6BeK4iHFiEBdRDgoWwZTP8ru4tFLc0Km8kapEPi9pDayvbYMk4diugY_-yed9N-q0496dVEtRQshlnwbSqgqkIn4Nops2WC6xfF2HIwcdavvD2hRFKr2QySo6dBkxsMBLqgBHmNWIQwVcTOXSjYPGn2MVdyZjJUdO42cmbrnsrNuvkadOoR-E_nvY7Id-N_RfQv80bIrCD5uPsgNZHMRn3UHQilrB4PxWsn-tnwHRdS-6fPqpxVYNjy0Gnefo4uo_i4yaAwWHli1icDAXP7yJrvmxDzWhAm3MbERM8ef1Ia1DXsX2cGlRmriMPIvrUKcNIUUed7aOqQE1zjysQOZ4lSrUykgMpEDPNRGfBOabFaHYc5wpxibhDtuUKRuFrfEFURbmlw?type=png
 [lock_version_no_url]: https://mermaid.live/edit#pako:eNp9UkFLAkEY_SvDnApWXE0jlxDCIjoEQkVQ22HcHXVgd3YbZ4MQoVwC6bSX6pAUhOShQ0UWHvo3m7v9jEZHs5Ca0_fevO_N9zGvDg3HxFCDNXzoYWrgVYIqDNk6BeK4iHFiEBdRDgoWwZTP8ru4tFLc0Km8kapEPi9pDayvbYMk4diugY_-yed9N-q0496dVEtRQshlnwbSqgqkIn4Nops2WC6xfF2HIwcdavvD2hRFKr2QySo6dBkxsMBLqgBHmNWIQwVcTOXSjYPGn2MVdyZjJUdO42cmbrnsrNuvkadOoR-E_nvY7Id-N_RfQv80bIrCD5uPsgNZHMRn3UHQilrB4PxWsn-tnwHRdS-6fPqpxVYNjy0Gnefo4uo_i4yaAwWHli1icDAXP7yJrvmxDzWhAm3MbERM8ef1Ia1DXsX2cGlRmriMPIvrUKcNIUUed7aOqQE1zjysQOZ4lSrUykgMpEDPNRGfBOabFaHYc5wpxibhDtuUKRuFrfEFURbmlw
 
-本規約としての推奨は以下の通り。
+本ガイドラインとしての推奨は以下の通り。
 
 - 3のバージョン番号方式。バルク更新にも対応できることが理由である
 
@@ -1141,7 +1140,7 @@ ETAG（バージョン番号）は親テーブル側の番号を利用するこ�
 
 ::: tip deleteメソッドの場合は、クエリパラメータにlock_noを指定する
 
-DELETEメソッドで楽観ロックを提供する場合、If-Matchヘッダで実装するほうがより標準に準拠できると考えられる。しかし、本規約では設計の一貫性と実用性（lock_noがアクセスログに出力される点にも利便性がある）を鑑み、クエリパラメーター指定を推奨する。
+DELETEメソッドで楽観ロックを提供する場合、If-Matchヘッダで実装するほうがより標準に準拠できると考えられる。しかし、本ガイドラインでは設計の一貫性と実用性（lock_noがアクセスログに出力される点にも利便性がある）を鑑み、クエリパラメーター指定を推奨する。
 
 ```sh
 DELETE /items/12345?lock_no=6192
@@ -1157,7 +1156,7 @@ DELETE /items/12345?lock_no=6192
 
 ::: tip Last-Modifiedヘッダ を利用した楽観ロックは利用しない
 
-バージョン番号を用いず、最終更新日付で排他制御する設計案も存在する。本規約ではバージョン（ロック番号）を用いる前提であり、バッチ登録不可や時刻同期のハマりどころもあるため、非推奨である。
+バージョン番号を用いず、最終更新日付で排他制御する設計案も存在する。本ガイドラインではバージョン（ロック番号）を用いる前提であり、バッチ登録不可や時刻同期のハマりどころもあるため、非推奨である。
 
 これは以下のような処理フローである。
 
@@ -1214,7 +1213,7 @@ Last-Modified及びIf-Unmodified-Sinceを用いると以下の特徴がある。
 | Pro  | ✅️枯れている                                  | ✅️通常のリクエストボディでJSON要素の値として設定できるので楽                    | ✅️負荷をクラウドサービス側にオフロードできる<br> ✅️Amazon API Gateway を利用する場合は、2023 年 6 月時点でペイロード上限が 10MB、AWS Lambda でもペイロード制限があるため、許容するファイルサイズによってはこの手法一択となる |
 | Cons | ⚠️ブラウザ以外のクライアントからは扱いにくい   | ⚠️ファイルサイズが大きくなるため、モバイルなどのクライアントでは帯域の観点で懸念 | ⚠️メタデータ系の登録は、別途Web APIを叩く必要があるなど、クライアント側に手続きが発生                                                                                                                                          |
 
-本規約の推奨は以下の通り。
+推奨は以下の通り。
 
 - サムネイルなど小さなデータの場合（数KB程度を想定）は、2.Base64の利用を推奨する
 - 上記以外の場合は、3.署名付きURLを利用する
@@ -1339,7 +1338,7 @@ sequenceDiagram
 | メリット   | ・各言語でデファクトスタンダードとなる実装があり、比較的低コストで実装可能                                                                  | ・重量級の処理の場合、呼び出し側がブロックされず快適なUX提供につながる<br> ・アプリケーションの機能とリソースが新しいリクエストの処理のために解放される |
 | デメリット | ・完了するまで呼び出し側処理がブロックされる<br> ・応答時間が各サービスの応答時間の合算になるなど、ユーザーの待機時間が長くなる可能性がある | ・非同期タスクが失敗した場合の考慮など、設計／実装コストが高い                                                                                          |
 
-同期APIと非同期APIの選択における本規約の推奨は以下。
+同期APIと非同期APIの選択における推奨は以下の通り。
 
 - 基本的には同期APIを選択する
   - 非同期APIは使用するクライアントが発生する度にクライアント側に高コストな実装を要求することになるので、不要なケースでは使用しない
@@ -1370,7 +1369,7 @@ sequenceDiagram
 [async_server_push_img]: https://mermaid.ink/img/pako:eNqVVP1P00AY_lcu9_PIEPWXxpBsDs0iAnEzRtNkOdpjVLpevbtiyLLEdjo0g0hiGIriflKCMWj8iBEV_5ijxf0XXnfbgE0Ma5p-vJ_3PM-btwwNYmKoQYbvedgxcMZCRYpKugPk5SLKLcNykcPBZdvCDh-038KzqZnsoD2THrSl2JJj5BFb0B3lVEVHxsdVFQ3MTOfyIEmxSyhnSYZszArIQfYSs5hKUZEyJZPWADIM7HJsnnBJn6qrgbHRMZDqxFyapeNlHd4ls1lThxrQ4bmx8xcu6jAhPxlH3GPK3CsKK30te-fXQGvrdbi2Er1qiuC3CL6L4IMG_nz9FtbXu9imCMeALGIKzpTWatTD7bpK7SV0YMaR1Zqo_lRZ0csvUeOjBiyn4FJSpJixoZtGL4JW45nwV4Rfj--gHi6_PVyrCX-3e5JTJJLvHDEWME_mMI075aQfTCzKZ0zx1YlTBUwqlpOKd6dftBjpZDaXn5gCUqRCR5I-WN1T_AtT68HmYfNNG1MgAQl_X_jb4f6jaKc5ND_h7srBXm0oOQxScm3cm8ZMeuQYa1PT-eyV2yeAnT60o2D6Wmdcjw_mUYPuZA6I8z_2O7SfmOhunqi-F9WtGFL1cfi0Ee5vxP0Pf30K11YPfjwX_urNG5PCfyf8HTkhUfVzuLt5pvOb5L5jE2QWPGpLFDqMnqwL_2G4vCf8DeE3-1q0kcEELGFaQpYpF1M5bqNDPo9LWNFg4jnk2VyHulORocjjJCcFghqnHk5ASrziPNTmkM3kn-eaiHe3Ws8qt9EdQo7-sWlxQq-rVdjeiJW_KjcQ-g?type=png
 [async_server_push_url]: https://mermaid.live/edit#pako:eNqVVP1P00AY_lcu9_PIEPWXxpBsDs0iAnEzRtNkOdpjVLpevbtiyLLEdjo0g0hiGIriflKCMWj8iBEV_5ijxf0XXnfbgE0Ma5p-vJ_3PM-btwwNYmKoQYbvedgxcMZCRYpKugPk5SLKLcNykcPBZdvCDh-038KzqZnsoD2THrSl2JJj5BFb0B3lVEVHxsdVFQ3MTOfyIEmxSyhnSYZszArIQfYSs5hKUZEyJZPWADIM7HJsnnBJn6qrgbHRMZDqxFyapeNlHd4ls1lThxrQ4bmx8xcu6jAhPxlH3GPK3CsKK30te-fXQGvrdbi2Er1qiuC3CL6L4IMG_nz9FtbXu9imCMeALGIKzpTWatTD7bpK7SV0YMaR1Zqo_lRZ0csvUeOjBiyn4FJSpJixoZtGL4JW45nwV4Rfj--gHi6_PVyrCX-3e5JTJJLvHDEWME_mMI075aQfTCzKZ0zx1YlTBUwqlpOKd6dftBjpZDaXn5gCUqRCR5I-WN1T_AtT68HmYfNNG1MgAQl_X_jb4f6jaKc5ND_h7srBXm0oOQxScm3cm8ZMeuQYa1PT-eyV2yeAnT60o2D6Wmdcjw_mUYPuZA6I8z_2O7SfmOhunqi-F9WtGFL1cfi0Ee5vxP0Pf30K11YPfjwX_urNG5PCfyf8HTkhUfVzuLt5pvOb5L5jE2QWPGpLFDqMnqwL_2G4vCf8DeE3-1q0kcEELGFaQpYpF1M5bqNDPo9LWNFg4jnk2VyHulORocjjJCcFghqnHk5ASrziPNTmkM3kn-eaiHe3Ws8qt9EdQo7-sWlxQq-rVdjeiJW_KjcQ-g
 
-本規約の推奨は以下の通り。
+推奨は以下の通り。
 
 - ①ポーリング方式を第一に考え、即時性などで要件を満たせない場合に、②ブロッキング方式を検討する（チャットシステムでない限り、通常、そこまで即時性は求められないと想定できるので、多くの業務システムにおいて①が牛刀だと考えられる）
 
@@ -1464,7 +1463,7 @@ sequenceDiagram
 | 接続維持     | ❌️自前実装（再接続実装）                                                                              | ✅️自動再接続機能がある                                                                                                                        | ⚠️クライアント側で再接続ロジックを実装                                                               |
 | 保守運用性   | ⚠️古い手法である                                                                                       | ✅️比較的低い                                                                                                                                  | ⚠️WebSocketの扱いをサーバ／クライアントで慣れる必要がある                                            |
 
-本規約の推奨は以下の通り。
+推奨は以下の通り。
 
 - サーバプッシュがもし必要な場合は、非同期完了通知の目的であれば②Server Sent Eventを採用する
 
@@ -1522,7 +1521,7 @@ sequenceDiagram
 
 ただし、画面とWeb APIを一体的に構築していて、クライアント側でバリデーションを設けており、通常、サーバサイドで400エラーが発生しない想定であれば、サーバサイドのバリデーションエラーは何かしらの実装不備である可能性が高いため、状況の把握にWARNログを出す運用も考えられる。
 
-本規約の推奨は以下の通り。
+推奨は以下の通り。
 
 - 400系のエラーはINFOログ出力で良い
 - プライベートAPIかつ、画面と一体的に開発している場合には、バリデーションエラーはWARNログを出して、状況把握に務める
@@ -1531,7 +1530,7 @@ sequenceDiagram
 
 サーバ内でリトライを組み込んでいる前提だが、それでも発生するDBや他のWeb APIへの接続失敗や、実装不備（例えば、SQLクエリとスキーマの不一致が原因）などで発生する。
 
-本規約の推奨は以下の通り。
+推奨は以下の通り。
 
 - 実装不備が起因の場合、エラーログを出力する
 - プライベートAPIで、サービスが小さい場合において、DBや外部サービスへの通信エラーが起因となる500を返す場合、エラーログを出力する
@@ -1542,7 +1541,7 @@ sequenceDiagram
 
 ### メトリクス監視
 
-本規約の推奨は以下の通り。
+推奨は以下の通り。
 
 - Web APIサーバについてはCPU、メモリ使用率、ストレージ監視する必要はない（オートスケールさせる想定のため）
 - ヘルスチェックなど外形監視を利用する
@@ -1557,7 +1556,7 @@ sequenceDiagram
 | トレースの一貫性   | ✅️                                                                   | ⚠️APIゲートウェイや、Web API内部のミドルウェア（Servlet Filterなどの層）で実施することで緩和可能 |
 | トレースIDの信頼性 | ❌️改ざんに弱い                                                       | ✅️信頼できる                                                                                    |
 
-本規約の推奨は以下。
+推奨は以下の通り。
 
 - 業務アプリケーション開発など、クライアント側のアプリケーションの統制を行えるのであれば、①クライアント側でトレースIDを生成する
 
@@ -1578,7 +1577,7 @@ sequenceDiagram
 - `/heartbeat`
 - `/healthz` （★推奨2）
 
-本規約での推奨は以下の通り。
+本ガイドラインでの推奨は以下の通り。
 
 - プロセスの生存確認は `/health` を用いる
 - 依存しているDBや他のマイクロサービスを含めての動作確認は `/healthz` を用いる
@@ -1621,7 +1620,7 @@ Web APIアクセスに対して適切にログ出力することで、何かし�
 2. レスポンス後に出力
 3. 1,2の両方で出力
 
-本規約の推奨は以下の通り。
+推奨は以下の通り。
 
 - 3の両方で出力。リクエストとレスポンスの両方を出すことで、調査性を上げる。ログ量は倍になるが、保守運用性を高めることを優先する
 
@@ -1701,7 +1700,7 @@ REST APIのページングとは、データを分割してクライアントに
   - ECにおける商品の検索結果
   - メッセージアプリにおけるチャット履歴
 
-本規約の推奨は以下。
+推奨は以下の通り。
 
 - 本当にページングが必要かどうかまず再検討する
 
@@ -1726,7 +1725,7 @@ REST APIのページングとは、データを分割してクライアントに
 | 特定ページへのジャンプ       | ✅️容易                                                                                                                       | ✅️容易                                                                                | ❌️困難　                                                                                                               |
 | 前回取得分以降の最新差分取得 | ❌️困難                                                                                                                       | ❌️困難                                                                                | ✅️容易                                                                                                                 |
 
-本規約の推奨は以下。
+推奨は以下の通り。
 
 - データストアとしてRDBを前提とする場合、①オフセット&リミット方式
 - NoSQL（Elasticsearchも含む）のようなデータストアを前提とする場合、③カーソルベース方式
@@ -1739,7 +1738,7 @@ REST APIのページングとは、データを分割してクライアントに
 
 複数のリソースに対して同時に参照／更新するバッチAPIを用意しておくことで、処理性能を上げてUXの向上に貢献できる。
 
-本規約の推奨は以下の通り。
+推奨は以下の通り。
 
 - 参照については、カンマ区切りで複数のIDを指定可能とする
 - 登録／更新については、複数のレコードを更新できるようにバッチ処理用のエンドポイントを作成する
@@ -1780,7 +1779,7 @@ Rate Limit（レート制限）とは、特定の時間内に許可されるリ�
 4. コスト管理
    1. 使用量に応じて課金が発生する場合に、上限を設けることで予期しないコスト増加を防ぐ
 
-本規約の推奨は以下の通り。
+推奨は以下の通り。
 
 - Rate limitを設ける
 - Rate limitはクラウドサービス（WAFやAPI Gateway）側で行う
@@ -1796,7 +1795,7 @@ Rate Limit（レート制限）とは、特定の時間内に許可されるリ�
 
 タイムアウトを適切に設定することで、リソースの無駄遣いを防いだり、クライアントの待機時間によるストレスを軽減することができる。
 
-本規約の推奨は以下の通り。
+推奨は以下の通り。
 
 - アプリケーション側で、タイムアウトを実装しない（例えば、Goであればアプリケーション側でcontext.WithTimeout()でタイムアウトさせない）
 - クラウドサービス側でのタイムアウト設定は、基本的に最長にする
@@ -1835,7 +1834,7 @@ Web APIの呼び出し結果をブラウザ上でそのまま表示すること�
 
 対向システムからのバッチ処理などで、自システム側のWeb APIを公開する要件があるとする。
 
-本規約のネットワーク関係での推奨は以下の通り。
+推奨は以下の通り。
 
 - 可能であれば送信元IPで絞る（AWSのいうSecurity Groupを適切に設定する）
 
@@ -1873,7 +1872,7 @@ sequenceDiagram
 
 ```
 
-本規約の推奨は以下の通り。
+推奨は以下の通り。
 
 - 「2.クライアントクレデンシャルフロー」を採用する
 - もし、対向システム側で認可サーバのアクセスが不可の場合は、アクセスキー方式を検討する
@@ -1890,7 +1889,7 @@ sequenceDiagram
 
 Auth0やEntraIDなどのIdP（Identity Provider）を利用して認証する構成で、フロントエンドからWeb APIを呼び出す場合を想定する。
 
-本規約での推奨は以下の通り。
+本ガイドラインでの推奨は以下の通り。
 
 - Authorization Code Flow with PKCE（認可コード+PKCE）を利用する
 
@@ -1925,7 +1924,7 @@ Auth0やEntraIDなどのIdP（Identity Provider）を利用して認証する構
 [session_token_flow_img]: https://mermaid.ink/img/pako:eNqFVF1rE0EU_SvDPkiEFt8XCcTGhyJKIA-CBMp0d5IMJjtxM6toKWRnqLSoGIJgFQO2Si1JtZYiplTpj7lNjP_CO5tNmm6ivs3cj3PPPffOrFmOcJllW3X2IGCew7KclnxaLXiE1KgvucNr1JPk16vT3-1dQusE1HfQx6C-gu6Cfgv6B6geqF3Qr0F3QB1FFoz5hGEklc9lribBMrllg3SXrZpj0jvsvOi_PAT1zQDppolMmlKZQJaFz59QyYVH8sx_yHwsY6DuCMmIwHvM2Sa5W0s3QR1HuVugQ9AfQB9ETfQg3I_BDXcssQ_qBPQmhF_Of74bbDYN5AhoMZ1O8LDJ3FySMpquOGVaqTCvxMgVUpdUMlCtfrMLqhEJksBaRPgx4bFrQrkDugHqo2GNdUyFGcD5rSeRVCsWHcLuoLcD4ZtL_aHDJjPdJEDmt4Op8wQyUpp9ODRy_x_YqXDmyRXumrMREZvhRR4Nd65kI8a4fQb4NJ7duCCCLGenDTFRgonkn5nQCC9nQvgM1Fb_bGO4F0LYGeiN_vsjVCB7A5U8P2v3P29DQ11f9dMGTOvJC7jYIqPQ1JCXhLjP2d8GN_JiAdDbBg7nj1TCbqQ4MtgzM0ysrGoNd55D-HR2pLPBJHXtUVxkanzj6lH8QRTZjt7JibVgVZlfpdzFv2LNZBQsWWZVVrBsPLqsSIOKLFgFbx1DaSBF_rHnWLb0A7Zg-SIolS27SCt1vAU1F9cn_mgmVnz794S4uDOXS-HfHv1O0Se1_gdl6Gn3?type=png
 [session_token_flow_url]: https://mermaid.live/edit#pako:eNqFVF1rE0EU_SvDPkiEFt8XCcTGhyJKIA-CBMp0d5IMJjtxM6toKWRnqLSoGIJgFQO2Si1JtZYiplTpj7lNjP_CO5tNmm6ivs3cj3PPPffOrFmOcJllW3X2IGCew7KclnxaLXiE1KgvucNr1JPk16vT3-1dQusE1HfQx6C-gu6Cfgv6B6geqF3Qr0F3QB1FFoz5hGEklc9lribBMrllg3SXrZpj0jvsvOi_PAT1zQDppolMmlKZQJaFz59QyYVH8sx_yHwsY6DuCMmIwHvM2Sa5W0s3QR1HuVugQ9AfQB9ETfQg3I_BDXcssQ_qBPQmhF_Of74bbDYN5AhoMZ1O8LDJ3FySMpquOGVaqTCvxMgVUpdUMlCtfrMLqhEJksBaRPgx4bFrQrkDugHqo2GNdUyFGcD5rSeRVCsWHcLuoLcD4ZtL_aHDJjPdJEDmt4Op8wQyUpp9ODRy_x_YqXDmyRXumrMREZvhRR4Nd65kI8a4fQb4NJ7duCCCLGenDTFRgonkn5nQCC9nQvgM1Fb_bGO4F0LYGeiN_vsjVCB7A5U8P2v3P29DQ11f9dMGTOvJC7jYIqPQ1JCXhLjP2d8GN_JiAdDbBg7nj1TCbqQ4MtgzM0ysrGoNd55D-HR2pLPBJHXtUVxkanzj6lH8QRTZjt7JibVgVZlfpdzFv2LNZBQsWWZVVrBsPLqsSIOKLFgFbx1DaSBF_rHnWLb0A7Zg-SIolS27SCt1vAU1F9cn_mgmVnz794S4uDOXS-HfHv1O0Se1_gdl6Gn3
 
-本規約の推奨と理由は以下の通り。
+本ガイドラインの推奨と理由は以下の通り。
 
 - 「2.セッショントークン方式」を推奨する。特にIdPの制約で、リフレッシュトークンの有効期限が想定より短くなってしまう場合に、UX上、許容できない再ログイン操作などを強いてしまう点が大きい
 
@@ -2021,7 +2020,7 @@ sequenceDiagram
 | データ 整合性 | ✅️IdP側に寄せることで整合性が保ちやすい                                                                    | ⚠️IdPとアプリ側の多重管理となるため、整合性を保持する工夫が必要                         |
 | 保守性        | ⚠️ロール管理について、IdPとアプリ側で切り分け対象が増えるため、学習コストが必要                             | ✅️アプリケーション側に閉じ、他の機能と大差ないメンタルモデルが適用可能                 |
 
-本規約の推奨と理由は以下の通り。
+本ガイドラインの推奨と理由は以下の通り。
 
 - ロール管理は、「2.アプリケーション管理」を採用する
   - IdP側のロール管理と、アプリケーション側の要求のライフサイクルは通常異なるため、機能配置として分離する
@@ -2043,11 +2042,11 @@ CORS（オリジン間リソース共有、Cross-Origin Resource Sharing）は�
 | インフラ構成 | ✅️パスベースのルーティングするインフラ要素が追加で必要                                                                                                                   | ✅️パスベースのルーティングの手間は不要                                                                                                                     |
 | ローカル環境 | ✅️nginx などでパスベースのルーティングが追加で必要                                                                                                                       | ✅️Web API側のポート番号を含めて環境変数で切り替え                                                                                                          |
 
-本規約の推奨は以下の通り。
+推奨は以下の通り。
 
 - 可能であれば、同一オリジン構成を採用する
 
-もし、複数オリジン構成（≒CORS対応が必要）な前提において、本規約の推奨は以下の通り。
+もし、複数オリジン構成（≒CORS対応が必要）な前提において、推奨は以下の通り。
 
 - `Access-Control-Allow-Origin`
   - ワイルドカード (\*) は禁止
@@ -2075,13 +2074,13 @@ AWSの場合、API Gatewayの機能でOPTIONSメソッドを提供すること�
 | クラウド利用費用   | ⚠️余計な通信／処理が発生                                            | ✅️API Gatewayにオフロードできる                                |
 | インフラ構築コスト | ✅️複雑度は変わらない                                               | ✅️複雑度は変わらない                                           |
 
-本規約の推奨は以下の通り。
+推奨は以下の通り。
 
-- ローカル開発用途のため、アプリケーション側もOPTIONSメソッドを実装する
-- デプロイメント環境で、API Gatewayを利用している場合はCORS機能を有効にする（API Gatewayを利用していなければ、あえて追加する必要はない）
+- デプロイメント環境で、API Gatewayを利用している場合は2を選択する（コスト削減が多少でも見込めることから）
+- ただし、API Gatewayを利用していないのであれば、これを目的にあえてAPI Gatewayを追加する必要はない
 
-::: tip ローカル環境だけはNginxで同一ドメイン化する考えはどうか？  
-デプロイメント環境で用いない、OPTIONSメソッドをアプリケーション側で実装することを問題視する場合に、アプリ側でCORS提供が不要になるようnginxなどリバースプロキシを配備しルーティングすることで解決を図ることがある。本規約としては、ローカル環境の構成要素を減らしたいこと、なるべくデプロイメント環境とローカル環境を一致させるポリシーを優先している。  
+::: info ローカル環境におけるCORS対応
+[Webフロントエンド設計ガイドライン > CORS対応のローカル開発サーバー](/documents/forWebFrontend/web_frontend_guidelines.html#cors対応のローカル開発サーバー) を参考する。
 :::
 
 ::: info 参考
@@ -2095,7 +2094,7 @@ AWSの場合、API Gatewayの機能でOPTIONSメソッドを提供すること�
 
 Web APIにはこれ以前の章で説明したように実用のために必要とする要素が多数あるが、AWSなどのクラウドのマネージドサービスで代用できるものも多い。できる限りマネージドサービス側に寄せることで、設計開発をショートカットでき、差別化領域に集中することができる。
 
-本規約は、下表の項目についてクラウドサービス側の機能配置とすることを推奨する。
+本ガイドラインは、下表の項目についてクラウドサービス側の機能配置とすることを推奨する。
 
 【凡例】推奨:✅️ 条件次第で推奨:❓️
 
@@ -2108,7 +2107,7 @@ Web APIにはこれ以前の章で説明したように実用のために必要�
 | レスポンスのgzip圧縮                                               | レスポンスのJSONをgzip圧縮することでユーザ体験を向上させる。特にモバイルの場合はユーザの通信量を抑えるメリットが大きい                                                                                         | ✅️API Gateway ✅️CloudFront どちらか |
 | CORS                                                               | 「CORS」章を参照                                                                                                                                                                                               | ✅️API Gateway                        |
 | SQLインジェクション/XSS 緩和策                                     | 不正な文字列の検知。ただし、アプリケーション側もSQLインジェクションについては、プレースホルダの利用、XSSについてはHTMLタグのエスケープを実装する必要                                                           | ✅️WAF                                |
-| 認証／API呼び出しの認可                                            | アクセストークンやセッションのチェック。アプリケーション側のミドルウェアで実施する場合も多い。本規約では、API Gatewayを利用する場合は、Custom Authorizer側に寄せることを推奨する                               | ❓️API Gateway Custom Authorizer      |
+| 認証／API呼び出しの認可                                            | アクセストークンやセッションのチェック。アプリケーション側のミドルウェアで実施する場合も多い。本ガイドラインでは、API Gatewayを利用する場合は、Custom Authorizer側に寄せることを推奨する                       | ❓️API Gateway Custom Authorizer      |
 | キャッシュ                                                         | 業務アプリであればキャッシュ可能なAPI応答は少ないため、通常使用することは少ない                                                                                                                                | ❓️API Gateway ❓️CloudFront          |
 
 # リリース
@@ -2119,13 +2118,13 @@ Web APIの環境分離だが、クラウド環境のベストプラクティス�
 
 「サブドメインとサブパス」で、サブパス方式を選択した前提で、ドメインで環境を識別するパターンはいくつか考えられる。
 
-| 環境名            | ①環境上位                                                                                | ②サービス上位                                                                            | ③文字列結合                                                                              |
-| :---------------- | :--------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------- |
-| 本番環境          | api.example.com<br>app.example.com                                                       | api.example.com<br>app.example.com                                                       | api.example.com<br>app.example.com                                                       |
-| 開発環境 検証環境 | api.dev.example.com<br>app.dev.example.com<br>api.stg.example.com<br>app.stg.example.com | dev.api.example.com<br>dev.app.example.com<br>stg.api.example.com<br>stg.app.example.com | dev-api.example.com<br>dev-app.example.com<br>stg-api.example.com<br>stg-app.example.com |
-| 説明              | stg, devに複数のサブドメインが存在することを考慮したパターン                             | api.example.comにサブドメインで環境を表現したパターン。 URLからどの環境か識別しやすい    | {環境名}-{サービス種別}で命名し、独立させるパターン                                      |
+| 環境名          | ①環境上位                                                                                | ②サービス上位                                                                            | ③文字列結合                                                                              |
+| :-------------- | :--------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------- |
+| 本番            | api.example.com<br>app.example.com                                                       | api.example.com<br>app.example.com                                                       | api.example.com<br>app.example.com                                                       |
+| 開発<br> / 検証 | api.dev.example.com<br>app.dev.example.com<br>api.stg.example.com<br>app.stg.example.com | dev.api.example.com<br>dev.app.example.com<br>stg.api.example.com<br>stg.app.example.com | dev-api.example.com<br>dev-app.example.com<br>stg-api.example.com<br>stg-app.example.com |
+| 説明            | stg, devに複数のサブドメインが存在することを考慮したパターン                             | api.example.comにサブドメインで環境を表現したパターン。<br>URLからどの環境か識別しやすい | {環境名}-{サービス種別}で命名し、独立させるパターン                                      |
 
-本規約の推奨は以下の通り。
+推奨は以下の通り。
 
 - サブドメインで環境識別を可能とさせ、可読性から②のサービス上位を利用する
 
@@ -2137,7 +2136,7 @@ Web APIの環境分離だが、クラウド環境のベストプラクティス�
 2. ローリングアップデート
 3. ブルーグリーンデプロイメント
 
-メンテナンスウィンドウが確保できるのであれば、1の一括リリース方式が推奨である。要件としてダウンタイムが許容できない場合は、2または3の手法を採用する。
+メンテナンスウィンドウが確保できるのであれば、1を推奨する。要件としてダウンタイムが許容できない場合は、2または3を採用する。
 
 # 参考資料
 

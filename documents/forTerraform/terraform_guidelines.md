@@ -206,9 +206,9 @@ variable "map_object" {
 - `list` `list(any)` は利用せず、 `list(string)` などの型宣言する
 - `map` `map(any)` は利用せず、 `map(string)` などの型宣言する
 
-参考：
-
-- [Types and Values](https://developer.hashicorp.com/terraform/language/expressions/types#maps-objects)
+::: info 参考
+[Types and Values](https://developer.hashicorp.com/terraform/language/expressions/types#maps-objects)
+:::
 
 ## any型
 
@@ -363,11 +363,13 @@ resource "aws_instance" "foo_example_webapi" {
 }
 ```
 
-【参考】
+::: info 参考
 
 - [Terraform の count と for_each の使い分け — tellme.tokyo](https://tellme.tokyo/post/2022/06/12/terraform-count-for-each/)
 - [Terraformerとしてコードを書いて思うこと | フューチャー技術ブログ](https://future-architect.github.io/articles/20211029a/)
 - [Terraform for_eachの堅牢な使い方 - Paper2 Blog](https://paper2.hatenablog.com/entry/2024/12/28/173440#%E9%87%8D%E8%A6%81%E3%81%AA%E5%88%B6%E7%B4%84%E3%82%AD%E3%83%BC%E3%81%AFknown-value%E3%81%A7%E3%81%AA%E3%81%91%E3%82%8C%E3%81%B0%E3%81%84%E3%81%91%E3%81%AA%E3%81%84)
+
+:::
 
 ## for_eachの2重ループ
 
@@ -530,9 +532,9 @@ resource "aws_instance" "example" {
 - ネストした変数の繰り返し処理は、原則、flattenを利用し、コードベースをシンプルに保つ
 - モジュール化の是非は[モジュール](#モジュール)章を参考にする
 
-【参考】
-
-- [Terraformでネストしたloopを書く](https://zenn.dev/wim/articles/terraform_nest_loop)
+::: info 参考
+[Terraformでネストしたloopを書く](https://zenn.dev/wim/articles/terraform_nest_loop)
+:::
 
 ## For Expressions
 
@@ -605,7 +607,7 @@ provider "aws" {
 }
 ```
 
-本ガイドラインの推奨は以下。
+推奨は以下の通り。
 
 - プロジェクトで用いる共通的なタグはProvider側で定義する
 - 共通的なタグの値の上書きは一部のリソースであれば許容する
@@ -760,9 +762,9 @@ resource "aws_route_table" "example" {
   - クラスタリングソフトなど、IaC以外から変更がある場合は実用上（1）にする必要がある。そういった要件にも対応できるよう防御的にしたいため
   - インラインでdynamicブロックなどを用いてループさせる場合、パラメータがまして複雑になることを避けるため
 
-【参考】
-
-- [r/aws_route_table vs r/aws_route - by shigemk2](https://www.shigemk2.com/entry/2023/11/17/193407)
+::: info 参考
+[r/aws_route_table vs r/aws_route - by shigemk2](https://www.shigemk2.com/entry/2023/11/17/193407)
+:::
 
 # 機密情報
 
@@ -800,18 +802,20 @@ Terraformを利用してパスワードなどの機密情報を作成する場�
 | plan表示 | ✅️除外可能                                                                | ✅️random_passwordの場合はsensitive無しで、マスキング可能                                                         |
 | ステート | ✅️排除可能                                                                | ❌️平文で保存                                                                                                     |
 
-本ガイドラインの推奨は以下。
+推奨は以下の通り。
 
 - 可能であれば（1）を採用する
   - [Terraform で AWS に DB を構築するとき manage_master_user_password を使っていますか？](https://tech.dentsusoken.com/entry/terraform_manage_master_user_password) にあるようにAWS RDSは `manage_master_user_password` の利用する
   - [Azure Container AppsのSecret管理とIaC](https://zenn.dev/aishift/articles/01ac0622cff568) にあるように、Azureデータベースサービス は`Azure Key Vault Reference`の利用を利用する
 - （2）はステートに機密情報が残ってしまうため、それが許容できる場合のみに利用する。許容できない場合は「１．Terraform外で生成された機密情報の扱い」節を参考に、Terraform外で管理できないか検討する
 
-【参考】
+::: info 参考
 
 - [セキュアなTerraformの使い方 ～ 機密情報をコードに含めず環境構築するにはどうしたらいいの？ - Speaker Deck](https://speakerdeck.com/harukasakihara/sekiyuanaterraformfalseshi-ifang-ji-mi-qing-bao-wokodonihan-mezuhuan-jing-gou-zhu-surunihadousitaraiifalse)
 - [[Terraform] 誤解されがちなignore_changesの動き・機密情報はstateに保持されるのか？ | DevelopersIO](https://dev.classmethod.jp/articles/note-about-terraform-ignore-changes/)
 - [Terraform 1.10がGAになり、Ephemeral Valuesが使えるようになりました | DevelopersIO](https://dev.classmethod.jp/articles/terraform-1-10-is-now-generally-available/)
+
+:::
 
 # 削除保護
 
@@ -857,11 +861,13 @@ resource "aws_s3_bucket" "important_bucket" {
 }
 ```
 
-【参考】
+::: info 参考
 
 - [prevent_destroy does not prevent destruction when removing a resource from the configuration · Issue #17599 · hashicorp/terraform · GitHub](https://github.com/hashicorp/terraform/issues/17599)
 - [terraform applyをより安全に実行するためにできること](https://blog.mmmcorp.co.jp/2022/10/31/terraform-apply-safely/) のように、タグとIAM権限で保護する手法がある
 - [AWS S3でバケット自体も中身も削除禁止のバケットを作る - もりはやメモφ(・ω・ )](https://blog.morihaya.tech/entry/2019/02/02/112211) のように、本気で消したくないのは、IAM権限でRootアカウント以外は削除不可とする設計が可能
+
+:::
 
 # 環境分離
 
@@ -1055,10 +1061,12 @@ resource "aws_hogehoge" "sample_resource" {
 
 （2）の場合は、 [サービスの多国展開を支えるTerraform構成 | フューチャー技術ブログ](https://future-architect.github.io/articles/20240315a/) を参考にする。
 
-【参考】
+::: info 参考
 
 - [かゆいところに手が届く、Terraformの書き方 (configuration_aliasesの使い方) - Qiita](https://qiita.com/kaedemalu/items/d148c86f901f654f2930)
 - [Terraform連載2024を開始します & TerraformにおけるDR戦略を考える | フューチャー技術ブログ](https://future-architect.github.io/articles/20240311a/)
+
+:::
 
 # ファイル粒度
 
@@ -1072,7 +1080,7 @@ resource "aws_hogehoge" "sample_resource" {
 | 運用難易度 | ✅️容易                                                                                        | ⚠️論理グループの設計によっては、後で再設計が必要となる懸念                              | ✅️容易                                                                                                                                           |
 | 拡張性     | ✅️モジュール運用前提であれば柔軟に拡張可能                                                    | ⚠️設計時の見積もり以内であればハマるが、想定外のリソース追加に弱い                      | ✅️最小粒度に近く、拡張に強い                                                                                                                     |
 
-本ガイドラインの推奨は以下。
+推奨は以下の通り。
 
 - （1）main.tf 集約を採用する（公式ガイドに則り、`main.tf` `backend.tf` `providers.tf` `terraform.tf` `locals.tf` `variables.tf` などを作成する）
   - ルートモジュールは、「環境分離」がディレクトリ分離である限り、保守運用観点から原則子モジュールを呼び出す。子モジュールが適切な抽象化がなされていれば、リソース数は爆発しないはずである
@@ -1325,9 +1333,11 @@ variable "instance_count" {
 - 変数の型やdescriptionは明示的に記載する
 - validationは可能な限り設定する
 
-【参考】
+::: info 参考
 
-- [Terraform Module Designs - Speaker Deck](https://speakerdeck.com/tmknom/terraform-module-designs)
+[Terraform Module Designs - Speaker Deck](https://speakerdeck.com/tmknom/terraform-module-designs)
+
+:::
 
 ## 機能配置
 
@@ -1410,9 +1420,9 @@ resource "aws_instance" "example" {
   - できる限り、`validation` `precondition` 側にチェック処理を寄せる
   - 原則、モジュールを開発する場合に利用する
 
-【参考】
-
-- [Terraform連載2024 Terraformにおける変数の制御について | フューチャー技術ブログ](https://future-architect.github.io/articles/20240313a/)
+::: info 参考
+[Terraform連載2024 Terraformにおける変数の制御について | フューチャー技術ブログ](https://future-architect.github.io/articles/20240313a/)
+:::
 
 # ステート保管方法
 
@@ -1568,7 +1578,7 @@ Terraformを用いてIaC化する利点は数多く存在するが、以下の�
 - 一時的な用途で作成し、用事が済み次第すぐ削除するもの
 - IAMユーザなど、メンバーの増減でTerraformコードの修正/レビュー/適用の負荷が高い場合
 
-本ガイドラインの推奨は下表の通り。
+推奨は以下の通り。
 
 1. 原則、prod環境に対しての全リソースに対してIaC化を必須とする
    1. クラウドリソースの状況がコード化されていることに価値があるため
@@ -1653,9 +1663,9 @@ resource "terraform_data" "custom_xxx_resource" {
 terraform_dataはTerraform 1.4で追加された機能で、null_resourceと機能的に互換性があるとされる。組み込みであるためnull_resourceと異なりプロバイダーのインストールが無いなど、構成を少しばかりシンプルに保つことができる  
 :::
 
-【参考】
-
-- [Terraform v1.4のリリースノートを眺める | フューチャー技術ブログ](https://future-architect.github.io/articles/20230407a/)
+::: info 参考
+[Terraform v1.4のリリースノートを眺める | フューチャー技術ブログ](https://future-architect.github.io/articles/20230407a/)
+:::
 
 # バージョニング
 
@@ -1748,7 +1758,9 @@ Terraform自体は2～3回/年のペースで、新しいマイナーバージ�
   - 一定間隔で組み込むことで、計画にも組み込みやすい
   - Terraform自体と、Providerの2つのバージョンを合わせて実施するか、あるいは交互に上げるなど、詳細なルールはチームにマッチした方法を検討すると良い
 
-【参考】[チーム開発におけるTerraformバージョンアップ戦略 - TECHSCORE BLOG](https://blog.techscore.com/entry/2023/12/15/080000)
+::: info 参考
+[チーム開発におけるTerraformバージョンアップ戦略 - TECHSCORE BLOG](https://blog.techscore.com/entry/2023/12/15/080000)
+:::
 
 ## 自動バージョン更新ツール
 
@@ -1759,7 +1771,9 @@ DependabotやRenovateを利用することで、TerraformやProviderの新しい
 - バージョンアップは「バージョンアップポリシー」節で記載通り、定次で行う方針である。そのためBOTによるプルリクエスト通知は行わない
   - バージョンアップを行う時期を予め決めておくこと方針であるため、ノイズにしかならないため
 
-【参考】 [Dependabot で Terraform Provider を自動的にアップデートしよう - kakakakakku blog](https://kakakakakku.hatenablog.com/entry/2024/02/29/215713)
+::: info 参考
+[Dependabot で Terraform Provider を自動的にアップデートしよう - kakakakakku blog](https://kakakakakku.hatenablog.com/entry/2024/02/29/215713)
+:::
 
 ## バージョンアップ時の動作検証
 
@@ -1872,10 +1886,12 @@ terraform state push
 terraform state rm {削除対象}
 ```
 
-【参考】
+::: info 参考
 
 - [Command: state mv](https://developer.hashicorp.com/terraform/cli/commands/state/mv?optInFrom=terraform-io)
 - [複数の Terraform リソースを一度に別の tfstate ファイルに移動する](https://zenn.dev/toshikish/articles/61db8661cb28ba)
+
+:::
 
 ## terraform planで計画ファイルを作成
 
@@ -1953,10 +1969,12 @@ AWSでterraform planのみ実行できるようにする例を示す。ReadOnlyA
 }
 ```
 
-【参考】
+::: info 参考
 
 - [Terraform v1.10 からは S3 Backend の State Lock に DynamoDB が必要なくなる](https://zenn.dev/terraform_jp/articles/terraform-s3-state-lock)
 - [[AWS × Terraform] plan できるけど apply できない GitOps な IAM ユーザポリシーの設定方法 | DevelopersIO](https://dev.classmethod.jp/articles/terraform-iam-policy-not-apply-but-plan/)
+
+:::
 
 # Terraform実行環境
 
@@ -2006,7 +2024,9 @@ GitHub ActionsなどのCI/CDパイプラインでのterraformコマンドを実�
 
 - （2）のOpenID Connectを利用する。初期構築コストは少しばかり高いかも知れないが、一度対応すればそれ以降の運用コストは高くないため
 
-【参考】 [Terraform とGitHub Actions | フューチャー技術ブログ](https://future-architect.github.io/articles/20230405a/)
+::: info 参考
+[Terraform とGitHub Actions | フューチャー技術ブログ](https://future-architect.github.io/articles/20230405a/)
+:::
 
 ## 踏み台サーバで実行
 
@@ -2032,11 +2052,13 @@ GitHub ActionsなどのCI/CDパイプラインでのterraformコマンドを実�
 Terraformに限った話ではなく、クラウドのアカウント認証はMFAを取り入れておくことが望ましい。  
 :::
 
-【参考】
+::: info 参考
 
 - [AWS Vaultで端末内のAWSアクセスキー平文保存をやめてみた](https://dev.classmethod.jp/articles/aws-vault/)
 - [[Terraform CLI]MFA認証を使ったAssumeRole。AWSVaultで解決](https://dev.classmethod.jp/articles/terraform-assumerole/)
 - [MFA認証を使ったAssumeRoleでシンプルにTerraformを実行する(aws configure export-credentials)](https://dev.classmethod.jp/articles/terraform-mfa-assumerole-export-credentials/)
+
+:::
 
 # 開発フロー
 
@@ -2208,7 +2230,7 @@ infrastructure                      # アプリケーションコードとリポ
 - [バージョン固定](#バージョン固定)章のとおり、パッチバージョンまでバージョンを明示的に固定する方針のため、ロックファイルをチームで共有する強い理由が存在しないため
 - 上記の前提として、バージョン管理が適切ではないProviderやModuleなどを利用しないこと
 
-# 参考
+# 参考資料
 
 - [Terraform を使用するためのベスト プラクティス | Google Cloud](https://cloud.google.com/docs/terraform/best-practices-for-terraform?hl=ja)
 - [コードベースの構造と組織のベストプラクティス - AWS 規範ガイダンス](https://docs.aws.amazon.com/ja_jp/prescriptive-guidance/latest/terraform-aws-provider-best-practices/structure.html)

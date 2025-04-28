@@ -296,7 +296,9 @@ dev_myproject_calc_order_v1
 [nest_by_odd_png]: https://mermaid.ink/img/pako:eNqNU8tq20AU_RUx2cggB9t6egoFP9LGBK8aUijaqNbIEpUlI41oUuNFpEVNu0gWSUOh7a4Q2tBSSsijafMxEzvuX3QkJY4cm6QDAzP3nHvnnJm5PdBydQQgaHta12RW66rD0FFhSXhCwh8kPCbRZxKdkejr-PBo-HY3pzopxQ-epzkk-pSQz4db70j4ZvznjGyep5x46JaHWthyHWa1ehOtslk2U8ndQLVpqJqB6tNQLQOtsaOdk-GviOpI1HzPQQhNq23adOKUhxx9Vn14GBuIvlz8_jAabN-ne4m9lTAl_dEMmlX_eAbNGmiyzbXG0lMKkmiXRAckol6O6O3TGv9nZbw_uPy2d5-DZXqHe6Of-xeng9HxwZzS8Wiwl-9PKenv66206t0SVthE8MfkowxSc5OPUmHy-Yd3_ZK5UJo073FuX2JMzFpfTiKNdJMCSWTlWlDL1ny_jgxmYogxLNuGC0bZ4HzsuS8QXOB5_mqdf2np2IRCd_0B4EAHeR3N0mnH9OJqKsAm6iAVQLrUkaEFNlaB6vQpVQuw-2TDaQGIvQBxwHODtgmgodk-3QVdXcOobmn08TrXlK7mPHPdyRbpFna9ZtqhSaNytFHj068q0jdAXs0NHAygnKQD2APrACrioiTzQkkolMulsizxHNgAsCTSsFgsloWCWCgUZUXoc-BVcmBhUZQUWeYlRVIUUeF5uf8PejCm6g?type=png
 [nest_by_odd_editor_link]: https://mermaid.live/edit#pako:eNqNU8tKw0AU_ZUwblJoV3XjCEJrfRTpSlGQbMZm0gTTpCQTVMSFmYVFF7rwgaDuBFFRRMS2Vv2Y6cu_cJLRNrVFHRiYuefcyzl37myCvK1iAEHBQSVdWsgolsRXSmZ-lfkPzK8weslondGbztNzc-8opliC4norIofRi5D83tw_Zv5u563Ott8FJ1iq4eA8MWxLWkj3omk5ypZSsR402Q-lI1CmH5qMQIty67DafKFcR6jmPgYh1I2CbvJNBA9b6qB6_ykwQK8br2et8sFfuqfkHwl90qcH0Kj6mQE0aiAn5xazU0scZPSI0VtGuZdn3n1e439WOlfl9t3JXw5meQ9PWo9XjVq5VbkdUjpYWbl9WuOkj519UfV3CXNyKPg8HJSyMNcdlJSUSEz8NiVDIZE07HF-NjEgRq3PhpGsuAggjMx9C8qbyHUzWJO6hiTNME04oo1pcZc49iqGI8lk8uucWDNUosPR0vo4iIMidorIUPmP2QyqKYDouIgVAPlRxRryTKIAxdriVOQRe37DygNIHA_HgWN7BR1ADZkuv3klFRGcMRB_vGI3WkLWsm337lg1iO3kxB8Nv-rWJx5Oi74
 
-\[参考\] [JP1ジョブ設計のポイント（初級） | フューチャー技術ブログ](https://future-architect.github.io/articles/20210204/)
+::: info 参考
+[JP1ジョブ設計のポイント（初級） | フューチャー技術ブログ](https://future-architect.github.io/articles/20210204/)
+:::
 
 ## フロー間の依存関係
 
@@ -563,13 +565,19 @@ I/Fファイルとはシステム間のデータ連携で利用されるCSVな�
 
 # 非同期タスク
 
-非同期タスクとは、タスクの終了を待たず呼び出された後はバックグラウンドで実行されるタスクである。マイクロサービスアーキテクチャやイベント駆動型アーキテクチャの普及に伴い、こうした非同期ジョブの活用も広がってきており、キューイング（AWSにおけるSQS）などを経由して呼び出される場合や、サーバレスでスタンドアローンタスクを非同期呼び出しされる場合が該当する。バッチ処理の実行も非同期で呼び出される場合がある。実行環境については[バッチ実行モデル](#バッチ実行モデル（AWS）) の章を参考にすること。本章では非同期の呼び出し方についての方針をまとめる。
+非同期タスクとは、タスクの終了を待たず呼び出された後はバックグラウンドで実行されるタスクである。マイクロサービスアーキテクチャやイベント駆動型アーキテクチャの普及に伴い、こうした非同期ジョブの活用も広がってきており、キューイング（AWSにおけるSQS）などを経由して呼び出される場合や、サーバレスでスタンドアローンタスクを非同期呼び出しされる場合が該当する。バッチ処理の実行も非同期で呼び出される場合がある。
+
+::: info 参考
+実行環境については[バッチ実行モデル](#バッチ実行モデル（AWS）) の章に記載がある。本章では非同期の呼び出し方についての方針をまとめる。
+:::
 
 ## 画面操作による非同期ジョブ呼び出し
 
 重い処理を非同期化することで、ユーザーの待機時間を短くしてUXを上げることができる。例えば、帳票作成処理・アップロードファイルの取り込み（エンコーディングなど）を非同期化することがある。
 
-処理方式や注意点は、 [Web API設計ガイドライン \> 非同期](https://future-architect.github.io/arch-guidelines/documents/forWebAPI/web_api_guidelines.html#%E9%9D%9E%E5%90%8C%E6%9C%9F) を参考にすること。
+::: info 参考
+処理方式や注意点は、 [Web API設計ガイドライン \> 非同期](/documents/forWebAPI/web_api_guidelines.html#%E9%9D%9E%E5%90%8C%E6%9C%9F) に記載している。
+:::
 
 ## ワークフローエンジンから非同期ジョブ呼び出し
 
@@ -604,9 +612,8 @@ I/Fファイルとはシステム間のデータ連携で利用されるCSVな�
   - よりシンプルな構成が可能であるため
 - もし、机上計算でAPI呼び出し数がネックになる場合は、（3）の導入を検討する
 
-::: tip  
-Airflowについてリソース占有の緩和策について  
-[MWAAでのリソース管理：Deferrable Operatorsによるワーカースロット解放の実践 \- Qiita](https://qiita.com/yust0724/items/3136179e4646db4430c5)  
+::: tip Airflowについてリソース占有の緩和策について
+[MWAAでのリソース管理：Deferrable Operatorsによるワーカースロット解放の実践 \- Qiita](https://qiita.com/yust0724/items/3136179e4646db4430c5) が参考になる。
 :::
 
 ## あるジョブから非同期ジョブ呼び出し
@@ -826,9 +833,9 @@ sequenceDiagram
  	App ->> DB: 更新不可リストの取得 (以下省略）
 ```
 
-\[参考\]
-
-- [図解でなっとく！トラブル知らずのシステム設計　エラー制御・排他制御編](https://www.amazon.co.jp/dp/B07B649FBM) 9話にバッチ処理の排他制御が詳しく説明されているため、お勧めである
+::: info 参考
+[図解でなっとく！トラブル知らずのシステム設計　エラー制御・排他制御編](https://www.amazon.co.jp/dp/B07B649FBM) 9話にバッチ処理の排他制御が詳しく説明されているため、お勧めである
+:::
 
 # パラメータ
 
@@ -1063,7 +1070,9 @@ Web APIへの要求に対しても、提供されている場合はバッチAPI�
 
 なお、連携先のWeb APIに対して流量制御可能なリバースプロキシを追加設置する案も考えられる。アプリケーション側から外部のWeb APIに向けたリクエスト数を、割り当てた上限を超過するとスロットリングで防ぎ、アプリケーションとしては適切に待機させることで流量調整が可能である。流量調整に対する強制力が強く、アプリケーション側の実装がシンプルになるメリットと、構成要素が追加となる点・インフラ費用が増加するデメリットがあり、両者のバランスを判断して検討する。
 
-\[参考\] [Amazon API Gatewayのスロットリングについて調査してみた | DevelopersIO](https://dev.classmethod.jp/articles/apigateway-throttling-test/)
+::: info 参考
+[Amazon API Gatewayのスロットリングについて調査してみた | DevelopersIO](https://dev.classmethod.jp/articles/apigateway-throttling-test/)
+:::
 
 なお、DBアクセスをプログラミング内で並列化することは非推奨である。理由として、SQLコネクションが異なるためトランザクションが異なり、ジョブの成功/失敗とDBトランザクションが不一致となることで、リランなどの操作が特殊となり、運用性が下がるためである。
 
@@ -1174,7 +1183,9 @@ gantt
 - ジョブ間に依存関係が発生する場合は、システムタイムチャートを作成しておく
   - 必要に応じて、ジョブの依存関係や定時起動などの起動条件を追記する
 
-\[参考\]
+::: info 参考
 
 - [EXCELでバッチジョブのバーチャートを作る \- makaishiの日記](https://makaishi.hatenadiary.org/entry/20110216/1297868544)
 - [PlantUML でガントチャートを試した](https://zenn.dev/hokorobi/articles/573541863e7d0d6ac75b)
+
+:::

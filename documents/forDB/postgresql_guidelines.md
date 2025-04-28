@@ -91,10 +91,12 @@ DB設計における「ドメイン」は定義域とも呼ばれ、その属性
 
 本規約では、個別のカラムやデータ型の設計を行うと同時に、バリュードメインを整備していくことを推奨する。
 
-参考:
+::: info 参考
 
 - [ERエディタで型ドメインを使う A5:SQL Mk-2](https://a5m2.mmatsubara.com/tips/er_domain/)
 - [ドメイン管理のデータモデリングにおける重要性 \#データモデリング - Qiita](https://qiita.com/abe_masanori/items/371d61048b7654cf4be5)
+
+:::
 
 ## 論物変換
 
@@ -179,11 +181,13 @@ CSV形式で論理名と物理名の対応表を作成する。
 - 「1.ソースコードで管理」を利用することで、開発効率を上げる
 - データ基盤連携時には、「3.区分値別に参照テーブルを作成」することで、データ利活用を促進する工夫を取る
 
-参考:
+::: info 参考
 
 - [区分値 (Classification) | DBFlute](https://dbflute.seasar.org/ja/manual/function/genbafit/implfit/classification/index.html)
 - [DBで区分値などのCODEは数値ではなく文字列を利用するべき](https://zenn.dev/tonbi_attack/articles/fb796ac3cf9720)
 - [【データマネジメント】参照データとマスタデータについて解説 | データエンジニアのTech blog](https://data-engineer-tech.com/datamanagement-reference-and-master/)
+
+:::
 
 ## 物理名の命名ポリシー
 
@@ -238,9 +242,9 @@ CSV形式で論理名と物理名の対応表を作成する。
 | 整数           | `{カラム}_min`<br> `{カラム}_km` | route_distance_kmなど。単位を記載する                                                                                                                                                           |
 | 数量           | `{カラム}_count`                 | order_countなど。発注数などの想定                                                                                                                                                               |
 
-参考:
-
-- [How we style our dbt models | dbt Developer Hub](https://docs.getdbt.com/best-practices/how-we-style/1-how-we-style-our-dbt-models)
+::: info 参考
+[How we style our dbt models | dbt Developer Hub](https://docs.getdbt.com/best-practices/how-we-style/1-how-we-style-our-dbt-models)
+:::
 
 ## インデックス名
 
@@ -438,7 +442,9 @@ CREATE INDEX idx_completed_orders ON order (order_date) WHERE status = 'complete
 CREATE INDEX idx_employee_with_include ON employees (first_name) INCLUDE (last_name, department);
 ```
 
-参考: [https://www.postgresql.jp/docs/16/sql-createindex.html](https://www.postgresql.jp/docs/16/sql-createindex.html#:~:text=%E3%81%8C%E5%BF%85%E9%A0%88%E3%81%A7%E3%81%99%E3%80%82-,INCLUDE,-%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AEINCLUDE) の「INCLUDE」オプション
+::: info 参考
+[https://www.postgresql.jp/docs/16/sql-createindex.html](https://www.postgresql.jp/docs/16/sql-createindex.html#:~:text=%E3%81%8C%E5%BF%85%E9%A0%88%E3%81%A7%E3%81%99%E3%80%82-,INCLUDE,-%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AEINCLUDE) の「INCLUDE」オプション
+:::
 
 カバリングインデックスと比較して以下の点で有利である。
 
@@ -448,7 +454,9 @@ CREATE INDEX idx_employee_with_include ON employees (first_name) INCLUDE (last_n
 
 万が一必要になった場合は、性能チューニングの最後の手段として、アーキテクト／DBAと相談の上で利用する。
 
-参考: [パフォーマンスを考慮したIndex定義設計 | TECHSCORE BLOG](https://www.techscore.com/blog/2019/12/25/performance_index/)
+::: info 参考
+[パフォーマンスを考慮したIndex定義設計 | TECHSCORE BLOG](https://www.techscore.com/blog/2019/12/25/performance_index/)
+:::
 
 # カラム
 
@@ -502,10 +510,12 @@ SELECT id, name, age FROM json_data_table;
   - 生成列で実現したい要件は、ビジネス要件に近くアプリケーションライフサイクルに近いため
   - 生成列の式変更のリリース作業が難しいため（AccessExclusiveLockと全レコード探索を必要とするため）
 
-参考:
+::: info 参考
 
 - [5.3. 生成列](https://www.postgresql.jp/docs/16/ddl-generated-columns.html)
 - [Is it possible to add a GENERATED COLUMN to a large table without locking/downtime on postgres? - Database Administrators Stack Exchange](https://dba.stackexchange.com/questions/324349/is-it-possible-to-add-a-generated-column-to-a-large-table-without-locking-downti)
+
+:::
 
 ## データ型
 
@@ -602,7 +612,9 @@ SQLで検索すると、表示上は `DUMMY` に見えるが、`CONCAT()` で文
 
 :::
 
-参考: [Don't Do This - PostgreSQL wiki](https://wiki.postgresql.org/wiki/Don%27t_Do_This)
+::: info 参考
+[Don't Do This - PostgreSQL wiki](https://wiki.postgresql.org/wiki/Don%27t_Do_This)
+:::
 
 ## IDENTITY列
 
@@ -641,11 +653,13 @@ INSERT INTO color (color_id, color_name) OVERRIDING SYSTEM VALUE VALUES (DEFAULT
 
 - テーブル名、カラム名がそれぞれ29文字以上の場合、シーケンス名がオミットされて作成される。29文字超過時に自動生成された命名を利用するか、明示的にシーケンス名を変えるのか、一律体系を変えるのかはチームごとにポリシーを作成し統一すること
 
-参考:
+::: info 参考
 
 - [PostgreSQL 10 に関する技術情報](https://www.sraoss.co.jp/tech-blog/pgsql/10-0/)
 - [PostgreSQL: Documentation: 17: 5.3. Identity Columns](https://www.postgresql.org/docs/current/ddl-identity-columns.html)
 - [PostgreSQLで連番を自動生成するIDENTITY列。SERIALとどちらを使うべきか | フューチャー技術ブログ](https://future-architect.github.io/articles/20241113a/)
+
+:::
 
 ## 文字列のデフォルト値
 
@@ -825,10 +839,12 @@ ENUMの削除の代わりに、CHECK制約で代替することも考えられ�
 - 区分値削除が必ず発生しないカラムに関しての、限定的な利用はDBA／アーキと相談の上で利用を許容する
   - 同じ区分値だが、ENUMを使うカラム・使わないカラムが揺れないように、ポリシーを決定の上で検討すること
 
-参考:
+::: info 参考
 
 - [ALTER TYPE](https://www.postgresql.jp/docs/16/sql-altertype.html)
 - [Native enums or CHECK constraints in PostgreSQL? | The Making of Close](https://making.close.com/posts/native-enums-or-check-constraints-in-postgresql)
+
+:::
 
 ## ltree
 
@@ -839,7 +855,9 @@ ltreeとは、格納されているデータのラベルを階層型ツリー構
 - 新規開発者の負荷が高いため通常利用しない
 - 性能・開発生産性上、大きなメリットがある場合は、アーキ／DBAと相談して決定する
 
-参考: [Postgresqlのltreeを活用した階層構造の便利な利用法 - RAKUS Developers Blog | ラクス エンジニアブログ](https://tech-blog.rakus.co.jp/entry/20241008/postgresql)
+::: info 参考
+[Postgresqlのltreeを活用した階層構造の便利な利用法 - RAKUS Developers Blog | ラクス エンジニアブログ](https://tech-blog.rakus.co.jp/entry/20241008/postgresql)
+:::
 
 # 制約
 
@@ -892,7 +910,9 @@ CREATE TABLE sales_detail (
 | 誤ったCASCADE理解による事故懸念 | ON DELETE、ON UPDATEなどの挙動を理解しないと、誤ったデータ削除をしてしまう懸念がある                                                                                                                                                                                                                                                                          |
 | インデックス作成有無のハマり    | 外部キー制約をつけた場合に、参照先／元の両方にインデックス追加が必要。これは教育やツール（Linter）などで回避可能だが、ケアできない場合は性能劣化の懸念がある                                                                                                                                                                                                  |
 
-参考: [PostgreSQLアンチパターン：外部キー制約の更新コストを見くびる - Qiita](https://qiita.com/masudakz/items/ecbfc0f4ace2a7cef0f0)
+::: info 参考
+[PostgreSQLアンチパターン：外部キー制約の更新コストを見くびる - Qiita](https://qiita.com/masudakz/items/ecbfc0f4ace2a7cef0f0)
+:::
 
 ## NOT NULL制約
 
@@ -1007,13 +1027,17 @@ create or replace function を用いた関数の更新は、ロックが取ら�
 
 上記方針ではシステム要件を達成できないか大きな困難が生じるケース、あるいはトリガーを導入することで著しく品質や開発生産性が向上するなどの場合など、ごく限られた場面でのみトリガーの利用を検討する。
 
-参考: https://qiita.com/thankkingdom/items/80f898d3b93010ab7653
+::: info 参考
+[トリガーを使って変更履歴の差分を残す #PostgreSQL - Qiita](https://qiita.com/thankkingdom/items/80f898d3b93010ab7653)
+:::
 
 # Pub/Sub
 
 PostgreSQLにはAWS KinesisやGoogle Cloud Pub/SubのようなPub/Sub機能が備わっている。システムを非常にシンプルに構成できる可能性があり、通知やイベント駆動の非同期ジョブの実行に有用だと考えられる。利用についてはアーキテクト／DBAと相談の上、検討する。
 
-参考: [PostgreSQLのPub/Sub機能とJavaのクライアント実装 | フューチャー技術ブログ](https://future-architect.github.io/articles/20240628a/)
+::: info 参考
+[PostgreSQLのPub/Sub機能とJavaのクライアント実装 | フューチャー技術ブログ](https://future-architect.github.io/articles/20240628a/)
+:::
 
 # テーブル物理設計
 
@@ -1021,10 +1045,12 @@ PostgreSQLにはAWS KinesisやGoogle Cloud Pub/SubのようなPub/Sub機能が�
 
 PostgreSQL 10以降は、「宣言的パーティショニング」が利用可能となり、従来のトリガー関数を用いた実装が不要となり、利用時の敷居が下がった。PostgreSQL 11以前のパーティショニングでは、パーティション数が多すぎると実行計画作成に時間がかかりすぎることで性能が劣化する可能性があり、100以下が推奨だった。PostgreSQL 12以降はパーティション数が多い場合でも、**興味がある**パーティションテーブルのみを参照するように実行計画の作成が改善された。
 
-参考:
+::: info 参考
 
 - [パーティショニングの概要｜PostgreSQLインサイド : 富士通](https://www.fujitsu.com/jp/products/software/resources/feature-stories/postgres/article-index/partitioning-overview/)
 - [PostgreSQL 12は ここがスゴイ！ ～性能改善やpluggable storage engineなどの新機能を徹底解説～ （NTTデータ テクノロジーカンファレンス 2019講演資料）](https://www.slideshare.net/slideshow/postgresql12-performance-improvement-pluggable-storage-engine-ntt-sawada/175323517#8)
+
+:::
 
 PostgreSQL 13ではパーティション結合時の改善、14では更新／削除時のパーティションプルーニング運用性向上など、機能改善が続いている。
 
@@ -1096,7 +1122,9 @@ CREATE TABLE item_order_20221028 PARTITION OF item_order
 
 - 継承を用いたパーティショニングは禁止
 
-参考: [5.11. テーブルのパーティショニング](https://www.postgresql.jp/document/16/html/ddl-partitioning.html#DDL-PARTITIONING-USING-INHERITANCE)
+::: info 参考
+[5.11. テーブルのパーティショニング](https://www.postgresql.jp/document/16/html/ddl-partitioning.html#DDL-PARTITIONING-USING-INHERITANCE)
+:::
 
 #### パーティション追加メンテナンス
 
@@ -1307,9 +1335,9 @@ CREATE TABLE orders (
 - 過去のISBNコードのように、ナチュラルキーの再利用がありえるケース
   - この場合はインデックスからUNIQUEオプションを外すしかない
 
-参考:
-
-- [サロゲートキーと複合主キー | DBFlute](https://dbflute.seasar.org/ja/manual/topic/dbdesign/surrogatekey.html)
+::: info 参考
+[サロゲートキーと複合主キー | DBFlute](https://dbflute.seasar.org/ja/manual/topic/dbdesign/surrogatekey.html)
+:::
 
 ## 連番／UUID
 
@@ -1433,7 +1461,9 @@ CREATE TABLE orders (
 - 画面、帳票上に表示される項目であり、重要な意味をもつ価格などのカラム
 - その値を出すための計算が複雑なビジネスロジックがあり、データサイエンティスト視点で、別カラムに振り下ろしておいた方が好ましいケース
 
-参考: [できるエンジニアになるためのちょい上DB術/第2章 概念設計](https://www.edifist.co.jp/lecture/dbdesign/02_03/03/)
+::: info 参考
+[できるエンジニアになるためのちょい上DB術/第2章 概念設計](https://www.edifist.co.jp/lecture/dbdesign/02_03/03/)
+:::
 
 ## boolean型を別の型にできないか考える
 
@@ -1530,7 +1560,9 @@ CREATE TABLE unit_price (
              5 | 301     |     200.00 | 2024-01-01 | infinity
 ```
 
-参考: [8.5. 日付/時刻データ型](https://www.postgresql.jp/docs/16/datatype-datetime.html#DATATYPE-DATETIME-SPECIAL-VALUES)
+::: info 参考
+[8.5. 日付/時刻データ型](https://www.postgresql.jp/docs/16/datatype-datetime.html#DATATYPE-DATETIME-SPECIAL-VALUES)
+:::
 
 ## 世代管理
 
@@ -1620,12 +1652,14 @@ CREATE TABLE unit_price (
    - 物理削除（DELETE）を行い、必要に応じてアーカイブテーブルにINSERTする
    - アーカイブするかどうかの是非は、削除データの復元要件（誤操作時の救済）や、ユーザーが監査などの目的で削除データを参照する可能性の有無に依存する。ECなどでユーザーの解約にともなう削除は、GDPRなど法律やビジネス上の要求でアーカイブ無しでの物理削除が求められるケースもある
 
-参考:
+::: info 参考
 
 - [SQLアンチパターン 幻の第26章「とりあえず削除フラグ」](https://www.slideshare.net/slideshow/ronsakucasual/52256922)
 - [論理削除という名の死亡フラグ](https://ledsun.hatenablog.com/entry/2015/03/27/015203)
 - [論理削除が奪うもの](https://dekasasaki.tumblr.com/post/69487259373/%E8%AB%96%E7%90%86%E5%89%8A%E9%99%A4%E3%81%8C%E5%A5%AA%E3%81%86%E3%82%82%E3%81%AE)
 - [https://qiita.com/Jxck/items/156d0a231c6968f2a474](https://qiita.com/Jxck/items/156d0a231c6968f2a474)
+
+:::
 
 # クライアント管理
 
@@ -1644,7 +1678,9 @@ CREATE TABLE unit_price (
 
 なお、プロセスが短命なバッチ処理の場合は、利用するDBアクセスが通常1つであるため、アプリケーションでコネクションプールを利用しないほうが効率的である。小さなバッチ処理が大量に起動するような場合は、RDSプロキシのようにミドルウェア側にコネクションプールを持たせることも検討する。
 
-参考: [Re: Configuring sql.DB for Better Performance](http://dsas.blog.klab.org/archives/2018-02/configure-sql-db.html)
+::: info 参考
+[Re: Configuring sql.DB for Better Performance](http://dsas.blog.klab.org/archives/2018-02/configure-sql-db.html)
+:::
 
 ## O／Rマッパ
 
@@ -1698,11 +1734,13 @@ SQLの書き方は [https://future-architect.github.io/coding-standards/document
 | ２．SQL中でSET LOCAL            | SET LOCAL enable_mergejoin = off;<br> SET LOCAL enable_hashjoin = off;<br> SELECT xxx FROM （省略）                                     | SQLクエリチューニングでは問題ないが、コード生成などツール面でハマる可能性がある              |
 | ３．SQLヒント句上に記載 ☆推奨   | /_+<br> Set(enable_mergejoin off)<br> Set(enable_hashjoin off)<br> Leading((a b))<br> NestLoop(a b)<br> _/<br> SELECT xxx FROM （省略） | SQLクエリチューニングに適し、ツール面でハマる可能性が低い（SQLコメントとして解釈されるため） |
 
-参考:
+::: info 参考
 
 - [PostgreSQL 10からNested Loop Joinを選びにくい - そーだいなるらくがき帳](https://soudai.hatenablog.com/entry/2020/11/09/173851)
 - [パフォーマンスチューニング9つの技 ～はじめに～｜PostgreSQLインサイド : 富士通](https://www.fujitsu.com/jp/products/software/resources/feature-stories/postgres/article-index/tuningrule9-introduction/)
 - [SET](https://www.postgresql.jp/document/16/html/sql-set.html)
+
+:::
 
 # 海外対応
 
@@ -1874,7 +1912,9 @@ WHERE EXISTS(
 
 - 条件2: 複雑なレポート生成など、トランザクション中での数値計算の整合性を保ちたい場合（ほぼ業務上、利用することはは無い想定）。ただし、ファントムリードは防げないため、REAPEATABLE READを信用しすぎないこと。また本当に業務要件で求められる整合性はよく整理すること。
 
-参考: [SQLトランザクション分離 実践ガイド | POSTD](https://postd.cc/practical-guide-sql-isolation/)
+::: info 参考
+[SQLトランザクション分離 実践ガイド | POSTD](https://postd.cc/practical-guide-sql-isolation/)
+:::
 
 ## アプリケーション排他制御
 
@@ -1969,11 +2009,13 @@ sequenceDiagram
 
 特に理由がない場合は、楽観的ロックによる実装を推奨する。
 
-参考:
+::: info 参考
 
 - [WHERE 条件のフィールドを UPDATE するのって，明示的にロックしてなくても安全？全パターン調べてみました！ - Qiita](https://qiita.com/mpyw/items/14925c499b689a0cbc59)
 - [データベースの排他制御](https://fintan.jp/wp-content/uploads/2022/03/Database-Exclusion-Control.pdf)
 - [https://terasolunaorg.github.io/guideline/5.9.0.RELEASE/ja/ArchitectureInDetail/DataAccessDetail/ExclusionControl.html](https://terasolunaorg.github.io/guideline/5.9.0.RELEASE/ja/ArchitectureInDetail/DataAccessDetail/ExclusionControl.html#id4)
+
+:::
 
 ### オンライン中バッチ
 
@@ -2029,12 +2071,14 @@ DBを含んだテストは以下のように１〜３の分類に分けること
 | インデックス新規追加       | １．各パーティションテーブルに対して、CREATE INDEX CONCURRENTLY <br>２．親テーブルにCREATE INDEXする                                                                                                                                                                                                                                                                                                             | 1:ロック無し 2:ShareLock                     | ✔1の場合 2は無し              | 親テーブルにはCONCURRENTLYオプションを指定できない。CONCURRENTLYオプション無しだと、ShareLock（書き込みロック）を取る。回避策は子パーティションテーブルにCONCURRENTLYオプションを付けてインデックスを作成してから、親テーブルにインデックスを作成する方法がある |
 | インデックス項目追加       | １．ALTER INDEX {インデックス名} RENAME TO {インデックス名}\_old;<br> ２．CREATE INDEX CONCURRENTLY {インデックス名} ON {テーブル名}(カラム1, カラム2);<br> ３．DROP INDEX {1でリネームしたインデックス名};                                                                                                                                                                                                      |                                              |                                | 同名で作成する場合はDROP & CREATEになるが、リネームしてから同名でCREATEしても良い。ヒント句などでインデックス名を指定している場合に便利。パーティションテーブルの場合は、新規追加と同じ手順を組み合わせて実施する                                               |
 
-参考:
+::: info 参考
 
 - [PostgreSQL 11でALTER TABLE ... NOT NULL DEFAULTが簡単になっていた | 株式会社ヌーラボ(Nulab inc.)](https://nulab.com/ja/blog/nulab/alter-table-not-null-default-on-postgresql-11/)
 - [A Missing Link in Postgres 11: Fast Column Creation with Defaults — brandur.org](https://brandur.org/postgres-default#under-the-hood)
 - [令和最新版: PostgreSQLの安全なSET NOT NULL | Wantedly Engineer Blog](https://www.wantedly.com/companies/wantedly/post_articles/433252)
 - [CREATE INDEX](https://www.postgresql.jp/document/16/html/sql-createindex.html#SQL-CREATEINDEX-CONCURRENTLY)
+
+:::
 
 ## スキーママイグレーションツール
 
@@ -2069,10 +2113,12 @@ PostgreSQLは概ね、次の方針でバージョンアップが公開されて�
 
 メジャーバージョンが最初に公開され**5 年間**はマイナーバージョンが公開されサポートされる。
 
-参考:
+::: info 参考
 
 - [PostgreSQL: Roadmap](https://www.postgresql.org/developer/roadmap/)
 - [PostgreSQL: Versioning Policy](https://www.postgresql.org/support/versioning/)
+
+:::
 
 ## LTS（AWS）
 
@@ -2181,10 +2227,12 @@ PostgreSQLのメジャーバージョンが公開され、5年以上経過する
 11. 実施後の監視項目、体制
 12. 切り戻しプラン策定
 
-参考:
+::: info 参考
 
 - [PostgreSQLとMySQLのメジャーバージョンアップのためのチートシート作った - そーだいなるらくがき帳](https://soudai.hatenablog.com/entry/2023/10/07/142819)
 - [Amazon Aurora PostgreSQL DB クラスターのアップグレード](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.PostgreSQL.html)
+
+:::
 
 # 拡張機能
 
@@ -2200,7 +2248,7 @@ PostgreSQLのメジャーバージョンが公開され、5年以上経過する
 | pg_bigm （ピージーバイグラム） |      | 🆗  | 🆗     | ❌️   | 全文検索で利用。より少ないインデックスサイズで対応可能。 2,3文字の簡単な全文検索で良いなら、pg_bigmで事足りる要件も多い。 RDSでは2021年4月から利用可                                                                         |
 | PGroonga                       |      | ❌️ | ❌️    | ❌️   | 全文検索で利用。pg_bigmより高速で動作するとされる。日本語より厳しい業務要件の場合は採用を検討する。 [https://groonga.org/ja/blog/2023/04/13/pgroonga-3.0.0.html](https://groonga.org/ja/blog/2023/04/13/pgroonga-3.0.0.html) |
 
-参考:
+::: info 参考
 
 - [RDS Proxy環境下でpg_hint_planを導入する際の注意点](https://future-architect.github.io/articles/20230411a)
 - [Amazon RDS for PostgreSQL で pg_bigm 拡張によるフルテキストの高速な検索が可能に](https://aws.amazon.com/jp/about-aws/whats-new/2021/04/amazon-rds-for-postgresql-supports-pg-bigm-extension-for-faster-full-text-search/)
@@ -2208,6 +2256,8 @@ PostgreSQLのメジャーバージョンが公開され、5年以上経過する
 - [Extension versions for Amazon Aurora PostgreSQL](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraPostgreSQLReleaseNotes/AuroraPostgreSQL.Extensions.html)
 - [pg_bigmで全文検索する｜PostgreSQLインサイド : 富士通](https://www.fujitsu.com/jp/products/software/resources/feature-stories/postgres/article-index/pg-bigm/)
 - [PostgreSQL Extensions on Cloud](https://www.pgextensions.org/) : 各クラウドサービスで使える拡張機能の一覧サイト
+
+:::
 
 ## 全文検索サービスとの棲み分け
 
@@ -2246,11 +2296,13 @@ VACUUM FULLは以下のような特殊なワークロードのテーブルに対
 
 - 特定のテーブルが使用されていない行でいっぱいになり、再びそれほど大きくならないと想定される場合（一時的に更新／削除が大量に行われ、かつ自動VACUUMが動かなかったとされる場合）
 
-参考:
+::: info 参考
 
 - [Amazon RDS for PostgreSQL 環境の自動バキュームを理解する | Amazon Web Services ブログ](https://aws.amazon.com/jp/blogs/news/understanding-autovacuum-in-amazon-rds-for-postgresql-environments/)
 - [Cloud SQL for PostgreSQL - VACUUM について深く掘り下げるためのよくある質問と回答](https://cloud.google.com/blog/ja/products/databases/deep-dive-into-postgresql-vacuum-garbage-collector)
 - [PostgreSQL の autovacuum は定期的な VACUUM ANALYZE 実行の代替となる - ぱと隊長日誌](https://taityo-diary.hatenablog.jp/entry/2025/02/24/071321) にPostgreSQL 15のドキュメント更新で、定期的な `VACUUM ANALYZE` の実行の推奨が撤廃され、autovacuum の活用が前提となった旨の解説がある
+
+:::
 
 # ロケール
 
@@ -2294,7 +2346,9 @@ PostgreSQLの共有メモリバッファの調整には `shared_buffers` を利�
 
 Amazon Auroraについてはデフォルト値を推奨する。性能検証などで特定のクエリ（例えばソート時にディスクアクセスしてしまい性能劣化するなど）にどうしても調整が必要であれば、`SET LOCAL work_mem TO parameter_value;` で、そのセッションのみで変更する。値の変更はアーキテクト／DBAに相談の上で実施すること。DBクラスターのパラメータグループの設定値自体は変更しないこと。
 
-参考: [Aurora PostgreSQL のメモリパラメータの調整](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraPostgreSQL.BestPractices.Tuning-memory-parameters.html)
+::: info 参考
+[Aurora PostgreSQL のメモリパラメータの調整](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraPostgreSQL.BestPractices.Tuning-memory-parameters.html)
+:::
 
 ## plan_cache_mode
 
@@ -2331,19 +2385,21 @@ AWS RDS／Auroraの場合は、原則デフォルトパラメータ値を利用�
 
 2024年11月時点では、`db.r7g.large` から性能テストに応じて、`db.r7g.8large` などに上げていく。
 
-参考
+::: info 参考
 
 - [Amazon Aurora が、さらに 15 のリージョンで R7g Graviton3 ベースのインスタンスファミリーのサポートを開始 - AWS](https://aws.amazon.com/jp/about-aws/whats-new/2024/09/amazon-aurora-r7g-graviton3-based-instance-family-additional-regions/)
 - [東京リージョンのAuroraにGraviton3(r7g)が来たぞー！簡単な性能検証結果と注意すべき点 - CyberAgent SRG \#ca_srg](https://ca-srg.dev/0c67e9d729ea43589c814e80254d5b10)
+
+:::
 
 # スケーリング戦略（AWS）
 
 DBの処理性能を向上させるためには、パラメータやSQLクエリのチューニングを行うことで改善できる。DBの処理能力（スケール）そのものを向上させるためには、一般的に以下2つの方法がある。各種チューニングで対応できない場合、DBをスケールさせる必要がある。
 
-|                                         | 説明                                                                                                                        | 増強する内容                                                                                                                                                  |
-| :-------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| （1）スケールアップ（垂直スケーリング） | DBインスタンスのリソースを増強して処理性能を高める方法。無限にCPU性能やメモリ量を増やせるわけではなく、上限がある。         | ・DBインスタンスタイプを上げ、CPU、メモリの処理性能を上げる<br> ・ストレージ容量を上げる<br> ・ネットワーク帯域が詰まっている場合、インスタンスタイプを上げる |
-| （2）スケールアウト（水平スケーリング） | 複数のDBインスタンスを追加して負荷分散する方法。一般的には上限が無いが、例えばAmazon Auroraのリードレプリカは15の上限がある | ・リードレプリカを追加する<br> ・シャーディングを行う                                                                                                         |
+|                                         | 説明                                                                                                                            | 増強する内容                                                                                                                                                  |
+| :-------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| （1）スケールアップ（垂直スケーリング） | DBインスタンスのリソースを増強して処理性能を高める方法。<br>無限にCPU性能やメモリ量を増やせるわけではなく、上限がある。         | ・DBインスタンスタイプを上げ、CPU、メモリの処理性能を上げる<br> ・ストレージ容量を上げる<br> ・ネットワーク帯域が詰まっている場合、インスタンスタイプを上げる |
+| （2）スケールアウト（水平スケーリング） | 複数のDBインスタンスを追加して負荷分散する方法。<br>一般的には上限が無いが、例えばAmazon Auroraのリードレプリカは15の上限がある | ・リードレプリカを追加する<br> ・シャーディングを行う                                                                                                         |
 
 それぞれのスケール手段をどのように取り入れるか、Amazon Auroraを例に以下に示す。基本的にはスケールアウトで対応する。スケールアウトで解決できない場合、スケールアップで対応する。ただし、シャーディングはシステム影響度が甚大であるため、通常選択しない。
 
@@ -2358,9 +2414,9 @@ DBの処理性能を向上させるためには、パラメータやSQLクエリ
 - 書き込み処理性能が不足
   - スケールアップ（インスタンスタイプを上げる）で対応する
 
-参考:
-
-- https://aws.amazon.com/jp/rds/aurora/faqs
+::: info 参考
+[よくある質問 - Amazon Aurora | AWS](https://aws.amazon.com/jp/rds/aurora/faqs)
+:::
 
 # dblink／fdw
 
@@ -2371,12 +2427,14 @@ PostgreSQLで他DBに接続する（接続される）手法として、以下�
 | （1）dblink                                                             | PostgreSQLがクライアントとなり別のDBに接続する                                                                          | ・プッシュダウンができないため、データ転送量が増える                                                     |
 | （2）FDW(Foreign Data Wrapper) postgres_fdw、mysql_fdw、oracle_fdw など | dblinkと機能重複があるが、より透過的で標準に準拠した構文を利用可能かつ、性能が良いとされる。postgres_fdwは9.3以降から。 | ・リモートサーバーでのクエリ実行計画が予測困難であり、期待どおりのパフォーマンスが得られないことがある。 |
 
-参考:
+::: info 参考
 
 - [dblink](https://www.postgresql.jp/docs/16/contrib-dblink-function.html)
 - [F.35. postgres_fdw](https://www.postgresql.jp/docs/16/postgres-fdw.html)
 - [Oracleデータベースリンクを postgres_fdw に移行してみよう！ケース別の比較もしてみた](https://www.ntt-tx.co.jp/column/postgresql_blog/221121/)
 - [外部データとの連携 ～FDWで様々なデータソースとつなぐ～ | Let's POSTGRES](https://lets.postgresql.jp/documents/technical/fdw)
+
+:::
 
 本規約として、dblinkおよびfdwに対する方針は以下である。
 
@@ -2485,10 +2543,12 @@ RDSは、節題のような懸念が考えられる。
 - Auroraは原則対策しない。どうしても業務上、データの整合性が求められる場合や、不都合がある場合のみ、RDSと同様の対策を採る
 - RDSについては「3.GET時にプライマリーDBから参照するオプションを追加」を採用するなど対策を検討する
 
-参考:
+::: info 参考
 
 - [よくある質問 - Amazon Aurora | AWS](https://aws.amazon.com/jp/rds/aurora/faqs/)
 - [【Aurora】Auroraのレプリカ遅延とは何か - 地方エンジニアの学習日記](https://ryuichi1208.hateblo.jp/entry/2024/05/21/084901)
+
+:::
 
 # キャッシュ
 
@@ -2541,10 +2601,12 @@ ORDER BY
     buffers DESC;
 ```
 
-参考:
+::: info 参考
 
 - [F.30. pg_prewarm — リレーションデータをバッファキャッシュにプリロードする](https://www.postgresql.jp/document/16/html/pgprewarm.html)
 - [PostgreSQL共有バッファと関連ツール | PPT](https://www.slideshare.net/slideshow/postgresql-38768325/38768325)
+
+:::
 
 ## ミドルウェアによるリモートキャッシュ
 
@@ -2704,10 +2766,12 @@ sequenceDiagram
     PGSync->>SearchEngine: データを書き込み
 ```
 
-参考:
+::: info 参考
 
 - [GitHub - toluaina/pgsync: Postgres to Elasticsearch/OpenSearch sync](https://github.com/toluaina/pgsync)
 - [ECS 外部デプロイコントローラーで PGSync と Elasticsearch を安全にデプロイする - ミツモア Tech blog](https://engineering.meetsmore.com/entry/2023/12/07/143025)
+
+:::
 
 ## OLAP連携
 
@@ -2742,7 +2806,9 @@ AWSを利用している状況であり、RDS/Redshiftの構成であればゼ�
 - RDS MySQL
 - DynamoDB
 
-参考: [Amazon Aurora PostgreSQL および Amazon DynamoDB の Amazon Redshift とのゼロ ETL 統合の一般提供を開始 | Amazon Web Services](https://aws.amazon.com/jp/blogs/news/amazon-aurora-postgresql-and-amazon-dynamodb-zero-etl-integrations-with-amazon-redshift-now-generally-available/)
+::: info 参考
+[Amazon Aurora PostgreSQL および Amazon DynamoDB の Amazon Redshift とのゼロ ETL 統合の一般提供を開始 | Amazon Web Services](https://aws.amazon.com/jp/blogs/news/amazon-aurora-postgresql-and-amazon-dynamodb-zero-etl-integrations-with-amazon-redshift-now-generally-available/)
+:::
 
 # 改廃
 
@@ -2826,9 +2892,9 @@ PostgreSQLのサーバーサイドのメッセージを深刻度（下表を参�
   - アプリケーション側でDBアクセスがあれば検知可能であるため
   - もし、メッセージ監視も行う場合は、アプリケーション側との重複検知を考慮して設計に加える
 
-参考:
-
-- [20.8. エラー報告とログ取得](https://www.postgresql.jp/docs/16/runtime-config-logging.html)
+::: info 参考
+[20.8. エラー報告とログ取得](https://www.postgresql.jp/docs/16/runtime-config-logging.html)
+:::
 
 ## メトリクス監視項目
 
@@ -2859,12 +2925,14 @@ usename LIKE 'foo_ope_%' -- メンテナンスユーザー名に絞り込み
   AND now() - backend_start > interval '3 minutes';
 ```
 
-参考:
+::: info 参考
 
 - [Auroraの監視項目](https://dev.classmethod.jp/articles/amazon-aurora-monitoring/)
 - [データベースシステムの監視 ～監視の概要～｜PostgreSQLインサイド : 富士通](https://www.fujitsu.com/jp/products/software/resources/feature-stories/postgres/article-index/monitoring-overview/)
 - [AWS RDSを監視するための重要なメトリクス Top 5 – Sysdig](https://sysdig.jp/blog/top-5-key-metrics-for-monitoring-aws-rds/)
 - [Amazon Aurora の Amazon CloudWatch メトリクス](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/Aurora.AuroraMonitoring.Metrics.html)
+
+:::
 
 なお、DBの死活監視は、アプリケーション側でDeep Health Checkなどの外形監視が行われているとして、DB単体のサービス監視は実施しない想定とする。
 
@@ -2908,21 +2976,25 @@ CloudWatch Metricsの場合は、CloudWatchアラームを設定することで�
 
 なお、「拡張機能」で紹介した `pg_stat_statements` を活用することでクエリの分析を合わせて実施することも可能。
 
-参考:
+::: info 参考
 
 - [20.8. エラー報告とログ取得](https://www.postgresql.jp/docs/16/runtime-config-logging.html#GUC-LOG-MIN-DURATION-STATEMENT)
 - [Amazon Aurora PostgreSQL のパラメータ](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraPostgreSQL.Reference.ParameterGroups.html)
-- https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/UserGuide/USER_PerfInsights.UsingDashboard.AnalyzeDBLoad.AdditionalMetrics.PostgreSQL.html
+- [RDS PostgreSQL での SQL 統計 - Amazon Relational Database Service](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/UserGuide/USER_PerfInsights.UsingDashboard.AnalyzeDBLoad.AdditionalMetrics.PostgreSQL.html)
+
+:::
 
 ## ログイン失敗の検知（AWS）
 
 ログインにN回失敗したら通知を出すなどの仕組みは、RDSとCloudWatch Logsのフィルター／アラーム
 の組み合わせで実現できる。厳密な回数に意味はなく普段と異なったアクティビティを検知する目的であれば、GuardDuty RDS Protectionを利用することで代用も考えられる。
 
-参考:
+::: info 参考
 
 - [Amazon RDS for PostgreSQL DB インスタンスへのログインに失敗したことを追跡する方法を教えてください。](https://repost.aws/ja/knowledge-center/track-failed-login-rds-postgresql)
 - [Amazon GuardDuty RDS Protection の具体的な検出タイプを調査しました | DevelopersIO](https://dev.classmethod.jp/articles/guardduty-rds-protection-finding-types/)
+
+:::
 
 # 権限管理
 
@@ -2988,7 +3060,9 @@ GRANT SELECT, USAGE ON SEQUENCE ON ALL SEQUENCES IN SCHEMA foo TO foo_ope_mainta
 
 本規約として、基本的には1で管理し、人の入れ替わりが激しく実用に耐えない場合のみ2を組み合わせて利用する。
 
-参考: [PostgreSQL ユーザーとロールの管理 | Amazon Web Services ブログ](https://aws.amazon.com/jp/blogs/news/managing-postgresql-users-and-roles/)
+::: info 参考
+[PostgreSQL ユーザーとロールの管理 | Amazon Web Services ブログ](https://aws.amazon.com/jp/blogs/news/managing-postgresql-users-and-roles/)
+:::
 
 ::: tip 踏み台サーバーとの組み合わせ
 踏み台サーバーはユーザー単位で払い出し、DBユーザーは案2の組織単位を利用するハイブリッドな構成を取得することも多い。この場合は、踏み台サーバーの操作ログと、DB側の監査ログを突き合わせて、作業者を特定する必要がある。DBユーザー側のアカウント管理を省力化できるメリットがある。
@@ -3072,13 +3146,15 @@ AWSであれば、以下のような構成が考えられる。
 4. Lambda（だれが、どのようなテーブルに、何をしたかといった情報から通知対象をフィルター）
 5. Slackやメールへ通知
 
-参考:
+::: info 参考
 
 - [pgAudit を使用してデータベースのアクティビティを記録する - Amazon Relational Database Service](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/UserGuide/Appendix.PostgreSQL.CommonDBATasks.pgaudit.html)
 - [データベースアクティビティストリームを使用した Amazon Aurora のモニタリング](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/DBActivityStreams.html)
 - [pgAudit を使用して RDS for PostgreSQL DB インスタンスを監査する | AWS re:Post](https://repost.aws/ja/knowledge-center/rds-postgresql-pgaudit)
 - [第4回 データベース監視のススメ［DB監査ログ取得編］ | gihyo.jp](https://gihyo.jp/admin/feature/01/detabase-security/0004)
 - [pgaudit で PostgreSQL のオブジェクト監査をやってみよう！ | NTTテクノクロスブログ](https://www.ntt-tx.co.jp/column/postgresql_blog/240403/)
+
+:::
 
 # BCP/DR
 
@@ -3123,7 +3199,9 @@ RPO、RTOを定義し、それにより復旧シナリオを4パターンに分�
 
 ※上記画像は、[事業継続性が求められる基幹システムの DR 戦略 | Amazon Web Services](https://aws.amazon.com/jp/blogs/news/disaster-recovery-strategy-in-the-cloud/) より引用
 
-参考: [REL 13 災害対策 (DR) はどのように計画するのですか? - AWS Well-Architected Framework](https://docs.aws.amazon.com/ja_jp/wellarchitected/2022-03-31/framework/w44aac19b9c11c13.html)
+::: info 参考
+[REL 13 災害対策 (DR) はどのように計画するのですか? - AWS Well-Architected Framework](https://docs.aws.amazon.com/ja_jp/wellarchitected/2022-03-31/framework/w44aac19b9c11c13.html)
+:::
 
 ## バックアップ／リストア
 
@@ -3164,7 +3242,9 @@ Amazon RDS（Aurora） PostgreSQLにおいては、以下のデータバック�
 例えば、バックアップ開始前に古いバックアップを消すと、規定する世代数未満しか保持できていない瞬間が生まれてしまう。実行順序に気をつけること。
 :::
 
-参考:
+::: info 参考
 
 - [Amazon Aurora バックアップストレージの使用状況を確認する - Amazon Aurora](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/aurora-storage-backup.html)
 - [【バックアップ基礎知識】世代管理とは｜何世代まで取るのがおすすめか](https://business.ntt-east.co.jp/service/coworkstorage/column/sedaikanri/index.html)
+
+:::

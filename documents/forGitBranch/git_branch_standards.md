@@ -63,7 +63,7 @@ Gitリポジトリを新規作成するとデフォルトで作成されるブ�
 
 マージ毎にプロダクション環境へデプロイし同期を取る。
 
-[^3]: https://github.com/github/renaming
+[^3]: [github/renaming: Guidance for changing the default branch name for GitHub repositories](https://github.com/github/renaming)
 
 ## featureブランチ
 
@@ -415,7 +415,7 @@ git merge --no-ff $SOURCE_SHA
    - featureブランチにコミットを行った人がAuthorになるのではなく、「スカッシュマージ」を行った人がAuthorになる。OSS開発を行う場合など、厳密にコントリビューションを管理する必要がある場合は注意する
    - GitHubでは「スカッシュマージ」を行う場合、デフォルトでコミットメッセージに `co-authored-by` トレーラーが追加され、1つのコミットが複数の作成者に帰属するようにするようになっている[^2]。この記述は削除しないようにする
 
-[^2]: https://docs.github.com/ja/pull-requests/committing-changes-to-your-project/creating-and-editing-commits/creating-a-commit-with-multiple-authors
+[^2]: [複数の作者を持つコミットを作成する - GitHub Docs](https://docs.github.com/ja/pull-requests/committing-changes-to-your-project/creating-and-editing-commits/creating-a-commit-with-multiple-authors)
 
 ### マージはだれが行うべきか
 
@@ -774,7 +774,7 @@ testdata/eol/input1.cs: text: set
 testdata/eol/input1.cs: eol: crlf
 ```
 
-参考:
+::: info 参考
 
 - [行終端を処理するようGitを設定する - GitHub Docs](https://docs.github.com/ja/get-started/getting-started-with-git/configuring-git-to-handle-line-endings)
 - [.gitattributesのeol=crlfは改行コードをCRLFに変換してチェックインするものではない - エンジニア的考察ブログ](https://chryfopp.hatenablog.com/entry/2013/04/13/113754)
@@ -816,10 +816,12 @@ GitHubでは、[言語毎に生成ファイルと判定する処理](https://git
 
 :::
 
-参考:
+::: info 参考
 
 - [変更したファイルの GitHub での表示方法をカスタマイズする - GitHub Docs](https://docs.github.com/ja/repositories/working-with-files/managing-files/customizing-how-changed-files-appear-on-github)
 - [GitHubでファイル差分が表示されない！？レビューを快適にするための差分の非表示ロジックを解説](https://zenn.dev/hacobell_dev/articles/show-diff-in-github)
+
+:::
 
 # .gitignore
 
@@ -838,9 +840,9 @@ Gitで管理したくないファイル名のルールを定義する`.gitignore
 
 上記の場合は、`.git/info/exclude` を利用することを推奨する。
 
-参考:
-
-- [個人的Gitおすすめtips 7選 #GitHub - Qiita](https://qiita.com/hichika/items/f3c980dd069df0f3a56e)
+::: info 参考
+[個人的Gitおすすめtips 7選 #GitHub - Qiita](https://qiita.com/hichika/items/f3c980dd069df0f3a56e)
+:::
 
 # Pull Request / Merge Request テンプレート
 
@@ -924,7 +926,7 @@ developブランチに対し「require linear history」を選択することを
 
 また、意図しない方法でのマージを避けるためにブランチごとにマージ戦略を設定しておき、想定外のマージ戦略が選択された時に警告色を表示するというサードパーティ製のChrome拡張[^1]も存在する。必要に応じて導入を検討する。
 
-[^1]: https://zenn.dev/daku10/articles/github-merge-guardian
+[^1]: [GitHubで誤ったマージ戦略のマージを防ぐChrome拡張機能の開発をした](https://zenn.dev/daku10/articles/github-merge-guardian)
 
 ### Tags
 

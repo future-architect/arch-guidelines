@@ -106,7 +106,9 @@ https://api.example.com/delivery-schedules?order_id=12345
 }
 ```
 
-参考: [HTTPヘッダーのX-は非推奨と言うけれど・・・](https://zenn.dev/ys/articles/a58b02e3cbc2f839f7f1)
+::: info 参考
+[HTTPヘッダーのX-は非推奨と言うけれど・・・](https://zenn.dev/ys/articles/a58b02e3cbc2f839f7f1)
+:::
 
 # ホスティング戦略
 
@@ -322,7 +324,9 @@ Link: <https://api.example.com/v2/orders/{order_id}>; rel="alternate"
 
 実際に廃止予定のAPIを削除する際には、アクセスログなどから利用実績を確認の上で行う。
 
-参考: [URLリソースの非推奨を示すDeprecationヘッダ \- ASnoKaze blog](https://asnokaze.hatenablog.com/entry/2020/12/27/233402)
+::: info 参考
+[URLリソースの非推奨を示すDeprecationヘッダ \- ASnoKaze blog](https://asnokaze.hatenablog.com/entry/2020/12/27/233402)
+:::
 
 # HTTPメソッド
 
@@ -366,9 +370,9 @@ HTTPリクエストメソッドは[RFC 7231](https://datatracker.ietf.org/doc/ht
 [新しいHTTPメソッド、QUERYメソッドの仕様 \- ASnoKaze blog](https://asnokaze.hatenablog.com/entry/2021/11/09/231858)  
 :::
 
-参考:
-
-- [HTTP検索条件、GETにするか？POSTにするか？ | フューチャー技術ブログ](https://future-architect.github.io/articles/20210518a/)
+::: info 参考
+[HTTP検索条件、GETにするか？POSTにするか？ | フューチャー技術ブログ](https://future-architect.github.io/articles/20210518a/)
+:::
 
 ## リソースの新規作成時にPOST・PUTのどちらを用いるか
 
@@ -400,10 +404,12 @@ PUTもリソースの作成を許容すると、POSTとの使い分けに悩む�
   - クライアントがリソースの全量を持たない
   - 通信量を可能な限り減らしたい（例えば、あるカラムがtext型で大きなデータ量を保持するなどの場合）
 
-参考:
+::: info 参考
 
 - [冪等と安全に関する誤解 \- Qiita](https://qiita.com/KyojiOsada/items/9c8db9714a0c9c72823c)
 - [Zalando RESTful API と イベントスキーマのガイドライン](https://restful-api-guidelines-ja.netlify.app/#http-requests)
+
+:::
 
 ## RESTで表現できないRPC的な操作の場合
 
@@ -428,9 +434,9 @@ PUTもリソースの作成を許容すると、POSTとの使い分けに悩む�
 
 - いったん、カスタムメソッドを許容すると、適用範囲が広くなってしまう傾向があるが、なるべく利用を抑える（例えば、 `POST /users/1/upgradePlan` が生まれる。これは `PUT /users/1/subscription` など、工夫次第でREST表現できる）
 
-参考:
-
-- [カスタム メソッド | Cloud API Design Guide | Google Cloud](https://cloud.google.com/apis/design/custom_methods?hl=ja)
+::: info 参考
+[カスタム メソッド | Cloud API Design Guide | Google Cloud](https://cloud.google.com/apis/design/custom_methods?hl=ja)
+:::
 
 ## 全てPOSTメソッドに統一する設計判断
 
@@ -506,11 +512,13 @@ Idempotency-Keyヘッダという[IETF Draft（2024年12月時点ではDraft 05�
 採番APIを利用する処理フローは、呼び出し元からすると覚えるべきことが増え、E2Eなどの手間も増えるため、採番APIの代わりにフロントエンド側でUUIDを発行する方式を推奨する。  
 :::
 
-参考:
+::: info 参考
 
 - [Idempotent (べき等)](https://developer.mozilla.org/ja/docs/Glossary/Idempotent)
 - [Idempotency-Key Headerの現状・仕様・実装の理解を助けるリソースまとめ](https://ohbarye.hatenablog.jp/entry/2021/09/06/idempotency-key-header-resources)
 - [Idempotency-Keyヘッダによるマイクロサービスの冪等性の担保](https://www.m3tech.blog/entry/2023/12/15/110000)
+
+:::
 
 ## PATCHによる部分更新
 
@@ -566,7 +574,11 @@ JSON Merge Patch:
 - 本規約では、[#nullの扱い](#nullの扱い)の章の通り値が存在しないことを `undefined` で表現し `null` を利用しない。そのため、PATCHで項目削除のために `null` を利用することは問題ない
 - `Content-Type: application/merge-patch+json` で送信する。フレームワークなどの都合で対応できない場合は、 `Content-Type: application/json` も許容する
 
-参考: [Web API 設計のベスト プラクティス \- Azure Architecture Center](https://learn.microsoft.com/ja-jp/azure/architecture/best-practices/api-design#patch-methods)
+::: info 参考
+
+[Web API 設計のベスト プラクティス \- Azure Architecture Center](https://learn.microsoft.com/ja-jp/azure/architecture/best-practices/api-design#patch-methods)
+
+:::
 
 # リクエストヘッダ
 
@@ -634,7 +646,9 @@ curl -X DELETE 'http://example.com/users/123?fields=email'
 
 その他のクエリパラメータについては、RDBのスキーマから名称をできる限りそのまま流用し、マッピングの手間を無くすことを推奨する。
 
-参考: [標準フィールド | Cloud API Design Guide](https://cloud.google.com/apis/design/standard_fields?hl=ja)
+::: info 参考
+[標準フィールド | Cloud API Design Guide](https://cloud.google.com/apis/design/standard_fields?hl=ja)
+:::
 
 ## 検索ワードを複数指定
 
@@ -783,10 +797,12 @@ HTTPステータスコードをできる限り細かく使い分けることに�
 | エンドポイントを呼び出す権限自体がなかった場合も403か                                                      | Yes                                                            | ユーザーのロールが、エンドポイントを呼び出す権限がない場合は、403を返す。権限が無いWeb APIのエンドポイントが存在すること自体は、APIドキュメントで公開されているはずであるため、呼び出し先が知っても良い                                                                                                                |
 | その他、微妙なニュアンスで何を指定してよいかわからない                                                     | 200、400、500を用いる                                          | RFC9205では疑わしい場合は一般的なステータス コード（200、400、500）を用いるとある                                                                                                                                                                                                                                      |
 
-参考:
+::: info 参考
 
 - [Idempotent (べき等) \- MDN Web Docs 用語集: ウェブ関連用語の定義](https://developer.mozilla.org/ja/docs/Glossary/Idempotent)
 - [HTTPステータスコードを適切に選ぶためのフローチャート : 難しく考えるのをやめよう | POSTD](https://postd.cc/choosing-an-http-status-code/)
+
+:::
 
 # レスポンスボディ
 
@@ -853,9 +869,9 @@ DBなどから取得したレコードをそのまま配列のままで返すの
 { "id": "00001", "name": "Bob", "score": null }
 ```
 
-参考:
-
-- [OpenAPIにおけるundefinedとnullの設計 | フューチャー技術ブログ](https://future-architect.github.io/articles/20211028b/)
+::: info 参考
+[OpenAPIにおけるundefinedとnullの設計 | フューチャー技術ブログ](https://future-architect.github.io/articles/20211028b/)
+:::
 
 ## 日付フォーマット
 
@@ -970,7 +986,9 @@ Content-Language: ja
 | 公開APIの場合 （特にB2B） | 基本的にはB2Cと同様の基準を推奨する。                                                                                                                                                                                                      |                                                                                        |
 | 内部APIの場合             | 迅速な業務影響の把握と復旧を目的とするため、詳細なエラー情報を返すことを許容し、開発者向けのエラーメッセージを表示して良い。ただし、スタックトレースなど大量になる場合は適度にomitする。また、アクセストークンや個人情報は出力しないこと。 | 「DB Access Failed: com.example.db.UserDB line 45"」など一次切り分け情報を出しても良い |
 
-参考: [Problem Details RFC9457 – Getting Hand-On with API Errors​ | Swagger](https://swagger.io/blog/problem-details-rfc9457-api-error-handling/)
+::: info 参考
+[Problem Details RFC9457 – Getting Hand-On with API Errors​ | Swagger](https://swagger.io/blog/problem-details-rfc9457-api-error-handling/)
+:::
 
 ### バリデーションエラーでJSON PATHを返すべきか
 
@@ -992,11 +1010,13 @@ Web APIのサーバサイドでバリデーションエラーが発生した場�
 - エンコーディングの指定は不要（RFC 8259から、JSONのエンコードはUTF-8のみとであるため）
   - 不要な例: `Content-Type: application/json; charset=utf-8`
 
-参考:
+::: info 参考
 
 - [RFC 8259: The JavaScript Object Notation (JSON) Data Interchange Format](https://www.rfc-editor.org/rfc/rfc8259.html)
 - [Spring Boot 2.2 から Content-Type: application/json に charset=UTF-8 が付かない \#Java \- Qiita](https://qiita.com/niwasawa/items/030f0497446918a53324)
 - [徳丸浩の日記: ISO-2022-JPの自動判定によるクロスサイト&\#12539;スクリプティング(XSS)](https://blog.tokumaru.org/2024/12/iso-2022-jp-xss.html.html?m=1)
+
+:::
 
 ## Server-Timing
 
@@ -1015,10 +1035,12 @@ Server-Timing: cache;desc="Cache Read";dur=23.4, db;dur=50, app;dur=75.3
 - メトリクス項目は具体的な技術要素名を出さない（例えば、RedisやPostgreSQLなど）
 - 外形監視の一種として利便性が高いが、本番環境に出すかは個別検討とする（チームによっては、開発環境／ステージング環境のみ出力するといったルールも考えられる。各自のセキュリティ方針に従う）
 
-参考:
+::: info 参考
 
 - [Server-Timing](https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/Server-Timing)
 - [Server-Timing ヘッダの情報をフロントエンド解析に使う](https://zenn.dev/mizchi/articles/server-timing-header-for-frontend)
+
+:::
 
 ## Cache-Control
 
@@ -1172,76 +1194,13 @@ Last-Modified及びIf-Unmodified-Sinceを用いると以下の特徴がある。
 
 :::
 
-参考:
+::: info 参考
 
 - [REST API における楽観ロックの実装方法 \#Java \- Qiita](https://qiita.com/nannany_stores/items/c4585a2373c15d84c1d9)
 - [Zalando RESTful API and Event Guidelines](https://opensource.zalando.com/restful-api-guidelines/#optimistic-locking)
 - [Amazon S3が「条件付き書き込み」に対応。既にオブジェクトがある場合は上書きせず、分散アプリケーションでの利用が容易に](https://www.publickey1.jp/blog/24/amazon_s3_1.html)
 
-<details>
-<summary>UMLを開く</summary>
-
-①If-MatchヘッダとETagヘッダ
-
-```txt
-sequenceDiagram
-    participant Client
-    participant WebAPI
-
-    Client->>WebAPI: GET /items 一覧検索
-    WebAPI-->>Client: 200 検索結果<br>{"items":[{"id":12345,"price":80}]}
-
-    Client->>WebAPI: GET /items/12345 更新対象を再検索
-    WebAPI-->>Client: 200 検索成功<br> ETag:"6192"<br> {"id":12345,"price":80})
-
-    Client->>WebAPI: PUT /items/12345<br> If-Match: "6192"<br>{"price":95}
-    WebAPI->>WebAPI: バージョンチェック
-    alt 照合成功
-        WebAPI-->>Client: 204 更新成功
-    else 照合失敗
-        WebAPI-->>Client: 412 Precondition Failed (競合)
-    end
-```
-
-②結果エンティティにおけるETag
-
-```txt
-sequenceDiagram
-    participant Client
-    participant WebAPI
-
-    Client->>WebAPI: GET /items 一覧検索
-    WebAPI-->>Client: 200 検索結果<br>{"items":[{"id":12345,"price":80,"version":6192}]}
-
-    Client->>WebAPI: PUT /items/12345<br>If-Match:6192<br>{"price":95,"version":6192}
-    WebAPI->>WebAPI: バージョンチェック
-    alt 照合成功
-        WebAPI-->>Client: 204 更新成功
-    else 照合失敗
-        WebAPI-->>Client: 412 Precondition Failed (競合)
-    end
-```
-
-③バージョン番号
-
-```txt
-sequenceDiagram
-    participant Client
-    participant WebAPI
-
-    Client->>WebAPI: GET /items 一覧検索
-    WebAPI-->>Client: 200 検索結果 <br>{"items":[{"id":12345,"price":80,"version":6192}]}
-
-    Client->>WebAPI: PUT /items/12345<br>{"price":95,"version":6192}
-    WebAPI->>WebAPI: バージョンチェック
-    alt 照合成功
-        WebAPI-->>Client: 204 更新成功
-    else 照合失敗
-        WebAPI-->>Client: 409 Conflict (競合)
-    end
-```
-
-</details>
+:::
 
 # ファイル連携
 
@@ -1300,12 +1259,14 @@ sequenceDiagram
     end
 ```
 
-参考:
+::: info 参考
 
 - [署名付きURLを利用したファイルアップロードWeb API設計の勘所 | フューチャー技術ブログ](https://future-architect.github.io/articles/20240705a/)
 - [AWS のサーバーレスと Amazon S3 署名付き URL、クライアントサイド JavaScript で大きなサイズの複数ファイルの一括アップロード・ダウンロード機能を実現する方法 | Amazon Web Services ブログ](https://aws.amazon.com/jp/blogs/news/large-size-files-transferring-by-serverless-s3presignedurl-and-clientside-javascript/)
 - [S3 バケットを AWS Lambda を使って、ウィルススキャンしてみた | DevelopersIO](https://dev.classmethod.jp/articles/s3-bucket-antivirus-lambda/)
 - [S3のメタデータを用いた攻撃](https://zenn.dev/p0n/articles/3a6139cce9fa17)
+
+:::
 
 ## ファイルダウンロード
 
@@ -1360,10 +1321,12 @@ sequenceDiagram
     CloudFront-->>User: ファイルデータ
 ```
 
-参考:
+::: info 参考
 
 - [ファイルダウンロード完全マスター | フューチャー技術ブログ](https://future-architect.github.io/articles/20220621a/)
 - [CloudFrontの署名付きCookieでプライベートコンテンツの配信 | DevelopersIO](https://dev.classmethod.jp/articles/cloudfront-signed-cookie/)
+
+:::
 
 # 非同期
 
@@ -1634,7 +1597,9 @@ sequenceDiagram
 ヘルスチェックに対するアクセスログは除外するような分岐を入れた方が良い。ヘルスチェックAPIはロードバランサーなどシステム内部側で利用されるため、ログを出力すると調査分析の妨げになるし、余計なキャッシュアウトにも繋がるためである。  
 :::
 
-参考: [多様なプロダクトが存在する freee における health check 標準化](https://developers.freee.co.jp/entry/Health-Check-Standardization-in-Diverse-freee-Products)
+::: info 参考
+[多様なプロダクトが存在する freee における health check 標準化](https://developers.freee.co.jp/entry/Health-Check-Standardization-in-Diverse-freee-Products)
+:::
 
 # ロギング
 
@@ -1716,9 +1681,9 @@ Web APIアクセスに対して適切にログ出力することで、何かし�
   - 例: `{"username": "new_user", "email": "[new_email@example.com](mailto:new_email@example.com)"}`
   - PIIなどセンシティブな情報の出力には注意する
 
-参考:
-
-- [OWASP/CheatSheetSeries](https://github.com/OWASP/CheatSheetSeries)の[cheatsheets/Logging_Cheat_Sheet.md](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Logging_Cheat_Sheet.md)
+::: info 参考
+[OWASP/CheatSheetSeries](https://github.com/OWASP/CheatSheetSeries)の[cheatsheets/Logging_Cheat_Sheet.md](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Logging_Cheat_Sheet.md)
+:::
 
 # 性能
 
@@ -1823,9 +1788,9 @@ Rate Limit（レート制限）とは、特定の時間内に許可されるリ�
   - 正確なカウントはDB負荷が高いため、Cacheサーバの利用（定期的にWrite backでメインのDBに書き込み）方式を検討する
   - Rate limitの場合は `429 Too Many Requests` を返し、`Retry-After` ヘッダを返すこと
 
-参考:
-
-- [Retry-After \- HTTP | MDN](https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/Retry-After)
+::: info 参考
+[Retry-After \- HTTP | MDN](https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/Retry-After)
+:::
 
 # タイムアウト
 
@@ -1853,10 +1818,12 @@ Web APIの呼び出し結果をブラウザ上でそのまま表示すること�
 | [X-Content-Type-Options](https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/X-Content-Type-Options)       | nosniff                              | ✔   | ブラウザがMIMEタイプを自動判別することを防ぎ、特定のタイプのファイルのみを扱うようにすることで、コンテンツの解析やインジェクション攻撃を防止する                                                      |
 | [Strict-Transport-Security](https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/Strict-Transport-Security) | `max-age=63072000; includeSubDomains | ✔   | HSTS。HTTP Strict Transport Securityを有効にし、HTTPSを強制させ、中間者攻撃（MITM）を緩和する。[HSTS preload list](https://hstspreload.org) に記載があるように、最終的には2年間とすることが推奨である |
 
-参考:
+::: info 参考
 
 - [API-Security-Checklist/README-ja.md at master](https://github.com/shieldfy/API-Security-Checklist/blob/master/README-ja.md)
 - [Strict-Transport-Security ヘッダーの max-age は 2 年が推奨](https://til.agile.esm.co.jp/posts/recommended-max-age-for-hsts-headers/)
+
+:::
 
 ::: tip 廃止になったオプション  
 [X-XSS-Protection](https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/X-XSS-Protection) や [X-Frame-Options](https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/X-Frame-Options) などContent-Security-Policyの登場で非推奨となったヘッダも多い。  
@@ -1962,11 +1929,13 @@ Auth0やEntraIDなどのIdP（Identity Provider）を利用して認証する構
 
 - 「2.セッショントークン方式」を推奨する。特にIdPの制約で、リフレッシュトークンの有効期限が想定より短くなってしまう場合に、UX上、許容できない再ログイン操作などを強いてしまう点が大きい
 
-参考:
+::: info 参考
 
 - [SPA+Backend構成なWebアプリへのOIDC適用パターン \- r-weblife](https://ritou.hatenablog.com/entry/2024/10/22/153014) で記載されている、「2. BEがRSとなる場合」が本節の前提である
 - [サーバーレスなユーザー認証認可の考慮事項と実践的プラクティス紹介 / slsdays-tokyo-2024 \- Speaker Deck](https://speakerdeck.com/slsops/slsdays-tokyo-2023-3cd5886a-cee0-425b-821f-f4cd3230e1e0?slide=40)
 - [Token Revocation (RFC 7009)はなぜ重要か？ \#API \- Qiita](https://qiita.com/yo-tabata/items/7559a7c9069ee5c167f5)
+
+:::
 
 <details>
 <summary>UML（折りたたみ）</summary>
@@ -2115,10 +2084,12 @@ AWSの場合、API Gatewayの機能でOPTIONSメソッドを提供すること�
 デプロイメント環境で用いない、OPTIONSメソッドをアプリケーション側で実装することを問題視する場合に、アプリ側でCORS提供が不要になるようnginxなどリバースプロキシを配備しルーティングすることで解決を図ることがある。本規約としては、ローカル環境の構成要素を減らしたいこと、なるべくデプロイメント環境とローカル環境を一致させるポリシーを優先している。  
 :::
 
-参考:
+::: info 参考
 
 - [オリジン間リソース共有 (CORS) \- HTTP | MDN](https://developer.mozilla.org/ja/docs/Web/HTTP/CORS)
 - [CORSエラーのトラブルシューティング入門 | フューチャー技術ブログ](https://future-architect.github.io/articles/20220222a/)
+
+:::
 
 # 機能配置（AWS）
 
@@ -2168,7 +2139,7 @@ Web APIの環境分離だが、クラウド環境のベストプラクティス�
 
 メンテナンスウィンドウが確保できるのであれば、1の一括リリース方式が推奨である。要件としてダウンタイムが許容できない場合は、2または3の手法を採用する。
 
-# 参考
+# 参考資料
 
 - [Web API 設計のベスト プラクティス \- Azure Architecture Center](https://learn.microsoft.com/ja-jp/azure/architecture/best-practices/api-design)
 - [Web API 実装 \- Best practices for cloud applications](https://learn.microsoft.com/ja-jp/azure/architecture/best-practices/api-implementation)

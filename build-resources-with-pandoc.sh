@@ -16,7 +16,7 @@ apk update
 apk add --update chromium
 
 ## nodejs のインストール
-apk add --no-cache nodejs-current
+apk add --no-cache nodejs-current npm
 npm install -g npm@9
 
 # バージョンチェック

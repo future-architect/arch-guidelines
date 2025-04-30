@@ -19,6 +19,17 @@ apk add --update chromium
 apk add --no-cache nodejs-current npm
 npm install -g npm@9
 
+# グローバルインストールされたnpmのパスを通す
+NPM_GLOBAL_BIN=$(npm prefix -g)/bin
+echo "NPM global bin path: ${NPM_GLOBAL_BIN}"
+# 取得したディレクトリを PATH 環境変数の先頭に追加
+export PATH="${NPM_GLOBAL_BIN}:${PATH}"
+echo "Updated PATH: ${PATH}"
+# 更新された npm の場所とバージョンを再確認
+echo "Checking updated npm location and version..."
+which npm
+npm -v
+
 # バージョンチェック
 echo "Node version: $(node -v)"
 echo "npm version: $(npm -v)"

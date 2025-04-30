@@ -198,35 +198,6 @@ CSV形式で論理名と物理名の対応表を作成する。
 
 昨今はデータ利活用の観点から、対象のシステムだけに特化した名称にするのではなく、全社データガバナンスの観点から、体系を合わせて命名することが好ましい。本ガイドラインで記載する以降の内容も、対象企業内のデータガバナンス／統一的な設計ポリシーがあればそちらを優先し適用する必要がある。
 
-::: warning 予約語はテーブル名やカラム名に利用しない
-`like` `offset` `constraint` `order` などのテーブル名にすると、SQLでの扱いが面倒になる（予約語との区別のためにクォートで囲む必要があり、可読性も下がる）ため避けること。通常は、CREATE文でもクォートでの囲みが必要だが、ツールなどで生成すると気が付かない可能性があるため注意する。
-
-```sql
--- テーブル名 like に囲み文字が必要
-CREATE TABLE "like" (
-    like_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY
-);
--- カラム名 order に囲み文字が必要
-CREATE TABLE sales (
-    sales_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-   "order" INTEGER
-);
-
--- カラム like に囲み文字が必要
-INSERT INTO "like" VALUES(DEFAULT);
--- カラム order に囲み文字が必要
-INSERT INTO sales ("order") VALUES(1);
-```
-
-推奨は以下の通り。
-
-- [PostgreSQL: Documentation: 17: Appendix C. SQL Key Words](https://www.postgresql.org/docs/17/sql-keywords-appendix.html) に記載された全てのキーワードの利用を利用しない
-  - 正確には、「Table C.1. SQL Key Words」のPostgreSQLの `reserved` 以外のキーワードは利用できる
-  - しかし、DBリプレイスや今後のバージョンアップ時の互換性を意識して、使用しない方針とする
-  - `like` であれば `user_likes` などにする
-
-:::
-
 ## テーブル種別の識別子
 
 商品マスタを `item_master` `m_item` のどちらにするかといった揺れをはじめとして、保守運用性のためには、命名規則を作り統制を取ることが望ましい。本ガイドラインでは以下の方針を取る。

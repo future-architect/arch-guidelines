@@ -55,13 +55,13 @@ cp /temp/IPAexfont00301/*.ttf /usr/share/fonts/ipa/
 rm IPAexfont00301.zip
 
 # バージョンチェック
-chromium --version
+chromium-browser --version
 
 # mermaid-filterに必要な変数をセット
 export PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
 export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD='true'
 export MERMAID_FILTER_PUPPETEER_CONFIG="${ROOT_DIR}/.puppeteer.json"
-export PUPPETEER_EXECUTABLE_PATH="/usr/bin/chromium"
+export PUPPETEER_EXECUTABLE_PATH="/usr/bin/chromium-browser"
 # export MERMAID_FILTER_FORMAT="svg" # docxでの出力時にはsvgは使えません
 
 # mermaid-filterのインストール

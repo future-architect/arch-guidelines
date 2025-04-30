@@ -16,7 +16,7 @@ apk update
 apk add --update chromium
 
 ## nodejs のインストール
-apk add nodejs npm
+apk add --no-cache nodejs-current npm
 
 ## 日本語用フォントのインストール
 apk add --no-cache curl fontconfig

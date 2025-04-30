@@ -4,7 +4,7 @@ author: フューチャー株式会社
 layout: home
 hero:
   name: "DB設計ガイドライン"
-  tagline: Web API Design Guidelines
+  tagline: DB Design Guidelines
   actions:
     - theme: brand
       text: PostgreSQL設計ガイドライン

@@ -16,7 +16,12 @@ apk update
 apk add --update chromium
 
 ## nodejs のインストール
-apk add --no-cache nodejs-current npm
+apk add --no-cache nodejs-current
+npm install -g npm@9
+
+# バージョンチェック
+echo "Node version: $(node -v)"
+echo "npm version: $(npm -v)"
 
 ## 日本語用フォントのインストール
 apk add --no-cache curl fontconfig
@@ -28,8 +33,6 @@ cp /temp/IPAexfont00301/*.ttf /usr/share/fonts/ipa/
 rm IPAexfont00301.zip
 
 # バージョンチェック
-node -v
-npm -v
 chromium-browser --version
 
 # mermaid-filterに必要な変数をセット

@@ -23,6 +23,17 @@ npm install -g npm@9
 echo "Node version: $(node -v)"
 echo "npm version: $(npm -v)"
 
+## Playwright が Alpine で必要とする可能性のある依存関係を追加
+echo "Installing potential Playwright dependencies for Alpine..."
+apk add --no-cache \
+    udev \
+    ttf-freefont \
+    fontconfig \
+    dbus \
+    freetype \
+    harfbuzz \
+    nss
+
 ## 日本語用フォントのインストール
 apk add --no-cache curl fontconfig
 curl -O https://moji.or.jp/wp-content/ipafont/IPAexfont/IPAexfont00301.zip

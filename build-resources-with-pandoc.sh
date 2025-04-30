@@ -64,6 +64,9 @@ export MERMAID_FILTER_PUPPETEER_CONFIG="${ROOT_DIR}/.puppeteer.json"
 export PUPPETEER_EXECUTABLE_PATH="/usr/bin/chromium-browser"
 # export MERMAID_FILTER_FORMAT="svg" # docxでの出力時にはsvgは使えません
 
+# playwright 本体ではなく、コマンドラインツールをインストール
+npm install -g playwright-cli@latest --unsafe-perm
+
 # mermaid-filterのインストール
 npm i -g mermaid-filter@1.4.7
 

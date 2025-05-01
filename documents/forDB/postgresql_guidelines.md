@@ -222,7 +222,7 @@ INSERT INTO sales ("order") VALUES('1');
 
 推奨は以下の通り。
 
-- [PostgreSQL: Documentation: 17: Appendix C. SQL Key Words](https://www.postgresql.org/docs/17/sql-keywords-appendix.html) に記載された全てのキーワードの利用を利用しない
+- [PostgreSQL: Documentation: 17: Appendix C. SQL Key Words](https://www.postgresql.org/docs/17/sql-keywords-appendix.html) に記載された全てのキーワードをテーブル名やカラム名に利用しない
   - 正確には、「Table C.1. SQL Key Words」のPostgreSQL列が `reserved` 以外のキーワードは利用できる
   - しかし、DBリプレイスや今後のバージョンアップ時の互換性を意識して、使用しない方針とする
   - `like` や `order` であれば `user_likes`（関連するテーブル名を付与） や `orders` （複数形にする）でも回避できるが、[テーブル種別の識別子](#テーブル種別の識別子) や[カラム名](#カラム名) にあるように、 `t_like` などのプレフィックスや、`order_id` のような命名ルールにすることで自然と回避できる

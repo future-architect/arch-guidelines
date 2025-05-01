@@ -211,7 +211,7 @@ CREATE TABLE "like" (
 -- カラム名 order に囲み文字が必要
 CREATE TABLE sales (
     sales_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-   "order" VARCHAR(32)
+    "order" VARCHAR(32)
 );
 
 -- テーブル名 like に囲み文字が必要

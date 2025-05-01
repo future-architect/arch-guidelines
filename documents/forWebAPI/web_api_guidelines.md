@@ -338,8 +338,8 @@ HTTPリクエストメソッドは[RFC 7231](https://datatracker.ietf.org/doc/ht
 | HEAD     | ✅️    | ✅️    | ヘッダー取得。GETと異なりレスポンスボディを取得しない                                                                                               |
 | GET      | ✅️    | ✅️    | 参照                                                                                                                                                |
 | POST     | ❌️    | ❌️    | リソース作成／更新／追加。非同期要求の場合も利用する。複雑な検索条件を指定する場合には、リクエストボディに記載しPOSTを利用するケースがある（※後述） |
-| PUT      | ❌️    | ✅️    | リクエストボディによってリソースを作成、または置き換える。リソースの新規作成もサポートするケースがあるが、本ガイドラインでは原則禁止とする（※後述） |
-| PATCH    | ❌️    | ⚠️     | 指定された項目だけ部分的に更新する。リソースの新規作成をサポートする場合もあるが、本ガイドラインでは禁止とする（※後述）                             |
+| PUT      | ❌️    | ✅️    | リクエストボディによってリソースを作成、または置き換える。リソースの新規作成もサポートするケースがあるが、原則禁止とする（※後述）                   |
+| PATCH    | ❌️    | ⚠️     | 指定された項目だけ部分的に更新する。リソースの新規作成をサポートする場合もあるが、禁止とする（※後述）                                               |
 | DELETE   | ❌️    | ✅️    | リソースを削除する                                                                                                                                  |
 
 ## 複雑な検索条件が必要な場合にPOSTを用いてよいか
@@ -377,7 +377,7 @@ HTTPリクエストメソッドは[RFC 7231](https://datatracker.ietf.org/doc/ht
 
 PUTもリソースの作成を許容すると、POSTとの使い分けに悩む場合がある。
 
-本ガイドラインにおける推奨は以下の通り。
+推奨は以下の通り。
 
 1. 新規作成はPOSTを使用する
 2. PUTでリソースを新規作成するかどうかは基本的には非推奨、理由があれば対応して良い
@@ -566,11 +566,11 @@ JSON Merge Patch:
 }
 ```
 
-本ガイドラインの推奨は以下の通り:
+推奨は以下の通り。
 
 - PATCHのリクエストボディはJSON Merge Patch形式に従う
 - JSON Merge Patchでハマりやすい、部分更新が出てきた場合は、PUTで処理できるエンドポイント設けるなど、PATCHにこだわりすぎない
-- 本ガイドラインでは、[#nullの扱い](#nullの扱い)の章の通り値が存在しないことを `undefined` で表現し `null` を利用しない。そのため、PATCHで項目削除のために `null` を利用することは問題ない
+- [#nullの扱い](#nullの扱い)の章の通り値が存在しないことを `undefined` で表現し `null` を利用しない。そのため、PATCHで項目削除のために `null` を利用することは問題ない
 - `Content-Type: application/merge-patch+json` で送信する。フレームワークなどの都合で対応できない場合は、 `Content-Type: application/json` も許容する
 
 ::: info 参考
@@ -716,7 +716,7 @@ curl -X DELETE 'http://example.com/users/123?fields=email'
 | 説明 | ascを+記号、descを-記号で表現するパターン | ソート条件を別項目に切り出すパターン             |
 | 例   | sort=+publish_status,-release_at          | sort=publish_status,release_at&order_by=asc,desc |
 
-亜種パターンはそれぞれ以下のデメリットがあるので、本ガイドラインでは利用しないとする。
+亜種パターンはそれぞれ以下のデメリットがあるので、利用は非推奨である。
 
 - 昇降順に±
   - URLで「+」記号は半角スペース扱いになり、エスケープが必要。区別でハマる可能性があるため
@@ -752,7 +752,7 @@ curl -X DELETE 'http://example.com/users/123?fields=email'
 | 2.キーを文字列結合 | 区切り文字で結合する               | keys=aaa-8,bbb-121,ccc-32                                                                                |
 | 3.JSON             | 構造的に指定する                   | keys=\[{"device_id":"aaa","seq_no":8},{"device_id":"bbb","seq_no":121},{"device_id":"ccc","seq_no":32}\] |
 
-本ガイドラインの推奨は以下の通り:
+推奨は以下の通り。
 
 - 「2.キーを文字列結合」方式で対応する
 - そもそも、DB側でサロゲートキーを採番するようにし、リソースを一意に特定可能にする
@@ -824,7 +824,7 @@ HTTPステータスコードをできる限り細かく使い分けることに�
 | 参照で404を返すのはどのようなパターンか                                                                    | パスパラメータ指定の場合は404を返す                            | GET /articles/1 でID=1の記事が無ければ、404 Not Foundを返すべきである                                                                                                                                                                                                                                                  |
 | POSTで404はありえるのか                                                                                    | POSTでも404はありえる                                          | POST /articles/1/comments でコメント投稿する場合に、/articles/1 が存在しない場合は404を返すべきである                                                                                                                                                                                                                  |
 | バリデーションエラーにおける、400と422の使い分けが不明瞭                                                   | スキーマチェックまでは400、それ以外は422にするという方針       | OpenAPIスキーマで検証できるレベルは400、422はビジネスロジック観点でのチェックレベル（例えば、在庫不足で出荷指示が行えなかったなど）とすれば、実装が揺れない区別となる                                                                                                                                                  |
-| PUTで新規作成した場合と更新した場合で201 Created, 200 OKを使い分けるべきか                                 | Yesだが、200に統一しても良い                                   | PUTで新規作成を許可する方針であれば、201と200を区別できるようにしたほうが、より標準的である。一方で開発上使い分けが面倒かつ、実務的なメリットも大きくないため、チーム方針で200に統一しても良い。本ガイドラインとしては、201、200を使い分けることを推奨する                                                             |
+| PUTで新規作成した場合と更新した場合で201 Created, 200 OKを使い分けるべきか                                 | Yesだが、200に統一しても良い                                   | PUTで新規作成を許可する方針であれば、201と200を区別できるようにしたほうが、より標準的である。一方で開発上使い分けが面倒かつ、実務的なメリットも大きくないため、チーム方針で200に統一しても良い。201、200を使い分けることを推奨する                                                                                     |
 | DELETEを2回呼んだ場合の、2回目のステータスコードはどうするか                                               | 初回: 204 2回目: 404                                           | DELETEは冪等で作るべきとあるが、対象はリソースの状態である。そのため、ステータスコードは変化してよい。なお、最初からリソースが存在しなければ、初回で404を返す                                                                                                                                                          |
 | DELETEでリソースが存在しなかった場合、業務的には409 Conflictが正しいのでは                                 | 404                                                            | 論理的に、他の誰かが先に削除した場合は409 Conflictが正しいが、削除されたからリソースが存在しないのか、最初から存在しないのかの区別ができないため、404を返すしかない。論理削除の場合は409を返すことも可能であるが、内部設計に強く依存するため404で統一したい                                                            |
 | 権限が無いリソースをGETした場合、403 Forbiddenか404のどちらを返すべきか                                    | 404                                                            | 403を返すとデータが存在するというヒントを攻撃者に与えてしまうため、404を返す。社内向けの業務アプリの場合は開発者への切り分け情報の提供のため、403にしたいという要求もまま聞くが、許容しない。社内向けシステムだったとしても存在すること自体の情報を隠す必要がある業務がゼロで無い以上は、404で統一する方がベターである |
@@ -928,7 +928,7 @@ DBなどから取得したレコードをそのまま配列のままで返すの
 }
 ```
 
-本ガイドラインの推奨は以下である。
+推奨は以下の通り。
 
 - ISO8601形式を利用する
   - 可読性を理由とする
@@ -1063,7 +1063,7 @@ Server-Timingヘッダーを用いることで、サーバー側での各領域�
 Server-Timing: cache;desc="Cache Read";dur=23.4, db;dur=50, app;dur=75.3
 ```
 
-本ガイドラインの方針は以下の通り。
+推奨は以下の通り。
 
 - チューニングが必要なAPIに絞って、Server-Timingヘッダを使用する（予め全APIに組み込むのは費用対効果が悪い）
 - 測定項目は最小限かつ意味のあるものにする。例えば、DBアクセスが複数であればdb1, db2など分けても良い
@@ -1081,7 +1081,7 @@ Server-Timing: cache;desc="Cache Read";dur=23.4, db;dur=50, app;dur=75.3
 
 [Cache-Control](https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/Cache-Control) を用いるとブラウザやCDNやプロキシなどに対してキャッシュを制御するための指示を制御する事ができる。
 
-本ガイドラインの推奨と理由は以下の通り。
+推奨は以下の通り。
 
 - 基本方針としてはレスポンスヘッダに `Cache-Control: no-store` を追加し、キャッシュを禁止する
   - 業務システムでは通常、権限設定がなされているためキャッシュにより機密情報が不用意に参照できてしまうことを防ぎたいため
@@ -1159,7 +1159,7 @@ Server-Timing: cache;desc="Cache Read";dur=23.4, db;dur=50, app;dur=75.3
 [lock_version_no_img]: https://mermaid.ink/img/pako:eNp9UkFLAkEY_SvDnApWXE0jlxDCIjoEQkVQ22HcHXVgd3YbZ4MQoVwC6bSX6pAUhOShQ0UWHvo3m7v9jEZHs5Ca0_fevO_N9zGvDg3HxFCDNXzoYWrgVYIqDNk6BeK4iHFiEBdRDgoWwZTP8ru4tFLc0Km8kapEPi9pDayvbYMk4diugY_-yed9N-q0496dVEtRQshlnwbSqgqkIn4Nops2WC6xfF2HIwcdavvD2hRFKr2QySo6dBkxsMBLqgBHmNWIQwVcTOXSjYPGn2MVdyZjJUdO42cmbrnsrNuvkadOoR-E_nvY7Id-N_RfQv80bIrCD5uPsgNZHMRn3UHQilrB4PxWsn-tnwHRdS-6fPqpxVYNjy0Gnefo4uo_i4yaAwWHli1icDAXP7yJrvmxDzWhAm3MbERM8ef1Ia1DXsX2cGlRmriMPIvrUKcNIUUed7aOqQE1zjysQOZ4lSrUykgMpEDPNRGfBOabFaHYc5wpxibhDtuUKRuFrfEFURbmlw?type=png
 [lock_version_no_url]: https://mermaid.live/edit#pako:eNp9UkFLAkEY_SvDnApWXE0jlxDCIjoEQkVQ22HcHXVgd3YbZ4MQoVwC6bSX6pAUhOShQ0UWHvo3m7v9jEZHs5Ca0_fevO_N9zGvDg3HxFCDNXzoYWrgVYIqDNk6BeK4iHFiEBdRDgoWwZTP8ru4tFLc0Km8kapEPi9pDayvbYMk4diugY_-yed9N-q0496dVEtRQshlnwbSqgqkIn4Nops2WC6xfF2HIwcdavvD2hRFKr2QySo6dBkxsMBLqgBHmNWIQwVcTOXSjYPGn2MVdyZjJUdO42cmbrnsrNuvkadOoR-E_nvY7Id-N_RfQv80bIrCD5uPsgNZHMRn3UHQilrB4PxWsn-tnwHRdS-6fPqpxVYNjy0Gnefo4uo_i4yaAwWHli1icDAXP7yJrvmxDzWhAm3MbERM8ef1Ia1DXsX2cGlRmriMPIvrUKcNIUUed7aOqQE1zjysQOZ4lSrUykgMpEDPNRGfBOabFaHYc5wpxibhDtuUKRuFrfEFURbmlw
 
-本ガイドラインとしての推奨は以下の通り。
+推奨は以下の通り。
 
 - 3のバージョン番号方式。バルク更新にも対応できることが理由である
 
@@ -1305,7 +1305,7 @@ sequenceDiagram
 
 ## ファイルダウンロード
 
-ファイルアップロードと同様、ファイルダウンロードの推奨は以下の通り。
+推奨は以下の通り（ファイルアップロードと同様である）。
 
 - サムネイルなど小さなデータの場合（数KB程度を想定）は、Base64でエンコードし、JSON項目の値に設定して返す
   - この場合は、URIでそのままimageタグに埋め込めるようにデータURIスキームで返す
@@ -1374,7 +1374,7 @@ sequenceDiagram
 | メリット   | ・各言語でデファクトスタンダードとなる実装があり、比較的低コストで実装可能                                                                  | ・重量級の処理の場合、呼び出し側がブロックされず快適なUX提供につながる<br> ・アプリケーションの機能とリソースが新しいリクエストの処理のために解放される |
 | デメリット | ・完了するまで呼び出し側処理がブロックされる<br> ・応答時間が各サービスの応答時間の合算になるなど、ユーザーの待機時間が長くなる可能性がある | ・非同期タスクが失敗した場合の考慮など、設計／実装コストが高い                                                                                          |
 
-同期APIと非同期APIの選択における推奨は以下の通り。
+推奨は以下の通り。
 
 - 基本的には同期APIを選択する
   - 非同期APIは使用するクライアントが発生する度にクライアント側に高コストな実装を要求することになるので、不要なケースでは使用しない
@@ -1408,83 +1408,6 @@ sequenceDiagram
 推奨は以下の通り。
 
 - ①ポーリング方式を第一に考え、即時性などで要件を満たせない場合に、②ブロッキング方式を検討する（チャットシステムでない限り、通常、そこまで即時性は求められないと想定できるので、多くの業務システムにおいて①が牛刀だと考えられる）
-
-<details>
-<summary>UML（折りたたみ）</summary>
-
-ポーリング方式
-
-```mermaid
-sequenceDiagram
-    participant Client
-    participant WebAPI
-    participant DB
-    participant AsyncTask
-
-    Client->>WebAPI: POST /reports/sales_analysis
-    WebAPI->>AsyncTask: 非同期タスク: 起動<br>※キューを経由する場合もある
-    WebAPI->>DB: "accepted"
-    WebAPI-->>Client: 202 Accepted<br>{"jobId": "12345", "status": "accepted"}
-
-    Note over AsyncTask: 非同期タスク: 起動開始
-    AsyncTask-->>DB: in_progress
-    Note over AsyncTask: 非同期タスク: 時間がかかる処理の開始
-
-    loop Polling for task completion
-        Client->>WebAPI: GET /reports/sales_analysis/status/12345
-        WebAPI->>DB: ステータス参照
-        DB->>WebAPI: in_progress
-        WebAPI-->>Client: 200 OK<br>{"jobId": "12345", "status": "in_progress"}
-    end
-
-    Note over AsyncTask: 非同期タスク: 完了
-    AsyncTask->>DB: ステータス更新<br>completed
-
-    Client->>WebAPI: GET /reports/sales_analysis/status/12345
-    WebAPI->>DB: ステータス参照
-    DB-->>WebAPI: completed
-    WebAPI-->>Client: 200 OK<br>{"jobId": "12345", "status": "completed"}
-
-    Client->>WebAPI: GET /reports/sales_analysis/12345
-    WebAPI->>WebAPI: レポート取得<br>署名付きURLなどの想定
-    WebAPI-->>Client: 200 OK<br>{"download_url":"払い出した署名付きURL"}
-```
-
-サーバプッシュ方式
-
-```mermaid
-sequenceDiagram
-    participant Client
-    participant WebAPI
-    participant DB
-    participant AsyncTask
-
-    Client->>WebAPI: POST /reports/sales_analysis
-    WebAPI->>DB: accepted
-    WebAPI-->>Client: 202 Accepted<br>{"jobId": "12345", "status": "accepted"}
-    WebAPI->>AsyncTask: 非同期タスク: 起動
-
-    Note over AsyncTask: 非同期タスク: 起動開始
-    AsyncTask->>DB: ステータス更新: in_progress
-
-    Note over AsyncTask: 非同期タスク: 時間がかかる処理の開始
-
-    Client->>WebAPI: WebSocket/Server Sent Event<br>GET /reports/sales_analysis/status/12345
-
-    WebAPI-->>DB: LISTEN job_status
-    Note over WebAPI: 非同期タスク: 通知があるまで待機
-
-    Note over AsyncTask: 非同期タスク: 完了
-    AsyncTask->>DB: ステータス更新: completed
-    DB-->>WebAPI: NOTIFY job_status
-
-    WebAPI-->>Client: 200 OK<br>{"status": "completed"}
-    Client->>WebAPI: GET /reports/sales_analysis/12345
-    WebAPI->>WebAPI: レポート取得<br>署名付きURLなどの想定
-    WebAPI-->>Client: 200 OK<br>{"download_url":"払い出した署名付きURL"}
-```
-
-</details>
 
 ## サーバプッシュの方式
 
@@ -1613,7 +1536,7 @@ sequenceDiagram
 - `/heartbeat`
 - `/healthz` （★推奨2）
 
-本ガイドラインでの推奨は以下の通り。
+推奨は以下の通り。
 
 - プロセスの生存確認は `/health` を用いる
 - 依存しているDBや他のマイクロサービスを含めての動作確認は `/healthz` を用いる
@@ -1766,9 +1689,9 @@ REST APIのページングとは、データを分割してクライアントに
 - データストアとしてRDBを前提とする場合、①オフセット&リミット方式
 - NoSQL（Elasticsearchも含む）のようなデータストアを前提とする場合、③カーソルベース方式
 
-関連情報:
-
-- [SQLのページネーションで COUNT(\*) OVER() を使うのは避けよう](https://raahii.me/posts/count-over-query-is-slow/)
+::: info 関連
+[SQLのページネーションで COUNT(\*) OVER() を使うのは避けよう](https://raahii.me/posts/count-over-query-is-slow/)
+:::
 
 ## バッチAPI
 
@@ -1925,7 +1848,7 @@ sequenceDiagram
 
 Auth0やEntraIDなどのIdP（Identity Provider）を利用して認証する構成で、フロントエンドからWeb APIを呼び出す場合を想定する。
 
-本ガイドラインでの推奨は以下の通り。
+推奨は以下の通り。
 
 - Authorization Code Flow with PKCE（認可コード+PKCE）を利用する
 
@@ -1960,9 +1883,10 @@ Auth0やEntraIDなどのIdP（Identity Provider）を利用して認証する構
 [session_token_flow_img]: https://mermaid.ink/img/pako:eNqFVF1rE0EU_SvDPkiEFt8XCcTGhyJKIA-CBMp0d5IMJjtxM6toKWRnqLSoGIJgFQO2Si1JtZYiplTpj7lNjP_CO5tNmm6ivs3cj3PPPffOrFmOcJllW3X2IGCew7KclnxaLXiE1KgvucNr1JPk16vT3-1dQusE1HfQx6C-gu6Cfgv6B6geqF3Qr0F3QB1FFoz5hGEklc9lribBMrllg3SXrZpj0jvsvOi_PAT1zQDppolMmlKZQJaFz59QyYVH8sx_yHwsY6DuCMmIwHvM2Sa5W0s3QR1HuVugQ9AfQB9ETfQg3I_BDXcssQ_qBPQmhF_Of74bbDYN5AhoMZ1O8LDJ3FySMpquOGVaqTCvxMgVUpdUMlCtfrMLqhEJksBaRPgx4bFrQrkDugHqo2GNdUyFGcD5rSeRVCsWHcLuoLcD4ZtL_aHDJjPdJEDmt4Op8wQyUpp9ODRy_x_YqXDmyRXumrMREZvhRR4Nd65kI8a4fQb4NJ7duCCCLGenDTFRgonkn5nQCC9nQvgM1Fb_bGO4F0LYGeiN_vsjVCB7A5U8P2v3P29DQ11f9dMGTOvJC7jYIqPQ1JCXhLjP2d8GN_JiAdDbBg7nj1TCbqQ4MtgzM0ysrGoNd55D-HR2pLPBJHXtUVxkanzj6lH8QRTZjt7JibVgVZlfpdzFv2LNZBQsWWZVVrBsPLqsSIOKLFgFbx1DaSBF_rHnWLb0A7Zg-SIolS27SCt1vAU1F9cn_mgmVnz794S4uDOXS-HfHv1O0Se1_gdl6Gn3?type=png
 [session_token_flow_url]: https://mermaid.live/edit#pako:eNqFVF1rE0EU_SvDPkiEFt8XCcTGhyJKIA-CBMp0d5IMJjtxM6toKWRnqLSoGIJgFQO2Si1JtZYiplTpj7lNjP_CO5tNmm6ivs3cj3PPPffOrFmOcJllW3X2IGCew7KclnxaLXiE1KgvucNr1JPk16vT3-1dQusE1HfQx6C-gu6Cfgv6B6geqF3Qr0F3QB1FFoz5hGEklc9lribBMrllg3SXrZpj0jvsvOi_PAT1zQDppolMmlKZQJaFz59QyYVH8sx_yHwsY6DuCMmIwHvM2Sa5W0s3QR1HuVugQ9AfQB9ETfQg3I_BDXcssQ_qBPQmhF_Of74bbDYN5AhoMZ1O8LDJ3FySMpquOGVaqTCvxMgVUpdUMlCtfrMLqhEJksBaRPgx4bFrQrkDugHqo2GNdUyFGcD5rSeRVCsWHcLuoLcD4ZtL_aHDJjPdJEDmt4Op8wQyUpp9ODRy_x_YqXDmyRXumrMREZvhRR4Nd65kI8a4fQb4NJ7duCCCLGenDTFRgonkn5nQCC9nQvgM1Fb_bGO4F0LYGeiN_vsjVCB7A5U8P2v3P29DQ11f9dMGTOvJC7jYIqPQ1JCXhLjP2d8GN_JiAdDbBg7nj1TCbqQ4MtgzM0ysrGoNd55D-HR2pLPBJHXtUVxkanzj6lH8QRTZjt7JibVgVZlfpdzFv2LNZBQsWWZVVrBsPLqsSIOKLFgFbx1DaSBF_rHnWLb0A7Zg-SIolS27SCt1vAU1F9cn_mgmVnz794S4uDOXS-HfHv1O0Se1_gdl6Gn3
 
-本ガイドラインの推奨と理由は以下の通り。
+推奨は以下の通り。
 
 - 「2.セッショントークン方式」を推奨する。特にIdPの制約で、リフレッシュトークンの有効期限が想定より短くなってしまう場合に、UX上、許容できない再ログイン操作などを強いてしまう点が大きい
+  - セッションの発行については、[Cookie](#Cookie) 章を参考にする
 
 ::: info 参考
 
@@ -1971,60 +1895,6 @@ Auth0やEntraIDなどのIdP（Identity Provider）を利用して認証する構
 - [Token Revocation (RFC 7009)はなぜ重要か？ \#API \- Qiita](https://qiita.com/yo-tabata/items/7559a7c9069ee5c167f5)
 
 :::
-
-<details>
-<summary>UML（折りたたみ）</summary>
-
-1.ベアラートークン方式
-
-```mermaid
-sequenceDiagram
-  participant SPA as 画面
-  participant AS as 認可サーバ
-  participant API as Web API
-
-  Note over SPA: PKCEコードチャレンジと認可リクエストの作成
-  SPA->>AS: 認可リクエスト (code_challenge & stateを含む)
-  AS-->>SPA: 認可コードリダイレクト (stateを含む)
-
-  Note over SPA: 認可コードとPKCEコードベリファイアを使ってトークンリクエスト
-  SPA->>AS: トークンリクエスト (認可コード & code_verifier)
-  AS-->>SPA: アクセストークン & IDトークン
-  SPA ->> SPA: Cookieやローカルストレージに保存
-
-  Note over SPA: アクセストークンをヘッダーに含めてAPIリクエストを行う
-  SPA->>API: APIリクエスト (/w アクセストークン)
-  API ->> API: アクセストークンの検証
-  API->>AS: アクセストークンの検証（/introspection）
-  AS-->>API: アクセストークンは有効
-  API-->>SPA: APIレスポンス
-```
-
-2.セッショントークン方
-
-```mermaid
-sequenceDiagram
-  participant 画面 as シングルページアプリケーション (SPA)
-  participant API as Web API
-  participant 認可サーバ as 認可サーバ (Authorization Server)
-
-  Note over 画面: PKCEコードチャレンジと認可リクエストの作成
-  画面->>認可サーバ: 認可リクエスト (code_challenge & stateを含む)
-  認可サーバ-->>画面: 認可コードリダイレクト (stateを含む)
-
-  Note over 画面: 認可コードをWeb APIに渡す
-  画面->>API: リクエスト (認可コード & stateを含む)
-  API->>認可サーバ: トークンリクエスト (認可コード & client_id & code_verifier)
-  認可サーバ-->>API: アクセストークン & IDトークン
-  API ->> API: アクセストークン、IDトークンから必要な情報をDBに保存。<br>セッション作成
-  API-->>画面: Cookie
-
-  Note over 画面: Cookieをヘッダーに含めてAPIリクエストを行う
-  画面->>API: APIリクエスト (/w Cookie)
-  API->>画面: APIレスポンス
-```
-
-</details>
 
 ## ログアウト
 
@@ -2044,6 +1914,78 @@ sequenceDiagram
     Server-->>Client: ログアウト成功のレスポンス
 ```
 
+# Cookie
+
+Web APIは基本的にステートレスであるべきであるため、クライアントの状態をサーバー側で保持するためのCookieは避けるべきである。
+
+そのため、[認証](#認証) 章の 「2.セッショントークン方式」 を利用する場合のみ、ログイン成功後にセッションIDを含むCookieを発行することになる。
+
+`Set-Cookie` ヘッダにはいくつかの属性があり、セキュリティ観点で適切に設定する必要がある。
+
+| 名称     | 単位              | 説明                                                                                       | 設定例                                |
+| -------- | ----------------- | ------------------------------------------------------------------------------------------ | ------------------------------------- |
+| Secure   | なし              | HTTPSリクエスト時のみ送信されるようになる                                                  | Secure                                |
+| HttpOnly | なし              | JavaScriptからのCookieへのアクセスが禁止される。XSSのリスクを軽減できる                    | HttpOnly                              |
+| SameSite | Strict, Lax, None | Cookieの送信制御のための属性（後述）                                                       | SameSite=Lax                          |
+| Path     | パス              | 送信対象のパスを指定（設定したパスのサブパスにも送信される）                               | Path=/api                             |
+| Domain   | ドメイン名        | 送信先のドメインを指定。省略すると発行元のホスト名に限定され、サブドメイン間で共有されない | (未指定)                              |
+| Expires  | 日付 (GMT)        | 有効期限をGMT形式で指定する                                                                | Expires=Tue, 29 Apr 2025 12:00:00 GMT |
+| Max-Age  | 秒                | 有効期間を、現在時刻から秒数で指定。Expiresよりも優先。0以下で即座に削除                   | Max-Age=86400 (24時間)                |
+
+`SameSite` の設定値について補足する。
+
+- **Strict**: 同一サイトからのリクエストの場合のみ送信。別サイトからリンクをクリックして遷移した場合にも送信されないため、ユーザー体験に影響がある可能性
+- **Lax**: Strictの制限を少し緩和し、別サイトからの遷移でも、安全なHTTPメソッド（GETなど）によるトップレベルナビゲーションの場合はCookieを送信。POSTリクエストやiframe、Ajaxなどでは送信されない
+- **None**: クロスサイトリクエストを含む全てでCookieを送信。CSRFトークンなどの対策が必要
+
+また、`__Secure-` や `__Host-` はCookieのセキュリティを高めるためのプレフィックスである。これを利用することで、ブラウザはそのCookieに対して特定のセキュリティルールを適用できる。
+
+- **\_\_Secure-**
+  - HTTPS接続でなければブラウザに受け入れられなくなる (Secure属性が必須となる)
+    - HTTP接続でCookieが設定されること・送信されることを防ぐ
+- **\_\_Host-**
+  - `__Secure-` よりもさらに厳格で、HTTPS接続 (Secure属性) であることに加え、特定のホストに限定され （Domain属性を指定できない）、かつサイト全体 (Path=/) で有効である必要がある。Path=/api/ などサブパスは指定できない
+  - サブドメインなどからCookieを操作されるリスクを防ぐ
+  - サブパスの場合は、上書きすること自体は可能だが `/` 固定になるため、特定のパスだけCookieの値が異なった値が使用されることがなくなる。セッション固定などの攻撃により耐性がある
+
+仮に Web API のパスが `/api/` であった場合には2通りがの設定が考えられる。
+
+1. **Pathの絞り込みを優先パターン**
+   - 例: `Set-Cookie: __Secure-ID=123; Secure; HttpOnly; Path=/api/`
+   - Pathを `/api/`　に絞ることを優先するため、 `__Secure-` プレックスを利用
+   - ✅️セッション送信先を限定できる
+   - ❌️Domain属性を指定してしまうという設定ミスはは防げない、その場合はサブドメインからCookieが不正に上書きされる恐れ
+   - ❌️サブパスから、任意のパス （`/api/profile/` など）のCookieを上書くという、 Cookie の隠蔽（シャドウイング）ができてしまう
+2. **\_\_Host- プレフィックスの使用を優先パターン**
+   - 例: `Set-Cookie: __Host-ID=123; Secure; HttpOnly; Path=/`
+   - `__Host-` プレフィックスを優先するため、 Pathは `/` を設定する
+   - ❌️Cookieの送信スコープが広くなる（本来は /api/ のサブパスだけでよいが、 `/page/` や `/images/` などにも送信される）
+   - ✅️サブドメインやサブパスからのCookieの不正な上書きには強い
+
+推奨は以下の通り。
+
+- セッショントークン方式の認証以外の用とでは、原則、Cookieを使用しない
+- Cookie自体には、ユーザーIDや権限などの機密情報を直接含めない
+- セッションIDには、ライブラリやフレームワークが提供する、暗号論的に安全な乱数生成器によって生成された、十分に長く推測困難なセッションIDのみを含める
+- `Set-Cookie` には以下の属性を設定する
+  - `Secure` 属性: 有効にする。HTTPSリクエストでのみ送信するようにするため
+  - `HttpOnly`属性: 有効にする。XSSリスクを軽減させるため
+  - `SameSite` 属性: `Lax` を設定する（`Strict` で要件上、充足できる場合は `Strict` でも可能。`None` は禁止する）
+  - `Path` 属性: `/` を指定する。`__Host-` プレックスを利用したいため
+  - `Domain` 属性: 原則、省略（発行元のホスト名に限定）する。サブドメイン間で共有は行わせないため
+  - `Max-Age` 属性: 合意されたセッション有効期間を指定する
+  - `Expires` 属性: `Max-Age` を用いるため、利用しない
+  - `__Host-` プレフィックスを利用する。送信スコープより、設定値の保護を優先する方がリスクが低いと考えるため
+- ログイン時は常に新しいセッションIDを再生成する（既存の値を流用しない）
+- ログアウト時に、サーバのセッション情報の破棄とともに、クライアント側のCookieも `Max-Age=0` を指定して削除する
+
+::: info 参考
+
+- [HTTP Cookie の使用 - HTTP | MD](https://developer.mozilla.org/ja/docs/Web/HTTP/Guides/Cookies)
+- [Set-Cookie - HTTP | MDN](https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Headers/Set-Cookie)
+
+:::
+
 # ロール管理
 
 ユーザーのIDとロールの紐づけを、IdP（Identity Provider）に持たせるか、アプリケーション側で持たせるかという設計判断がある。
@@ -2056,7 +1998,7 @@ sequenceDiagram
 | データ 整合性 | ✅️IdP側に寄せることで整合性が保ちやすい                                                                    | ⚠️IdPとアプリ側の多重管理となるため、整合性を保持する工夫が必要                         |
 | 保守性        | ⚠️ロール管理について、IdPとアプリ側で切り分け対象が増えるため、学習コストが必要                             | ✅️アプリケーション側に閉じ、他の機能と大差ないメンタルモデルが適用可能                 |
 
-本ガイドラインの推奨と理由は以下の通り。
+推奨は以下の通り。
 
 - ロール管理は、「2.アプリケーション管理」を採用する
   - IdP側のロール管理と、アプリケーション側の要求のライフサイクルは通常異なるため、機能配置として分離する
@@ -2130,7 +2072,7 @@ AWSの場合、API Gatewayの機能でOPTIONSメソッドを提供すること�
 
 Web APIにはこれ以前の章で説明したように実用のために必要とする要素が多数あるが、AWSなどのクラウドのマネージドサービスで代用できるものも多い。できる限りマネージドサービス側に寄せることで、設計開発をショートカットでき、差別化領域に集中することができる。
 
-本ガイドラインは、下表の項目についてクラウドサービス側の機能配置とすることを推奨する。
+下表の項目についてクラウドサービス側の機能配置とすることを推奨する。
 
 【凡例】推奨:✅️ 条件次第で推奨:❓️
 
@@ -2143,7 +2085,7 @@ Web APIにはこれ以前の章で説明したように実用のために必要�
 | レスポンスのgzip圧縮                                               | レスポンスのJSONをgzip圧縮することでユーザ体験を向上させる。特にモバイルの場合はユーザの通信量を抑えるメリットが大きい                                                                                         | ✅️API Gateway ✅️CloudFront どちらか |
 | CORS                                                               | 「CORS」章を参照                                                                                                                                                                                               | ✅️API Gateway                        |
 | SQLインジェクション/XSS 緩和策                                     | 不正な文字列の検知。ただし、アプリケーション側もSQLインジェクションについては、プレースホルダの利用、XSSについてはHTMLタグのエスケープを実装する必要                                                           | ✅️WAF                                |
-| 認証／API呼び出しの認可                                            | アクセストークンやセッションのチェック。アプリケーション側のミドルウェアで実施する場合も多い。本ガイドラインでは、API Gatewayを利用する場合は、Custom Authorizer側に寄せることを推奨する                       | ❓️API Gateway Custom Authorizer      |
+| 認証／API呼び出しの認可                                            | アクセストークンやセッションのチェック。アプリケーション側のミドルウェアで実施する場合も多い。API Gatewayを利用する場合は、Custom Authorizer側に寄せることを推奨する                                           | ❓️API Gateway Custom Authorizer      |
 | キャッシュ                                                         | 業務アプリであればキャッシュ可能なAPI応答は少ないため、通常使用することは少ない                                                                                                                                | ❓️API Gateway ❓️CloudFront          |
 
 # リリース

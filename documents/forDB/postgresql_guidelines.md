@@ -198,6 +198,37 @@ CSV形式で論理名と物理名の対応表を作成する。
 
 昨今はデータ利活用の観点から、対象のシステムだけに特化した名称にするのではなく、全社データガバナンスの観点から、体系を合わせて命名することが好ましい。本ガイドラインで記載する以降の内容も、対象企業内のデータガバナンス／統一的な設計ポリシーがあればそちらを優先し適用する必要がある。
 
+::: warning 予約語はテーブル名やカラム名に利用しない
+
+`like` `offset` `constraint` `order` などの予約語をテーブル名やカラム名にすると、SQLでの扱いが面倒になる（予約語との区別のためにクォートで囲む必要があり、可読性も下がる）ため避けること。通常は、CREATE文でもクォートでの囲みが必要だが、ツールなどで自動生成すると気が付かない可能性があるため注意する。
+
+```sql
+-- テーブル名 like に囲み文字が必要
+CREATE TABLE "like" (
+    like_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    user_id VARCHAR(32)
+);
+-- カラム名 order に囲み文字が必要
+CREATE TABLE sales (
+    sales_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    "order" VARCHAR(32)
+);
+
+-- テーブル名 like に囲み文字が必要
+INSERT INTO "like" (user_id) VALUES('1');
+-- カラム名 order に囲み文字が必要
+INSERT INTO sales ("order") VALUES('1');
+```
+
+推奨は以下の通り。
+
+- [PostgreSQL: Documentation: 17: Appendix C. SQL Key Words](https://www.postgresql.org/docs/17/sql-keywords-appendix.html) に記載された全てのキーワードをテーブル名やカラム名に利用しない
+  - 正確には、「Table C.1. SQL Key Words」のPostgreSQL列が `reserved` 以外のキーワードは利用できる
+  - しかし、DBリプレイスや今後のバージョンアップ時の互換性を意識して、使用しない方針とする
+  - `like` や `order` であれば `user_likes`（関連するテーブル名を付与） や `orders` （複数形にする）でも回避できるが、[テーブル種別の識別子](#テーブル種別の識別子) や[カラム名](#カラム名) にあるように、 `t_like` などのプレフィックスや、`order_id` のような命名ルールにすることで自然と回避できる
+
+:::
+
 ## テーブル種別の識別子
 
 商品マスタを `item_master` `m_item` のどちらにするかといった揺れをはじめとして、保守運用性のためには、命名規則を作り統制を取ることが望ましい。本ガイドラインでは以下の方針を取る。
@@ -244,6 +275,33 @@ CSV形式で論理名と物理名の対応表を作成する。
 | 区分           | `{カラム}_typ`                   | item_category_typ                                                                                                                                                                               |
 | 整数           | `{カラム}_min`<br> `{カラム}_km` | route_distance_kmなど。単位を記載する                                                                                                                                                           |
 | 数量           | `{カラム}_count`                 | order_countなど。発注数などの想定                                                                                                                                                               |
+
+::: warning テーブル名とカラム名を同じ名称にしない方が良い
+
+PostgreSQLでは、テーブル名とそのテーブルに含まれるカラム名を同じ名称にすることが可能である。
+
+```sql
+CREATE TABLE tag (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    tag TEXT UNIQUE NOT NULL      -- タグ名 (テーブル名とカラム名が同じである)
+);
+
+-- データの挿入例
+INSERT INTO tag (tag) VALUES ('プログラミング');
+INSERT INTO tag (tag) VALUES ('データベース');
+
+-- データの参照例 (テーブル名とカラム名が同じでも問題なく動作する)
+SELECT id, tag FROM tag WHERE tag = 'データベース';
+```
+
+推奨は以下の通り。
+
+- テーブル名とカラム名は同じ名称にしない
+  - コードの可読性が下がるため（SQLでテーブルかカラムのどちらを指しているか混乱する）
+  - 影響度調査などで、コードを検索する必要がある場合に精度が低下するため
+- [テーブル種別の識別子](#テーブル種別の識別子) や[カラム名](#カラム名) にあるように、テーブル名は `m_tag` 、カラム名は `tag_name` のような命名ルールにすることで自然と回避できるが、それに従わない場合も同一名称は避けた方が良い
+
+:::
 
 ::: info 参考
 [How we style our dbt models | dbt Developer Hub](https://docs.getdbt.com/best-practices/how-we-style/1-how-we-style-our-dbt-models)

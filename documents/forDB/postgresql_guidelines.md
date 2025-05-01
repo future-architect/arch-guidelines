@@ -1675,7 +1675,7 @@ CREATE TABLE unit_price (
 - サロゲートキーをPKとする
 - 一意制約には、start_dateではなく、end_dateを指定する。これにより最新のレコード取得をインデックスアクセス可能とする
 - 排他制約を設定し、期間の重なりを防ぐ（重なりの漏れは防げないので注意）
-- 適用開始日の最小は、`-infinity` を、 最大は `infinity` を指定する（これにより、開始日／終了日はNOT NULL制約を付ける）
+- 適用開始日の最小は、`0001-01-01` を、 最大は `9999-12-31` を指定する（これにより、開始日／終了日はNOT NULL制約を付ける）
 - 適用開始日／終了日の代わりに範囲型（tsrangeなど）を適用できるが、使用しない
 
 例えば、以下のようなデータとなる。
@@ -1683,13 +1683,37 @@ CREATE TABLE unit_price (
 ```sh
  unit_price_id | item_id | unit_price | start_date |  end_date
 ---------------+---------+------------+------------+------------
-             3 | 301     |     100.00 | -infinity  | 2022-12-31
+             3 | 301     |     100.00 | 0001-01-01 | 2022-12-31
              4 | 301     |     150.00 | 2023-01-01 | 2023-12-31
-             5 | 301     |     200.00 | 2024-01-01 | infinity
+             5 | 301     |     200.00 | 2024-01-01 | 9999-12-31
 ```
 
+::: warning 0001-01-01 / 9999-12-31 の代わりに infinity / -infinity の利用する方が良いのではないか？
+
+`infinity` および `-infinity` は、期間の開始・終了が無期限であることを明確に表現でき、SQLレベルでの期間演算も扱いやすいメリットがある。
+
+しかし、以下の点に注意する必要がある。
+
+- アプリケーションでの互換性
+  - JavaやGoの標準ライブラリでは `infinity` を直接表現できず、ドライバーの拡張クラスなどを利用するか、 `infinity` を `LocalDate.MAX` などの定数に変換する処理が必要となる
+  - [uroboroSQL](https://future-architect.github.io/uroborosql-doc/)ではResultSetの拡張ポイントが用意されているため、問題なく扱えるが、利用しているライブラリによっては、 `infinity` が扱いにくい可能性がある
+- DBの移植性
+  - `infinity` はPostgreSQL固有の機能であり、別のDBMSへの移植性は低下する
+- データ基盤/他システムへの連携の手間
+  - Redshift、BigQuery、Snowflakeなど主要なクラウドDWHは、 `infinity` という概念を持たないため、データ連携時には変換処理が必要となる
+- ゼロETLとの相性
+  - ゼロETLはAurora や RDSから Redshift へ、ETL パイプラインを構築せずにデータを複製する仕組みであるが、`infinity` には対応していない
+
+特にデータ基盤や他システムへの連携時の利便性までを考慮すると、 `0001-01-01` や `9999-12-31` で表現した方が利便性が高く堅牢であると言える。そのため、特別な理由がない限りは `infinity` を利用しないことを推奨する。
+
+:::
+
 ::: info 参考
-[8.5. 日付/時刻データ型](https://www.postgresql.jp/docs/16/datatype-datetime.html#DATATYPE-DATETIME-SPECIAL-VALUES)
+
+- [8.5. 日付/時刻データ型](https://www.postgresql.jp/docs/16/datatype-datetime.html#DATATYPE-DATETIME-SPECIAL-VALUES)
+- [Data types | BigQuery | Google Cloud](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-types#date_type)
+- [Aurora DB クラスターへのデータの追加と、Amazon Redshift でのクエリ - Amazon Aurora](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/zero-etl.querying.html#zero-etl.data-type-mapping)
+
 :::
 
 ## 世代管理

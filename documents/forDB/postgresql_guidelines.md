@@ -563,7 +563,7 @@ CREATE INDEX idx_employee_with_include ON employees (first_name) INCLUDE (last_n
 ```sql
 -- JSONBを含むテーブル
 CREATE TABLE json_data_table (
-    id BIGSERIAL PRIMARY KEY,
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     data JSONB NOT NULL,
     name TEXT GENERATED ALWAYS AS (data ->> 'name') STORED,
     age INTEGER GENERATED ALWAYS AS ((data ->> 'age')::INTEGER) STORED
@@ -597,7 +597,7 @@ SELECT id, name, age FROM json_data_table;
 
 ## データ型
 
-PostgreSQLにはユーザーが使用可能な豊富な[データ型](https://www.prisma.io/dataguide/postgresql/introduction-to-data-types)が存在する。そのうえで、システムで利用するポリシーを統一することで開発生産性／保守性を高めることができる。例えば、商品コードを数値型、社員コードを文字列型で定義した場合、「コード値」でありながら型が揺れることとなり、DB利用者が少なからず混乱してしまう。設計の一貫性を保つため、以下の方針とする。
+PostgreSQLにはユーザーが使用可能な豊富な[データ型](https://www.prisma.io/dataguide/postgresql/introduction-to-data-types)が存在する。そのうえで、システムで利用するポリシーを統一することで開発生産性／保守性を高めることができる。例えば、商品コードを数値型、社員コードを文字列型で定義した場合、「コード値」でありながら型が揺れることとなり、DB利用者が少なからず混乱してしまう。設計の一貫性を保つためには、何かしらの方針が必要である。
 
 推奨は以下の通り。
 
@@ -620,10 +620,10 @@ PostgreSQLにはユーザーが使用可能な豊富な[データ型](https://ww
 | 係数               | `numeric(p, s)`                            |        |         | 割引率／消費税率 など。floatは利用しない。要件次第だがデフォルト値は0にしない                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | 金額／計算結果     | `numeric(p, s)`                            |        |         | 支払金額／請求金額／使用量など、正確な計算結果の格納が求められる場合。要件次第だがデフォルト値は0にしない                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 | 文字列             | `varchar(n)`                               |        |         | 名称／説明文など。textは桁数が不明となり、システム間連携やデータサイズ見積もりで扱いにくいため、使用しない                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| フラグ             | `boolean`                                  | ✔     | false   | 必ず`NOT NULL`制約を付与する。MySQLではbooleanはtinyint型に置き換えられる。tinyintは0と1以外の値を格納することが可能なので、厳密なboolean型を扱うには挿入・更新時に値チェックが必要になることから、MySQLではbooleanの利用は考慮が必要である。PostgreSQLでは上記の問題ないとして推奨する。 フラグの表現として、`char(1)`やsmallintで表現する流派もあるが、入力値が明確になるという点でbooleanを用いる。「boolean型を別の型にできないか考える」章も参考にする                                                                                             |
+| フラグ             | `boolean`                                  | ✔     | false   | 必ず`NOT NULL`制約を付与する。MySQLではbooleanはtinyint型に置き換えられる。tinyintは0と1以外の値を格納することが可能なので、厳密なboolean型を扱うには挿入・更新時に値チェックが必要になることから、MySQLではbooleanの利用は考慮が必要である。PostgreSQLでは上記の問題ないとして推奨する。 フラグの表現として、`char(1)`やsmallintで表現する流派もあるが、入力値が明確になるという点でbooleanを用いる。[boolean型を別の型にできないか考える](#boolean型を別の型にできないか考える) 章も参考にする                                                        |
 | UUID               | `uuid`                                     |        |         | `UUID`型か`varchar(36)`の選択があるが、`UUID`型の場合は16byteで済み、性能／コスト上のメリットが大きい。なお、`gen_random_uuid()`も`UUID`型である                                                                                                                                                                                                                                                                                                                                                                                                        |
-| 配列               | `[]`                                       |        |         | 原則、配列は正規化を行い利用しない。もし、利用する場合は`json`/`jsonb  `型と同様の利用方針とする。                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| 構造化データ       | `json` `jsonb`                             |        |         | 原則JSONデータは正規化を行い、`json`/`jsonb`型は利用しない。 ただし、次の1、2のような場合は許容する 1️⃣外部のWeb API応答の生データをログ的に保存したい 2️⃣システム間連携で、自システムで利用せず横流しするだけの場合<br> ※JSON型は挿入が高速、JSONB型は検索が高速であるため、例えば2️⃣のケースではJSON型を利用する                                                                                                                                                                                                                                         |
+| 配列               | `[]`                                       |        |         | 原則、配列は正規化を行い利用しない。もし、利用する場合は`json`/`jsonb` 型と同様の利用方針とする。                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| 構造化データ       | `json` `jsonb`                             |        |         | 原則JSONデータは正規化を行い、`json`/`jsonb` 型は利用しない。 ただし、次の1、2のような場合は許容する 1️⃣外部のWeb API応答の生データをログ的に保存したい 2️⃣システム間連携で、自システムで利用せず横流しするだけの場合<br> ※JSON型は挿入が高速、JSONB型は検索が高速であるため、例えば2️⃣のケースではJSON型を利用する                                                                                                                                                                                                                                        |
 
 なお、次のデータ型は利用しない。理由は以下の通り。
 
@@ -669,7 +669,7 @@ PostgreSQLにはユーザーが使用可能な豊富な[データ型](https://ww
 
 ```sql
 CREATE TABLE sales_category (
-    code_id SERIAL PRIMARY KEY,
+    code_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,,
     category_code CHAR(8) -- 固定長8文字
 );
 
@@ -789,7 +789,7 @@ select concat('hello', ' ', null, 'world');
 ```sql
 -- sampleテーブルにユニークインデックスを追加
 postgres=# CREATE TABLE sample (
-  id serial PRIMARY KEY,
+  id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,,
   name varchar(10)
 );
 CREATE TABLE
@@ -838,7 +838,7 @@ JSONデータ型には `json` `jsonb`型の2種類が存在し、それぞれの
 
 ```sql
 CREATE TABLE api_response_log (
-    id bigserial PRIMARY KEY,
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,,
     data jsonb,
     CHECK (jsonb_typeof(data->'age') = 'number' AND jsonb_typeof(data->'name') = 'string')
 );
@@ -912,7 +912,7 @@ INSERT INTO example VALUES(-1);
 CREATE TYPE order_state AS ENUM ('Pending', 'Processing', 'Shipped', 'Delivered');
 
 CREATE TABLE order (
-    order_id SERIAL PRIMARY KEY,
+    order_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,,
     customer_id INTEGER NOT NULL,
     order_date TIMESTAMPTZ NOT NULL,
     order_status order_state NOT NULL
@@ -1016,7 +1016,7 @@ CREATE TABLE sales_detail (
 
 ## NOT NULL制約
 
-データモデルに合わせて適切に設定する。「データ型」章に関連する記載があるので、参照すること。
+データモデルに合わせて適切に設定する。 [データ型](#データ型) 章に関連する記載があるので、参照すること。
 
 基本姿勢としてはできる限りNOT NULL化できないか考えることを推奨する。
 
@@ -1030,20 +1030,28 @@ CREATE TABLE sales_detail (
 
 上記のように、「不明」を示す区分値を用意できないか検討する。
 
+::: tip 一時保存（下書き、仮登録）したいため、NOT NULL制約を付けられない？
+
+NOT NULL制約の設計において、「一時保存（下書き、仮登録）といったステータス遷移があるため、画面で入力項目の全てを埋めてもらうことが難しい。そのため、NOT NULL制約の付与ができない」といった話題はしばしば行われる。
+
+しかし、一時保存（下書き、仮登録）状態をマスタ・トランとして保存するのではなく、ワークテーブル等に分離しておくと、本体側のテーブルにNOT NULL制約を付与できる可能性がある。一概に別テーブルとして分離することが正しい訳ではなくケースバイケースであるが、一時保存（下書き、仮登録）したいという要件のためにNOT NULL制約を全て外す必要がある場合、別テーブル化できないかを第一に検討すべきである。
+
+:::
+
 ## 検査制約（CHECK制約）
 
 以下のようなCHECK制約を用いることで、データ整合性を保証するとともに、許容される値の範囲や条件の設計意図を明確に示すことができる。
 
 ```sql
 CREATE TABLE event (
-    event_id bigserial PRIMARY KEY,
+    event_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,,
     start_date date NOT NULL,
     end_date date NOT NULL,
     CHECK (start_date < end_date)
 );
 
 CREATE TABLE contact (
-    contract_id bigserial PRIMARY KEY,
+    contract_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,,
     phone_number varchar(11) CHECK (phone_number ~ '^\d{3}-\d{3}-\d{4}$')
 );
 ```
@@ -1071,7 +1079,7 @@ CREATE TABLE contact (
 
 ```sql
 CREATE TABLE room_bookings (
-    id BIGSERIAL PRIMARY KEY,
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,,
     room_id BIGINT,
     start_time TIMESTAMPTZ,
     end_time TIMESTAMPTZ,
@@ -1392,7 +1400,7 @@ CREATE TABLE base_table (
 
 -- 業務テーブル（base_table を継承）
 CREATE TABLE orders (
-    id BIGSERIAL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,,
     product_id BIGINT NOT NULL,
     quantity INTEGER NOT NULL,
     amount NUMERIC(10, 2) NOT NULL,
@@ -1898,7 +1906,7 @@ PostgreSQLのタイムゾーン付きのタイムスタンプのデータは、�
 ```sql
 -- 商品購入履歴テーブル
 CREATE TABLE hist_purchase (
-    purchase_id BIGSERIAL PRIMARY KEY,
+    purchase_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,,
     item_id BIGINT NOT NULL,             -- 商品ID
     quantity INT NOT NULL,               -- 購入数
     unit_price NUMERIC(10, 2) NOT NULL,  -- 単価
@@ -2488,7 +2496,7 @@ fillfactorは、テーブルやインデックスに新しいデータを挿入�
 ```sql
 -- テーブルおよびPKにfillfactor=100%を指定
 CREATE TABLE w_user (
-    user_id serial PRIMARY KEY,
+    user_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     user_name text,
     email text
 ) WITH (fillfactor = 100);

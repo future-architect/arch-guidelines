@@ -276,6 +276,33 @@ INSERT INTO sales ("order") VALUES('1');
 | 整数           | `{カラム}_min`<br> `{カラム}_km` | route_distance_kmなど。単位を記載する                                                                                                                                                           |
 | 数量           | `{カラム}_count`                 | order_countなど。発注数などの想定                                                                                                                                                               |
 
+::: warning テーブル名とカラム名を同じ名称にしない方が良い
+
+PostgreSQLでは、テーブル名とそのテーブルに含まれるカラム名を同じ名称にすることが可能である。
+
+```sql
+CREATE TABLE tag (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    tag TEXT UNIQUE NOT NULL      -- タグ名 (テーブル名とカラム名が同じである)
+);
+
+-- データの挿入例
+INSERT INTO tag (tag) VALUES ('プログラミング');
+INSERT INTO tag (tag) VALUES ('データベース');
+
+-- データの参照例 (テーブル名とカラム名が同じでも問題なく動作する)
+SELECT id, tag FROM tag WHERE tag = 'データベース';
+```
+
+推奨は以下の通り。
+
+- テーブル名とカラム名は同じ名称にしない
+  - コードの可読性が下がるため（SQLでテーブルかカラムのどちらを指しているか混乱する）
+  - 影響度調査などで、コードを検索する必要がある場合に精度が低下するため
+- [テーブル種別の識別子](#テーブル種別の識別子) や[カラム名](#カラム名) にあるように、テーブル名は `m_tag` 、カラム名は `tag_name` のような命名ルールにすることで自然と回避できるが、それに従わない場合も同一名称は避けた方が良い
+
+:::
+
 ::: info 参考
 [How we style our dbt models | dbt Developer Hub](https://docs.getdbt.com/best-practices/how-we-style/1-how-we-style-our-dbt-models)
 :::

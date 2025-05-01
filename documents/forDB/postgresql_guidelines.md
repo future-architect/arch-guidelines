@@ -1688,6 +1688,22 @@ CREATE TABLE unit_price (
              5 | 301     |     200.00 | 2024-01-01 | infinity
 ```
 
+::: warning infinity / -infinity の利用に関する注意点
+
+`infinity` および `-infinity` は、期間の開始・終了が無期限であることを明確に表現でき、SQLレベルでの期間演算も扱いやすいメリットがある。
+
+しかし、以下の点に注意する必要がある。
+
+- アプリケーションでの互換性
+  - JavaやGoの標準ライブラリでは `infinity` を直接表現できず、ドライバーの拡張クラスなどを利用するか、infinity を `LocalDate.MAX` などの定数に変換する処理が必要となる
+  - [uroboroSQL](https://future-architect.github.io/uroborosql-doc/)ではResultSetの拡張ポイントが用意されているため、問題なく扱えるが、利用しているライブラリによっては、infinity が扱いにくい可能性がある
+- DBの移植性
+  - `infinity` はPostgreSQL固有の機能であり、別のDBMSへの移植性は低下する
+
+そのため、`-infinity` を `0001-01-01`、`infinity` を `9999-12-31` として扱う設計案も広く利用されている。もし、利用するライブラリやフレームワークが `infinity` に対応していないようであれば、このような代替案を採用する。
+
+:::
+
 ::: info 参考
 [8.5. 日付/時刻データ型](https://www.postgresql.jp/docs/16/datatype-datetime.html#DATATYPE-DATETIME-SPECIAL-VALUES)
 :::

@@ -2445,7 +2445,32 @@ VACUUM FULLは以下のような特殊なワークロードのテーブルに対
 
 # ロケール
 
-（本章は諸事情で省略する）
+（ロケールの概要や挙動説明については諸事情で省略する）
+
+::: warning ロケールは後から変更することができないため、データベース作成時に設計する必要がある
+`lc_colate` `lc_ctype` の設定により、「ソート順」 「照合順（文字列比較）」の動作が異なってしまい、最悪の場合検索要件を満たせない可能性がある。DBを構築する前に要件を確認し正しく設定必要がある。
+万が一、初期構築時の設定が要件を満たせない場合、以下のいずれかの対応を検討する。
+
+- データベースを再作成する (pg_dump -> 新規DB作成 -> pg_restore)
+- 必要なSQL全てにオプションを追加
+
+  ```sql
+  -- データベースのデフォルトが ja_JP.UTF-8 でも、一時的に 'C' (バイト順) でソート
+  SELECT product_name FROM products ORDER BY product_name COLLATE "C";
+  ```
+
+- ALTER TABLE で列定義を個別に修正（利用しているインデックスが存在した場合は、再作成すること）
+
+  ```sql
+  ALTER TABLE products
+  ALTER COLUMN product_name SET COLLATION "C";
+  ```
+
+:::
+
+::: info 参考
+[ロケール(国際化と地域化) | Let's Postgres](https://lets.postgresql.jp/documents/technical/text-processing/2)
+:::
 
 # パラメータ
 
@@ -2961,16 +2986,15 @@ AWSを利用している状況であり、RDS/Redshiftの構成であればゼ�
 
 ::: tip ゼロETLの対応状況
 
-2024年12月時点で以下のゼロETLがGAされている。
-※対応リージョンが限定されている可能性があるので都度確認が必要である。
+[Amazon Aurora PostgreSQL および Amazon DynamoDB の Amazon Redshift とのゼロ ETL 統合の一般提供を開始 | Amazon Web Services](https://aws.amazon.com/jp/blogs/news/amazon-aurora-postgresql-and-amazon-dynamodb-zero-etl-integrations-with-amazon-redshift-now-generally-available/)にあるように、2024年12月時点で以下のゼロETLがGAされている。
 
 - Aurora MySQL
 - Aurora PostgreSQL
 - RDS MySQL
 - DynamoDB
 
-::: info 参考
-[Amazon Aurora PostgreSQL および Amazon DynamoDB の Amazon Redshift とのゼロ ETL 統合の一般提供を開始 | Amazon Web Services](https://aws.amazon.com/jp/blogs/news/amazon-aurora-postgresql-and-amazon-dynamodb-zero-etl-integrations-with-amazon-redshift-now-generally-available/)
+※対応リージョンが限定されている可能性があるので都度確認が必要である。
+
 :::
 
 # 改廃
@@ -3238,7 +3262,7 @@ DBユーザは一般的に以下の方針で管理することが望ましいと
 :::
 
 ::: tip AWSの場合はIAMに寄せる方式について
-DBユーザーが共有することになるため、IAMに寄せる方式の場合は監査上問題が無いように設計が必要である（参考: [IAM データベース認証 - Amazon Aurora](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.IAMDBAuth.html)）。
+DBユーザーが共有することになるため、IAMに寄せる方式の場合は監査上問題が無いような設計が必要である（参考: [IAM データベース認証 - Amazon Aurora](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.IAMDBAuth.html)）。
 :::
 
 # 監査

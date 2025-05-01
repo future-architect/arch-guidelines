@@ -216,7 +216,7 @@ CREATE TABLE sales (
 
 -- テーブル名 like に囲み文字が必要
 INSERT INTO "like" (user_id) VALUES('1');
--- カラム order に囲み文字が必要
+-- カラム名 order に囲み文字が必要
 INSERT INTO sales ("order") VALUES('1');
 ```
 

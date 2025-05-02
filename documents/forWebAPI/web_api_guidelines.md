@@ -1106,6 +1106,10 @@ Server-Timing: cache;desc="Cache Read";dur=23.4, db;dur=50, app;dur=75.3
 - 区分値取得APIなど、キャッシュ可能なものは個別判断でキャッシュを有効にする
   - 後続のコンピューティングリソースを稼働させないことで、クラウド費用を下げることができるため、共有可能な情報であればキャッシュを有効にすることが望ましい
 
+::: info フロントエンドに置けるキャッシュ設計
+[Webフロントエンド設計ガイドライン > キャッシュ](https://future-architect.github.io/arch-guidelines/documents/forWebFrontend/web_frontend_guidelines.html#%E3%82%AD%E3%83%A3%E3%83%83%E3%82%B7%E3%83%A5) 章にて全体の考え方が記載されている。
+:::
+
 ## その他のレスポンスヘッダ
 
 セキュリティ関連で使用すべきレスポンスヘッダが存在する。[セキュリティ](#セキュリティ) の章を参照。
@@ -1148,7 +1152,9 @@ Server-Timing: cache;desc="Cache Read";dur=23.4, db;dur=50, app;dur=75.3
 - モバイルアプリが登場しない場合は、（2）を採用する
   - この場合、区分値の追加でフロントエンド側のリリースも必要となるため、CI/CDなどでデプロイフローを整備する
 
-# 楽観ロック
+# 排他制御
+
+## 楽観ロック
 
 楽観ロックは同一エンティティに同時に書き込みが発生し、データの整合性が失われることを防ぐために使用される。
 
@@ -1481,6 +1487,481 @@ sequenceDiagram
     end
 ```
 
+# 性能
+
+## ページング
+
+REST APIのページングとは、データを分割してクライアントに返す仕組みを指す。主に次のようなケースで必要となる。
+
+- データ量が多く一度に全データを返却するとサーバやクライアントの負荷が高くなる場合
+  - 数百万件の商品リスト
+  - 購入履歴など
+- 新規データが次々と追加される状況でリアルタイム性を損なわずにデータを取得したい場合
+  - SNSのタイムライン
+  - トランザクションログ
+- ユーザが全てのデータを一度に必要とするケースが稀で、多くの場合最初の数件だけが表示されれば十分な場合
+  - ECにおける商品の検索結果
+  - メッセージアプリにおけるチャット履歴
+
+推奨は以下の通り。
+
+- 本当にページングが必要かどうかまず再検討する
+
+特にSSKDs なAPIにおいては、API提供者がAPIクライアントを管理できる場合が多く、設計上の工夫でページングを不要にできるケースが多い。
+
+例えば、データ量が多い状況でも、次のような場合はページングを不要とすることができる。
+
+- 検索条件による絞り込みを強制できる場合（例. 最長1ヶ月のレンジでFROM/TOの指定が必須）
+- 上限1000件など返却可能な件数を決め打ちしておき、万が一上限以上のデータが存在する場合は検索条件による絞り込みをUIとして促すことができる場合
+
+不特定多数の利用者にAPIを提供する場合など、それでもなおページングが必要となる場合、次のような実現方式が考えられる。
+
+| 観点                         | （1）オフセット&リミット方式                                                                                                  | （2）ページ番号方式                                                                    | （3）カーソルベース方式                                                                                                 |
+| :--------------------------- | :---------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------- |
+| 概要                         | リクエストで指定した`offset`（開始位置）と`limit`（取得件数）に基づいて、結果の一部を取得                                     | リクエストで指定した`page`と`size`などのパラメータを使用して、ページ単位でデータを取得 | 特定のカーソル値を基準に、次のデータセットを取得する。 カーソルは通常、結果セットの並び順に基づいて一意に決まる値を使用 |
+| ページ番号の計算             | クライアント側で実施                                                                                                          | サーバ側で実施                                                                         | \-                                                                                                                      |
+| 親和性の高いUI               | ページング                                                                                                                    | ページング                                                                             | 無限スクロール                                                                                                          |
+| RDBとの親和性                | ✅️高い                                                                                                                       | ✅️高い                                                                                | ⚠️普通                                                                                                                  |
+| NoSQLとの親和性              | ❌️低い                                                                                                                       | ❌️低い                                                                                | ✅️高い                                                                                                                 |
+| 性能                         | ❌️必要なページにたどり着くまでに、最初からそこまでの全ての行を数える必要があるため、後のページになればなるほど応答が悪くなる | ❌️オフセット& リミット方式と同様                                                      | ✅️ページング位置に伴うオーバーヘッドはなし                                                                             |
+| データの整合性               | ⚠️検索の度に歯抜けや重複が発生する可能性がある                                                                                | ⚠️オフセット& リミット方式と同様                                                       | ✅️ソート結果に基づいて一意に決まる値を基準とするため、重複や歯抜けは発生しない                                         |
+| 特定ページへのジャンプ       | ✅️容易                                                                                                                       | ✅️容易                                                                                | ❌️困難　                                                                                                               |
+| 前回取得分以降の最新差分取得 | ❌️困難                                                                                                                       | ❌️困難                                                                                | ✅️容易                                                                                                                 |
+
+推奨は以下の通り。
+
+- データストアがRDBの場合、（1）を採用する
+- NoSQL（Elasticsearchも含む）のようなデータストアを利用する場合、（3）を採用する
+
+::: info 参考
+[SQLのページネーションで COUNT(\*) OVER() を使うのは避けよう](https://raahii.me/posts/count-over-query-is-slow/)
+:::
+
+## バッチAPI
+
+複数のリソースに対して同時に参照／更新するバッチAPIを用意しておくことで、処理性能を上げてUXの向上に貢献できる。
+
+推奨は以下の通り。
+
+- 参照については、カンマ区切りで複数のIDを指定可能とする
+- 登録／更新については、複数のレコードを更新できるようにバッチ処理用のエンドポイントを作成する
+- URLは `POST /users/batch` など、バッチ処理であることが分かるように区別する
+- リクエストボディは、 `items` の属性に配列を持つ
+
+リクエストボディの例。
+
+```json
+{
+  "items": [
+    { "id": 1, "name": "商品1", "price": 100 },
+    { "id": 2, "name": "商品2", "price": 200 }
+  ]
+}
+```
+
+エラーについては以下の方針とする。
+
+- エラーが生じたリソースの一覧とエラーを返す
+- 成功したリソースは返さない（ペイロードサイズを抑えるためと、成功分を応答する意味はないため）
+
+## gzip圧縮
+
+レスポンスをgzip圧縮することを推奨する。[機能配置（AWS）](#機能配置aws) 章も参考にする。
+
+# Rate limit（レート制限）
+
+Rate Limit（レート制限）とは、特定の時間内に許可されるリクエストの数を制限する仕組みのことである。以下のような目的がある。
+
+1. サーバー保護
+   1. 大量リクエストによりサーバの負荷増大で、障害になることを防ぐ
+   2. 悪意が無くても、連携先の実装不備により大量リクエストが届くことがある
+2. 公平なリソース配分
+   1. 一部ユーザーがリソースを占有することを防ぐ
+3. セキュリティ
+   1. DDoS攻撃や、不正なアクセスを試みるボットなどからサービスを保護する
+4. コスト管理
+   1. 使用量に応じて課金が発生する場合に、上限を設けることで予期しないコスト増加を防ぐ
+
+推奨は以下の通り。
+
+- Rate limitを設ける
+- Rate limitはクラウドサービス（WAFやAPI Gateway）側で行う
+- マルチテナントでユーザー単位（API Key単位）で制御する場合でスクラッチで実装する場合は、以下の点を注意する
+  - 正確なカウントはDB負荷が高いため、Cacheサーバの利用（定期的にWrite backでメインのDBに書き込み）方式を検討する
+  - Rate limitの場合は `429 Too Many Requests` を返し、`Retry-After` ヘッダを返すこと
+
+::: info 参考
+[Retry-After \- HTTP | MDN](https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/Retry-After)
+:::
+
+# タイムアウト
+
+タイムアウトを適切に設定することで、リソースの無駄遣いを防いだり、クライアントの待機時間によるストレスを軽減することができる。
+
+推奨は以下の通り。
+
+- アプリケーション側で、タイムアウトを実装しない（例えば、Goであればアプリケーション側でcontext.WithTimeout()でタイムアウトさせない）
+- クラウドサービス側でのタイムアウト設定は、基本的に最長にする
+- 画面から呼び出されるWeb APIが29秒より長いなど、要件未達の場合は、該当のトレースID（リクエストID、トランザクションID）をログに出力して、後で調査可能とする
+- ユーザへのフィードバックなどの観点を含む要件に合わせて、基本的に、呼び出し元が必要に応じてキャンセルする思想とする
+- 非同期APIで作成された非同期タスクについては、キャンセルするユーザーがいないため、事前に決めた最長実行時間に応じてタイムアウトさせる
+
+# 認証
+
+## システム間連携時のネットワークレベルの制御
+
+対向システムからのバッチ処理などで、自システム側のWeb APIを公開する要件があるとする。
+
+推奨は以下の通り。
+
+- 可能であれば送信元IPで絞る（AWSのいうSecurity Groupを適切に設定する）
+
+## システム間連携の認証フロー
+
+対向システムからのバッチ処理などで、自システム側のWeb APIを公開する要件があるとする。Web APIの認証方式には以下が考えられる。1, 2, 3それぞれ別の技術であるため組み合わせることも可能だが、対応コストがそれぞれあるためどれか1つ選択する前提とする（無認証は許容しないポリシーであるとする）。
+
+|                      | （1）APIアクセスキー                                                               | （2）クライアントクレデンシャルフロー                                                      | （3）mTLS                                                             |
+| :------------------- | :--------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------- | :-------------------------------------------------------------------- |
+| 説明                 | x-apikey ヘッダでアクセスキーを連携する方式。API Gatewayが提供する機能の一部とする | 認可サーバにクライアントID、クライアントシークレットを渡し、アクセストークンを取得する方法 | TLS相互認証のことで、クライアント証明書を用いる方式                   |
+| 連携先から見た容易さ | ✅️ステートレスである                                                              | ⚠️少し手順が複雑になる                                                                     | ⚠️クライアント証明書の読み込みが必須                                  |
+| 処理性能             | ✅️仕組みが単純なため高い                                                          | ⚠️トークンの取得および検証分、不利と言える                                                 | ✅️大きなペナルティは無い                                             |
+| セキュリティ         | ⚠️APIキー漏洩など不正利用のリスクが懸念                                            | ✅️アクセストークンには有効期限があるため、リスクが限定できる                              | ⚠️クライアント証明書の漏洩には脆弱                                    |
+| 監査                 | ✅️API Gatewayの機能に依存                                                         | ✅️IdP（認証基盤）側の仕組みに寄せることが可能                                             | ⚠️個別に作り込む必要がある                                            |
+| スロットリング       | ✅️大体のAPI Gatewayでアクセス数制限が可能                                         | ❌️個別実装が必要                                                                          | ❌️個別実装が必要                                                     |
+| インフラリソース     | ⚠️API Gatewayが増える                                                              | ✅️既存の仕組みに相乗りできる                                                              | ⚠️相互認証のAPI Gatewayが増える                                       |
+| 設計コスト           | ❌️APIキーとアクセストークンの2パターンの対応が必要                                | ✅️アクセストークン方式に統一できる                                                        | ❌️APIキーとアクセストークンの2パターンの対応が必要                   |
+| 運用コスト           | ✅️                                                                                | ✅️                                                                                        | ❌️定期的に連携先に新しいクライアント証明書を配布し適用する運用が必須 |
+
+2.クライアントクレデンシャルフローの処理例を下図に示す。
+
+```mermaid
+sequenceDiagram
+    Participant Batch_Process
+    Participant Authorization_Server
+    Participant WebAPI
+
+    Batch_Process->>Batch_Process: 初期処理
+    Batch_Process->>Authorization_Server: POST /token (grant_type=client_credentials)
+    Authorization_Server-->>Batch_Process: Access Token
+    Batch_Process->>WebAPI: GET /resource (Authorization: Bearer <Access Token>)
+    WebAPI->>WebAPI: Validate Access Token
+    WebAPI-->>Batch_Process: Resource Data
+    Batch_Process->>Batch_Process: 永続化など
+
+```
+
+推奨は以下の通り。
+
+- （2）を採用する
+- もし、対向システム側で認可サーバのアクセスが不可の場合は、（1）を検討する
+
+::: tip バッチ処理でクライアントクレデンシャルフローを用いたWeb API呼び出しの是非
+自領域のシステムで稼働するバッチ処理については、Web API経由ではなく、直接DBを参照／更新すれば良い。Web APIを呼び出しによって生じるコスト増を防ぐためである。ビジネスロジックがWeb API側に存在しており、流用したい場合もあるが、しばしばバッチの性能劣化を招くことがあるため、非推奨とする。そのような場合の対応としては、ビジネスロジックを再利用可能なパッケージ化にするなどがある。  
+:::
+
+::: tip ユーザーごとにアクセス数制限を入れたい場合  
+（2）のクライアントクレデンシャルフローを採用した場合で、さらにユーザーごとにアクセス数制限を入れたい場合は、（2）に加えて、（1）APIアクセスキーを追加して制御することになる。  
+:::
+
+## フロントエンド認証フロー
+
+Auth0やEntraIDなどのIdP（Identity Provider）を利用して認証する構成で、フロントエンドからWeb APIを呼び出す場合を想定する。
+
+推奨は以下の通り。
+
+- Authorization Code Flow with PKCE（認可コード+PKCE）を利用する
+
+理由は以下の通り。
+
+- Implicit Flowは非推奨である（参考: [OAuth 2.0 の Implicit grant 終了のお知らせ \- r-weblife](https://ritou.hatenablog.com/entry/2018/11/12/110613)）
+- Client Credentials Flowはサーバやバッチアプリケーションに向く方式であり、フロントエンド認証フローでは不適切である
+- PKCE（Proof Key for Code Exchange）を認可コードフローに追加することで、セキュリティを高めることができるため
+
+## Web API認証フロー
+
+「フロントエンド認証フロー」によって、アクセストークンを取得できたとする。Web APIへの認証については大別して以下の2つの方式がある。
+
+<div class="img-bg-transparent">
+
+|                     | （1）ベアラートークン方式                                                                                                                                                                      | （2）セッショントークン方式                                                                                                                                              |
+| :------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| フロー図            | [![uml][beare_token_flow_img]][beare_token_flow_link]                                                                                                                                          | [![uml][session_token_flow_img]][session_token_flow_url]                                                                                                                 |
+| 説明                | APIリクエスト毎にアクセストークンをAuthorizationヘッダに含める方式。トークンの検証はIdP側のトークンイントロスペクションを利用                                                                  | 初回リクエストのみアクセストークンを利用し、以降はセッション管理（セッションIDをCookieに含めて送信）による認証を行う方式。セッション管理テーブルやキャッシュサーバが必要 |
+| 処理性能            | ❌️リクエストの度に、トークンイントロスペクションAPIで確認が必要。アクセストークンのデータサイズによっては多少不利                                                                             | ✅️サーバサイドのセッション管理部分の性能が求められやすい                                                                                                                |
+| トークンの無効化    | ✅️IdPのリボケーションAPIで無効化が可能                                                                                                                                                        | ✅️容易である                                                                                                                                                            |
+| 再ログイン 必須期間 | ❌️IdP側のリフレッシュトークンが無効になるタイミングに依存する。例えば、リフレッシュトークンが無操作で最大48時間までしか保持できない場合、土日を挟むと再ログインが必須になるといった懸念がある | ✅️任意の調整が可能                                                                                                                                                      |
+| IdPとの結合度       | ⚠️アクセス毎にIdPに依存                                                                                                                                                                        | ✅️IdP依存箇所が最小限となる                                                                                                                                             |
+| セキュリティ        | ⚠️アクセストークンをローカルストレージやCookieに保持する必要がある                                                                                                                             | ✅️アクセストークンはWeb API認証後に破棄可能であり、保持期間を最小化できる                                                                                               |
+| curlとの相性        | ✅️比較的容易                                                                                                                                                                                  | ⚠️少し手順が複雑                                                                                                                                                         |
+| ローカル開発環境    | ✅️容易                                                                                                                                                                                        | ✅️容易                                                                                                                                                                  |
+
+</div>
+
+[beare_token_flow_img]: https://mermaid.ink/img/pako:eNqFVM9rE0EU_leGOUiElt73UAithyBKIAdBFmTdTJLFZCduZhUphe6MSCKKpShUSA79gYQkbQ9BMDSlf8xLYjz1X_DNJNvWTWpvM2--9733fW9mtqjL84xatMZeh8x32abnFAOnYvuEVJ1AeK5XdXxBctk0cWrk99fzP63D5GE6p8-mnc_jL2cgf4IagtpdAGUzGvWMvdRL29fnT7lghL9hgea3SPbxxiOQfZPfABWBOgLVA9UH-Qui9ryA6oDEMm2QA1B1iE5HF81J3dRDltX19XTOIkuxJKXFvnBLTrnM_CIjD0hNOIKB3BvvdkHuPNQk6dwqkpiGYknXLXVA7YA81l0hr2ZcIFiiK0kTtRNKvxvmbyAPNLk8RL7RxSVERxD90BoRpsv1E3r-lfwfIEklWkDlxgps0St4LEgKNz0g_HxucsyLeZnN24F5CwQTZ1o3OH_loSHvQZ0YVBdUN2bpmQjOsju6bI1P9pe6dVdtNAXUPiilZ4DBqGs8j9AjvFDJayH3pgefIPpwy6NsxiKLSJJae3tnzZkveHO1PkNwZ3fR6eS4OW0P5xnxUO6DXw3ra54vAl6rMld43L8aNm6GcU_Js0mzMf44iEvG0zMiewbdMsYN6AqtsKDieHl86lsab1NRYhVmUwuXeVZwwrKwqe1vI9QJBc-9811qiSBkKzTgYbFErYJTruEurObxys__iesovvHnnN_sWd4TPHgy-1zMH7P9F53-O84?type=png
+[beare_token_flow_link]: https://mermaid.live/edit#pako:eNqFVM9rE0EU_leGOUiElt73UAithyBKIAdBFmTdTJLFZCduZhUphe6MSCKKpShUSA79gYQkbQ9BMDSlf8xLYjz1X_DNJNvWTWpvM2--9733fW9mtqjL84xatMZeh8x32abnFAOnYvuEVJ1AeK5XdXxBctk0cWrk99fzP63D5GE6p8-mnc_jL2cgf4IagtpdAGUzGvWMvdRL29fnT7lghL9hgea3SPbxxiOQfZPfABWBOgLVA9UH-Qui9ryA6oDEMm2QA1B1iE5HF81J3dRDltX19XTOIkuxJKXFvnBLTrnM_CIjD0hNOIKB3BvvdkHuPNQk6dwqkpiGYknXLXVA7YA81l0hr2ZcIFiiK0kTtRNKvxvmbyAPNLk8RL7RxSVERxD90BoRpsv1E3r-lfwfIEklWkDlxgps0St4LEgKNz0g_HxucsyLeZnN24F5CwQTZ1o3OH_loSHvQZ0YVBdUN2bpmQjOsju6bI1P9pe6dVdtNAXUPiilZ4DBqGs8j9AjvFDJayH3pgefIPpwy6NsxiKLSJJae3tnzZkveHO1PkNwZ3fR6eS4OW0P5xnxUO6DXw3ra54vAl6rMld43L8aNm6GcU_Js0mzMf44iEvG0zMiewbdMsYN6AqtsKDieHl86lsab1NRYhVmUwuXeVZwwrKwqe1vI9QJBc-9811qiSBkKzTgYbFErYJTruEurObxys__iesovvHnnN_sWd4TPHgy-1zMH7P9F53-O84
+[session_token_flow_img]: https://mermaid.ink/img/pako:eNqFVF1rE0EU_SvDPkiEFt8XCcTGhyJKIA-CBMp0d5IMJjtxM6toKWRnqLSoGIJgFQO2Si1JtZYiplTpj7lNjP_CO5tNmm6ivs3cj3PPPffOrFmOcJllW3X2IGCew7KclnxaLXiE1KgvucNr1JPk16vT3-1dQusE1HfQx6C-gu6Cfgv6B6geqF3Qr0F3QB1FFoz5hGEklc9lribBMrllg3SXrZpj0jvsvOi_PAT1zQDppolMmlKZQJaFz59QyYVH8sx_yHwsY6DuCMmIwHvM2Sa5W0s3QR1HuVugQ9AfQB9ETfQg3I_BDXcssQ_qBPQmhF_Of74bbDYN5AhoMZ1O8LDJ3FySMpquOGVaqTCvxMgVUpdUMlCtfrMLqhEJksBaRPgx4bFrQrkDugHqo2GNdUyFGcD5rSeRVCsWHcLuoLcD4ZtL_aHDJjPdJEDmt4Op8wQyUpp9ODRy_x_YqXDmyRXumrMREZvhRR4Nd65kI8a4fQb4NJ7duCCCLGenDTFRgonkn5nQCC9nQvgM1Fb_bGO4F0LYGeiN_vsjVCB7A5U8P2v3P29DQ11f9dMGTOvJC7jYIqPQ1JCXhLjP2d8GN_JiAdDbBg7nj1TCbqQ4MtgzM0ysrGoNd55D-HR2pLPBJHXtUVxkanzj6lH8QRTZjt7JibVgVZlfpdzFv2LNZBQsWWZVVrBsPLqsSIOKLFgFbx1DaSBF_rHnWLb0A7Zg-SIolS27SCt1vAU1F9cn_mgmVnz794S4uDOXS-HfHv1O0Se1_gdl6Gn3?type=png
+[session_token_flow_url]: https://mermaid.live/edit#pako:eNqFVF1rE0EU_SvDPkiEFt8XCcTGhyJKIA-CBMp0d5IMJjtxM6toKWRnqLSoGIJgFQO2Si1JtZYiplTpj7lNjP_CO5tNmm6ivs3cj3PPPffOrFmOcJllW3X2IGCew7KclnxaLXiE1KgvucNr1JPk16vT3-1dQusE1HfQx6C-gu6Cfgv6B6geqF3Qr0F3QB1FFoz5hGEklc9lribBMrllg3SXrZpj0jvsvOi_PAT1zQDppolMmlKZQJaFz59QyYVH8sx_yHwsY6DuCMmIwHvM2Sa5W0s3QR1HuVugQ9AfQB9ETfQg3I_BDXcssQ_qBPQmhF_Of74bbDYN5AhoMZ1O8LDJ3FySMpquOGVaqTCvxMgVUpdUMlCtfrMLqhEJksBaRPgx4bFrQrkDugHqo2GNdUyFGcD5rSeRVCsWHcLuoLcD4ZtL_aHDJjPdJEDmt4Op8wQyUpp9ODRy_x_YqXDmyRXumrMREZvhRR4Nd65kI8a4fQb4NJ7duCCCLGenDTFRgonkn5nQCC9nQvgM1Fb_bGO4F0LYGeiN_vsjVCB7A5U8P2v3P29DQ11f9dMGTOvJC7jYIqPQ1JCXhLjP2d8GN_JiAdDbBg7nj1TCbqQ4MtgzM0ysrGoNd55D-HR2pLPBJHXtUVxkanzj6lH8QRTZjt7JibVgVZlfpdzFv2LNZBQsWWZVVrBsPLqsSIOKLFgFbx1DaSBF_rHnWLb0A7Zg-SIolS27SCt1vAU1F9cn_mgmVnz794S4uDOXS-HfHv1O0Se1_gdl6Gn3
+
+推奨は以下の通り。
+
+- （2）を利用する。特にIdPの制約で、リフレッシュトークンの有効期限が想定より短くなってしまう場合に、UX上、許容できない再ログイン操作などを強いてしまう点が大きい
+  - セッションの発行については、[Cookie](#cookie) 章を参考にする
+
+::: info 参考
+
+- [SPA+Backend構成なWebアプリへのOIDC適用パターン \- r-weblife](https://ritou.hatenablog.com/entry/2024/10/22/153014) で記載されている、「2. BEがRSとなる場合」が本節の前提である
+- [サーバーレスなユーザー認証認可の考慮事項と実践的プラクティス紹介 / slsdays-tokyo-2024 \- Speaker Deck](https://speakerdeck.com/slsops/slsdays-tokyo-2023-3cd5886a-cee0-425b-821f-f4cd3230e1e0?slide=40)
+- [Token Revocation (RFC 7009)はなぜ重要か？ \#API \- Qiita](https://qiita.com/yo-tabata/items/7559a7c9069ee5c167f5)
+
+:::
+
+## ログアウト
+
+ログアウトする際は、IdP側のRevoke APIでアクセストークンを無効化すべきである。  
+以下に処理フローの例を示す。
+
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Server
+    participant IdP
+
+    Client->>Server: ログアウト
+    Server->>IdP: アクセストークンRevoke API リクエスト
+    IdP-->>Server: アクセストークン無効化成功の応答
+    Server->>Server: セッション削除
+    Server-->>Client: ログアウト成功のレスポンス
+```
+
+# 権限制御
+
+## ロール管理
+
+ユーザーのIDとロールの紐づけを、IdP（Identity Provider）に持たせるか、アプリケーション側で持たせるかという設計判断がある。
+
+|               | （1）IdP管理                                                                                                | （2）アプリケーション管理                                                               |
+| :------------ | :---------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------- |
+| 説明          | IdP側でユーザのアカウントと、ロールを一緒に管理する方法。IDトークンにカスタムトークンを取得できるようにする | IdPとアプリケーション側でアカウントを二重で保持し、ロールはアプリ側で紐づける方法       |
+| 処理性能      | ✅️IdPサービスに機能配置を寄せられる分、負荷が低い可能性                                                    | ✅️ロール紐づけを行う処理分は不利だが、キャッシュなどで緩和可能                         |
+| 拡張性        | ⚠️IdPのロールモデルがアプリケーションのニーズに適合しない場合、調整コストが高い                             | ✅️ IdPに依存することなく、アプリケーション内で一貫したロール管理とアクセス制御が行える |
+| データ 整合性 | ✅️IdP側に寄せることで整合性が保ちやすい                                                                    | ⚠️IdPとアプリ側の多重管理となるため、整合性を保持する工夫が必要                         |
+| 保守性        | ⚠️ロール管理について、IdPとアプリ側で切り分け対象が増えるため、学習コストが必要                             | ✅️アプリケーション側に閉じ、他の機能と大差ないメンタルモデルが適用可能                 |
+
+推奨は以下の通り。
+
+- （2）を採用する
+  - IdP側のロール管理と、アプリケーション側の要求のライフサイクルは通常異なるため、機能配置として分離する
+  - 例えば、4/1の部署移動の情報更新がいつどのように反映されるかについて、アプリケーション側はビジネス領域に沿った固有の要件があるが、IdPがそれに沿ってくれるとは限らない
+  - IdPは情シスにとっても重要情報であるため、アプリケーション要件に合わせて、ロールの追加や粒度変更といった対応は、頻繁に行えるとは限らないため
+
+# セキュリティ
+
+## レスポンスヘッダ
+
+下表のようなセキュリティ関連のヘッダが存在する。
+
+Web APIの呼び出し結果をブラウザ上でそのまま表示することは直感的には考えにくいが、何かしらの手段で表示され悪用される可能性はゼロではない。また、安全側に一律倒すことで、セキュリティ適用を簡略化させる意図がある。
+
+| 項目                                                                                                          | 推奨値                               | 必須 | 説明                                                                                                                                                                                                  |
+| :------------------------------------------------------------------------------------------------------------ | :----------------------------------- | :--- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Content-Security-Policy](https://developer.mozilla.org/ja/docs/Web/HTTP/CSP)                                 | default-src 'none';                  | ✅️  | CSP。クロスサイトスクリプティング（XSS）の緩和策。どのソースからコンテンツをロードするかを制限する。default-src: ‘none’ で、全リソースの読み込みを不可とする                                          |
+| [X-Content-Type-Options](https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/X-Content-Type-Options)       | nosniff                              | ✅️  | ブラウザがMIMEタイプを自動判別することを防ぎ、特定のタイプのファイルのみを扱うようにすることで、コンテンツの解析やインジェクション攻撃を防止する                                                      |
+| [Strict-Transport-Security](https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/Strict-Transport-Security) | `max-age=63072000; includeSubDomains | ✅️  | HSTS。HTTP Strict Transport Securityを有効にし、HTTPSを強制させ、中間者攻撃（MITM）を緩和する。[HSTS preload list](https://hstspreload.org) に記載があるように、最終的には2年間とすることが推奨である |
+
+::: info 参考
+
+- [API-Security-Checklist/README-ja.md at master](https://github.com/shieldfy/API-Security-Checklist/blob/master/README-ja.md)
+- [Strict-Transport-Security ヘッダーの max-age は 2 年が推奨](https://til.agile.esm.co.jp/posts/recommended-max-age-for-hsts-headers/)
+
+:::
+
+::: tip 廃止になったオプション  
+[X-XSS-Protection](https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/X-XSS-Protection) や [X-Frame-Options](https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/X-Frame-Options) などContent-Security-Policyの登場で非推奨となったヘッダも多い。  
+:::
+
+## CORS
+
+CORS（オリジン間リソース共有、Cross-Origin Resource Sharing）は、追加の HTTP ヘッダーを使用して、あるオリジンで動作しているウェブアプリケーションに、異なるオリジンにある選択されたリソースへのアクセス権を与えるようブラウザーに指示するための仕組みである。
+
+同一システム内であっても `app.example.com` `api.example.com` でサブドメインが分かれることがあり、別システム向けにWeb APIを公開しない場合も考慮が必要な場合がある。
+
+同一システム内の対応としては、以下の考え方がある。
+
+| 観点         | 1.同一オリジン構成                                                                                                                                                        | 2.複数オリジン構成                                                                                                                                          |
+| :----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 説明         | 静的リソースとWeb APIを同一オリジンでホストし、CORSがそもそも発生しない構成にする。AWSであればLBやCloudFrontのパスベースルーティングで、S3とWeb APIを振り分ける構成にする | `app.example.com` `api.example.com` の2つのドメインでそれぞれ管理する。それぞれのシステムの独立性を高めることができる。管理するドメインが増える可能性もある |
+| CORS考慮     | ✅️不要                                                                                                                                                                   | ⚠️考慮が必要                                                                                                                                                |
+| インフラ構成 | ✅️パスベースのルーティングするインフラ要素が追加で必要                                                                                                                   | ✅️パスベースのルーティングの手間は不要                                                                                                                     |
+| ローカル環境 | ✅️nginx などでパスベースのルーティングが追加で必要                                                                                                                       | ✅️Web API側のポート番号を含めて環境変数で切り替え                                                                                                          |
+
+推奨は以下の通り。
+
+- 可能であれば、同一オリジン構成を採用する
+
+もし、複数オリジン構成（≒CORS対応が必要）な前提において、推奨は以下の通り。
+
+- `Access-Control-Allow-Origin`
+  - ワイルドカード (\*) は禁止
+  - 許可するオリジンを明示的に指定する「ホワイトリスト」形式とする
+  - `localhost` の追加は、開発環境のみに絞る
+  - 開発／ステージング／本番などのデプロイメント環境別に、アクセス可能なドメインは絞る。環境変数などで切り替える
+- `Access-Control-Allow-Headers`
+  - 実際に利用するヘッダーのみ指定する
+- `Access-Control-Allow-Methods`
+  - 必要なメソッドのみを許可する
+  - 例えば、プリフライトリクエストがPUTで来ているのであれば、PUTだけを許可することが推奨。なお、SPA画面などで基本的に全てのメソッドを返すのであれば一律許可（GET, POST, PUT, PATCH, DELETE）をしても良い
+- `Access-Control-Allow-Credentials`
+  - Cookieや認証ヘッダーを含める場合は、 `true` を設定する
+- `Access-Control-Max-Age`
+  - デフォルト値: 5 秒
+  - 2019年に公開されたChromium v76 以降は最大 2 時間(7200 秒)
+  - 特に設定値を変える必要はないが、チューニング観点で必要に応じて値を伸ばす
+
+AWSの場合、API Gatewayの機能でOPTIONSメソッドを提供することが可能である。OPTIONSメソッドの実装方針は以下の通り。
+
+| 観点               | （1）アプリケーションで実装                                         | （2）API Gatewayで実装                                          |
+| :----------------- | :------------------------------------------------------------------ | :-------------------------------------------------------------- |
+| 概要               | フレームワークのミドルウェアなどを活用し、OPTIONSメソッドを実装する | API GatewayのCORS機能を有効にして対応                           |
+| ローカル対応       | ✅️必要                                                             | ⚠️API Gateway相当の仕組みを何かしらローカルに持たせる必要がある |
+| クラウド利用費用   | ⚠️余計な通信／処理が発生                                            | ✅️API Gatewayにオフロードできる                                |
+| インフラ構築コスト | ✅️複雑度は変わらない                                               | ✅️複雑度は変わらない                                           |
+
+推奨は以下の通り。
+
+- デプロイメント環境で、API Gatewayを利用している場合は（2）を選択する（コスト削減が多少でも見込めることから）
+- ただし、API Gatewayを利用していないのであれば、これを目的にあえてAPI Gatewayを追加する必要はない
+
+::: info ローカル環境におけるCORS対応
+[Webフロントエンド設計ガイドライン > CORS対応のローカル開発サーバー](/documents/forWebFrontend/web_frontend_guidelines.html#cors対応のローカル開発サーバー) を参考する。
+:::
+
+::: info 参考
+
+- [オリジン間リソース共有 (CORS) \- HTTP | MDN](https://developer.mozilla.org/ja/docs/Web/HTTP/CORS)
+- [CORSエラーのトラブルシューティング入門 | フューチャー技術ブログ](https://future-architect.github.io/articles/20220222a/)
+
+:::
+
+## Cookie
+
+Web APIは基本的にステートレスであるべきであるため、クライアントの状態をサーバー側で保持するためのCookieは避けるべきである。
+
+そのため、[認証](#認証) 章の 「2.セッショントークン方式」 を利用する場合のみ、ログイン成功後にセッションIDを含むCookieを発行することになる。
+
+`Set-Cookie` ヘッダにはいくつかの属性があり、セキュリティ観点で適切に設定する必要がある。
+
+| 名称     | 単位              | 説明                                                                                       | 設定例                                |
+| -------- | ----------------- | ------------------------------------------------------------------------------------------ | ------------------------------------- |
+| Secure   | なし              | HTTPSリクエスト時のみ送信されるようになる                                                  | Secure                                |
+| HttpOnly | なし              | JavaScriptからのCookieへのアクセスが禁止される。XSSのリスクを軽減できる                    | HttpOnly                              |
+| SameSite | Strict, Lax, None | Cookieの送信制御のための属性（後述）                                                       | SameSite=Lax                          |
+| Path     | パス              | 送信対象のパスを指定（設定したパスのサブパスにも送信される）                               | Path=/api                             |
+| Domain   | ドメイン名        | 送信先のドメインを指定。省略すると発行元のホスト名に限定され、サブドメイン間で共有されない | (未指定)                              |
+| Expires  | 日付 (GMT)        | 有効期限をGMT形式で指定する                                                                | Expires=Tue, 29 Apr 2025 12:00:00 GMT |
+| Max-Age  | 秒                | 有効期間を、現在時刻から秒数で指定。Expiresよりも優先。0以下で即座に削除                   | Max-Age=86400 (24時間)                |
+
+`SameSite` の設定値について補足する。
+
+- **Strict**: 同一サイトからのリクエストの場合のみ送信。別サイトからリンクをクリックして遷移した場合にも送信されないため、ユーザー体験に影響がある可能性
+- **Lax**: Strictの制限を少し緩和し、別サイトからの遷移でも、安全なHTTPメソッド（GETなど）によるトップレベルナビゲーションの場合はCookieを送信。POSTリクエストやiframe、Ajaxなどでは送信されない
+- **None**: クロスサイトリクエストを含む全てでCookieを送信。CSRFトークンなどの対策が必要
+
+また、`__Secure-` や `__Host-` はCookieのセキュリティを高めるためのプレフィックスである。これを利用することで、ブラウザはそのCookieに対して特定のセキュリティルールを適用できる。
+
+- **\_\_Secure-**
+  - HTTPS接続でなければブラウザに受け入れられなくなる (Secure属性が必須となる)
+    - HTTP接続でCookieが設定されること・送信されることを防ぐ
+- **\_\_Host-**
+  - `__Secure-` よりもさらに厳格で、HTTPS接続 (Secure属性) であることに加え、特定のホストに限定され （Domain属性を指定できない）、かつサイト全体 (Path=/) で有効である必要がある。Path=/api/ などサブパスは指定できない
+  - サブドメインなどからCookieを操作されるリスクを防ぐ
+  - サブパスの場合は、上書きすること自体は可能だが `/` 固定になるため、特定のパスだけCookieの値が異なった値が使用されることがなくなる。セッション固定などの攻撃により耐性がある
+
+仮に Web API のパスが `/api/` であった場合には2通りがの設定が考えられる。
+
+1. **Pathの絞り込みを優先パターン**
+   - 例: `Set-Cookie: __Secure-ID=123; Secure; HttpOnly; Path=/api/`
+   - Pathを `/api/`　に絞ることを優先するため、 `__Secure-` プレックスを利用
+   - ✅️セッション送信先を限定できる
+   - ❌️Domain属性を指定してしまうという設定ミスはは防げない、その場合はサブドメインからCookieが不正に上書きされる恐れ
+   - ❌️サブパスから、任意のパス （`/api/profile/` など）のCookieを上書くという、 Cookie の隠蔽（シャドウイング）ができてしまう
+2. **\_\_Host- プレフィックスの使用を優先パターン**
+   - 例: `Set-Cookie: __Host-ID=123; Secure; HttpOnly; Path=/`
+   - `__Host-` プレフィックスを優先するため、 Pathは `/` を設定する
+   - ❌️Cookieの送信スコープが広くなる（本来は /api/ のサブパスだけでよいが、 `/page/` や `/images/` などにも送信される）
+   - ✅️サブドメインやサブパスからのCookieの不正な上書きには強い
+
+推奨は以下の通り。
+
+- セッショントークン方式の認証以外の用とでは、原則、Cookieを使用しない
+- Cookie自体には、ユーザーIDや権限などの機密情報を直接含めない
+- セッションIDには、ライブラリやフレームワークが提供する、暗号論的に安全な乱数生成器によって生成された、十分に長く推測困難なセッションIDのみを含める
+- `Set-Cookie` には以下の属性を設定する
+  - `Secure` 属性: 有効にする。HTTPSリクエストでのみ送信するようにするため
+  - `HttpOnly`属性: 有効にする。XSSリスクを軽減させるため
+  - `SameSite` 属性: `Lax` を設定する（`Strict` で要件上、充足できる場合は `Strict` でも可能。`None` は禁止する）
+  - `Path` 属性: `/` を指定する。`__Host-` プレックスを利用したいため
+  - `Domain` 属性: 原則、省略（発行元のホスト名に限定）する。サブドメイン間で共有は行わせないため
+  - `Max-Age` 属性: 合意されたセッション有効期間を指定する
+  - `Expires` 属性: `Max-Age` を用いるため、利用しない
+  - `__Host-` プレフィックスを利用する。送信スコープより、設定値の保護を優先する方がリスクが低いと考えるため
+- ログイン時は常に新しいセッションIDを再生成する（既存の値を流用しない）
+- ログアウト時に、サーバのセッション情報の破棄とともに、クライアント側のCookieも `Max-Age=0` を指定して削除する
+
+::: info 参考
+
+- [HTTP Cookie の使用 - HTTP | MD](https://developer.mozilla.org/ja/docs/Web/HTTP/Guides/Cookies)
+- [Set-Cookie - HTTP | MDN](https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Headers/Set-Cookie)
+
+:::
+
+# 機能配置（AWS）
+
+Web APIにはこれ以前の章で説明したように実用のために必要とする要素が多数あるが、AWSなどのクラウドのマネージドサービスで代用できるものも多い。できる限りマネージドサービス側に寄せることで、設計開発をショートカットでき、差別化領域に集中することができる。
+
+下表の項目についてクラウドサービス側の機能配置とすることを推奨する。
+
+【凡例】推奨:✅️ 条件次第で推奨:❓️
+
+| 項目                                                               | 説明                                                                                                                                                                                                           | マネージドサービス                    |
+| :----------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------ |
+| レート制限（DDoS）                                                 | 大量のAPI呼び出しのブロック                                                                                                                                                                                    | ✅️WAF                                |
+| レート制限（マルチテナントで特定のユーザに寄るリソース占有の防止） | ユーザー単位（API Key単位）で制御する必要がある。要件上、マネージドサービスで実現できない場合は、[Rate limit](#rate-limitレート制限) 章を参考にする                                                            | ❓️API Gateway                        |
+| Slow DoSなど                                                       | ペイロードを断続的に送る攻撃への対策。例えば、長大なHTTPリクエストボディ（POST ペイロード）を断続的に送ってセッションを占有する                                                                                | ❓️Amazon CloudFront ✅️WAF           |
+| リクエストサイズの上限                                             | リクエストヘッダ、リクエストボディに巨大なデータを送るDDoS対応。「Large Payload Post」「HTTP爆弾」とも呼ばれる。Amazon API Gatewayはペイロードサイズの上限が制約として10MBで多少緩和できるが、通常は大きすぎる | ✅️WAF                                |
+| レスポンスのgzip圧縮                                               | レスポンスのJSONをgzip圧縮することでユーザ体験を向上させる。特にモバイルの場合はユーザの通信量を抑えるメリットが大きい                                                                                         | ✅️API Gateway ✅️CloudFront どちらか |
+| CORS                                                               | [CORS](#cors) 章を参照                                                                                                                                                                                         | ✅️API Gateway                        |
+| SQLインジェクション/XSS 緩和策                                     | 不正な文字列の検知。ただし、アプリケーション側もSQLインジェクションについては、プレースホルダの利用、XSSについてはHTMLタグのエスケープを実装する必要                                                           | ✅️WAF                                |
+| 認証／API呼び出しの認可                                            | アクセストークンやセッションのチェック。アプリケーション側のミドルウェアで実施する場合も多い。API Gatewayを利用する場合は、Custom Authorizer側に寄せることを推奨する                                           | ❓️API Gateway Custom Authorizer      |
+| キャッシュ                                                         | 業務アプリであればキャッシュ可能なAPI応答は少ないため、通常使用することは少ない                                                                                                                                | ❓️API Gateway ❓️CloudFront          |
+
+# リリース
+
+## デプロイメント環境
+
+Web APIの環境分離だが、クラウド環境のベストプラクティスとしては1環境、1アカウントにする方法がある。この前提であれば、デプロイメントごとの分離は、ドメイン名で識別可能とする方針が望ましい。例えば、`example.com` と `dev.example.com` などでの分離である。
+
+「サブドメインとサブパス」で、サブパス方式を選択した前提で、ドメインで環境を識別するパターンはいくつか考えられる。
+
+| 環境名          | （1）環境上位                                                                            | （2）サービス上位                                                                        | （3）文字列結合                                                                          |
+| :-------------- | :--------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------- |
+| 本番            | api.example.com<br>app.example.com                                                       | api.example.com<br>app.example.com                                                       | api.example.com<br>app.example.com                                                       |
+| 開発<br> / 検証 | api.dev.example.com<br>app.dev.example.com<br>api.stg.example.com<br>app.stg.example.com | dev.api.example.com<br>dev.app.example.com<br>stg.api.example.com<br>stg.app.example.com | dev-api.example.com<br>dev-app.example.com<br>stg-api.example.com<br>stg-app.example.com |
+| 説明            | stg, devに複数のサブドメインが存在することを考慮したパターン                             | api.example.comにサブドメインで環境を表現したパターン。<br>URLからどの環境か識別しやすい | {環境名}-{サービス種別}で命名し、独立させるパターン                                      |
+
+推奨は以下の通り。
+
+- サブドメインで環境識別を可能とさせ、可読性から（2）を利用する
+
+## デプロイ方式
+
+以下のような複数のデプロイ方式がある。
+
+1. インプレースデプロイ（一括リリース）
+2. ローリングアップデート
+3. ブルーグリーンデプロイメント
+
+メンテナンスウィンドウが確保できるのであれば、1を推奨する。要件としてダウンタイムが許容できない場合は、2または3を採用する。
+
 # オブザーバビリティ
 
 ## 監視と通知
@@ -1657,479 +2138,6 @@ Web APIアクセスに対して適切にログ出力することで、何かし�
 ::: info 参考
 [OWASP/CheatSheetSeries](https://github.com/OWASP/CheatSheetSeries)の[cheatsheets/Logging_Cheat_Sheet.md](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Logging_Cheat_Sheet.md)
 :::
-
-# 性能
-
-## ページング
-
-REST APIのページングとは、データを分割してクライアントに返す仕組みを指す。主に次のようなケースで必要となる。
-
-- データ量が多く一度に全データを返却するとサーバやクライアントの負荷が高くなる場合
-  - 数百万件の商品リスト
-  - 購入履歴など
-- 新規データが次々と追加される状況でリアルタイム性を損なわずにデータを取得したい場合
-  - SNSのタイムライン
-  - トランザクションログ
-- ユーザが全てのデータを一度に必要とするケースが稀で、多くの場合最初の数件だけが表示されれば十分な場合
-  - ECにおける商品の検索結果
-  - メッセージアプリにおけるチャット履歴
-
-推奨は以下の通り。
-
-- 本当にページングが必要かどうかまず再検討する
-
-特にSSKDs なAPIにおいては、API提供者がAPIクライアントを管理できる場合が多く、設計上の工夫でページングを不要にできるケースが多い。
-
-例えば、データ量が多い状況でも、次のような場合はページングを不要とすることができる。
-
-- 検索条件による絞り込みを強制できる場合（例. 最長1ヶ月のレンジでFROM/TOの指定が必須）
-- 上限1000件など返却可能な件数を決め打ちしておき、万が一上限以上のデータが存在する場合は検索条件による絞り込みをUIとして促すことができる場合
-
-不特定多数の利用者にAPIを提供する場合など、それでもなおページングが必要となる場合、次のような実現方式が考えられる。
-
-| 観点                         | （1）オフセット&リミット方式                                                                                                  | （2）ページ番号方式                                                                    | （3）カーソルベース方式                                                                                                 |
-| :--------------------------- | :---------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------- |
-| 概要                         | リクエストで指定した`offset`（開始位置）と`limit`（取得件数）に基づいて、結果の一部を取得                                     | リクエストで指定した`page`と`size`などのパラメータを使用して、ページ単位でデータを取得 | 特定のカーソル値を基準に、次のデータセットを取得する。 カーソルは通常、結果セットの並び順に基づいて一意に決まる値を使用 |
-| ページ番号の計算             | クライアント側で実施                                                                                                          | サーバ側で実施                                                                         | \-                                                                                                                      |
-| 親和性の高いUI               | ページング                                                                                                                    | ページング                                                                             | 無限スクロール                                                                                                          |
-| RDBとの親和性                | ✅️高い                                                                                                                       | ✅️高い                                                                                | ⚠️普通                                                                                                                  |
-| NoSQLとの親和性              | ❌️低い                                                                                                                       | ❌️低い                                                                                | ✅️高い                                                                                                                 |
-| 性能                         | ❌️必要なページにたどり着くまでに、最初からそこまでの全ての行を数える必要があるため、後のページになればなるほど応答が悪くなる | ❌️オフセット& リミット方式と同様                                                      | ✅️ページング位置に伴うオーバーヘッドはなし                                                                             |
-| データの整合性               | ⚠️検索の度に歯抜けや重複が発生する可能性がある                                                                                | ⚠️オフセット& リミット方式と同様                                                       | ✅️ソート結果に基づいて一意に決まる値を基準とするため、重複や歯抜けは発生しない                                         |
-| 特定ページへのジャンプ       | ✅️容易                                                                                                                       | ✅️容易                                                                                | ❌️困難　                                                                                                               |
-| 前回取得分以降の最新差分取得 | ❌️困難                                                                                                                       | ❌️困難                                                                                | ✅️容易                                                                                                                 |
-
-推奨は以下の通り。
-
-- データストアがRDBの場合、（1）を採用する
-- NoSQL（Elasticsearchも含む）のようなデータストアを利用する場合、（3）を採用する
-
-::: info 参考
-[SQLのページネーションで COUNT(\*) OVER() を使うのは避けよう](https://raahii.me/posts/count-over-query-is-slow/)
-:::
-
-## バッチAPI
-
-複数のリソースに対して同時に参照／更新するバッチAPIを用意しておくことで、処理性能を上げてUXの向上に貢献できる。
-
-推奨は以下の通り。
-
-- 参照については、カンマ区切りで複数のIDを指定可能とする
-- 登録／更新については、複数のレコードを更新できるようにバッチ処理用のエンドポイントを作成する
-- URLは `POST /users/batch` など、バッチ処理であることが分かるように区別する
-- リクエストボディは、 `items` の属性に配列を持つ
-
-リクエストボディの例。
-
-```json
-{
-  "items": [
-    { "id": 1, "name": "商品1", "price": 100 },
-    { "id": 2, "name": "商品2", "price": 200 }
-  ]
-}
-```
-
-エラーについては以下の方針とする。
-
-- エラーが生じたリソースの一覧とエラーを返す
-- 成功したリソースは返さない（ペイロードサイズを抑えるためと、成功分を応答する意味はないため）
-
-## gzip圧縮
-
-レスポンスをgzip圧縮することを推奨する。[機能配置（AWS）](#機能配置aws) 章も参考にする。
-
-# Rate limit（レート制限）
-
-Rate Limit（レート制限）とは、特定の時間内に許可されるリクエストの数を制限する仕組みのことである。以下のような目的がある。
-
-1. サーバー保護
-   1. 大量リクエストによりサーバの負荷増大で、障害になることを防ぐ
-   2. 悪意が無くても、連携先の実装不備により大量リクエストが届くことがある
-2. 公平なリソース配分
-   1. 一部ユーザーがリソースを占有することを防ぐ
-3. セキュリティ
-   1. DDoS攻撃や、不正なアクセスを試みるボットなどからサービスを保護する
-4. コスト管理
-   1. 使用量に応じて課金が発生する場合に、上限を設けることで予期しないコスト増加を防ぐ
-
-推奨は以下の通り。
-
-- Rate limitを設ける
-- Rate limitはクラウドサービス（WAFやAPI Gateway）側で行う
-- マルチテナントでユーザー単位（API Key単位）で制御する場合でスクラッチで実装する場合は、以下の点を注意する
-  - 正確なカウントはDB負荷が高いため、Cacheサーバの利用（定期的にWrite backでメインのDBに書き込み）方式を検討する
-  - Rate limitの場合は `429 Too Many Requests` を返し、`Retry-After` ヘッダを返すこと
-
-::: info 参考
-[Retry-After \- HTTP | MDN](https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/Retry-After)
-:::
-
-# タイムアウト
-
-タイムアウトを適切に設定することで、リソースの無駄遣いを防いだり、クライアントの待機時間によるストレスを軽減することができる。
-
-推奨は以下の通り。
-
-- アプリケーション側で、タイムアウトを実装しない（例えば、Goであればアプリケーション側でcontext.WithTimeout()でタイムアウトさせない）
-- クラウドサービス側でのタイムアウト設定は、基本的に最長にする
-- 画面から呼び出されるWeb APIが29秒より長いなど、要件未達の場合は、該当のトレースID（リクエストID、トランザクションID）をログに出力して、後で調査可能とする
-- ユーザへのフィードバックなどの観点を含む要件に合わせて、基本的に、呼び出し元が必要に応じてキャンセルする思想とする
-- 非同期APIで作成された非同期タスクについては、キャンセルするユーザーがいないため、事前に決めた最長実行時間に応じてタイムアウトさせる
-
-# セキュリティ
-
-## レスポンスヘッダ
-
-下表のようなセキュリティ関連のヘッダが存在する。
-
-Web APIの呼び出し結果をブラウザ上でそのまま表示することは直感的には考えにくいが、何かしらの手段で表示され悪用される可能性はゼロではない。また、安全側に一律倒すことで、セキュリティ適用を簡略化させる意図がある。
-
-| 項目                                                                                                          | 推奨値                               | 必須 | 説明                                                                                                                                                                                                  |
-| :------------------------------------------------------------------------------------------------------------ | :----------------------------------- | :--- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Content-Security-Policy](https://developer.mozilla.org/ja/docs/Web/HTTP/CSP)                                 | default-src 'none';                  | ✅️  | CSP。クロスサイトスクリプティング（XSS）の緩和策。どのソースからコンテンツをロードするかを制限する。default-src: ‘none’ で、全リソースの読み込みを不可とする                                          |
-| [X-Content-Type-Options](https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/X-Content-Type-Options)       | nosniff                              | ✅️  | ブラウザがMIMEタイプを自動判別することを防ぎ、特定のタイプのファイルのみを扱うようにすることで、コンテンツの解析やインジェクション攻撃を防止する                                                      |
-| [Strict-Transport-Security](https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/Strict-Transport-Security) | `max-age=63072000; includeSubDomains | ✅️  | HSTS。HTTP Strict Transport Securityを有効にし、HTTPSを強制させ、中間者攻撃（MITM）を緩和する。[HSTS preload list](https://hstspreload.org) に記載があるように、最終的には2年間とすることが推奨である |
-
-::: info 参考
-
-- [API-Security-Checklist/README-ja.md at master](https://github.com/shieldfy/API-Security-Checklist/blob/master/README-ja.md)
-- [Strict-Transport-Security ヘッダーの max-age は 2 年が推奨](https://til.agile.esm.co.jp/posts/recommended-max-age-for-hsts-headers/)
-
-:::
-
-::: tip 廃止になったオプション  
-[X-XSS-Protection](https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/X-XSS-Protection) や [X-Frame-Options](https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/X-Frame-Options) などContent-Security-Policyの登場で非推奨となったヘッダも多い。  
-:::
-
-## CORS
-
-CORS（オリジン間リソース共有、Cross-Origin Resource Sharing）は、追加の HTTP ヘッダーを使用して、あるオリジンで動作しているウェブアプリケーションに、異なるオリジンにある選択されたリソースへのアクセス権を与えるようブラウザーに指示するための仕組みである。
-
-同一システム内であっても `app.example.com` `api.example.com` でサブドメインが分かれることがあり、別システム向けにWeb APIを公開しない場合も考慮が必要な場合がある。
-
-同一システム内の対応としては、以下の考え方がある。
-
-| 観点         | 1.同一オリジン構成                                                                                                                                                        | 2.複数オリジン構成                                                                                                                                          |
-| :----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 説明         | 静的リソースとWeb APIを同一オリジンでホストし、CORSがそもそも発生しない構成にする。AWSであればLBやCloudFrontのパスベースルーティングで、S3とWeb APIを振り分ける構成にする | `app.example.com` `api.example.com` の2つのドメインでそれぞれ管理する。それぞれのシステムの独立性を高めることができる。管理するドメインが増える可能性もある |
-| CORS考慮     | ✅️不要                                                                                                                                                                   | ⚠️考慮が必要                                                                                                                                                |
-| インフラ構成 | ✅️パスベースのルーティングするインフラ要素が追加で必要                                                                                                                   | ✅️パスベースのルーティングの手間は不要                                                                                                                     |
-| ローカル環境 | ✅️nginx などでパスベースのルーティングが追加で必要                                                                                                                       | ✅️Web API側のポート番号を含めて環境変数で切り替え                                                                                                          |
-
-推奨は以下の通り。
-
-- 可能であれば、同一オリジン構成を採用する
-
-もし、複数オリジン構成（≒CORS対応が必要）な前提において、推奨は以下の通り。
-
-- `Access-Control-Allow-Origin`
-  - ワイルドカード (\*) は禁止
-  - 許可するオリジンを明示的に指定する「ホワイトリスト」形式とする
-  - `localhost` の追加は、開発環境のみに絞る
-  - 開発／ステージング／本番などのデプロイメント環境別に、アクセス可能なドメインは絞る。環境変数などで切り替える
-- `Access-Control-Allow-Headers`
-  - 実際に利用するヘッダーのみ指定する
-- `Access-Control-Allow-Methods`
-  - 必要なメソッドのみを許可する
-  - 例えば、プリフライトリクエストがPUTで来ているのであれば、PUTだけを許可することが推奨。なお、SPA画面などで基本的に全てのメソッドを返すのであれば一律許可（GET, POST, PUT, PATCH, DELETE）をしても良い
-- `Access-Control-Allow-Credentials`
-  - Cookieや認証ヘッダーを含める場合は、 `true` を設定する
-- `Access-Control-Max-Age`
-  - デフォルト値: 5 秒
-  - 2019年に公開されたChromium v76 以降は最大 2 時間(7200 秒)
-  - 特に設定値を変える必要はないが、チューニング観点で必要に応じて値を伸ばす
-
-AWSの場合、API Gatewayの機能でOPTIONSメソッドを提供することが可能である。OPTIONSメソッドの実装方針は以下の通り。
-
-| 観点               | （1）アプリケーションで実装                                         | （2）API Gatewayで実装                                          |
-| :----------------- | :------------------------------------------------------------------ | :-------------------------------------------------------------- |
-| 概要               | フレームワークのミドルウェアなどを活用し、OPTIONSメソッドを実装する | API GatewayのCORS機能を有効にして対応                           |
-| ローカル対応       | ✅️必要                                                             | ⚠️API Gateway相当の仕組みを何かしらローカルに持たせる必要がある |
-| クラウド利用費用   | ⚠️余計な通信／処理が発生                                            | ✅️API Gatewayにオフロードできる                                |
-| インフラ構築コスト | ✅️複雑度は変わらない                                               | ✅️複雑度は変わらない                                           |
-
-推奨は以下の通り。
-
-- デプロイメント環境で、API Gatewayを利用している場合は（2）を選択する（コスト削減が多少でも見込めることから）
-- ただし、API Gatewayを利用していないのであれば、これを目的にあえてAPI Gatewayを追加する必要はない
-
-::: info ローカル環境におけるCORS対応
-[Webフロントエンド設計ガイドライン > CORS対応のローカル開発サーバー](/documents/forWebFrontend/web_frontend_guidelines.html#cors対応のローカル開発サーバー) を参考する。
-:::
-
-::: info 参考
-
-- [オリジン間リソース共有 (CORS) \- HTTP | MDN](https://developer.mozilla.org/ja/docs/Web/HTTP/CORS)
-- [CORSエラーのトラブルシューティング入門 | フューチャー技術ブログ](https://future-architect.github.io/articles/20220222a/)
-
-:::
-
-## Cookie
-
-Web APIは基本的にステートレスであるべきであるため、クライアントの状態をサーバー側で保持するためのCookieは避けるべきである。
-
-そのため、[認証](#認証) 章の 「2.セッショントークン方式」 を利用する場合のみ、ログイン成功後にセッションIDを含むCookieを発行することになる。
-
-`Set-Cookie` ヘッダにはいくつかの属性があり、セキュリティ観点で適切に設定する必要がある。
-
-| 名称     | 単位              | 説明                                                                                       | 設定例                                |
-| -------- | ----------------- | ------------------------------------------------------------------------------------------ | ------------------------------------- |
-| Secure   | なし              | HTTPSリクエスト時のみ送信されるようになる                                                  | Secure                                |
-| HttpOnly | なし              | JavaScriptからのCookieへのアクセスが禁止される。XSSのリスクを軽減できる                    | HttpOnly                              |
-| SameSite | Strict, Lax, None | Cookieの送信制御のための属性（後述）                                                       | SameSite=Lax                          |
-| Path     | パス              | 送信対象のパスを指定（設定したパスのサブパスにも送信される）                               | Path=/api                             |
-| Domain   | ドメイン名        | 送信先のドメインを指定。省略すると発行元のホスト名に限定され、サブドメイン間で共有されない | (未指定)                              |
-| Expires  | 日付 (GMT)        | 有効期限をGMT形式で指定する                                                                | Expires=Tue, 29 Apr 2025 12:00:00 GMT |
-| Max-Age  | 秒                | 有効期間を、現在時刻から秒数で指定。Expiresよりも優先。0以下で即座に削除                   | Max-Age=86400 (24時間)                |
-
-`SameSite` の設定値について補足する。
-
-- **Strict**: 同一サイトからのリクエストの場合のみ送信。別サイトからリンクをクリックして遷移した場合にも送信されないため、ユーザー体験に影響がある可能性
-- **Lax**: Strictの制限を少し緩和し、別サイトからの遷移でも、安全なHTTPメソッド（GETなど）によるトップレベルナビゲーションの場合はCookieを送信。POSTリクエストやiframe、Ajaxなどでは送信されない
-- **None**: クロスサイトリクエストを含む全てでCookieを送信。CSRFトークンなどの対策が必要
-
-また、`__Secure-` や `__Host-` はCookieのセキュリティを高めるためのプレフィックスである。これを利用することで、ブラウザはそのCookieに対して特定のセキュリティルールを適用できる。
-
-- **\_\_Secure-**
-  - HTTPS接続でなければブラウザに受け入れられなくなる (Secure属性が必須となる)
-    - HTTP接続でCookieが設定されること・送信されることを防ぐ
-- **\_\_Host-**
-  - `__Secure-` よりもさらに厳格で、HTTPS接続 (Secure属性) であることに加え、特定のホストに限定され （Domain属性を指定できない）、かつサイト全体 (Path=/) で有効である必要がある。Path=/api/ などサブパスは指定できない
-  - サブドメインなどからCookieを操作されるリスクを防ぐ
-  - サブパスの場合は、上書きすること自体は可能だが `/` 固定になるため、特定のパスだけCookieの値が異なった値が使用されることがなくなる。セッション固定などの攻撃により耐性がある
-
-仮に Web API のパスが `/api/` であった場合には2通りがの設定が考えられる。
-
-1. **Pathの絞り込みを優先パターン**
-   - 例: `Set-Cookie: __Secure-ID=123; Secure; HttpOnly; Path=/api/`
-   - Pathを `/api/`　に絞ることを優先するため、 `__Secure-` プレックスを利用
-   - ✅️セッション送信先を限定できる
-   - ❌️Domain属性を指定してしまうという設定ミスはは防げない、その場合はサブドメインからCookieが不正に上書きされる恐れ
-   - ❌️サブパスから、任意のパス （`/api/profile/` など）のCookieを上書くという、 Cookie の隠蔽（シャドウイング）ができてしまう
-2. **\_\_Host- プレフィックスの使用を優先パターン**
-   - 例: `Set-Cookie: __Host-ID=123; Secure; HttpOnly; Path=/`
-   - `__Host-` プレフィックスを優先するため、 Pathは `/` を設定する
-   - ❌️Cookieの送信スコープが広くなる（本来は /api/ のサブパスだけでよいが、 `/page/` や `/images/` などにも送信される）
-   - ✅️サブドメインやサブパスからのCookieの不正な上書きには強い
-
-推奨は以下の通り。
-
-- セッショントークン方式の認証以外の用とでは、原則、Cookieを使用しない
-- Cookie自体には、ユーザーIDや権限などの機密情報を直接含めない
-- セッションIDには、ライブラリやフレームワークが提供する、暗号論的に安全な乱数生成器によって生成された、十分に長く推測困難なセッションIDのみを含める
-- `Set-Cookie` には以下の属性を設定する
-  - `Secure` 属性: 有効にする。HTTPSリクエストでのみ送信するようにするため
-  - `HttpOnly`属性: 有効にする。XSSリスクを軽減させるため
-  - `SameSite` 属性: `Lax` を設定する（`Strict` で要件上、充足できる場合は `Strict` でも可能。`None` は禁止する）
-  - `Path` 属性: `/` を指定する。`__Host-` プレックスを利用したいため
-  - `Domain` 属性: 原則、省略（発行元のホスト名に限定）する。サブドメイン間で共有は行わせないため
-  - `Max-Age` 属性: 合意されたセッション有効期間を指定する
-  - `Expires` 属性: `Max-Age` を用いるため、利用しない
-  - `__Host-` プレフィックスを利用する。送信スコープより、設定値の保護を優先する方がリスクが低いと考えるため
-- ログイン時は常に新しいセッションIDを再生成する（既存の値を流用しない）
-- ログアウト時に、サーバのセッション情報の破棄とともに、クライアント側のCookieも `Max-Age=0` を指定して削除する
-
-::: info 参考
-
-- [HTTP Cookie の使用 - HTTP | MD](https://developer.mozilla.org/ja/docs/Web/HTTP/Guides/Cookies)
-- [Set-Cookie - HTTP | MDN](https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Headers/Set-Cookie)
-
-:::
-
-# 認証
-
-## システム間連携時のネットワークレベルの制御
-
-対向システムからのバッチ処理などで、自システム側のWeb APIを公開する要件があるとする。
-
-推奨は以下の通り。
-
-- 可能であれば送信元IPで絞る（AWSのいうSecurity Groupを適切に設定する）
-
-## システム間連携の認証フロー
-
-対向システムからのバッチ処理などで、自システム側のWeb APIを公開する要件があるとする。Web APIの認証方式には以下が考えられる。1, 2, 3それぞれ別の技術であるため組み合わせることも可能だが、対応コストがそれぞれあるためどれか1つ選択する前提とする（無認証は許容しないポリシーであるとする）。
-
-|                      | （1）APIアクセスキー                                                               | （2）クライアントクレデンシャルフロー                                                      | （3）mTLS                                                             |
-| :------------------- | :--------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------- | :-------------------------------------------------------------------- |
-| 説明                 | x-apikey ヘッダでアクセスキーを連携する方式。API Gatewayが提供する機能の一部とする | 認可サーバにクライアントID、クライアントシークレットを渡し、アクセストークンを取得する方法 | TLS相互認証のことで、クライアント証明書を用いる方式                   |
-| 連携先から見た容易さ | ✅️ステートレスである                                                              | ⚠️少し手順が複雑になる                                                                     | ⚠️クライアント証明書の読み込みが必須                                  |
-| 処理性能             | ✅️仕組みが単純なため高い                                                          | ⚠️トークンの取得および検証分、不利と言える                                                 | ✅️大きなペナルティは無い                                             |
-| セキュリティ         | ⚠️APIキー漏洩など不正利用のリスクが懸念                                            | ✅️アクセストークンには有効期限があるため、リスクが限定できる                              | ⚠️クライアント証明書の漏洩には脆弱                                    |
-| 監査                 | ✅️API Gatewayの機能に依存                                                         | ✅️IdP（認証基盤）側の仕組みに寄せることが可能                                             | ⚠️個別に作り込む必要がある                                            |
-| スロットリング       | ✅️大体のAPI Gatewayでアクセス数制限が可能                                         | ❌️個別実装が必要                                                                          | ❌️個別実装が必要                                                     |
-| インフラリソース     | ⚠️API Gatewayが増える                                                              | ✅️既存の仕組みに相乗りできる                                                              | ⚠️相互認証のAPI Gatewayが増える                                       |
-| 設計コスト           | ❌️APIキーとアクセストークンの2パターンの対応が必要                                | ✅️アクセストークン方式に統一できる                                                        | ❌️APIキーとアクセストークンの2パターンの対応が必要                   |
-| 運用コスト           | ✅️                                                                                | ✅️                                                                                        | ❌️定期的に連携先に新しいクライアント証明書を配布し適用する運用が必須 |
-
-2.クライアントクレデンシャルフローの処理例を下図に示す。
-
-```mermaid
-sequenceDiagram
-    Participant Batch_Process
-    Participant Authorization_Server
-    Participant WebAPI
-
-    Batch_Process->>Batch_Process: 初期処理
-    Batch_Process->>Authorization_Server: POST /token (grant_type=client_credentials)
-    Authorization_Server-->>Batch_Process: Access Token
-    Batch_Process->>WebAPI: GET /resource (Authorization: Bearer <Access Token>)
-    WebAPI->>WebAPI: Validate Access Token
-    WebAPI-->>Batch_Process: Resource Data
-    Batch_Process->>Batch_Process: 永続化など
-
-```
-
-推奨は以下の通り。
-
-- （2）を採用する
-- もし、対向システム側で認可サーバのアクセスが不可の場合は、（1）を検討する
-
-::: tip バッチ処理でクライアントクレデンシャルフローを用いたWeb API呼び出しの是非
-自領域のシステムで稼働するバッチ処理については、Web API経由ではなく、直接DBを参照／更新すれば良い。Web APIを呼び出しによって生じるコスト増を防ぐためである。ビジネスロジックがWeb API側に存在しており、流用したい場合もあるが、しばしばバッチの性能劣化を招くことがあるため、非推奨とする。そのような場合の対応としては、ビジネスロジックを再利用可能なパッケージ化にするなどがある。  
-:::
-
-::: tip ユーザーごとにアクセス数制限を入れたい場合  
-（2）のクライアントクレデンシャルフローを採用した場合で、さらにユーザーごとにアクセス数制限を入れたい場合は、（2）に加えて、（1）APIアクセスキーを追加して制御することになる。  
-:::
-
-## フロントエンド認証フロー
-
-Auth0やEntraIDなどのIdP（Identity Provider）を利用して認証する構成で、フロントエンドからWeb APIを呼び出す場合を想定する。
-
-推奨は以下の通り。
-
-- Authorization Code Flow with PKCE（認可コード+PKCE）を利用する
-
-理由は以下の通り。
-
-- Implicit Flowは非推奨である（参考: [OAuth 2.0 の Implicit grant 終了のお知らせ \- r-weblife](https://ritou.hatenablog.com/entry/2018/11/12/110613)）
-- Client Credentials Flowはサーバやバッチアプリケーションに向く方式であり、フロントエンド認証フローでは不適切である
-- PKCE（Proof Key for Code Exchange）を認可コードフローに追加することで、セキュリティを高めることができるため
-
-## Web API認証フロー
-
-「フロントエンド認証フロー」によって、アクセストークンを取得できたとする。Web APIへの認証については大別して以下の2つの方式がある。
-
-<div class="img-bg-transparent">
-
-|                     | （1）ベアラートークン方式                                                                                                                                                                      | （2）セッショントークン方式                                                                                                                                              |
-| :------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| フロー図            | [![uml][beare_token_flow_img]][beare_token_flow_link]                                                                                                                                          | [![uml][session_token_flow_img]][session_token_flow_url]                                                                                                                 |
-| 説明                | APIリクエスト毎にアクセストークンをAuthorizationヘッダに含める方式。トークンの検証はIdP側のトークンイントロスペクションを利用                                                                  | 初回リクエストのみアクセストークンを利用し、以降はセッション管理（セッションIDをCookieに含めて送信）による認証を行う方式。セッション管理テーブルやキャッシュサーバが必要 |
-| 処理性能            | ❌️リクエストの度に、トークンイントロスペクションAPIで確認が必要。アクセストークンのデータサイズによっては多少不利                                                                             | ✅️サーバサイドのセッション管理部分の性能が求められやすい                                                                                                                |
-| トークンの無効化    | ✅️IdPのリボケーションAPIで無効化が可能                                                                                                                                                        | ✅️容易である                                                                                                                                                            |
-| 再ログイン 必須期間 | ❌️IdP側のリフレッシュトークンが無効になるタイミングに依存する。例えば、リフレッシュトークンが無操作で最大48時間までしか保持できない場合、土日を挟むと再ログインが必須になるといった懸念がある | ✅️任意の調整が可能                                                                                                                                                      |
-| IdPとの結合度       | ⚠️アクセス毎にIdPに依存                                                                                                                                                                        | ✅️IdP依存箇所が最小限となる                                                                                                                                             |
-| セキュリティ        | ⚠️アクセストークンをローカルストレージやCookieに保持する必要がある                                                                                                                             | ✅️アクセストークンはWeb API認証後に破棄可能であり、保持期間を最小化できる                                                                                               |
-| curlとの相性        | ✅️比較的容易                                                                                                                                                                                  | ⚠️少し手順が複雑                                                                                                                                                         |
-| ローカル開発環境    | ✅️容易                                                                                                                                                                                        | ✅️容易                                                                                                                                                                  |
-
-</div>
-
-[beare_token_flow_img]: https://mermaid.ink/img/pako:eNqFVM9rE0EU_leGOUiElt73UAithyBKIAdBFmTdTJLFZCduZhUphe6MSCKKpShUSA79gYQkbQ9BMDSlf8xLYjz1X_DNJNvWTWpvM2--9733fW9mtqjL84xatMZeh8x32abnFAOnYvuEVJ1AeK5XdXxBctk0cWrk99fzP63D5GE6p8-mnc_jL2cgf4IagtpdAGUzGvWMvdRL29fnT7lghL9hgea3SPbxxiOQfZPfABWBOgLVA9UH-Qui9ryA6oDEMm2QA1B1iE5HF81J3dRDltX19XTOIkuxJKXFvnBLTrnM_CIjD0hNOIKB3BvvdkHuPNQk6dwqkpiGYknXLXVA7YA81l0hr2ZcIFiiK0kTtRNKvxvmbyAPNLk8RL7RxSVERxD90BoRpsv1E3r-lfwfIEklWkDlxgps0St4LEgKNz0g_HxucsyLeZnN24F5CwQTZ1o3OH_loSHvQZ0YVBdUN2bpmQjOsju6bI1P9pe6dVdtNAXUPiilZ4DBqGs8j9AjvFDJayH3pgefIPpwy6NsxiKLSJJae3tnzZkveHO1PkNwZ3fR6eS4OW0P5xnxUO6DXw3ra54vAl6rMld43L8aNm6GcU_Js0mzMf44iEvG0zMiewbdMsYN6AqtsKDieHl86lsab1NRYhVmUwuXeVZwwrKwqe1vI9QJBc-9811qiSBkKzTgYbFErYJTruEurObxys__iesovvHnnN_sWd4TPHgy-1zMH7P9F53-O84?type=png
-[beare_token_flow_link]: https://mermaid.live/edit#pako:eNqFVM9rE0EU_leGOUiElt73UAithyBKIAdBFmTdTJLFZCduZhUphe6MSCKKpShUSA79gYQkbQ9BMDSlf8xLYjz1X_DNJNvWTWpvM2--9733fW9mtqjL84xatMZeh8x32abnFAOnYvuEVJ1AeK5XdXxBctk0cWrk99fzP63D5GE6p8-mnc_jL2cgf4IagtpdAGUzGvWMvdRL29fnT7lghL9hgea3SPbxxiOQfZPfABWBOgLVA9UH-Qui9ryA6oDEMm2QA1B1iE5HF81J3dRDltX19XTOIkuxJKXFvnBLTrnM_CIjD0hNOIKB3BvvdkHuPNQk6dwqkpiGYknXLXVA7YA81l0hr2ZcIFiiK0kTtRNKvxvmbyAPNLk8RL7RxSVERxD90BoRpsv1E3r-lfwfIEklWkDlxgps0St4LEgKNz0g_HxucsyLeZnN24F5CwQTZ1o3OH_loSHvQZ0YVBdUN2bpmQjOsju6bI1P9pe6dVdtNAXUPiilZ4DBqGs8j9AjvFDJayH3pgefIPpwy6NsxiKLSJJae3tnzZkveHO1PkNwZ3fR6eS4OW0P5xnxUO6DXw3ra54vAl6rMld43L8aNm6GcU_Js0mzMf44iEvG0zMiewbdMsYN6AqtsKDieHl86lsab1NRYhVmUwuXeVZwwrKwqe1vI9QJBc-9811qiSBkKzTgYbFErYJTruEurObxys__iesovvHnnN_sWd4TPHgy-1zMH7P9F53-O84
-[session_token_flow_img]: https://mermaid.ink/img/pako:eNqFVF1rE0EU_SvDPkiEFt8XCcTGhyJKIA-CBMp0d5IMJjtxM6toKWRnqLSoGIJgFQO2Si1JtZYiplTpj7lNjP_CO5tNmm6ivs3cj3PPPffOrFmOcJllW3X2IGCew7KclnxaLXiE1KgvucNr1JPk16vT3-1dQusE1HfQx6C-gu6Cfgv6B6geqF3Qr0F3QB1FFoz5hGEklc9lribBMrllg3SXrZpj0jvsvOi_PAT1zQDppolMmlKZQJaFz59QyYVH8sx_yHwsY6DuCMmIwHvM2Sa5W0s3QR1HuVugQ9AfQB9ETfQg3I_BDXcssQ_qBPQmhF_Of74bbDYN5AhoMZ1O8LDJ3FySMpquOGVaqTCvxMgVUpdUMlCtfrMLqhEJksBaRPgx4bFrQrkDugHqo2GNdUyFGcD5rSeRVCsWHcLuoLcD4ZtL_aHDJjPdJEDmt4Op8wQyUpp9ODRy_x_YqXDmyRXumrMREZvhRR4Nd65kI8a4fQb4NJ7duCCCLGenDTFRgonkn5nQCC9nQvgM1Fb_bGO4F0LYGeiN_vsjVCB7A5U8P2v3P29DQ11f9dMGTOvJC7jYIqPQ1JCXhLjP2d8GN_JiAdDbBg7nj1TCbqQ4MtgzM0ysrGoNd55D-HR2pLPBJHXtUVxkanzj6lH8QRTZjt7JibVgVZlfpdzFv2LNZBQsWWZVVrBsPLqsSIOKLFgFbx1DaSBF_rHnWLb0A7Zg-SIolS27SCt1vAU1F9cn_mgmVnz794S4uDOXS-HfHv1O0Se1_gdl6Gn3?type=png
-[session_token_flow_url]: https://mermaid.live/edit#pako:eNqFVF1rE0EU_SvDPkiEFt8XCcTGhyJKIA-CBMp0d5IMJjtxM6toKWRnqLSoGIJgFQO2Si1JtZYiplTpj7lNjP_CO5tNmm6ivs3cj3PPPffOrFmOcJllW3X2IGCew7KclnxaLXiE1KgvucNr1JPk16vT3-1dQusE1HfQx6C-gu6Cfgv6B6geqF3Qr0F3QB1FFoz5hGEklc9lribBMrllg3SXrZpj0jvsvOi_PAT1zQDppolMmlKZQJaFz59QyYVH8sx_yHwsY6DuCMmIwHvM2Sa5W0s3QR1HuVugQ9AfQB9ETfQg3I_BDXcssQ_qBPQmhF_Of74bbDYN5AhoMZ1O8LDJ3FySMpquOGVaqTCvxMgVUpdUMlCtfrMLqhEJksBaRPgx4bFrQrkDugHqo2GNdUyFGcD5rSeRVCsWHcLuoLcD4ZtL_aHDJjPdJEDmt4Op8wQyUpp9ODRy_x_YqXDmyRXumrMREZvhRR4Nd65kI8a4fQb4NJ7duCCCLGenDTFRgonkn5nQCC9nQvgM1Fb_bGO4F0LYGeiN_vsjVCB7A5U8P2v3P29DQ11f9dMGTOvJC7jYIqPQ1JCXhLjP2d8GN_JiAdDbBg7nj1TCbqQ4MtgzM0ysrGoNd55D-HR2pLPBJHXtUVxkanzj6lH8QRTZjt7JibVgVZlfpdzFv2LNZBQsWWZVVrBsPLqsSIOKLFgFbx1DaSBF_rHnWLb0A7Zg-SIolS27SCt1vAU1F9cn_mgmVnz794S4uDOXS-HfHv1O0Se1_gdl6Gn3
-
-推奨は以下の通り。
-
-- （2）を利用する。特にIdPの制約で、リフレッシュトークンの有効期限が想定より短くなってしまう場合に、UX上、許容できない再ログイン操作などを強いてしまう点が大きい
-  - セッションの発行については、[Cookie](#cookie) 章を参考にする
-
-::: info 参考
-
-- [SPA+Backend構成なWebアプリへのOIDC適用パターン \- r-weblife](https://ritou.hatenablog.com/entry/2024/10/22/153014) で記載されている、「2. BEがRSとなる場合」が本節の前提である
-- [サーバーレスなユーザー認証認可の考慮事項と実践的プラクティス紹介 / slsdays-tokyo-2024 \- Speaker Deck](https://speakerdeck.com/slsops/slsdays-tokyo-2023-3cd5886a-cee0-425b-821f-f4cd3230e1e0?slide=40)
-- [Token Revocation (RFC 7009)はなぜ重要か？ \#API \- Qiita](https://qiita.com/yo-tabata/items/7559a7c9069ee5c167f5)
-
-:::
-
-## ログアウト
-
-ログアウトする際は、IdP側のRevoke APIでアクセストークンを無効化すべきである。  
-以下に処理フローの例を示す。
-
-```mermaid
-sequenceDiagram
-    participant Client
-    participant Server
-    participant IdP
-
-    Client->>Server: ログアウト
-    Server->>IdP: アクセストークンRevoke API リクエスト
-    IdP-->>Server: アクセストークン無効化成功の応答
-    Server->>Server: セッション削除
-    Server-->>Client: ログアウト成功のレスポンス
-```
-
-# ロール管理
-
-ユーザーのIDとロールの紐づけを、IdP（Identity Provider）に持たせるか、アプリケーション側で持たせるかという設計判断がある。
-
-|               | （1）IdP管理                                                                                                | （2）アプリケーション管理                                                               |
-| :------------ | :---------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------- |
-| 説明          | IdP側でユーザのアカウントと、ロールを一緒に管理する方法。IDトークンにカスタムトークンを取得できるようにする | IdPとアプリケーション側でアカウントを二重で保持し、ロールはアプリ側で紐づける方法       |
-| 処理性能      | ✅️IdPサービスに機能配置を寄せられる分、負荷が低い可能性                                                    | ✅️ロール紐づけを行う処理分は不利だが、キャッシュなどで緩和可能                         |
-| 拡張性        | ⚠️IdPのロールモデルがアプリケーションのニーズに適合しない場合、調整コストが高い                             | ✅️ IdPに依存することなく、アプリケーション内で一貫したロール管理とアクセス制御が行える |
-| データ 整合性 | ✅️IdP側に寄せることで整合性が保ちやすい                                                                    | ⚠️IdPとアプリ側の多重管理となるため、整合性を保持する工夫が必要                         |
-| 保守性        | ⚠️ロール管理について、IdPとアプリ側で切り分け対象が増えるため、学習コストが必要                             | ✅️アプリケーション側に閉じ、他の機能と大差ないメンタルモデルが適用可能                 |
-
-推奨は以下の通り。
-
-- （2）を採用する
-  - IdP側のロール管理と、アプリケーション側の要求のライフサイクルは通常異なるため、機能配置として分離する
-  - 例えば、4/1の部署移動の情報更新がいつどのように反映されるかについて、アプリケーション側はビジネス領域に沿った固有の要件があるが、IdPがそれに沿ってくれるとは限らない
-  - IdPは情シスにとっても重要情報であるため、アプリケーション要件に合わせて、ロールの追加や粒度変更といった対応は、頻繁に行えるとは限らないため
-
-# 機能配置（AWS）
-
-Web APIにはこれ以前の章で説明したように実用のために必要とする要素が多数あるが、AWSなどのクラウドのマネージドサービスで代用できるものも多い。できる限りマネージドサービス側に寄せることで、設計開発をショートカットでき、差別化領域に集中することができる。
-
-下表の項目についてクラウドサービス側の機能配置とすることを推奨する。
-
-【凡例】推奨:✅️ 条件次第で推奨:❓️
-
-| 項目                                                               | 説明                                                                                                                                                                                                           | マネージドサービス                    |
-| :----------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------ |
-| レート制限（DDoS）                                                 | 大量のAPI呼び出しのブロック                                                                                                                                                                                    | ✅️WAF                                |
-| レート制限（マルチテナントで特定のユーザに寄るリソース占有の防止） | ユーザー単位（API Key単位）で制御する必要がある。要件上、マネージドサービスで実現できない場合は、[Rate limit](#rate-limitレート制限) 章を参考にする                                                            | ❓️API Gateway                        |
-| Slow DoSなど                                                       | ペイロードを断続的に送る攻撃への対策。例えば、長大なHTTPリクエストボディ（POST ペイロード）を断続的に送ってセッションを占有する                                                                                | ❓️Amazon CloudFront ✅️WAF           |
-| リクエストサイズの上限                                             | リクエストヘッダ、リクエストボディに巨大なデータを送るDDoS対応。「Large Payload Post」「HTTP爆弾」とも呼ばれる。Amazon API Gatewayはペイロードサイズの上限が制約として10MBで多少緩和できるが、通常は大きすぎる | ✅️WAF                                |
-| レスポンスのgzip圧縮                                               | レスポンスのJSONをgzip圧縮することでユーザ体験を向上させる。特にモバイルの場合はユーザの通信量を抑えるメリットが大きい                                                                                         | ✅️API Gateway ✅️CloudFront どちらか |
-| CORS                                                               | [CORS](#cors) 章を参照                                                                                                                                                                                         | ✅️API Gateway                        |
-| SQLインジェクション/XSS 緩和策                                     | 不正な文字列の検知。ただし、アプリケーション側もSQLインジェクションについては、プレースホルダの利用、XSSについてはHTMLタグのエスケープを実装する必要                                                           | ✅️WAF                                |
-| 認証／API呼び出しの認可                                            | アクセストークンやセッションのチェック。アプリケーション側のミドルウェアで実施する場合も多い。API Gatewayを利用する場合は、Custom Authorizer側に寄せることを推奨する                                           | ❓️API Gateway Custom Authorizer      |
-| キャッシュ                                                         | 業務アプリであればキャッシュ可能なAPI応答は少ないため、通常使用することは少ない                                                                                                                                | ❓️API Gateway ❓️CloudFront          |
-
-# リリース
-
-## デプロイメント環境
-
-Web APIの環境分離だが、クラウド環境のベストプラクティスとしては1環境、1アカウントにする方法がある。この前提であれば、デプロイメントごとの分離は、ドメイン名で識別可能とする方針が望ましい。例えば、`example.com` と `dev.example.com` などでの分離である。
-
-「サブドメインとサブパス」で、サブパス方式を選択した前提で、ドメインで環境を識別するパターンはいくつか考えられる。
-
-| 環境名          | （1）環境上位                                                                            | （2）サービス上位                                                                        | （3）文字列結合                                                                          |
-| :-------------- | :--------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------- |
-| 本番            | api.example.com<br>app.example.com                                                       | api.example.com<br>app.example.com                                                       | api.example.com<br>app.example.com                                                       |
-| 開発<br> / 検証 | api.dev.example.com<br>app.dev.example.com<br>api.stg.example.com<br>app.stg.example.com | dev.api.example.com<br>dev.app.example.com<br>stg.api.example.com<br>stg.app.example.com | dev-api.example.com<br>dev-app.example.com<br>stg-api.example.com<br>stg-app.example.com |
-| 説明            | stg, devに複数のサブドメインが存在することを考慮したパターン                             | api.example.comにサブドメインで環境を表現したパターン。<br>URLからどの環境か識別しやすい | {環境名}-{サービス種別}で命名し、独立させるパターン                                      |
-
-推奨は以下の通り。
-
-- サブドメインで環境識別を可能とさせ、可読性から（2）を利用する
-
-## デプロイ方式
-
-以下のような複数のデプロイ方式がある。
-
-1. インプレースデプロイ（一括リリース）
-2. ローリングアップデート
-3. ブルーグリーンデプロイメント
-
-メンテナンスウィンドウが確保できるのであれば、1を推奨する。要件としてダウンタイムが許容できない場合は、2または3を採用する。
 
 # 参考資料
 

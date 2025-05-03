@@ -15,7 +15,7 @@ hero:
 
 チーム開発する上で必要となるWebフロントエンド設計ガイドラインです。
 
-- [Web APIフロントエンドガイドライン](web_frontend_guidelines.md)
+- [Web フロントエンドガイドライン](web_frontend_guidelines.md)
 
 次のリンクから単一ファイル版を取得できます。
 

@@ -30,8 +30,13 @@ Terraformはインフラを宣言的にコード管理するツールである�
 
 関連するドキュメントとして以下がある。適時参照すること。
 
+::: info 参考
+
 - [AWSインフラ命名規約](https://future-architect.github.io/coding-standards/documents/forAWSResource/AWS%E3%82%A4%E3%83%B3%E3%83%95%E3%83%A9%E3%83%AA%E3%82%BD%E3%83%BC%E3%82%B9%E5%91%BD%E5%90%8D%E8%A6%8F%E7%B4%84.html)
+- AWS設計ガイドライン（※作成予定）
 - [Gitブランチフロー規約](https://future-architect.github.io/coding-standards/documents/forGitBranch/git_branch_standards.html)
+
+:::
 
 # 前提条件
 
@@ -612,14 +617,16 @@ provider "aws" {
 - プロジェクトで用いる共通的なタグはProvider側で定義する
 - 共通的なタグの値の上書きは一部のリソースであれば許容する
 
-関連:
+::: warning Azure Providerのデフォルトタグ  
+Azure Providerには2025年1月時点で、デフォルトタグのサポートが存在しない。  
+[Support for Default Tags · Issue #13776 · hashicorp/terraform-provider-azurerm · GitHub](https://github.com/hashicorp/terraform-provider-azurerm/issues/13776)  
+:::
+
+::: info 参考
 
 - [Terraform で構築した AWS リソースにタグを一括付与する方法 (default_tags) | yuu26-memo](https://blog.yuu26.com/terraform-aws-default-tags/)
 - [かゆいところに手が届く、Terraformの書き方 (configuration_aliasesの使い方) - Qiita](https://qiita.com/kaedemalu/items/d148c86f901f654f2930)
 
-::: warning Azure Providerのデフォルトタグ  
-Azure Providerには2025年1月時点で、デフォルトタグのサポートが存在しない。  
-[Support for Default Tags · Issue #13776 · hashicorp/terraform-provider-azurerm · GitHub](https://github.com/hashicorp/terraform-provider-azurerm/issues/13776)  
 :::
 
 # IAM Policyの書き方（AWS）
@@ -1093,7 +1100,7 @@ resource "aws_hogehoge" "sample_resource" {
 
 - 機能分類など論理グループを元に分割を許容する。
   - 例: `lambda_function_foo.tf` と `lambda_function_bar.tf`
-- ファイル分割に及ぶ前に、「リソースの宣言順」章のグループ化でしのげないか検討する。ファイル分割は最後の手段とする
+- ファイル分割に及ぶ前に、[リソースの宣言順](#リソースの宣言順) 章のグループ化でしのげないか検討する。ファイル分割は最後の手段とする
 
 :::
 
@@ -1334,9 +1341,7 @@ variable "instance_count" {
 - validationは可能な限り設定する
 
 ::: info 参考
-
 [Terraform Module Designs - Speaker Deck](https://speakerdeck.com/tmknom/terraform-module-designs)
-
 :::
 
 ## 機能配置
@@ -1411,7 +1416,7 @@ resource "aws_instance" "example" {
 推奨は以下の通り。
 
 - `validation`
-  - 「モジュール」章の入力設計の方針に従うこと
+  - [モジュール](#モジュール) 章の入力設計の方針に従うこと
 - `precondition`
   - `validation` に寄せることができる場合は `validation` でチェックする
   - `validation` でチェックが不可な、その他のオブジェクトを参照したチェックを行いたい場合に利用する
@@ -1426,7 +1431,7 @@ resource "aws_instance" "example" {
 
 # ステート保管方法
 
-ステートファイルは誤削除や破損すると復旧が困難である。また「機密情報」章のとおり、機微な情報が含まれる場合に備え、適切な管理が必要である。
+ステートファイルは誤削除や破損すると復旧が困難である。また[機密情報](#機密情報) 章のとおり、機微な情報が含まれる場合に備え、適切な管理が必要である。
 
 ステートの保管方法として、ローカルまたはリモートステートの方法が考えられる。
 
@@ -1846,7 +1851,7 @@ run "test" {
   - リソース種別単位のファイル名の規則に従っている場合、`s3_bucket.tftest.hcl` といったファイル名にする
   - テスト対象は、文字列結合や関数など複雑なロジックが入っているリソースやモジュールのみに絞り、テストコード量は必要最小限に絞ること（運用コストが高いため）
 - （2）コントラクトテスト
-  - 「バリデーション」章 の内容に準じる
+  - [モジュール](#モジュール) 章の入力設計の方針に従うこと
 - （3）インテグレーションテスト（※もし、実施する場合）
   - カレントディレクトリまたは、`tests/` にテストコードが配備可能だが、カレントディレクトリに配備すること
   - リソース種別単位のファイル名の規則に従っている場合、`s3_bucket.tftest.hcl` といったファイル名にする（ユニットテストと同一ファイルに混在することもありえる）
@@ -1863,11 +1868,13 @@ run "test" {
 テスト以外の品質の高め方としては、リンターを用いたセキュリティやポリシーの検証も行われている。[リンター](#リンター)章を確認すること。  
 :::
 
-【関連】
+::: info 参考
 
 - [Test Sizes](https://testing.googleblog.com/2010/12/test-sizes.html)
 - [Terraform連載2024 テストとモックを使ってみる | フューチャー技術ブログ](https://future-architect.github.io/articles/20240321a/)
 - [Terraformテスト入門 - Speaker Deck](https://speakerdeck.com/msato/terraform-test)
+
+:::
 
 # 性能
 

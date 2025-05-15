@@ -156,6 +156,19 @@ export default defineConfig({
         text: "Guidelines",
         items: [
           {
+            text: "Web Frontend",
+            items: [
+              {
+                text: "Introduction",
+                link: "/documents/forWebFrontend/",
+              },
+              {
+                text: "Web フロントエンド設計ガイドライン",
+                link: "/documents/forWebFrontend/web_frontend_guidelines.html",
+              },
+            ],
+          },
+          {
             text: "Web API",
             items: [
               {

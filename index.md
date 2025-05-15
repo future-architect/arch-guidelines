@@ -6,6 +6,9 @@ hero:
   tagline: '<span style="white-space: nowrap">フューチャー株式会社の有志が作成する<wbr>良いアーキテクチャを実現するための設計ガイドライン</span>'
   actions:
     - theme: brand
+      text: Webフロントエンド設計ガイドライン
+      link: ./documents/forWebFrontend/
+    - theme: brand
       text: WebAPI設計ガイドライン
       link: ./documents/forWebAPI/
     - theme: brand

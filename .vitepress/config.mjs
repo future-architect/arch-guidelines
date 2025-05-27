@@ -43,6 +43,13 @@ const links = {
       link: "/documents/forDB/terraform_guidelines.html",
     },
   ],
+  "/documents/forAWS/": [
+    { text: "Introduction", link: "/documents/forAWS/" },
+    {
+      text: "AWS設計ガイドライン",
+      link: "/documents/forAWS/aws_guidelines.html",
+    },
+  ],
   "/documents/forTerraform/": [
     { text: "Introduction", link: "/documents/forTerraform/" },
     {

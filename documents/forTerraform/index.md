@@ -13,9 +13,7 @@ hero:
 
 # Terraform設計ガイドライン
 
-チーム開発する上で必要となるTerraform設計ガイドラインです。
-
-- [Terraform設計ガイドライン](terraform_guidelines.md)
+チーム開発する上で必要となる[Terraform設計ガイドライン](terraform_guidelines.md)です。
 
 次のリンクから単一ファイル版を取得できます。
 

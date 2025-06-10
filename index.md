@@ -18,6 +18,9 @@ hero:
       text: DB設計ガイドライン
       link: ./documents/forDB/
     - theme: brand
+      text: AWS設計ガイドライン
+      link: ./documents/forAWS/
+    - theme: brand
       text: Terraform設計ガイドライン
       link: ./documents/forTerraform/
     - theme: brand

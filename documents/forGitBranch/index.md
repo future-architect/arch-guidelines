@@ -13,9 +13,7 @@ hero:
 
 # Gitブランチフロー規約
 
-チーム開発する上で必要となるGitブランチフローの規約です。
-
-- [Gitブランチフロー規約](git_branch_standards.md)
+チーム開発する上で必要となる[Gitブランチフロー規約](git_branch_standards.md)です。
 
 次のリンクから単一ファイル版を取得できます。
 

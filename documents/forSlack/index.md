@@ -13,9 +13,7 @@ hero:
 
 # Slack利用ガイドライン
 
-チーム開発する上で必要となるGitブランチフローの規約です。
-
-- [Slack利用ガイドライン](slack_usage_guidelines.md)
+チーム開発する上で必要となる[Slack利用ガイドライン](slack_usage_guidelines.md)です。
 
 次のリンクから単一ファイル版を取得できます。
 

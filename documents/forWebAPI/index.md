@@ -13,9 +13,7 @@ hero:
 
 # Web API設計ガイドライン
 
-チーム開発する上で必要となるWeb API設計ガイドラインです。
-
-- [Web API設計ガイドライン](web_api_guidelines.md)
+チーム開発する上で必要となる[Web API設計ガイドライン](web_api_guidelines.md)です。
 
 次のリンクから単一ファイル版を取得できます。
 

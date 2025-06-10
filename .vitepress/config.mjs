@@ -215,6 +215,19 @@ export default defineConfig({
             ],
           },
           {
+            text: "AWS",
+            items: [
+              {
+                text: "Introduction",
+                link: "/documents/forAWS/",
+              },
+              {
+                text: "AWS設計ガイドライン",
+                link: "/documents/forAWS/aws_guidelines.html",
+              },
+            ],
+          },
+          {
             text: "Terraform",
             items: [
               {

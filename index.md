@@ -6,37 +6,37 @@ hero:
   tagline: '<span style="white-space: nowrap">フューチャー株式会社の有志が作成する<wbr>良いアーキテクチャを実現するための設計ガイドライン</span>'
   actions:
     - theme: brand
-      text: Webフロントエンド設計ガイドライン
+      text: Webフロントエンド設計
       link: ./documents/forWebFrontend/
     - theme: brand
-      text: WebAPI設計ガイドライン
+      text: WebAPI設計
       link: ./documents/forWebAPI/
     - theme: brand
-      text: バッチ設計ガイドライン
+      text: バッチ設計
       link: ./documents/forBatch/
     - theme: brand
-      text: DB設計ガイドライン
+      text: DB設計
       link: ./documents/forDB/
     - theme: brand
-      text: AWS設計ガイドライン
+      text: AWS設計
       link: ./documents/forAWS/
     - theme: brand
-      text: Terraform設計ガイドライン
+      text: Terraform設計
       link: ./documents/forTerraform/
     - theme: brand
-      text: データマネジメント設計ガイドライン
+      text: データマネジメント設計
       link: ./documents/forDataManagement/
     - theme: alt
-      text: Gitブランチフロー規約
+      text: Gitブランチフロー
       link: ./documents/forGitBranch/
     - theme: alt
-      text: Markdown設計ドキュメント規約
+      text: Markdown設計ドキュメント
       link: ./documents/forMarkdown/
     - theme: alt
-      text: コードレビューガイドライン
+      text: コードレビュー
       link: ./documents/forCodeReview/
     - theme: alt
-      text: Slack利用ガイドライン
+      text: Slack利用
       link: ./documents/forSlack/
 features:
   - title: Design

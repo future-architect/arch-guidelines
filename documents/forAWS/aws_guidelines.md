@@ -1531,7 +1531,7 @@ AWSでCI/CDを構成する際に使用されるアーティファクトの格納
 
 - 利用するソースコードリポジトリに対応したCI/CDサービスを利用することを推奨する
   - 例：Githubを使用する場合、Github Actions、GitLabを使用する場合、GitLab CI/CDを使用することが望ましい
-- AWS CodeCommitとAWS CodePipeline は新規ユーザー利用を廃止していることから、利用を推奨しない
+- AWS CodeCommit は新規ユーザー利用を廃止していることから、利用を推奨しない
 - 運用負荷を考慮し、JenkinsではなくマネージドなCI/CDサービスの利用を推奨する
 - 上記より、GithubとGithub Actions または GitLabとGitLab CI/CDサービスのどちらかを推奨する
 

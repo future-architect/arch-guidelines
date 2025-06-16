@@ -20,14 +20,18 @@ I/Fとはインタフェースの略で、ここではシステム間のデー�
 
 本ガイドラインは、こうしたシステム間のデータ連携するためのI/F設計を説明する。システムI/Fにより、システムを外側から見た振る舞いを定義でき、またシステムあいだの依存関係（結合度）も変わってくる。適切なシステムI/Fを設計することで、システムの外部環境への変化に柔軟に対応し、システムの保守運用を最適化できる。
 
-![](images/abstract.png)
+<div class="img-bg-transparent">
+
+![](images/abstract.drawio.png)
+
+</div>
 
 # 用語定義
 
 - **I/F**: インタフェースの略。本ガイドラインでは特に明記しない限り、対向システム向けのインタフェースのことを指す
 - **対向システム**: 自システムから見て、データ連携先（元）のシステムのこと
 - **データ連携**: 他システムに自システムのデータを共有すること。ファイル・Web APIなどフォーマット、プロトコルにも依存しない、抽象化された概念であるとする
-- **ファイル連携**: データ連携のうち、オブジェクトストレージ上のファイルを共有することで行う方式
+- **ファイル連携**: データ連携のうち、オブジェクトストレージ上などのファイルを共有することで行うこと
 - **配信**: データ連携のうち、データを提供する側。送信とも言う
 - **集信**: データ連携のうち、データを利用する側。受信とも言う
 - **データ鮮度**: 連携先のデータをどれだけ速く、新しい状態で利用できるかのリアルタイム性のこと
@@ -60,9 +64,9 @@ I/Fとはインタフェースの略で、ここではシステム間のデー�
 
 前提となる技術や構成は以下を想定している。
 
-- AWS、Google Cloud、Azureなどのクラウドサービスを用いての開発
+- AWS、Google Cloud、Azureなどのクラウドサービスを用いての開発であること
   - オンプレミスでの構築にも応用できる内容も多いと考えているが、ガイドライン作成時に強く念頭に置いていない
-- システム間は通常、クラウドアカウントで分離されている
+- 各システムは独立したクラウドアカウントで構築されており、システム間のデータ連携は一種のクロスアカウント（クロスクラウド）でのやり取りとなること
 
 # 免責
 
@@ -79,6 +83,8 @@ I/Fとはインタフェースの略で、ここではシステム間のデー�
 
 基幹系システム間のデータ連携方式を検討する上で、エンタープライズ統合パターン（EIP）は以下の4パターンの分類が存在するとされる。
 
+<div class="img-bg-transparent">
+
 | \#          | （1）Shared Database                                                                                      | （2）Remote Procedure Invocation      | （3）Messaging                                                     | （4）File Transfer                                             |
 | :---------- | :-------------------------------------------------------------------------------------------------------- | :------------------------------------ | :----------------------------------------------------------------- | :------------------------------------------------------------- |
 | 図          | [![][shareddb_png]][shareddb_link]                                                                        | [![][rpc_png]][rpc_link]              | [![][messaging_png]][messaging_link]                               | [![][file_png]][file_link]                                     |
@@ -87,6 +93,8 @@ I/Fとはインタフェースの略で、ここではシステム間のデー�
 | 同期/非同期 | 非同期                                                                                                    | 同期                                  | 非同期                                                             | 非同期                                                         |
 | データ鮮度  | ✅️高くできる可能性                                                                                       | ✅️高い                               | ✅️高い                                                            | ⚠️低くなる傾向                                                 |
 | 結合度      | ❌️とても高い                                                                                             | ⚠️密結合と言える                      | ✅️疎結合                                                          | ✅️疎結合                                                      |
+
+</div>
 
 [shareddb_png]: https://mermaid.ink/img/pako:eNp1kT9Lw1AUxb9KuJNCrEnzmqZvKPTfIKiIqYtkeSSvbaBJ6uuLWEvBNqg4uLiJDs6Cg5MWxH6Yh6UfwyS2Vaxu98C5v3O5pw924FDA0KVHIfVtWnVJkxHP8iWpQxh3bbdDfC6ZvS6nXkkiXUmMXsRoLKILET2UVnwtwqhTLSfGj_Pn6f2ViC5F9CZGExHdpsP4b3b5N7ts-YlznrxRLC7YWPpmjm6md69ieD17j-WZtLa1a9b265sHe9VSvbae7BObu8eE0-VpP7Hlf7GzxycxnCywZm27VqmnPIeuEEEGjzKPuE78yH5isoC3qEctwPHo0AYJ29wCyx_EVhLywOz5NmDOQioDC8JmC3CDtLuxCjtOjJ63sLDEbzoMgqWkjssDtvNVXNqfDE2WpM-J1HcoqwShzwEX0nXAfTgBjDI5JW_kEdKRrudyqi5DD3BWRZm8phlaQVUKeVRA2kCG0zRQyeR0xTAMHRmKpqkoqw4-ARSB18w?type=png
 [shareddb_link]: https://mermaid.live/edit#pako:eNp1kT9Lw1AUxb9KuJNCrEnzmqZvKPTfIKiIqYtkeSSvbaBJ6uuLWEvBNqg4uLiJDs6Cg5MWxH6Yh6UfwyS2Vaxu98C5v3O5pw924FDA0KVHIfVtWnVJkxHP8iWpQxh3bbdDfC6ZvS6nXkkiXUmMXsRoLKILET2UVnwtwqhTLSfGj_Pn6f2ViC5F9CZGExHdpsP4b3b5N7ts-YlznrxRLC7YWPpmjm6md69ieD17j-WZtLa1a9b265sHe9VSvbae7BObu8eE0-VpP7Hlf7GzxycxnCywZm27VqmnPIeuEEEGjzKPuE78yH5isoC3qEctwPHo0AYJ29wCyx_EVhLywOz5NmDOQioDC8JmC3CDtLuxCjtOjJ63sLDEbzoMgqWkjssDtvNVXNqfDE2WpM-J1HcoqwShzwEX0nXAfTgBjDI5JW_kEdKRrudyqi5DD3BWRZm8phlaQVUKeVRA2kCG0zRQyeR0xTAMHRmKpqkoqw4-ARSB18w
@@ -454,7 +462,11 @@ OLAP連携する場合のI/F処理方式として以下3パターンを考える
 
 ▼配信ファイルの連携数
 
-![](images/connect.png)
+<div class="img-bg-transparent">
+
+![](images/connect.drawio.png)
+
+</div>
 
 そのため、それぞれのシステムの要求するデータ鮮度を満たしつつ、標準的なレイアウト（各システムごとに作り込まない形式）を1つに決め、対向システムの全てがそれを集信する取り決めをする必要がある。それを実現できて初めて連携数を抑えることができる。
 

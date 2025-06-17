@@ -4,24 +4,24 @@
 
 本サイトは、[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.ja)ライセンスで公開されています。
 
-- 設計ガイドラインは、Webフロントエンド、WebAPI、バッチ、DB、AWS、Terraform、データマネジメント、Gitブランチ運用、Markdown設計ドキュメント、コードレビュー、Slack運用など多岐にわたります。
-- サイトの内容は、実際のエンタープライズ開発現場で得られた知見をもとに、継続的にアップデートされています。
-- どなたでも自由に参照・活用・フィードバックが可能です。
+- 多くの開発者が関わるシステム開発において、一貫性のある設計を行うために、有志メンバーがボトムアップ的に主要な設計項目を集め、設計パターンや推奨方式をまとめました。
+- 設計標準を公開し、フィードバックを受けて民主的に内容を改善し続けることで、IT技術の進化に柔軟に対応できることを目指します。
+- セキュリティや保守運用性などの非機能要件が特に重視される、エンタープライズ特有の要件にも配慮した設計標準の提供を目指します。
 
 ## Docs
 
 - [トップページ](https://future-architect.github.io/arch-guidelines/)
-- [Webフロントエンド設計](https://future-architect.github.io/arch-guidelines/documents/forWebFrontend/index.md): Webフロントエンドの設計指針
-- [WebAPI設計](https://future-architect.github.io/arch-guidelines/documents/forWebAPI/index.md): WebAPI設計のベストプラクティス
-- [バッチ設計](https://future-architect.github.io/arch-guidelines/documents/forBatch/index.md): バッチ処理設計のポイント
-- [DB設計](https://future-architect.github.io/arch-guidelines/documents/forDB/index.md): データベース設計のガイド
-- [AWS設計](https://future-architect.github.io/arch-guidelines/documents/forAWS/index.md): AWSを活用した設計指針
-- [Terraform設計](https://future-architect.github.io/arch-guidelines/documents/forTerraform/index.md): IaC設計のベストプラクティス
-- [データマネジメント設計](https://future-architect.github.io/arch-guidelines/documents/forDataManagement/index.md): データ管理の考え方
-- [Gitブランチフロー](https://future-architect.github.io/arch-guidelines/documents/forGitBranch/index.md): Git運用ルール
-- [Markdown設計ドキュメント](https://future-architect.github.io/arch-guidelines/documents/forMarkdown/index.md): ドキュメント作成指針
-- [コードレビューガイド](https://future-architect.github.io/arch-guidelines/documents/forCodeReview/index.md): コードレビューの進め方
-- [Slack運用ガイド](https://future-architect.github.io/arch-guidelines/documents/forSlack/index.md): Slack活用・運用ルール
+- [Webフロントエンド設計](https://future-architect.github.io/arch-guidelines/documents/forWebFrontend/index.md): Webフロントエンド設計における考慮点・設計パターン・推奨手法を提示
+- [WebAPI設計](https://future-architect.github.io/arch-guidelines/documents/forWebAPI/index.md): Web APIを利用する開発者向けに、RESTライクなWeb APIの主な設計手法をまとめて提供
+- [バッチ設計](https://future-architect.github.io/arch-guidelines/documents/forBatch/index.md): バッチ処理設計におけるベストプラクティス、設計時の考慮点、運用における課題とその対策を紹介
+- [DB設計](https://future-architect.github.io/arch-guidelines/documents/forDB/index.md): PostgreSQLを使用する開発者向けに、アプリケーション設計を含むDBの設計標準を紹介
+- [AWS設計](https://future-architect.github.io/arch-guidelines/documents/forAWS/index.md): システム間差異の少ない設計のベストプラクティスを提供
+- [Terraform設計](https://future-architect.github.io/arch-guidelines/documents/forTerraform/index.md): 開発者が悩むポイントを軽減し、可読性や保守性、安全性を高めるルール
+- [データマネジメント設計](https://future-architect.github.io/arch-guidelines/documents/forDataManagement/index.md): データマネジメントの設計における主要な論点や方針
+- [Gitブランチフロー](https://future-architect.github.io/arch-guidelines/documents/forGitBranch/index.md): Gitブランチ管理の標準的な運用ルール
+- [Markdown設計ドキュメント](https://future-architect.github.io/arch-guidelines/documents/forMarkdown/index.md): Markdown ベースの設計ドキュメントの規約
+- [コードレビューガイド](https://future-architect.github.io/arch-guidelines/documents/forCodeReview/index.md): コードレビューにおける推奨する行動と、守るべきルールの両方を定義
+- [Slack運用ガイド](https://future-architect.github.io/arch-guidelines/documents/forSlack/index.md): Slackの利用方針についてのベースとなる規約
 
 ## Optional
 

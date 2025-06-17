@@ -36,6 +36,13 @@ const links = {
       link: "/documents/forBatch/batch_guidelines.html",
     },
   ],
+  "/documents/forIF/": [
+    { text: "Introduction", link: "/documents/forIF/" },
+    {
+      text: "I/F設計ガイドライン",
+      link: "/documents/forBatch/if_guidelines.html",
+    },
+  ],
   "/documents/forDB/": [
     { text: "Introduction", link: "/documents/forDB/" },
     {

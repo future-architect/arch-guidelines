@@ -20,8 +20,8 @@
 - [データマネジメント設計](https://raw.githubusercontent.com/future-architect/arch-guidelines/refs/heads/main/documents/forDataManagement/datamanagement_guidelines.md): データマネジメントの設計における主要な論点や方針
 - [Gitブランチフロー](https://raw.githubusercontent.com/future-architect/arch-guidelines/refs/heads/main/documents/forGitBranch/git_branch_standards.md): Gitブランチ管理の標準的な運用ルール
 - [Markdown設計ドキュメント](https://raw.githubusercontent.com/future-architect/arch-guidelines/refs/heads/main/documents/forMarkdown/markdown_design_document.md): Markdown ベースの設計ドキュメントの規約
-- [コードレビューガイド](https://raw.githubusercontent.com/future-architect/arch-guidelines/refs/heads/main/documents/forCodeReview/code_review.md): コードレビューにおける推奨する行動と、守るべきルールの両方を定義
-- [Slack運用ガイド](https://raw.githubusercontent.com/future-architect/arch-guidelines/refs/heads/main/documents/forSlack/slack_usage_guidelines.md): Slackの利用方針についてのベースとなる規約
+- [コードレビュー](https://raw.githubusercontent.com/future-architect/arch-guidelines/refs/heads/main/documents/forCodeReview/code_review.md): コードレビューにおける推奨する行動と、守るべきルールの両方を定義
+- [Slack利用](https://raw.githubusercontent.com/future-architect/arch-guidelines/refs/heads/main/documents/forSlack/slack_usage_guidelines.md): Slackの利用方針についてのベースとなる規約
 
 ## Optional
 

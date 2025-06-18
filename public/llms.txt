@@ -11,17 +11,17 @@
 ## Docs
 
 - [トップページ](https://future-architect.github.io/arch-guidelines/)
-- [Webフロントエンド設計](https://future-architect.github.io/arch-guidelines/documents/forWebFrontend/index.md): Webフロントエンド設計における考慮点・設計パターン・推奨手法を提示
-- [WebAPI設計](https://future-architect.github.io/arch-guidelines/documents/forWebAPI/index.md): Web APIを利用する開発者向けに、RESTライクなWeb APIの主な設計手法をまとめて提供
-- [バッチ設計](https://future-architect.github.io/arch-guidelines/documents/forBatch/index.md): バッチ処理設計におけるベストプラクティス、設計時の考慮点、運用における課題とその対策を紹介
-- [DB設計](https://future-architect.github.io/arch-guidelines/documents/forDB/index.md): PostgreSQLを使用する開発者向けに、アプリケーション設計を含むDBの設計標準を紹介
-- [AWS設計](https://future-architect.github.io/arch-guidelines/documents/forAWS/index.md): システム間差異の少ない設計のベストプラクティスを提供
-- [Terraform設計](https://future-architect.github.io/arch-guidelines/documents/forTerraform/index.md): 開発者が悩むポイントを軽減し、可読性や保守性、安全性を高めるルール
-- [データマネジメント設計](https://future-architect.github.io/arch-guidelines/documents/forDataManagement/index.md): データマネジメントの設計における主要な論点や方針
-- [Gitブランチフロー](https://future-architect.github.io/arch-guidelines/documents/forGitBranch/index.md): Gitブランチ管理の標準的な運用ルール
-- [Markdown設計ドキュメント](https://future-architect.github.io/arch-guidelines/documents/forMarkdown/index.md): Markdown ベースの設計ドキュメントの規約
-- [コードレビューガイド](https://future-architect.github.io/arch-guidelines/documents/forCodeReview/index.md): コードレビューにおける推奨する行動と、守るべきルールの両方を定義
-- [Slack運用ガイド](https://future-architect.github.io/arch-guidelines/documents/forSlack/index.md): Slackの利用方針についてのベースとなる規約
+- [Webフロントエンド設計](https://raw.githubusercontent.com/future-architect/arch-guidelines/refs/heads/main/documents/forWebFrontend/web_frontend_guidelines.md): Webフロントエンド設計における考慮点・設計パターン・推奨手法を提示
+- [WebAPI設計](https://raw.githubusercontent.com/future-architect/arch-guidelines/refs/heads/main/documents/forWebAPI/web_api_guidelines.md): Web APIを利用する開発者向けに、RESTライクなWeb APIの主な設計手法をまとめて提供
+- [バッチ設計](https://raw.githubusercontent.com/future-architect/arch-guidelines/refs/heads/main/documents/forBatch/batch_guidelines.md): バッチ処理設計におけるベストプラクティス、設計時の考慮点、運用における課題とその対策を紹介
+- [DB設計](https://raw.githubusercontent.com/future-architect/arch-guidelines/refs/heads/main/documents/forDB/postgresql_guidelines.md): PostgreSQLを使用する開発者向けに、アプリケーション設計を含むDBの設計標準を紹介
+- [AWS設計](https://raw.githubusercontent.com/future-architect/arch-guidelines/refs/heads/main/documents/forAWS/aws_guidelines.md): システム間差異の少ない設計のベストプラクティスを提供
+- [Terraform設計](https://raw.githubusercontent.com/future-architect/arch-guidelines/refs/heads/main/documents/forTerraform/terraform_guidelines.md): 開発者が悩むポイントを軽減し、可読性や保守性、安全性を高めるルール
+- [データマネジメント設計](https://raw.githubusercontent.com/future-architect/arch-guidelines/refs/heads/main/documents/forDataManagement/datamanagement_guidelines.md): データマネジメントの設計における主要な論点や方針
+- [Gitブランチフロー](https://raw.githubusercontent.com/future-architect/arch-guidelines/refs/heads/main/documents/forGitBranch/git_branch_standards.md): Gitブランチ管理の標準的な運用ルール
+- [Markdown設計ドキュメント](https://raw.githubusercontent.com/future-architect/arch-guidelines/refs/heads/main/documents/forMarkdown/markdown_design_document.md): Markdown ベースの設計ドキュメントの規約
+- [コードレビューガイド](https://raw.githubusercontent.com/future-architect/arch-guidelines/refs/heads/main/documents/forCodeReview/code_review.md): コードレビューにおける推奨する行動と、守るべきルールの両方を定義
+- [Slack運用ガイド](https://raw.githubusercontent.com/future-architect/arch-guidelines/refs/heads/main/documents/forSlack/slack_usage_guidelines.md): Slackの利用方針についてのベースとなる規約
 
 ## Optional
 

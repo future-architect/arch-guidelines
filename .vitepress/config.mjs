@@ -113,7 +113,7 @@ function defineConfig(config) {
 }
 
 export default defineConfig({
-  title: "Future Enterprise Arch Guidelines",
+  title: "フューチャー株式会社",
   description:
     "フューチャー株式会社が作成するエンタープライズ領域に特化したアーキテクチャガイドライン",
   outDir: "docs",
@@ -330,7 +330,7 @@ export default defineConfig({
             link: "https://qiita.com/organizations/future",
           },
           {
-            text: "Twitter",
+            text: "X",
             link: "https://twitter.com/future_techblog",
           },
           {

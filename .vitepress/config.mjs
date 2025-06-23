@@ -137,6 +137,14 @@ export default defineConfig({
       "link",
       {
         rel: "icon",
+        href: "/arch-guidelines/favicon.ico",
+        sizes: "any",
+      },
+    ],
+    [
+      "link",
+      {
+        rel: "icon",
         href: `/arch-guidelines/images/logo-system.svg`,
         type: "image/svg+xml",
       },

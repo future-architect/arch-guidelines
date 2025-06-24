@@ -217,6 +217,19 @@ export default defineConfig({
             ],
           },
           {
+            text: "I/F",
+            items: [
+              {
+                text: "Introduction",
+                link: "/documents/forIF/",
+              },
+              {
+                text: "I/F設計ガイドライン",
+                link: "/documents/forIF/if_guidelines.html",
+              },
+            ],
+          },
+          {
             text: "DB",
             items: [
               {

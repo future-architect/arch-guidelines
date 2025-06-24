@@ -15,6 +15,9 @@ hero:
       text: バッチ設計
       link: ./documents/forBatch/
     - theme: brand
+      text: I/F設計
+      link: ./documents/forIF/
+    - theme: brand
       text: DB設計
       link: ./documents/forDB/
     - theme: brand

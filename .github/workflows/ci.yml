@@ -17,14 +17,6 @@ jobs:
       - name: Install Packages
         run: |
           npm i -f
-      - name: Check versions in CI
-        run: |
-          echo "Node.js version:"
-          node -v
-          echo "npm version:"
-          npm -v
-          echo "Prettier version:"
-          npx prettier --version
       - name: Lint
         run: |
           npm run lint

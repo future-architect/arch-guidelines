@@ -2,7 +2,7 @@
 layout: home
 title: アーキテクチャ設計ガイドライン
 hero:
-  name: Future Enterprise <wbr>Arch Guidelines
+  name: Future <wbr>Architecture Guidelines
   tagline: '<span style="white-space: nowrap">フューチャー株式会社の有志が作成する<wbr>良いアーキテクチャを実現するための設計ガイドライン</span>'
   actions:
     - theme: brand

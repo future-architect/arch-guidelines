@@ -115,7 +115,7 @@ function defineConfig(config) {
 export default defineConfig({
   title: "フューチャー株式会社",
   description:
-    "フューチャー株式会社が作成するエンタープライズ領域に特化したアーキテクチャガイドライン",
+    "フューチャー株式会社の有志が作成する<wbr>良いアーキテクチャを実現するための設計ガイドライン",
   outDir: "docs",
   ignoreDeadLinks: "localhostLinks",
   markdown: {

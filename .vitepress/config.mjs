@@ -153,13 +153,13 @@ export default defineConfig({
   srcExclude: ["./README.md"],
   base: "/arch-guidelines/",
   themeConfig: {
-    siteTitle: "Future Enterprise <wbr>Arch Guidelines",
+    siteTitle: "Future <wbr>Architecture Guidelines",
     logo: {
       light: "/images/logo.svg",
       dark: "/images/logo-dark.svg",
     },
     footer: {
-      copyright: `©2015 - ${new Date().getFullYear()} Future Enterprise Arch Guidelines - Future Corporation`,
+      copyright: `©2015 - ${new Date().getFullYear()} by Future Corporation | フューチャー株式会社`,
     },
     search: {
       provider: "local",

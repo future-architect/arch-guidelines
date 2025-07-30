@@ -2276,3 +2276,12 @@ Web APIアクセスに対して適切にログ出力することで、何かし�
 
 - [Web API 設計のベスト プラクティス \- Azure Architecture Center](https://learn.microsoft.com/ja-jp/azure/architecture/best-practices/api-design)
 - [Web API 実装 \- Best practices for cloud applications](https://learn.microsoft.com/ja-jp/azure/architecture/best-practices/api-implementation)
+
+# 謝辞
+
+このアーキテクチャガイドラインの作成にあたり、多大なるご協力をいただきました皆様に心より感謝申し上げます。
+
+- **作成者**（真野隼記、佐々木伸悟、武田大輝、宮崎将太、澁川喜規、佐藤尭彰、
+- **レビュアー**（辻大志郎、合田飛）
+
+皆様のご尽力なしには、本ガイドラインの完成はなしえませんでした。改めて深く感謝いたします。

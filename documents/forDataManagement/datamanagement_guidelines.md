@@ -2033,3 +2033,11 @@ Looker StudioとBigQueryのように、プロダクトによってはBIとデー
 ::: info 参考
 [PostgreSQL設計ガイドライン | 監査 | Future Enterprise Arch Guidelines](/documents/forDB/postgresql_guidelines.html#%E7%9B%A3%E6%9F%BB)
 :::
+
+# 謝辞
+
+このアーキテクチャガイドラインの作成にあたり、多大なるご協力をいただきました皆様に心より感謝申し上げます。
+
+- **作成者**（真野隼記、中神孝士、佐々木伸悟、赤倉優蔵、古谷優子）
+
+皆様のご尽力なしには、本ガイドラインの完成はなしえませんでした。改めて深く感謝いたします。

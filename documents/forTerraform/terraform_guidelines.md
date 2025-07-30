@@ -2242,3 +2242,11 @@ infrastructure                      # アプリケーションコードとリポ
 - [Terraform を使用するためのベスト プラクティス | Google Cloud](https://cloud.google.com/docs/terraform/best-practices-for-terraform?hl=ja)
 - [コードベースの構造と組織のベストプラクティス - AWS 規範ガイダンス](https://docs.aws.amazon.com/ja_jp/prescriptive-guidance/latest/terraform-aws-provider-best-practices/structure.html)
 - [最低限のTerraformコード規約を定義した | Zenn](https://zenn.dev/coconala/articles/create_code_policy)
+
+# 謝辞
+
+このアーキテクチャガイドラインの作成にあたり、多大なるご協力をいただきました皆様に心より感謝申し上げます。
+
+- **作成者**（真野隼記、牛田隆之、前原応光、伊藤太斉、金澤祐輔、天明昂輝、神崎林太郎）
+
+皆様のご尽力なしには、本ガイドラインの完成はなしえませんでした。改めて深く感謝いたします。

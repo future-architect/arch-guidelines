@@ -470,3 +470,12 @@ Slackのリンク共有はプレビューが自動的に付与され、リンク
 ::: info 参考
 [メルカリ社内Slack利用ガイドラインを一挙公開しました〜！！\#メルカリな日々 | mercan (メルカン)](https://careers.mercari.com/mercan/articles/23325/) [mercari-Slack-guidelines/Slack_Guidelines_Ja.md at master](https://github.com/mercari/mercari-slack-guidelines/blob/master/Slack_Guidelines_Ja.md)
 :::
+
+# 謝辞
+
+このアーキテクチャガイドラインの作成にあたり、多大なるご協力をいただきました皆様に心より感謝申し上げます。
+
+- **作成者**（真野隼記、谷村元気、小澤泰河、村田靖拓、小橋昌明）
+- **レビュアー**（清水雄一郎、後藤玲雄、八木雅斗、高瀬陸、板橋勇輝、壷屋翔）
+
+皆様のご尽力なしには、本ガイドラインの完成はなしえませんでした。改めて深く感謝いたします。

@@ -47,7 +47,7 @@ const links = {
     { text: "Introduction", link: "/documents/forDB/" },
     {
       text: "PostgreSQL設計ガイドライン",
-      link: "/documents/forDB/terraform_guidelines.html",
+      link: "/documents/forDB/postgresql_guidelines.html",
     },
   ],
   "/documents/forAWS/": [

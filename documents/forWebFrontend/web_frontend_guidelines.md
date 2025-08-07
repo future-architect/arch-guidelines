@@ -385,7 +385,7 @@ src/
 
 ### 一貫性のある命名規則
 
-- URLはケバブケース、パラメータはスネークケースを使用する
+- URLはケバブケース、パラメータはローワーキャメルケースを使用する
 - URLの末尾にスラッシュは付与しない
 - 例
   - ❌️ `/systemOrders`
@@ -393,7 +393,7 @@ src/
   - ❌️ `/system-orders/{order_id}`
   - ❌️ `/system-orders/{OrderId}`
   - ✅️ `/system-orders`
-  - ✅️ `/system-orders/{order_id}`
+  - ✅️ `/system-orders/{orderId}`
 
 ### 名詞ベースのURI
 

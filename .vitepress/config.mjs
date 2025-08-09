@@ -43,6 +43,13 @@ const links = {
       link: "/documents/forBatch/if_guidelines.html",
     },
   ],
+  "/documents/forMail/": [
+    { text: "Introduction", link: "/documents/forMail/" },
+    {
+      text: "メール設計ガイドライン",
+      link: "/documents/forMail/mail_guidelines.html",
+    },
+  ],
   "/documents/forDB/": [
     { text: "Introduction", link: "/documents/forDB/" },
     {

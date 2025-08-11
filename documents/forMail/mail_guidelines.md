@@ -183,7 +183,56 @@ DMARC(ディーマーク)は、RFC 7489により定められた仕様で、ド�
 
 SPF/DKIMアライメントとは、各認証に用いたドメインが、ヘッダFROM（主に受信者に表示されるメールアドレス）のドメインと一致しているかの検証を指す。SPFやDKIMは各ドメインが送信者によって管理されていることを保証する仕組みではあるが、ヘッダFROMとは異なるドメインで認証を行っている場合、SPF/DKIMに通過していたとしても、メール送信者の正当性（ヘッダFROMのドメイン管理者であるか）は全く担保されない。そのような状況を検知するため、ヘッダFROMのドメインと認証に用いられたドメインが一致していることの検証がSPF/DKIMアライメントである。SPF/DKIMアライメントを総称してDMARCアライメントと呼ぶ。
 
-![](images/dmarc.png)
+```mermaid
+graph TB
+    classDef actor fill:#D6EAF8,stroke:#5DADE2;
+    classDef server fill:#E8DAEF,stroke:#A569BD;
+    classDef ok fill:#D4E6F1,stroke:#4A90E2;
+    classDef ng fill:#F5DDDD,stroke:#D9534F;
+    senderServer -->|1.メール送信| receiverServer
+    senderDNS -->|2.DMARCレコード参照| receiverServer
+
+    subgraph "受信者"
+        receiverServer(メールサーバ):::server
+        receiverServer --> spfResult{SPF検証}
+        spfResult -->|PASS| spfPass[SPF: PASS]:::ok
+        spfPass --> spfAlignment{エンベロープFROMと<br>ヘッダFROMを比較}
+        spfAlignment -->|一致| spfAlignmentPass[SPFアライメント: PASS]:::ok
+        spfAlignment -->|不一致| spfAlignmentFail[SPFアライメント: FAIL]:::ng
+        spfAlignmentFail --> dmarcFail
+        spfResult -->|FAIL| spfFail[SPF: FAIL]:::ng
+        spfFail --> dmarcFail
+        receiverServer --> dkimResult{DKIM検証}
+        dkimResult -->|FAIL| dkimFail[DKIM: FAIL]:::ng
+        dkimFail --> dmarcFail
+        dkimResult -->|PASS| dkimPass[DKIM: PASS]:::ok
+        dkimPass --> dkimAlignment{エンベロープFROMと<br>ヘッダFROMを比較}
+        dkimAlignment -->|不一致| dkimAlignmentFail[DKIMアライメント: FAIL]:::ng
+        dkimAlignmentFail --> dmarcFail
+        dmarcFail --> dmarcPolicy
+        dmarcPolicy -->|隔離する| spam
+        dmarcPolicy -->|配信する| receiver
+        dmarcPolicy -->|拒否する| reject
+        dmarcPolicy{DMARCレコードに基づき<br>メールの処理方法を判断}
+        spam(スパムフォルダ):::actor
+        reject[バウンス or 削除]
+        dkimAlignment -->|一致| dkimAlignmentPass[DKIMアライメント: PASS]:::ok
+        spfAlignmentPass --> dmarcPassSpf
+        dkimAlignmentPass --> dmarcPassDkim
+        dmarcPassSpf --> receiver
+        dmarcPassDkim --> receiver
+        dmarcFail(DMARC: FAIL):::ng
+        dmarcPassSpf(DMARC: PASS):::ok
+        dmarcPassDkim(DMARC: PASS):::ok
+        receiver(受信者):::actor
+    end
+    subgraph "送信元システム"
+        admin(管理者):::actor
+        senderServer(メールサーバ):::server
+        senderDNS(DNS):::server
+        admin -->|DMARCレコード登録| senderDNS
+    end
+```
 
 SPF/DKIM同様、設定はDNSに以下のようなレコードを登録することで行う。
 

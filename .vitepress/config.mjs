@@ -40,7 +40,7 @@ const links = {
     { text: "Introduction", link: "/documents/forIF/" },
     {
       text: "I/F設計ガイドライン",
-      link: "/documents/forBatch/if_guidelines.html",
+      link: "/documents/forIF/if_guidelines.html",
     },
   ],
   "/documents/forMail/": [

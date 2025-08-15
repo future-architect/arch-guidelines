@@ -69,23 +69,22 @@ SPF（エスピーエフ）は、RFC 7208により定められた仕様で、ド
 
 ```mermaid
 graph TB
-    classDef actor fill:#D6EAF8,stroke:#5DADE2;
-    classDef server fill:#E8DAEF,stroke:#A569BD;
-    classDef ok fill:#D4E6F1,stroke:#4A90E2;
-    classDef ng fill:#F5DDDD,stroke:#D9534F;
+    classDef ok fill:#D5F5E3,stroke:#28B463,color:#186A3B;
+    classDef ng fill:#F5DDDD,stroke:#D9534F,color:#922B21;
+
     senderServer -->|1.メール送信| receiverServer
     senderDNS -->|2.SPFレコード参照| receiverServer
 
     subgraph "受信者"
-        receiverServer(メールサーバ):::server
+        receiverServer[メールサーバ]:::server
         receiverServer -->|送信元IPアドレスと<br>SPFレコードを比較| spfResult{SPFレコードに<br>送信元IPが含まれる}
-        spfResult -->|yes| spfPass[SPF: PASS]:::ok
-        spfResult -->|no| spfFail[SPF: FAIL]:::ng
+        spfResult -->|yes| spfPass>SPF: PASS]:::ok
+        spfResult -->|no| spfFail>SPF: FAIL]:::ng
     end
     subgraph "送信元システム"
-        admin(管理者):::actor
-        senderServer(メールサーバ):::server
-        senderDNS(DNS):::server
+        admin("👨🏻‍💻管理者"):::actor
+        senderServer[メールサーバ]:::server
+        senderDNS[DNS]:::server
         admin -->|SPFレコード登録| senderDNS
     end
 ```
@@ -125,23 +124,22 @@ DKIM(ディーキム)は、RFC 6376により定められた仕様で、ドメイ
 
 ```mermaid
 graph TB
-    classDef actor fill:#D6EAF8,stroke:#5DADE2;
-    classDef server fill:#E8DAEF,stroke:#A569BD;
-    classDef ok fill:#D4E6F1,stroke:#4A90E2;
-    classDef ng fill:#F5DDDD,stroke:#D9534F;
-    senderServer -->|1.秘密鍵を用いた<br>電子署名を付与し<br>メール送信| receiverServer
+    classDef ok fill:#D5F5E3,stroke:#28B463,color:#186A3B;
+    classDef ng fill:#F5DDDD,stroke:#D9534F,color:#922B21;
+
+    senderServer -->|1.秘密鍵を用いた電子署名を付与しメール送信| receiverServer
     senderDNS -->|2.公開鍵取得| receiverServer
 
     subgraph "受信者"
-        receiverServer(メールサーバ):::server
-        receiverServer -->|公開鍵を用いて<br>電子署名を検証| dkimResult{署名は正当なものである}
-        dkimResult -->|yes| dkimPass[DKIM: PASS]:::ok
-        dkimResult -->|no| dkimFail[DKIM: FAIL]:::ng
+        receiverServer[メールサーバ]:::server
+        receiverServer -->|公開鍵を用いて電子署名を検証| dkimResult{署名は正当なものである}
+        dkimResult -->|yes| dkimPass>DKIM: PASS]:::ok
+        dkimResult -->|no| dkimFail>DKIM: FAIL]:::ng
     end
     subgraph "送信元システム"
-        admin(管理者):::actor
-        senderServer(メールサーバ):::server
-        senderDNS(DNS):::server
+        admin(👨🏻‍💻管理者):::actor
+        senderServer[メールサーバ]:::server
+        senderDNS[DNS]:::server
         admin -->|公開鍵登録| senderDNS
         admin -->|秘密鍵登録| senderServer
     end
@@ -185,51 +183,50 @@ SPF/DKIMアライメントとは、各認証に用いたドメインが、ヘッ
 
 ```mermaid
 graph TB
-    classDef actor fill:#D6EAF8,stroke:#5DADE2;
-    classDef server fill:#E8DAEF,stroke:#A569BD;
-    classDef ok fill:#D4E6F1,stroke:#4A90E2;
-    classDef ng fill:#F5DDDD,stroke:#D9534F;
+    classDef ok fill:#D5F5E3,stroke:#28B463,color:#186A3B;
+    classDef ng fill:#F5DDDD,stroke:#D9534F,color:#922B21;
+
     senderServer -->|1.メール送信| receiverServer
     senderDNS -->|2.DMARCレコード参照| receiverServer
 
     subgraph "受信者"
-        receiverServer(メールサーバ):::server
+        receiverServer[メールサーバ]:::server
         receiverServer --> spfResult{SPF検証}
-        spfResult -->|PASS| spfPass[SPF: PASS]:::ok
+        spfResult -->|PASS| spfPass>SPF: PASS]:::ok
         spfPass --> spfAlignment{エンベロープFROMと<br>ヘッダFROMを比較}
-        spfAlignment -->|一致| spfAlignmentPass[SPFアライメント: PASS]:::ok
-        spfAlignment -->|不一致| spfAlignmentFail[SPFアライメント: FAIL]:::ng
+        spfAlignment -->|一致| spfAlignmentPass>SPFアライメント: PASS]:::ok
+        spfAlignment -->|不一致| spfAlignmentFail>SPFアライメント: FAIL]:::ng
         spfAlignmentFail --> dmarcFail
-        spfResult -->|FAIL| spfFail[SPF: FAIL]:::ng
+        spfResult -->|FAIL| spfFail>SPF: FAIL]:::ng
         spfFail --> dmarcFail
         receiverServer --> dkimResult{DKIM検証}
-        dkimResult -->|FAIL| dkimFail[DKIM: FAIL]:::ng
+        dkimResult -->|FAIL| dkimFail>DKIM: FAIL]:::ng
         dkimFail --> dmarcFail
-        dkimResult -->|PASS| dkimPass[DKIM: PASS]:::ok
+        dkimResult -->|PASS| dkimPass>DKIM: PASS]:::ok
         dkimPass --> dkimAlignment{エンベロープFROMと<br>ヘッダFROMを比較}
-        dkimAlignment -->|不一致| dkimAlignmentFail[DKIMアライメント: FAIL]:::ng
+        dkimAlignment -->|不一致| dkimAlignmentFail>DKIMアライメント: FAIL]:::ng
         dkimAlignmentFail --> dmarcFail
         dmarcFail --> dmarcPolicy
         dmarcPolicy -->|隔離する| spam
         dmarcPolicy -->|配信する| receiver
         dmarcPolicy -->|拒否する| reject
         dmarcPolicy{DMARCレコードに基づき<br>メールの処理方法を判断}
-        spam(スパムフォルダ):::actor
-        reject[バウンス or 削除]
-        dkimAlignment -->|一致| dkimAlignmentPass[DKIMアライメント: PASS]:::ok
+        spam>スパムフォルダ]:::ng
+        reject>バウンス or 削除]:::ng
+        dkimAlignment -->|一致| dkimAlignmentPass>DKIMアライメント: PASS]:::ok
         spfAlignmentPass --> dmarcPassSpf
         dkimAlignmentPass --> dmarcPassDkim
         dmarcPassSpf --> receiver
         dmarcPassDkim --> receiver
-        dmarcFail(DMARC: FAIL):::ng
-        dmarcPassSpf(DMARC: PASS):::ok
-        dmarcPassDkim(DMARC: PASS):::ok
-        receiver(受信者):::actor
+        dmarcFail>DMARC: FAIL]:::ng
+        dmarcPassSpf>DMARC: PASS]:::ok
+        dmarcPassDkim>DMARC: PASS]:::ok
+        receiver>正常に受信]:::ok
     end
     subgraph "送信元システム"
-        admin(管理者):::actor
-        senderServer(メールサーバ):::server
-        senderDNS(DNS):::server
+        admin(👨🏻‍💻管理者):::actor
+        senderServer[メールサーバ]:::server
+        senderDNS[DNS]:::server
         admin -->|DMARCレコード登録| senderDNS
     end
 ```

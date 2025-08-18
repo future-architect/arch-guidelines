@@ -166,7 +166,7 @@ export default defineConfig({
       dark: "/images/logo-dark.svg",
     },
     footer: {
-      copyright: `©2015 - ${new Date().getFullYear()} by Future Corporation | フューチャー株式会社`,
+      copyright: `Copyright ${new Date().getFullYear()} by Future Corporation`,
     },
     search: {
       provider: "local",

@@ -51,6 +51,17 @@ features:
 pageClass: standards-home
 ---
 
+本ガイドラインを用いると、開発チームは考慮すべき設計事項と推奨案を知ることで、意思決定や合意形成のためのベースラインを得ることができる。
+
+また、ガイドラインには次の目的がある。
+
+- **車輪の再発明を防ぐ**: システム間で差異が出にくい設計事項のベストプラクティスを提供し、設計者が悩むポイントを軽減し、真に必要な設計に集中できるようにする
+- **設計品質の標準化**: プロジェクト間で設計品質のばらつきや属人性をなくし、品質を底上げする。また、ナレッジやツールの横展開を容易にする
+- **リスクの低減**: 非機能（可用性、性能、セキュリティ、保守運用性、移行性）・法令遵守などに関する考慮漏れを防ぎ、安定したシステム稼働を実現する
+- **知見の共有**: システム設計に関する体系的な知識を共有することでチーム内・組織内で知見の共有を促進し、成長サイクルを回す
+
+<br>
+
 [![GitHub last commit](https://img.shields.io/github/last-commit/future-architect/arch-guidelines.svg)](https://github.com/future-architect/arch-guidelines)
 [![GitHub stars](https://img.shields.io/github/stars/future-architect/arch-guidelines.svg?style=social&label=Stars&logo=github)](https://github.com/future-architect/arch-guidelines/stargazers)
 

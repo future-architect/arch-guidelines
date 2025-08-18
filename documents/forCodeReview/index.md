@@ -4,7 +4,7 @@ author: フューチャー株式会社
 layout: home
 hero:
   name: コードレビュー<br>ガイドライン
-  tagline: Future Enterprise Guidelines for Code Review
+  tagline: Code Review Guidelines
   actions:
     - theme: brand
       text: コードレビューガイドライン

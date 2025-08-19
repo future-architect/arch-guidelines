@@ -20,3 +20,7 @@ hero:
 次のリンクから単一ファイル版を取得できます。
 
 - [Markdown](https://github.com/future-architect/arch-guidelines/blob/main/documents/forDB/postgresql_guidelines.md)
+
+## Articles
+
+- 2025.5.30 [PostgreSQL設計ガイドラインのご紹介](https://future-architect.github.io/articles/20250530a/)

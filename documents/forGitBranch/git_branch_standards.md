@@ -199,7 +199,7 @@ featureブランチで実現する機能を複数人で開発する場合に使�
 
 - リベースすると `develop2` を元にfeatureブランチを作成して開発している開発者が混乱することになるため、マージコミットを用いる
 - 誤操作を避ける目的でcherry-pickは行わない
-- `devleop2` への同期は、 `develop` -> `main` ブランチに反映されるタイミングで同期を行う（これにより、品質保証済みの変更のみ取り入れることができる）
+- `develop2` への同期は、 `develop` -> `main` ブランチに反映されるタイミングで同期を行う（これにより、品質保証済みの変更のみ取り入れることができる）
 
 <div class="img-bg-transparent">
 
@@ -262,7 +262,7 @@ developブランチの変更をfeatureブランチに取り込む方法には、
 | 1. マージコミット                                                                                         | 2. リベース                                                                                                                             |
 | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
 | <div class="img-bg-transparent"> ![マージ](img/merge_strategy_develop_to_feature_merge.drawio.png) </div> | <div class="img-bg-transparent"> ![リベース](img/merge_strategy_develop_to_feature_rebase.drawio.png) </div>                            |
-| `get fetch & git merge`（≒ `git pull`）。マージコミットが作成される                                       | `get fetch & git rebase`（≒ `git pull --rebase`）。最新の開発ブランチの先頭から新たにコミットを作りなされ、マージコミットは作成されない |
+| `git fetch & git merge`（≒ `git pull`）。マージコミットが作成される                                       | `git fetch & git rebase`（≒ `git pull --rebase`）。最新の開発ブランチの先頭から新たにコミットを作り直され、マージコミットは作成されない |
 
 本規約の推奨は「1. マージコミット」である。
 

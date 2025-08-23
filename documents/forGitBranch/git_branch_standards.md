@@ -161,7 +161,7 @@ featureブランチで実現する機能を複数人で開発する場合に使�
 | Lite GitLab Flow<br>※1 | `main`<br>`develop`<br>`feature`<br>`topic`<br> `hotfix`                      | `develop`          | `develop`            | ・GitLab Flowからreleaseブランチを除いたパターン<br>・リリース作業時にdevelopマージを止められる場合に利用する      |
 | GitLab Flow            | `main`<br>`develop`<br>`release` <br>`feature`<br>`topic` <br> `hotfix`<br>※2 | `develop`          | `release`            | ・リリース作業と開発作業が並行して行う必要があるか、<br>断面を指定して複数テスト環境にデプロイしたい場合に利用する |
 
-- ※1: 特定の呼称はないためLite GitLab FLowと命名する
+- ※1: 特定の呼称はないためLite GitLab Flowと命名する
 - ※2: 本規約では、本来のGitLab Flowの呼称である `production`を`main`、`pre production`を`release`に言い換えている
 
 # ブランチ戦略とデプロイメント環境

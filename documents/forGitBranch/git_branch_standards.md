@@ -987,7 +987,7 @@ GUIでのGit操作にあたり、次の2つの拡張機能をインストール�
 
 - [GitLens](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
   - Gitに関する様々な機能を提供する拡張機能
-  - 詳細：: [VSCodeでGitLensを使う - フューチャー技術ブログ](https://future-architect.github.io/articles/）20240415a/)
+  - 詳細： [VSCodeでGitLensを使う - フューチャー技術ブログ](https://future-architect.github.io/articles/）20240415a/)
 - [Git Graph](https://marketplace.visualstudio.com/items?itemName=mhutchie.git-graph)
   - コミットグラフを表示する拡張機能
   - GitLensにもコミットグラフはありますが、Pro（有料版）限定の提供のため、ここではこちらの拡張機能を使用する

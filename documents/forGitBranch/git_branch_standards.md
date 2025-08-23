@@ -717,7 +717,7 @@ git config --global alias.br branch
 本規約の推奨と理由は以下。
 
 - git hooksを用いたテスト実行は行わない
-  - gitのコマンドを実行するライフサイクルと、動作検証を行いたいライフサイクルは同じでないため、軽微な修正の度ににテストが実行されると、作業効率が下がるため
+  - gitのコマンドを実行するライフサイクルと、動作検証を行いたいライフサイクルは同じでないため、軽微な修正の度にテストが実行されると、作業効率が下がるため
   - CI側でテストが実行されるため、最悪CIで検知が可能
   - 開発者にとって作業効率を考えると、CIで検知ではなくローカルでテスト実行を通してからプッシュするため、CIが整備されている前提ではgit hooksで強制する必然性がないため
 
@@ -767,8 +767,8 @@ testdata/eol/*.csv text eol=crlf
 
 ```sh
 $ git check-attr -a testdata/eol/input1.csv
-testdata/eol/input1.cs: text: set
-testdata/eol/input1.cs: eol: crlf
+testdata/eol/input1.csv: text: set
+testdata/eol/input1.csv: eol: crlf
 ```
 
 ::: info 参考

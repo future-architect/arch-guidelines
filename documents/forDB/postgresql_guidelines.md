@@ -780,7 +780,7 @@ select concat('hello', ' ', null, 'world');
 ```sql
 -- sampleテーブルにユニークインデックスを追加
 postgres=# CREATE TABLE sample (
-  id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,,
+  id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   name varchar(10)
 );
 CREATE TABLE

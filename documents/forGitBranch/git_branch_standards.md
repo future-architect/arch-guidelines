@@ -767,8 +767,8 @@ testdata/eol/*.csv text eol=crlf
 
 ```sh
 $ git check-attr -a testdata/eol/input1.csv
-testdata/eol/input1.cs: text: set
-testdata/eol/input1.cs: eol: crlf
+testdata/eol/input1.csv: text: set
+testdata/eol/input1.csv: eol: crlf
 ```
 
 ::: info 参考

@@ -237,6 +237,19 @@ export default defineConfig({
             ],
           },
           {
+            text: "Mail",
+            items: [
+              {
+                text: "Introduction",
+                link: "/documents/forMail/",
+              },
+              {
+                text: "Mail設計ガイドライン",
+                link: "/documents/forMail/mail_guidelines.html",
+              },
+            ],
+          },
+          {
             text: "DB",
             items: [
               {

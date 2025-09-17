@@ -5,7 +5,7 @@ author: フューチャー株式会社
 head:
   - - meta
     - name: keywords
-      content: Web API
+      content: PostgreSQL
 ---
 
 <page-title/>

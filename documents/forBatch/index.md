@@ -18,3 +18,7 @@ hero:
 次のリンクから単一ファイル版を取得できます。
 
 - [Markdown](https://github.com/future-architect/arch-guidelines/blob/main/documents/forBatch/batch_guidelines.md)
+
+## Articles
+
+- 2025.9.18 [バッチ設計ガイドラインを公開しました](https://future-architect.github.io/articles/20250918a/)

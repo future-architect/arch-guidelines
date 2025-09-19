@@ -375,7 +375,7 @@ for_eachの2重ループは、次の2つのうちどちらかを指すことが�
 1. for_eachを付けたリソースにおいて、[Dynamic Blocks](https://developer.hashicorp.com/terraform/language/expressions/dynamic-blocks) でfor_eachを使う方法
 2. ネストした変数を元に、擬似的に多重のfor_eachを実現する方法
 
-▼例: Dynamoic Blocks で for_eachを用いる
+▼例: Dynamic Blocks で for_eachを用いる
 
 ```tf
 locals {
@@ -805,7 +805,7 @@ Terraformを利用してパスワードなどの機密情報を作成する場�
 
 - 可能であれば（1）を採用する
   - [Terraform で AWS に DB を構築するとき manage_master_user_password を使っていますか？](https://tech.dentsusoken.com/entry/terraform_manage_master_user_password) にあるようにAWS RDSは `manage_master_user_password` の利用する
-  - [Azure Container AppsのSecret管理とIaC](https://zenn.dev/aishift/articles/01ac0622cff568) にあるように、Azureデータベースサービス は`Azure Key Vault Reference`の利用を利用する
+  - [Azure Container AppsのSecret管理とIaC](https://zenn.dev/aishift/articles/01ac0622cff568) にあるように、Azureデータベースサービス は`Azure Key Vault Reference`を利用する
 - （2）はステートに機密情報が残ってしまうため、それが許容できる場合のみに利用する。許容できない場合は「１．Terraform外で生成された機密情報の扱い」節を参考に、Terraform外で管理できないか検討する
 
 ::: info 参考
@@ -827,7 +827,7 @@ Terraformを利用してパスワードなどの機密情報を作成する場�
 | 説明           | AWSでは、EC2、ALB、RDS、DynamoDBなどで、 [enable_deletion_protection][enable_deletion_protection] や[deletion_protection][deletion_protection] を有効にすると、一度無効化にしないと削除不可となる | `lifecycle {prevent_destroy = true}` を指定することで、リソースの再作成を伴うapplyをエラーで落とすことができる                                                                            | IAM権限で削除操作自体を制限する。特定のリソースのみ削除権限のハードルを上げる設計や、タグと組み合わせて保護する設計が存在する |
 | 視認性         | ✅️管理コンソール上で、設定状況が確認可能                                                                                                                                                         | ⚠️Terraformコード上で確認                                                                                                                                                                 | ❌️IAM権限と突き合わせが必要                                                                                                  |
 | 汎用性         | ❌️対応しているリソースは一部である                                                                                                                                                               | ✅️任意のリソースに適用可能 <br> ✅️Terraform上で一貫性がある定義が可能                                                                                                                   | ✅️削除したくない任意のリソースに対する変更権限をなくすことが可能                                                             |
-| ルールの強制力 | ✅️Terraform外の操作であっても有効                                                                                                                                                                | ❌️Terraform操作のみが保護対象 <br> ❌️リソース定義がファイルに残っている場合のみ有効。リソース定義ごとファイルから削除した場合は、prevent_destory=falseにしてapplyを経由せずに削除される | ✅️IAM権限で誤操作防止できるため、強い制約を適用できる                                                                        |
+| ルールの強制力 | ✅️Terraform外の操作であっても有効                                                                                                                                                                | ❌️Terraform操作のみが保護対象 <br> ❌️リソース定義がファイルに残っている場合のみ有効。リソース定義ごとファイルから削除した場合は、prevent_destroy=falseにしてapplyを経由せずに削除される | ✅️IAM権限で誤操作防止できるため、強い制約を適用できる                                                                        |
 | 運用コスト     | ✅️クラウドプロバイダーが提供する機能で多くのユースケースに向いており、一律有効化しても害は少ない                                                                                                 | ❌️どのリソースに付与するか設計ポリシーが必要                                                                                                                                             | ❌️設計コスト、運用コストが高い <br> ❌️誤設定の懸念がある                                                                    |
 
 [enable_deletion_protection]: https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb#enable_deletion_protection-1
@@ -837,7 +837,7 @@ Terraformを利用してパスワードなどの機密情報を作成する場�
 推奨は以下の通り。
 
 - （1）に該当する削除保護は、一律有効に設定する
-- （2）prevent_destory=trueは1の削除保護が存在せず、かつ再作成がありえるが、再作成されたら困るリソースのみに設定する。例えば、AWSでは一部のEC2やAPI Gatewayなどが該当する。削除されたら困るかつ再作成されることはないリソースに対しては、視認性を下げるだけのため指定する必要はない
+- （2）prevent_destroy=trueは1の削除保護が存在せず、かつ再作成がありえるが、再作成されたら困るリソースのみに設定する。例えば、AWSでは一部のEC2やAPI Gatewayなどが該当する。削除されたら困るかつ再作成されることはないリソースに対しては、視認性を下げるだけのため指定する必要はない
 - （3）重要なS3バケットやVPCネットワーキング系が該当するが、IAM権限の設計が複雑化し、運用難易度が上がるためこれの利用は最低限に抑える
 
 ▼例: クラウドリソースの削除保護を有効化
@@ -849,7 +849,7 @@ resource "aws_db_instance" "important_db" {
 }
 ```
 
-▼例: prevent_destory = true の例
+▼例: prevent_destroy = true の例
 
 ```tf
 resource "aws_s3_bucket" "important_bucket" {
@@ -1254,8 +1254,8 @@ infrastructure
     ├── module_name1/
     └── module_name2/
         ├── main.tf                  # 空であっても生成
-        ├── variables.tf             # 空であっても生成（descrptionの記入が必須）
-        ├── outputs.tf               # 空であっても生成（descrptionの記入が必須）
+        ├── variables.tf             # 空であっても生成（descriptionの記入が必須）
+        ├── outputs.tf               # 空であっても生成（descriptionの記入が必須）
         ├── README.md                # ツールによって自動生成させる
         └── examples/
             └── example_usage/
@@ -1383,7 +1383,7 @@ variable "instance_count" {
 | 実行タイミング | `terraform plan`                                       | `known after apply` な値が無いなら `terraform plan` | `known after apply` な値が無いなら `terraform plan`                            |
 | 失敗時の挙動   | `terraform plan` が失敗                                | `terraform apply`が失敗                             | 該当のリソースは作成され、自動で破棄されない。それ後続のリソース作成は停止する |
 
-▼precondtion、postconditionの例
+▼precondition、postconditionの例
 
 ```tf
 resource "aws_instance" "example" {
@@ -1606,7 +1606,7 @@ AWS、Google Cloud、Azureなどクラウドでは新機能が活発にリリー
 | #          | （1）Terraform以外の手段で凌ぐ                                                                                                  | （2）terraform_dataとlocal-exec                                                                                 |
 | :--------- | :------------------------------------------------------------------------------------------------------------------------------ | :-------------------------------------------------------------------------------------------------------------- |
 | 説明       | Provider側の対応ができるまで、シェルスクリプト・Ansibleなどで管理する。Provider側が対応したら、過渡期対応のスクリプトを削除する | Terraformの `terraform_data` と `local-exec` プロビジョナを利用し、スクリプトを実行してリソースを作成・管理する |
-| 構築コスト | ✅️構築の難易度が最も低く、急ぎ利用可能                                                                                         | ❌️Terraformのお作法に沿ったスクリプト設計が必要（destoryも実装するなど）                                       |
+| 構築コスト | ✅️構築の難易度が最も低く、急ぎ利用可能                                                                                         | ❌️Terraformのお作法に沿ったスクリプト設計が必要（destroyも実装するなど）                                       |
 | 運用性     | ❌️インフラ構築がTerraformだけに閉じず学習コストや、運用手順書などのマニュアル化が求められる                                    | ✅️Terraformで一元管理が可能で、運用コストを下げられる                                                          |
 | 学習コスト | ❌️Ansibleなどを利用する場合は、学習コストがかかる                                                                              | ⚠️terraform_dataの理解が必要                                                                                    |
 
@@ -1827,7 +1827,7 @@ run "test" {
 
 補足として、（4）エンドツーエンドテストで、以下のようなインフラ監視に近い項目も検知可能である。
 
-- AWS Budgesで予算を超過していないか
+- AWS Budgetsで予算を超過していないか
 - IAMロールがN日以上、未使用な状態になっていないか
 - GuardDutyで脅威が検出されていないか
 
@@ -1847,7 +1847,7 @@ run "test" {
 - （3）インテグレーションテスト（※もし、実施する場合）
   - カレントディレクトリまたは、`tests/` にテストコードが配備可能だが、カレントディレクトリに配備すること
   - リソース種別単位のファイル名の規則に従っている場合、`s3_bucket.tftest.hcl` といったファイル名にする（ユニットテストと同一ファイルに混在することもありえる）
-  - リソースを create & destory するため非常にコストが高いため、できる限り作成しない
+  - リソースを create & destroy するため非常にコストが高いため、できる限り作成しない
   - mockの扱いについては、学習コストが高いため、費用対効果をよく確認して利用する
 - （4）エンドツーエンドテスト
   - インフラ監視と重複する項目はテストしない
@@ -1955,14 +1955,14 @@ AWSでterraform planのみ実行できるようにする例を示す。ReadOnlyA
       "Effect": "Allow",
       "Action": ["s3:ListBucket", "s3:GetObject"],
       "Resource": [
-        "arn:aws:s3:::your-remote-sutate-bucket",
-        "arn:aws:s3:::your-remote-sutate-bucket/*"
+        "arn:aws:s3:::your-remote-state-bucket",
+        "arn:aws:s3:::your-remote-state-bucket/*"
       ]
     },
     {
       "Effect": "Allow",
       "Action": ["s3:PutObject", "s3:DeleteObject"],
-      "Resource": "arn:aws:s3:::your-remote-sutate-bucket/*"
+      "Resource": "arn:aws:s3:::your-remote-state-bucket/*"
     }
   ]
 }

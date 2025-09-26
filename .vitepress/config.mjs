@@ -50,6 +50,13 @@ const links = {
       link: "/documents/forMail/mail_guidelines.html",
     },
   ],
+  "/documents/forLog/": [
+    { text: "Introduction", link: "/documents/forLog/" },
+    {
+      text: "ログ設計ガイドライン",
+      link: "/documents/forLog/log_guidelines.html",
+    },
+  ],
   "/documents/forDB/": [
     { text: "Introduction", link: "/documents/forDB/" },
     {

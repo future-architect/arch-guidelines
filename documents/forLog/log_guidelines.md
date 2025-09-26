@@ -709,14 +709,14 @@ ANSIエスケープのよくある課題は、ANSIエスケープシーケンス
   - SLF4J利用かつ、付加項目をメッセージに埋め込む場合、プレースホルダ ({}) を使用し、そのログレベルが出力対象でない場合、引数の文字列化などの処理自体をなくす
     - ✅️良い例: `log.debug("Processing user data: {}", userObject);`
     - ❌️悪い例: `log.debug("Processing user data: " + userObject.toString());`
-  - `Pythonのloggingモジュールを利用する場合、f文字列ではなく、%形式のプレースホルダを使用することで、そのログレベルが出力対象でない場合の引数のレンダリング処理を防ぐ`
-    - `✅️ 良い例: logging.debug("Processing user data: %s", user_object)`
-    - `❌️ 悪い例: logging.debug(f"Processing user data: {user_object}")`
-  - `構造化ログの場合、アプリケーション側で toString() などを呼び出さず、ロガー側に任せる`
-    - `本当にログ出力される場合に限り、シリアライズを限定できる`
-- `ログ出力の分岐を書く`
-  - `slf4jなどの場合、if (logger.isDebugEnabled()) {...} などとログレベルに応じた分岐を行う。特にログ出力用に文字列加工を行う場合は必須とする`
-  - `Goのロギングは上記のような慣習が無いため行わなくても良い（構造化ロギングの場合、文字列生成を行わないため許容されていると思われる）`
+  - Pythonのloggingモジュールを利用する場合、f文字列ではなく、%形式のプレースホルダを使用することで、そのログレベルが出力対象でない場合の引数のレンダリング処理を防ぐ
+    - ✅️ 良い例: `logging.debug("Processing user data: %s", user_object)`
+    - ❌️ 悪い例: `logging.debug(f"Processing user data: {user_object}")`
+  - 構造化ログの場合、アプリケーション側で toString() などを呼び出さず、ロガー側に任せる
+    - 本当にログ出力される場合に限り、シリアライズを限定できる
+- ログ出力の分岐を書く
+  - slf4jなどの場合、 `if (logger.isDebugEnabled()) {...}` などとログレベルに応じた分岐を行う。特にログ出力用に文字列加工を行う場合は必須とする
+  - Goのロギングは上記のような慣習が無いため行わなくても良い（構造化ロギングの場合、文字列生成を行わないため許容されていると思われる）
 
 注意点は以下の通り。
 

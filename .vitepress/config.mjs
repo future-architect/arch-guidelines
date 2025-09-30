@@ -63,6 +63,10 @@ const links = {
       text: "PostgreSQL設計ガイドライン",
       link: "/documents/forDB/postgresql_guidelines.html",
     },
+    {
+      text: "DynamoDB設計ガイドライン",
+      link: "/documents/forDB/dynamodb_guidelines.html",
+    },
   ],
   "/documents/forAWS/": [
     { text: "Introduction", link: "/documents/forAWS/" },
@@ -192,12 +196,8 @@ export default defineConfig({
         text: "Guidelines",
         items: [
           {
-            text: "Web Frontend",
+            text: "フロントエンド",
             items: [
-              {
-                text: "Introduction",
-                link: "/documents/forWebFrontend/",
-              },
               {
                 text: "Web フロントエンド設計ガイドライン",
                 link: "/documents/forWebFrontend/web_frontend_guidelines.html",
@@ -205,50 +205,19 @@ export default defineConfig({
             ],
           },
           {
-            text: "Web API",
+            text: "バックエンド",
             items: [
-              {
-                text: "Introduction",
-                link: "/documents/forWebAPI/",
-              },
               {
                 text: "Web API設計ガイドライン",
                 link: "/documents/forWebAPI/web_api_guidelines.html",
-              },
-            ],
-          },
-          {
-            text: "Batch",
-            items: [
-              {
-                text: "Introduction",
-                link: "/documents/forBatch/",
               },
               {
                 text: "バッチ設計ガイドライン",
                 link: "/documents/forBatch/batch_guidelines.html",
               },
-            ],
-          },
-          {
-            text: "I/F",
-            items: [
-              {
-                text: "Introduction",
-                link: "/documents/forIF/",
-              },
               {
                 text: "I/F設計ガイドライン",
                 link: "/documents/forIF/if_guidelines.html",
-              },
-            ],
-          },
-          {
-            text: "Mail",
-            items: [
-              {
-                text: "Introduction",
-                link: "/documents/forMail/",
               },
               {
                 text: "Mail設計ガイドライン",
@@ -260,47 +229,12 @@ export default defineConfig({
             text: "DB",
             items: [
               {
-                text: "Introduction",
-                link: "/documents/forDB/",
-              },
-              {
                 text: "PostgreSQL設計ガイドライン",
-                link: "/documents/forDB/postgresql_gbatch_guidelinesuidelines.html",
-              },
-            ],
-          },
-          {
-            text: "AWS",
-            items: [
-              {
-                text: "Introduction",
-                link: "/documents/forAWS/",
+                link: "/documents/forDB/postgresql_guidelines.html",
               },
               {
-                text: "AWS設計ガイドライン",
-                link: "/documents/forAWS/aws_guidelines.html",
-              },
-            ],
-          },
-          {
-            text: "Terraform",
-            items: [
-              {
-                text: "Introduction",
-                link: "/documents/forTerraform/",
-              },
-              {
-                text: "Terraform設計ガイドライン",
-                link: "/documents/forTerraform/terraform_guidelines.html",
-              },
-            ],
-          },
-          {
-            text: "DataManagement",
-            items: [
-              {
-                text: "Introduction",
-                link: "/documents/forDataManagement/",
+                text: "DynamoDB設計ガイドライン",
+                link: "/documents/forDB/dynamodb_guidelines.html",
               },
               {
                 text: "データマネジメント設計ガイドライン",
@@ -309,50 +243,32 @@ export default defineConfig({
             ],
           },
           {
-            text: "Git",
+            text: "インフラ",
             items: [
               {
-                text: "Introduction",
-                link: "/documents/forGitBranch/",
+                text: "AWS設計ガイドライン",
+                link: "/documents/forAWS/aws_guidelines.html",
               },
               {
-                text: "Gitブランチフロー規約",
-                link: "/documents/forGitBranch/git_branch_standards.html",
+                text: "Terraform設計ガイドライン",
+                link: "/documents/forTerraform/terraform_guidelines.html",
               },
             ],
           },
           {
-            text: "Markdown",
+            text: "開発生産性",
             items: [
               {
-                text: "Introduction",
-                link: "/documents/forMarkdown/",
+                text: "Gitブランチフロー規約",
+                link: "/documents/forGitBranch/git_branch_standards.html",
               },
               {
                 text: "Markdown設計ドキュメント規約",
                 link: "/documents/forMarkdown/markdown_design_document.html",
               },
-            ],
-          },
-          {
-            text: "レビュー",
-            items: [
-              {
-                text: "Introduction",
-                link: "/documents/forCodeReview/",
-              },
               {
                 text: "コードレビューガイドライン",
                 link: "/documents/forCodeReview/code_review.html",
-              },
-            ],
-          },
-          {
-            text: "Slack",
-            items: [
-              {
-                text: "Introduction",
-                link: "/documents/forSlack/",
               },
               {
                 text: "Slack利用ガイドライン",

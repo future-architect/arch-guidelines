@@ -9,6 +9,9 @@ hero:
     - theme: brand
       text: PostgreSQL設計ガイドライン
       link: ./postgresql_guidelines.md
+    - theme: brand
+      text: DynamoDB設計ガイドライン
+      link: ./dynamodb_guidelines.md
 ---
 
 # DB設計ガイドライン
@@ -16,6 +19,7 @@ hero:
 チーム開発する上で必要となるデータべース設計ガイドラインです。
 
 - [PostgreSQL設計ガイドライン](postgresql_guidelines.md)
+- [DynamoDB設計ガイドライン](dynamodb_guidelines.md)
 
 ## Articles
 

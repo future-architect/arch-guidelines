@@ -36,7 +36,7 @@ Terraformはインフラを宣言的にコード管理するツールである�
 対象とする技術は以下を想定している。
 
 - Terraform 1.10+
-- OSS利用のみ（Terraform Cloud は利用しない）
+- OSS利用のみ（HCP Terraformは利用しない）
 - AWS、Google Cloud、Azureなどのクラウドサービスに対しての利用
 
 また、利用者は以下の技術を理解しているとし、本ガイドラインではこれらについて解説はしない。

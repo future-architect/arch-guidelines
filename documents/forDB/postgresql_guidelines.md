@@ -25,7 +25,7 @@ head:
 
 # はじめに
 
-本ガイドラインはPostgreSQLを使用する開発者向けに、DBのテーブルやカラムの命名・型桁・制約などのスキーマ管理に加え、履歴・排他制御・マルチテナント対応などアプリケーション設計を含む内容についての設計標準を紹介する。これにより、DB設計の主な論点／設計項目／設計観点を提供することで、開発者の考慮漏れを防ぐとともに、チームでの設計上の合意形成を手助けをし、システム開発における標準ラインとなる設計手法を提供することでナレッジやツールの横展開を容易にすることを目指す。
+本ガイドラインはPostgreSQLを使用する開発者向けに、DBのテーブルやカラムの命名・型桁・制約などのスキーマ管理に加え、履歴・排他制御・マルチテナント対応などアプリケーション設計を含む内容についての設計標準を紹介する。これにより、DB設計の主な論点／設計項目／設計観点を提供することで、開発者の考慮漏れを防ぐとともに、チームでの設計上の合意形成を手助けし、システム開発における標準ラインとなる設計手法を提供することでナレッジやツールの横展開を容易にすることを目指す。
 
 # 前提条件
 
@@ -453,7 +453,7 @@ CREATE UNIQUE INDEX idx1_example ON sample (name) NULLS NOT DISTINCT;
 CREATE INDEX idx01_total_amount ON orders ((unit_price * quantity));
 ```
 
-式インデックスを使わない場合は、`total_ammout` カラムを追加しインデックスを貼り、アプリケーション側で行った計算結果を保存することになる。
+式インデックスを使わない場合は、`total_amount` カラムを追加しインデックスを貼り、アプリケーション側で行った計算結果を保存することになる。
 
 以下に比較表を示す。
 
@@ -504,7 +504,7 @@ CREATE INDEX idx_completed_orders ON order (order_date) WHERE status = 'complete
 
 ### ６．付加列インデックス
 
-付加列インデックスは、カバリングインデックスの一種と言える。検索用列に加え、値を返すだけの列もインデックスに含めることできる（つまり、付加された列は、ソートや検索には使用されない）。PostgreSQL 11以降で利用でき、次のようにINCLUDEを用いて指定する。
+付加列インデックスは、カバリングインデックスの一種と言える。検索用列に加え、値を返すだけの列もインデックスに含めることができる（つまり、付加された列は、ソートや検索には使用されない）。PostgreSQL 11以降で利用でき、次のようにINCLUDEを用いて指定する。
 
 ```sql
 CREATE INDEX idx_employee_with_include ON employees (first_name) INCLUDE (last_name, department);
@@ -607,7 +607,7 @@ PostgreSQLにはユーザーが使用可能な豊富な[データ型](https://ww
 | 日付（yyyy-MM-dd） | `date`                                     |        |         | `date` ではなく `varchar(10)` を用いる流派もあるが、好みの問題である。より入る値が明示的となるdate型を利用する。 なお、日付項目はパーティションキーとして利用することが多いが、date、varcharのどちらを利用しても機能としては問題ない。パーティションキーの場合はNOT NULL制約を付ける。                                                                                                                                                                                                                                                                  |
 | 年月（yyyy-MM）    | `varchar(7)`                               |        |         | 月次パーティションを作成する場合に利用することが多いカラムである。パーティションキーの場合は`NOT NULL`制約を付ける。 ハイフンをいれるかどうかだが、PostgreSQLのデフォルト日付フォーマットが `yyyy-MM-dd` の拡張書式であるため、それに合わせる                                                                                                                                                                                                                                                                                                           |
 | 数量               | `bigint` `integer`                         |        |         | 在庫数／受発注数／入出荷数など。連番がbigserialを用いる規則であるため、それに相当するカラムの場合はbigintを利用する。 なお、業務およびシステム上、integerで事足りる場合はこれらを利用することも許容する。デフォルト値は0にしない                                                                                                                                                                                                                                                                                                                        |
-| 連番               | `bigint`                                   | ✔     |         | `intetger`/`serial`の場合、一巡によりシーケンスのリセットや後々`bigint`/`bigserial`に切り替えるなどの作業が発生する懸念がある。安全側に倒すため`bigint`を用いる。IDENTITY列にすることで`serial`は利用しない                                                                                                                                                                                                                                                                                                                                             |
+| 連番               | `bigint`                                   | ✔     |         | `integer`/`serial`の場合、一巡によりシーケンスのリセットや後々`bigint`/`bigserial`に切り替えるなどの作業が発生する懸念がある。安全側に倒すため`bigint`を用いる。IDENTITY列にすることで`serial`は利用しない                                                                                                                                                                                                                                                                                                                                              |
 | 係数               | `numeric(p, s)`                            |        |         | 割引率／消費税率 など。floatは利用しない。要件次第だがデフォルト値は0にしない                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | 金額／計算結果     | `numeric(p, s)`                            |        |         | 支払金額／請求金額／使用量など、正確な計算結果の格納が求められる場合。要件次第だがデフォルト値は0にしない                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 | 文字列             | `varchar(n)`                               |        |         | 名称／説明文など。textは桁数が不明となり、システム間連携やデータサイズ見積もりで扱いにくいため、使用しない                                                                                                                                                                                                                                                                                                                                                                                                                                              |
@@ -660,7 +660,7 @@ PostgreSQLにはユーザーが使用可能な豊富な[データ型](https://ww
 
 ```sql
 CREATE TABLE sales_category (
-    code_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,,
+    code_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     category_code CHAR(8) -- 固定長8文字
 );
 
@@ -678,7 +678,7 @@ SQLで検索すると、表示上は `DUMMY` に見えるが、`CONCAT()` で文
 (1 row)
 ```
 
-回避策としては正しく宣言された桁数（先程の例では8文字）でテストデータを登録することが考えられるが、開発者の負荷が高まってしまう。そのため `varchar(n)` を変わりに使い、発生原因を根本から無くすことを推奨する。
+回避策としては正しく宣言された桁数（先程の例では8文字）でテストデータを登録することが考えられるが、開発者の負荷が高まってしまう。そのため `varchar(n)` を代わりに使い、発生原因を根本から無くすことを推奨する。
 
 :::
 
@@ -757,7 +757,7 @@ INSERT INTO color (color_id, color_name) OVERRIDING SYSTEM VALUE VALUES (DEFAULT
 
 推奨は以下の通り。
 
-- 新規構築（≒Oracle DBを利用したシステムのリプレイスではない）であれば、1または2を選択することが合理的であり、3は選択肢しない
+- 新規構築（≒Oracle DBを利用したシステムのリプレイスではない）であれば、1または2を選択することが合理的であり、3は選択しない
 - より品質が安定すると考えられる2を採用する
   - NOT NULLの文字列カラムと、NULLを許容するカラムで回避処理の有無を開発者が個別に判断するのは抜け漏れが生じる懸念があるし、レビュアーの負荷も大きい
   - NOT NULLの文字列カラムも含めて、一律エスケープさせるのは手間がかかり、可読性も低いと考えられるため
@@ -801,7 +801,7 @@ postgres=# INSERT INTO sample (name) VALUES (null);
 INSERT 0 1
 ```
 
-この挙動はOracleと異なる。OralceではNULL値でも重複を許容しない。PostgreSQLにてOracle風の動作をさせたい場合は、`NULLS NOT DISTINCT` オプションを利用する必要がある。
+この挙動はOracleと異なる。OracleではNULL値でも重複を許容しない。PostgreSQLにてOracle風の動作をさせたい場合は、`NULLS NOT DISTINCT` オプションを利用する必要がある。
 
 ## JSON型
 
@@ -823,13 +823,13 @@ JSONデータ型には `json` `jsonb`型の2種類が存在し、それぞれの
 
 ### JSONデータ型の利用方針
 
-原則、構造化データは正規化して格納する方針であるため`json` `jsonb`型の利用は非推奨とする。一方で、システム上は直接利用せず、画面や外部システムで横流しするだけのようなケースは`json` `jsonb`型の利用を許容する。json型の方が挿入速度で有利であるが、jonb型の方がバイナリ形式であるため、データ容量を抑えられる可能性があるため、処理性能とストレージ費用のどちらを優先するかで判断する。
+原則、構造化データは正規化して格納する方針であるため`json` `jsonb`型の利用は非推奨とする。一方で、システム上は直接利用せず、画面や外部システムで横流しするだけのようなケースは`json` `jsonb`型の利用を許容する。json型の方が挿入速度で有利であるが、jsonb型の方がバイナリ形式であるため、データ容量を抑えられる可能性があるため、処理性能とストレージ費用のどちらを優先するかで判断する。
 
 バリデーションについて、以下のようにCHECK制約を付けることは可能であるが、性能劣化の懸念やスキーママイグレーション時のALTERによるテーブルロックなど、運用の難易度が上がることが多い。
 
 ```sql
 CREATE TABLE api_response_log (
-    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,,
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     data jsonb,
     CHECK (jsonb_typeof(data->'age') = 'number' AND jsonb_typeof(data->'name') = 'string')
 );
@@ -855,12 +855,12 @@ PostgreSQLには BLOB という名前の型は存在せず、類似の仕組み�
 - ファイルもレコードと同一アクセス権限で管理できる
 - バックアップがDB側の機能だけではなく、外部ストレージ側でも行う必要がある
 
-また、レコードにファイルのリンクだけ格納する設計は「ファントムファイル」 と呼ばれアンチパターンであるとされるされる。
+また、レコードにファイルのリンクだけ格納する設計は「ファントムファイル」 と呼ばれアンチパターンであるとされる。
 
 推奨は以下の通り。
 
 - 巨大になりえるバイナリファイルはオブジェクトストレージに保存し、DB側はパスのみ保存する
-  - オブジェジェクトストレージの容量単価は通常、DBより安価であるため
+  - オブジェクトストレージの容量単価は通常、DBより安価であるため
   - ユーザー向けのダウンロードは、オブジェクトストレージの署名付きURLを用いて容易・セキュアに扱えるため
   - オブジェクトストレージ側が、トランザクションで守られないデメリットはあるものの、エラーハンドリング、リトライなどに気をつければ実用上問題ないことが多い
   - オブジェクトストレージ側でも権限管理が必要なため手間が増えるのは事実だが、DBの権限とは独立してファイルへのアクセスを厳密に管理できるとも言える
@@ -903,7 +903,7 @@ INSERT INTO example VALUES(-1);
 CREATE TYPE order_state AS ENUM ('Pending', 'Processing', 'Shipped', 'Delivered');
 
 CREATE TABLE order (
-    order_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,,
+    order_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     customer_id INTEGER NOT NULL,
     order_date TIMESTAMPTZ NOT NULL,
     order_status order_state NOT NULL
@@ -1035,14 +1035,14 @@ NOT NULL制約の設計において、「一時保存（下書き、仮登録）
 
 ```sql
 CREATE TABLE event (
-    event_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,,
+    event_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     start_date date NOT NULL,
     end_date date NOT NULL,
     CHECK (start_date < end_date)
 );
 
 CREATE TABLE contact (
-    contract_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,,
+    contract_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     phone_number varchar(11) CHECK (phone_number ~ '^\d{3}-\d{3}-\d{4}$')
 );
 ```
@@ -1070,7 +1070,7 @@ CREATE TABLE contact (
 
 ```sql
 CREATE TABLE room_bookings (
-    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,,
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     room_id BIGINT,
     start_time TIMESTAMPTZ,
     end_time TIMESTAMPTZ,
@@ -1127,7 +1127,7 @@ create or replace function を用いた関数の更新は、ロックが取ら�
 | 2.レコード物理削除時の別テーブルへ退避 | 別テーブルへの退避までがアプリケーション要件と見なす。そのためアプリケーション側で明示的に退避ロジックを記載し、単体テスト対象とする                                                                                                                      |
 | 3.変更履歴を別テーブルへ残す           | 変更履歴を別テーブルに残すことが、アプリケーション要件と見なす。そのためアプリケーション側で明示的に退避ロジックを記載し、単体テストの対象とする。 <br>もし、監査などアプリケーション要件ではない場合から来ている要件の場合は、個別に利用の是非を判断する |
 | 4.データ整合性チェック                 | データが挿入／更新前に特定の業務要件を満たしているかチェックしたい場合がある。<br>業務条件そのものであり、リリースライフサイクルがDB層ではなくアプリケーション層と異なるため、トリガーではなくアプリケーション側で実装する                                |
-| 5.参照整合性の維持                     | 4と同様に、業務要件を満たすように依存家計あるテーブルのカラムを追加／更新／削除したい場合がある。<br>4と同様の理由で、アプリケーション側で実装する。                                                                                                      |
+| 5.参照整合性の維持                     | 4と同様に、業務要件を満たすように依存関係のあるテーブルのカラムを追加／更新／削除したい場合がある。<br>4と同様の理由で、アプリケーション側で実装する。                                                                                                    |
 
 上記方針ではシステム要件を達成できないか大きな困難が生じるケース、あるいはトリガーを導入することで著しく品質や開発生産性が向上するなどの場合など、ごく限られた場面でのみトリガーの利用を検討する。
 
@@ -1147,7 +1147,7 @@ PostgreSQLにはAWS KinesisやGoogle Cloud Pub/SubのようなPub/Sub機能が�
 
 ## パーティション設計
 
-PostgreSQL 10以降は、「宣言的パーティショニング」が利用可能となり、従来のトリガー関数を用いた実装が不要となり、利用時の敷居が下がった。PostgreSQL 11以前のパーティショニングでは、パーティション数が多すぎると実行計画作成に時間がかかりすぎることで性能が劣化する可能性があり、100以下が推奨だった。PostgreSQL 12以降はパーティション数が多い場合でも、**興味がある**パーティションテーブルのみを参照するように実行計画の作成が改善された。
+PostgreSQL 10以降は、「宣言的パーティショニング」が利用可能となり、従来のトリガー関数を用いた実装が不要となり、利用時の敷居が下がった。PostgreSQL 11以前のパーティショニングでは、パーティション数が多すぎると実行計画作成に時間がかかりすぎることで性能が劣化する可能性があり、100以下が推奨だった。PostgreSQL 12以降はパーティション数が多い場合でも、**興味のある**パーティションテーブルのみを参照するように実行計画の作成が改善された。
 
 ::: info 参考
 
@@ -1195,9 +1195,9 @@ CREATE TABLE item_order
 
 CREATE TABLE item_order_20241026 PARTITION OF item_order
     FOR VALUES FROM ('2024-10-26') TO ('2024-10-27');
-CREATE TABLE item_order_20221027 PARTITION OF item_order
+CREATE TABLE item_order_20241027 PARTITION OF item_order
     FOR VALUES FROM ('2024-10-27') TO ('2024-10-28');
-CREATE TABLE item_order_20221028 PARTITION OF item_order
+CREATE TABLE item_order_20241028 PARTITION OF item_order
     FOR VALUES FROM ('2024-10-28') TO ('2024-10-29');
 ```
 
@@ -1253,7 +1253,7 @@ defaults including constraints) with ( FILLFACTOR = 80);
 
 -- ②パーティションテーブルに①をパーティションとして組み込みを行う。
 alter table PART_T attach partition PART_T_P2023_03
-for values from ('2023-03-01') to ('2023-04-01’);
+for values from ('2023-03-01') to ('2023-04-01');
 ```
 
 メンテナンスウィンドウを確保できない場合は、2のATTACHによる手法を用いること。
@@ -1367,7 +1367,7 @@ MVIEWの増分ビューメンテナンスは、 `pg_ivm` 拡張を用いるこ�
 - 実表ではなくMVIEWを利用することを推奨する
   - TRUNCATEすることで、サマリテーブルが0件になってしまう余地があること（あるいはロックのために参照すら待たされること）
     - トランザクション内でTRUNCATEを利用するか、別名でサマリテーブルを作成、トランザクション内のALTERで新旧を切り替えてしまえば上記を防ぐことが可能。ただし、テーブルのロックは取ってしまう
-  - DELETEを用いると余計なVACUUMEでリソースを消費してしまうこと
+  - DELETEを用いると余計なVACUUMでリソースを消費してしまうこと
   - MVIEWというRDMSが正規に提供する機能を用いることで、設計意図を開発者に明確に伝えることができる（MVIEWであるためそのテーブルがアプリケーションから更新不可で、参照専用であることが伝えられる）
   - なお、MVIEWもインデックスを作成可能であり、インデックス観点で実表を利用する理由にはならない。パーティションテーブル化はできないため、パーティションごとにデータを洗い替える必要がある場合は、実表にする必要がある
 
@@ -1399,7 +1399,7 @@ CREATE TABLE base_table (
 
 -- 業務テーブル（base_table を継承）
 CREATE TABLE orders (
-    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,,
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     product_id BIGINT NOT NULL,
     quantity INTEGER NOT NULL,
     amount NUMERIC(10, 2) NOT NULL,
@@ -1512,7 +1512,7 @@ CREATE TABLE orders (
 
 - 原則、全テーブルに付与する
 - 追記のみ（更新がない）テーブルであっても、「更新」 「排他制御」 「パッチ」分類のカラムも付与する
-- 一律的に付与することで、万が一アプリケーションやシステム運用で更新処理やデータパッチが行われた場合の、記録漏れを防ぎことをカラムが増えるという冗長性より優先とし、ガバナンスを図るため
+- 一律的に付与することで、カラムが増えるという冗長性よりも、万が一アプリケーションやシステム運用で更新処理やデータパッチが行われた場合の記録漏れを防ぐことを優先し、ガバナンスを図るため
 
 アプリケーションコードからの利用については以下のルールを守る。
 
@@ -1752,7 +1752,7 @@ CREATE TABLE unit_price (
 ::: tip 単一テーブルパターンにおける性能考慮
 
 世代管理対象がマスタの場合、そこまで多くのデータ件数が見込まれないケースも多くある。
-そういった場合、クエリ性能や改廃の考慮優先順位は高く置かず、単一テーブルパターンを選択する余地は十分にあるえる。
+そういった場合、クエリ性能や改廃の考慮優先順位は高く置かず、単一テーブルパターンを選択する余地は十分にありえる。
 
 :::
 
@@ -1934,7 +1934,7 @@ PostgreSQLのタイムゾーン付きのタイムスタンプのデータは、�
 ```sql
 -- 商品購入履歴テーブル
 CREATE TABLE hist_purchase (
-    purchase_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,,
+    purchase_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     item_id BIGINT NOT NULL,             -- 商品ID
     quantity INT NOT NULL,               -- 購入数
     unit_price NUMERIC(10, 2) NOT NULL,  -- 単価
@@ -2064,7 +2064,7 @@ B2Bサービス開発においては、通常マルチテナント設計を求�
 
 「REPEATABLE READ」を利用する方針としては以下のいずれかの条件に一致する場合とする。
 
-- 条件1: WHERE 句に含まれるサブクエリの SELECT から自己参照が発生する場合（ほぼ業務上、利用することはは無い想定）
+- 条件1: WHERE 句に含まれるサブクエリの SELECT から自己参照が発生する場合（業務上、利用することはほとんど無い想定）
 
 ```sql
 -- WHERE 条件のフィールドを UPDATE するのって，明示的にロックしてなくても安全？全パターン調べてみました！ #MySQL - Qiita より引用
@@ -2077,7 +2077,7 @@ WHERE EXISTS(
 );
 ```
 
-- 条件2: 複雑なレポート生成など、トランザクション中での数値計算の整合性を保ちたい場合（ほぼ業務上、利用することはは無い想定）。ただし、ファントムリードは防げないため、REAPEATABLE READを信用しすぎないこと。また本当に業務要件で求められる整合性はよく整理すること。
+- 条件2: 複雑なレポート生成など、トランザクション中での数値計算の整合性を保ちたい場合（業務上、利用することはほとんど無い想定）。ただし、ファントムリードは防げないため、REPEATABLE READを信用しすぎないこと。また本当に業務要件で求められる整合性はよく整理すること。
 
 ::: info 参考
 [SQLトランザクション分離 実践ガイド | POSTD](https://postd.cc/practical-guide-sql-isolation/)
@@ -2500,7 +2500,7 @@ VACUUM FULLは以下のような特殊なワークロードのテーブルに対
 （ロケールの概要や挙動説明については諸事情で省略する）
 
 ::: warning ロケールは後から変更することができないため、データベース作成時に設計する必要がある
-`lc_colate` `lc_ctype` の設定により、「ソート順」 「照合順（文字列比較）」の動作が異なってしまい、最悪の場合検索要件を満たせない可能性がある。DBを構築する前に要件を確認し正しく設定必要がある。
+`lc_collate` `lc_ctype` の設定により、「ソート順」 「照合順（文字列比較）」の動作が異なってしまい、最悪の場合検索要件を満たせない可能性がある。DBを構築する前に要件を確認し正しく設定する必要がある。
 万が一、初期構築時の設定が要件を満たせない場合、以下のいずれかの対応を検討する。
 
 - データベースを再作成する (pg_dump -> 新規DB作成 -> pg_restore)
@@ -2581,7 +2581,7 @@ Amazon Auroraについてはデフォルト値を推奨する。性能検証な�
 
 `plan_cache_mode` は クエリプランキャッシュの動作を制御するために使用され、設定値は3種ある。
 
-| 設置値                 | 説明                                                   | 有効なユースケース                                                   |
+| 設定値                 | 説明                                                   | 有効なユースケース                                                   |
 | :--------------------- | :----------------------------------------------------- | :------------------------------------------------------------------- |
 | `auto`（デフォルト値） | キャッシュを使用するかどうかDBMS側の判断に委ねる       | 大半のケース                                                         |
 | `force_custom_plan`    | クエリの引数ごとにプランが作成され、キャッシュされない | 引数の値により、実行計画を変動させた方が性能上有利な可能性がある場合 |
@@ -2749,12 +2749,12 @@ func handle(w http.ResponseWriter, r *http.Request) {
 
 | 対象   | リードレプリカへの連携の仕組み                                                   |
 | :----- | :------------------------------------------------------------------------------- |
-| RDS    | 非同期レプリケーション。ワークロード次第だが、数百ミリ秒～数秒程度のち塩がある   |
+| RDS    | 非同期レプリケーション。ワークロード次第だが、数百ミリ秒～数秒程度の遅延がある   |
 | Aurora | ボリュームの共有。レプリカ側のキャッシュを削除するため、数十ミリ秒程度ラグがある |
 
 Auroraについては、ラグが非常に小さく、データ更新→再検索で課題が出るケースはワークロードにもよるがほとんど聞かない。仮にごく稀に古いデータが参照されても、画面をリロードしてもらう方針で調整することも多い。
 
-RDSは、節題のような懸念が考えられる。
+RDSは、本節のような懸念が考えられる。
 
 - プライマリーでデータ更新→すぐにレプリカでデータ検索して画面表示（例えば、一覧検索）すると、ラグ（遅延）により古いデータが表示されてしまう
 
@@ -2868,7 +2868,7 @@ ORDER BY
 3. 計算結果や集計結果のキャッシュ
    - ダッシュボードアプリケーションでのリアルタイム集計結果のキャッシュ
 
-もし、キャッシュサーバーを利用する方針になった場合、キャッシュへの保存処理方針を次から選択する必要があるがある。
+もし、キャッシュサーバーを利用する方針になった場合、キャッシュへの保存処理方針を次から選択する必要がある。
 
 - Read Through（Lazy Caching、Read Aside）
 - Write Through
@@ -2883,7 +2883,7 @@ ORDER BY
 </div>
 
 ::: tip
-本来のRead Throughは、CDNのようにキャッシュ機構から透過的にアクセスし、呼び出し元が意識することなくキャッシュを利用する（≒インラインキャッシュ）仕組みである。上図のRead Throughはそれと区別するため、Read Asde（または、Cache Aside）と呼ぶことも多い。本紙では上記を区別せず、Read Throughとデフォルメして表現している。
+本来のRead Throughは、CDNのようにキャッシュ機構から透過的にアクセスし、呼び出し元が意識することなくキャッシュを利用する（≒インラインキャッシュ）仕組みである。上図のRead Throughはそれと区別するため、Read Aside（または、Cache Aside）と呼ぶことも多い。本紙では上記を区別せず、Read Throughとデフォルメして表現している。
 :::
 
 それぞれの特徴を下表にまとめる。

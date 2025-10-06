@@ -220,8 +220,6 @@ NewRelic、DataDogなども独自のキーがあるが、OTelのエクスポー�
 | ログ重要度レベル                     | status       | TODO           | TODO                   |
 | ログ生成元 （nginx、postgresqlなど） | source       | TODO           | TODO                   |
 
-###
-
 ## 推奨するキー名称
 
 方針は以下の通り。
@@ -277,7 +275,7 @@ NewRelic、DataDogなども独自のキーがあるが、OTelのエクスポー�
 ::: tip 絵文字でカラフルに  
 特にローカル環境のターミナルでしか利用しない場合は、ログメッセージに絵文字を入れると視認性が向上しやすいというテクニックがある。
 
-```
+```console
 DEBUG: Order #ORD-123 の処理を開始します。現在のステータス: PENDING ⏳
 DEBUG: 在庫を確認中... 商品ID: P-123 の在庫は 10個です ✅
 DEBUG: 注文ステータスを PROCESSING ⚙️ に更新しました。
@@ -400,31 +398,21 @@ ANSIエスケープのよくある課題は、ANSIエスケープシーケンス
 - ログ出力をしつつ、ユーザー向けにエラーを表示することがある。それらを紐づけるために、トレースIDをユーザーメッセージにも出力し、紐づけを可能とする
   - これにより、ユーザーからの「このIDが表示されたエラーが出ました」と問い合わせがあった際に、そのIDをキーに調査が可能となる（どのような操作をしたか？何時頃ですか？といったやり取りを減らすことができる）
 
-####
-
 ✅️出力例（開発者向けのログ）
 
 ```json
 {
-  "@timestamp": "2025-09-12T14:46:16.234+09:00",
-  "log.level": "ERROR",
+  "timestamp": "2025-09-12T14:46:16.234+09:00",
+  "severity.text": "ERROR",
   "message": "Error processing payment.",
-  "service": {
-    "name": "payment-service"
-  },
-  "thread": {
-    "name": "http-nio-8080-exec-5"
-  },
-  "log": {
-    "logger": "com.example.MyPaymentService"
-  },
-  "error": {
-    "id": "E-1a2b3c4d",
-    "code": "PAYMENT-003",
-    "type": "com.example.PaymentApiException",
-    "message": "Credit card company timeout",
-    "stack_trace": "com.example.PaymentApiException: Credit card company timeout\n\tat com.example.MyPaymentService.processPayment(MyPaymentService.java:42)\n\t... (スタックトレースが続く)"
-  }
+  "service.name": "payment-service",
+  "thread.name": "http-nio-8080-exec-5",
+  "logger.name": "com.example.MyPaymentService",
+  "error.id": "E-1a2b3c4d",
+  "error.code": "PAYMENT-003",
+  "exception.type": "com.example.PaymentApiException",
+  "exception.message": "Credit card company timeout",
+  "exception.stack_trace": "com.example.PaymentApiException: Credit card company timeout\n\tat com.example.MyPaymentService.processPayment(MyPaymentService.java:42)\n\t... (スタックトレースが続く)"
 }
 ```
 
@@ -465,9 +453,9 @@ ANSIエスケープのよくある課題は、ANSIエスケープシーケンス
 
 ```json
 {
-  "time": "2025-08-26T10:36:17.123+09:00",
-  "level": "INFO",
-  "msg": "カート追加時の在庫引当が失敗しました。",
+  "timestamp": "2025-08-26T10:36:17.123+09:00",
+  "severity.text": "INFO",
+  "message": "カート追加時の在庫引当が失敗しました。",
   "user.id": "user-456",
   "sku.cd": "ABC-123-XYZ-RED-L"
 }
@@ -477,9 +465,9 @@ ANSIエスケープのよくある課題は、ANSIエスケープシーケンス
 
 ```json
 {
-  "time": "2025-08-26T10:37:00.456+09:00",
-  "level": "INFO",
-  "msg": "カート追加時の在庫引当が失敗しました。（ユーザーID:user-456 SKU:ABC-123-XYZ-RED-L）"
+  "timestamp": "2025-08-26T10:36:17.123+09:00",
+  "severity.text": "INFO",
+  "message": "カート追加時の在庫引当が失敗しました。（ユーザーID:user-456 SKU:ABC-123-XYZ-RED-L）"
 }
 ```
 
@@ -487,9 +475,9 @@ ANSIエスケープのよくある課題は、ANSIエスケープシーケンス
 
 ```json
 {
-  "time": "2025-08-26T10:37:00.456+09:00",
-  "level": "INFO",
-  "msg": "カート追加時の在庫引当が失敗しました。",
+  "timestamp": "2025-08-26T10:36:17.123+09:00",
+  "severity.text": "INFO",
+  "message": "カート追加時の在庫引当が失敗しました。",
   "details": {
     "user.id": "user-456",
     "sku.cd": "ABC-123-XYZ-RED-L"
@@ -561,28 +549,28 @@ ANSIエスケープのよくある課題は、ANSIエスケープシーケンス
  ==================================================
 
 {
-  "@timestamp": "2025-09-12T14:46:16.234+09:00",
-  "log.level": "INFO",
+  "timestamp": "2025-09-12T14:46:16.234+09:00",
+  "severity.text": "INFO",
   "message": "Application startup sequence initiated.",
 }
 {
-  "@timestamp": "2025-09-12T14:46:16.235+09:00",
-  "log.level": "INFO",
+  "timestamp": "2025-09-12T14:46:16.235+09:00",
+  "severity.text": "INFO",
   "message": "Configuration loaded successfully.",
 }
 {
-  "@timestamp": "2025-09-12T14:46:16.236+09:00",
-  "log.level": "INFO",
+  "timestamp": "2025-09-12T14:46:16.236+09:00",
+  "severity.text": "INFO",
   "message": "Config: {"key": "value"...}",
 }
 {
-  "@timestamp": "2025-09-12T14:46:16.237+09:00",
-  "log.level": "INFO",
+  "timestamp": "2025-09-12T14:46:16.237+09:00",
+  "severity.text": "INFO",
   "message": "Database connection established.",
 }
 {
-  "@timestamp": "2025-09-12T14:46:16.238+09:00",
-  "log.level": "INFO",
+  "timestamp": "2025-09-12T14:46:16.238+09:00",
+  "severity.text": "INFO",
   "message": "Server listening on http://0.0.0.0:8080",
 }
 ```
@@ -633,20 +621,20 @@ ANSIエスケープのよくある課題は、ANSIエスケープシーケンス
   - ログごとに、運用が一意となるメッセージコードを付与する
     - それに紐づく運用マニュアルは、各国拠点ごとに作成させるなどは、状況に応じて実施する
 
-✅️出力例（英語ので出力）
+✅️出力例（英語での出力）
 
 ```json
 {
   "timestamp": "2025-08-26T11:45:10.880+09:00",
-  "level": "WARN",
-  "message_code": "BIZ-W-1001",
+  "severity.text": "WARN",
+  "message.code": "BIZ-W-1001",
   "message": "Inventory update failed due to a data conflict (optimistic lock). Please retry the operation.",
-  "process": "inventory_allocation",
-  "orderId": "order-67890",
-  "productId": "product-ABC-001",
-  "requestedQuantity": 5,
-  "currentVersion": 12,
-  "attemptedVersion": 11
+  "process.name": "inventory_allocation",
+  "order.id": "order-67890",
+  "product.id": "product-ABC-001",
+  "requested.quantity": 5,
+  "current.version": 12,
+  "attempted.version": 11
 }
 ```
 
@@ -655,16 +643,15 @@ ANSIエスケープのよくある課題は、ANSIエスケープシーケンス
 ```json
 {
   "timestamp": "2025-08-26T11:45:10.880+09:00",
-  "level": "WARN",
-  "message_code": "BIZ-W-1001",
+  "severity.text": "WARN",
+  "message.code": "BIZ-W-1001",
   "message": "Inventory update failed due to a data conflict (optimistic lock). Please retry the operation.",
-  "message_jp": "データ競合（楽観的ロック）のため在庫の更新に失敗しました。処理をリトライしてください。",
-  "process": "inventory_allocation",
-  "orderId": "order-67890",
-  "productId": "product-ABC-001",
-  "requestedQuantity": 5,
-  "currentVersion": 12,
-  "attemptedVersion": 11
+  "process.name": "inventory_allocation",
+  "order.id": "order-67890",
+  "product.id": "product-ABC-001",
+  "requested.quantity": 5,
+  "current.version": 12,
+  "attempted.version": 11
 }
 ```
 
@@ -702,7 +689,7 @@ ANSIエスケープのよくある課題は、ANSIエスケープシーケンス
 推奨は以下の通り。
 
 - 非同期ロギング
-  - Javaでは、 **SLF4J \+ Logback** 組み合わせかつ、AsyncAppender を活用する
+  - Javaでは、 **SLF4J \+ Logback** の組み合わせかつ、AsyncAppender を活用する
   - Goのロギングは非常にシンプルで性能が良いため、非同期ロギングは利用しなくても良い
   - AsyncAppender は、ログイベントを一旦メモリ上のキューに格納し、別のワーカースレッドがキューからイベントを取り出しログ出力する
   - プロセス障害時のログ欠損に備え、JVMのシャットダウンフックでキュー内のログをフラッシュさせる設定をいれる
@@ -803,7 +790,7 @@ CloudWatch Logsやその他のマネージドログサービス（Datadogなど�
 
 このアーキテクチャガイドラインの作成にご協力いただいた皆様に、心より感謝申し上げる。
 
-- **作成者**: **作成者**: 真野隼記、八木雅斗、宮崎将太、武田大輝、澁川喜規
+- **作成者**: 真野隼記、八木雅斗、宮崎将太、武田大輝、澁川喜規
 - **レビュアー**: 募集中
 
 皆様のご尽力なしには、本ガイドラインは完成しなかった。深く感謝する。

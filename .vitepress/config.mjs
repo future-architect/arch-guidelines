@@ -256,6 +256,16 @@ export default defineConfig({
             ],
           },
           {
+            text: "横断的関心事",
+            items: [
+              {
+                text: "ログ",
+                link: "/documents/forLog/log_guidelines.html",
+              },
+            ],
+          },
+
+          {
             text: "開発生産性",
             items: [
               {

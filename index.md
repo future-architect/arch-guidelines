@@ -33,6 +33,9 @@ hero:
       text: データマネジメント
       link: ./documents/forDataManagement/
     - theme: alt
+      text: ログ
+      link: ./documents/forLog/
+    - theme: alt
       text: Gitブランチフロー
       link: ./documents/forGitBranch/
     - theme: alt

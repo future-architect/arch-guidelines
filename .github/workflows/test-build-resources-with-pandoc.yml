@@ -27,7 +27,7 @@ jobs:
           entrypoint: "/bin/sh"
           args: "./build-resources-with-pandoc.sh"
       - name: Archive resources
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         id: artifact-upload-step
         with:
           name: pandoc_resources
@@ -35,7 +35,7 @@ jobs:
           retention-days: 1
       - name: Archive Error resources
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: error_resources
           path: ./documents/

@@ -702,13 +702,41 @@ git config --global alias.br branch
 - `fetch.prune`: リモートリポジトリで削除されたブランチを削除する
   :::
 
-# git-secrets
+# クレデンシャル情報の混入防止
+
+## git-secrets
 
 [git-secrets](https://github.com/awslabs/git-secrets)を用いることで、ユーザーパスワードや AWS アクセスキーなどの機密情報が含まれる可能性のあるコードなどをGit リポジトリに追加されないようにできる。
 
-本規約の推奨は以下。
+本規約の推奨と理由は以下。
 
 - チームメンバー全員にgit-secretsを導入する
+  - Push Protection によってクレデンシャルのリモートへの Push は防げるが、ローカルにクレデンシャルを含むコミット履歴が残っていると復元される可能性がある。そこで、git-secrets を用いてコミット段階でクレデンシャルを拒否する設定を行っておく
+
+## Push Protection
+
+Push Protectionを有効化することで、コードをプッシュする際にクレデンシャルが含まれていないかチェックする。
+もしクレデンシャルが検知されると、プッシュが拒否されるようになる。
+メンバー全員がgit-secretsを設定していれば不要であるが、設定漏れなどでプッシュされてしまうことを防ぐために、本規約では有効化しておくことを推奨する。
+
+::: info 参考
+
+- [GitLab Docs | Secret push protection](https://docs.gitlab.com/user/application_security/secret_detection/secret_push_protection/)
+- [GitHub | プッシュ保護について](https://docs.github.com/ja/code-security/secret-scanning/introduction/about-push-protection)
+
+:::
+
+## Secret Scanning
+
+Secret Scanningを利用することで、Git リポジトリにクレデンシャルが存在するとメールなどでアラートを送ってくれるようにできる。
+Secret Scanningではコードだけでなく、IssueやPull Requestなどもスキャンできるため、本規約では利用することを推奨する。
+
+::: info 参考
+
+- [GitHub | シークレットスキャンについて](https://docs.github.com/ja/code-security/secret-scanning/introduction/about-secret-scanning)
+- [GitLab | Secret Detection](https://docs.gitlab.com/user/application_security/secret_detection/)
+
+:::
 
 # コミットフックでテスト実行は行わない
 

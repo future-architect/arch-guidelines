@@ -908,12 +908,14 @@ GitHubでは `.github/PULL_REQUEST_TEMPLATE.md` に記載する。（GitLabで�
 | ------------- | ---------------------------------------------------------------- | ------------ | ------------------------------------------------------------------------------------------ |
 | General       | Require contributors to sign off on web-based commits            | チェックなし | 著作権・ライセンス承諾の場合に用いるが、業務アプリ開発では不要                             |
 |               | Default branch                                                   | develop      |                                                                                            |
-| Pull Requests | Allow merge commits                                              | ✅️          | main <- developなどのマージ時に必要                                                        |
-|               | Allow squash merging                                             | ✅️          | develop <- feature はSquash mergeを推奨                                                    |
+| Pull Requests | Allow merge commits                                              | ✅️            | main <- developなどのマージ時に必要                                                        |
+|               | Allow squash merging                                             | ✅️            | develop <- feature はSquash mergeを推奨                                                    |
 |               | Allow rebase merging                                             | -            | 利用しないため、チェックを外す                                                             |
-|               | Allow suggest updating pull request branches                     | ✅️          | Pull Request作成後、ベースブランチが更新された場合、ソースブランチの更新を提案してくれる   |
-|               | Automatically delete head branches                               | ✅️          | マージ後にfeature branchを削除するため有効にする                                           |
+|               | Allow suggest updating pull request branches                     | ✅️            | Pull Request作成後、ベースブランチが更新された場合、ソースブランチの更新を提案してくれる   |
+|               | Automatically delete head branches                               | ✅️            | マージ後にfeature branchを削除するため有効にする                                           |
 | Pushes        | Limit how many branches and tags can be updated in a single push | 5            | git push origin –mirrorで誤ってリモートブランチを破壊しないようにする。推奨値の5を設定する |
+| Security      | Secret scanning                                                  | ✅️            | コードやIssue、コメント等のクレデンシャル情報を検知し、通知を行う                        |
+|               | Push Protection                                                  | ✅️            | プッシュ時にクレデンシャル情報が検知された場合、プッシュをブロックする                     |
 
 ## Access
 

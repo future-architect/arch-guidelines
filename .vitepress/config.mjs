@@ -117,6 +117,13 @@ const links = {
       link: "/documents/forCodeReview/code_review.html",
     },
   ],
+  "/documents/forSoftSkill/": [
+    { text: "Introduction", link: "/documents/forSoftSkill/" },
+    {
+      text: "ソフトスキルガイドライン",
+      link: "/documents/forSoftSkill/softskill_guidelines.html",
+    },
+  ],
 };
 
 /**

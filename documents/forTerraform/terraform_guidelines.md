@@ -2041,11 +2041,7 @@ GitHub ActionsなどのCI/CDパイプラインでのterraformコマンドを実�
 | #        | AWS                                                                              | Google Cloud                                                | Azure                                                                                                         |
 | :------- | :------------------------------------------------------------------------------- | :---------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------ |
 | MFA化    | ✅️必須                                                                          | ✅️必須                                                     | ✅️必須                                                                                                       |
-| 認証手法 | アクセスキー/シークレットキーを安全に保存・利用するためのツール、AWS Vaultを使用 | 対話型ログイン(gcloud auth application-default login)を使用 | 対話型ログイン(az login)を使用する。サービスプリンパル <クライアントシークレット or X509 証明書> は使用しない |
-
-なお、AWSのMFA化については以下のようなツールも存在する。
-
-- [AWS CLIで用いるMFAをちょっとだけ便利に扱えるツールを公開しました | フューチャー技術ブログ](https://future-architect.github.io/articles/20210426a/)
+| 認証手法 | 対話型ログイン(aws login)を使用 | 対話型ログイン(gcloud auth application-default login)を使用 | 対話型ログイン(az login)を使用する。サービスプリンパル <クライアントシークレット or X509 証明書> は使用しない |
 
 ::: tip MFA化  
 Terraformに限った話ではなく、クラウドのアカウント認証はMFAを取り入れておくことが望ましい。  
@@ -2053,9 +2049,7 @@ Terraformに限った話ではなく、クラウドのアカウント認証はMF
 
 ::: info 参考
 
-- [AWS Vaultで端末内のAWSアクセスキー平文保存をやめてみた](https://dev.classmethod.jp/articles/aws-vault/)
-- [[Terraform CLI]MFA認証を使ったAssumeRole。AWSVaultで解決](https://dev.classmethod.jp/articles/terraform-assumerole/)
-- [MFA認証を使ったAssumeRoleでシンプルにTerraformを実行する(aws configure export-credentials)](https://dev.classmethod.jp/articles/terraform-mfa-assumerole-export-credentials/)
+- AWSはこれまでシークレットアクセスキーを使用する方法が一般的だったが、「aws login」コマンドがリリース(2025/11/20)されたためプラクティスを変更
 
 :::
 

@@ -140,7 +140,7 @@ function defineConfig(config) {
 export default defineConfig({
   title: "フューチャー株式会社",
   description:
-    "フューチャー株式会社の有志が作成する<wbr>良いアーキテクチャを実現するための設計ガイドライン",
+    "フューチャー株式会社の有志が作成する<br>良いアーキテクチャを実現するための設計ガイドライン",
   outDir: "docs",
   ignoreDeadLinks: "localhostLinks",
   markdown: {
@@ -174,7 +174,36 @@ export default defineConfig({
         type: "image/svg+xml",
       },
     ],
+    ["meta", { property: "og:type", content: "website" }],
+    ["meta", { property: "og:locale", content: "ja_JP" }],
+    [
+      "meta",
+      {
+        property: "og:site_name",
+        content: "アーキテクチャ設計ガイドライン | フューチャー株式会社",
+      },
+    ],
   ],
+  transformHead({ pageData }) {
+    const head = [];
+
+    // タイトルの設定: Frontmatterにタイトルがあれば「記事タイトル | サイト名」、なければ「サイト名」
+    const title = pageData.frontmatter.title
+      ? `${pageData.frontmatter.title} | アーキテクチャ設計ガイドライン`
+      : "アーキテクチャ設計ガイドライン";
+
+    head.push(["meta", { property: "og:title", content: title }]);
+
+    // 説明文の設定: Frontmatterにdescriptionがあれば使用、なければデフォルトを使用
+    const description =
+      pageData.frontmatter.description ||
+      "フューチャー株式会社の有志が作成する良いアーキテクチャを実現するための設計ガイドライン";
+
+    head.push(["meta", { property: "og:description", content: description }]);
+    head.push(["meta", { name: "description", content: description }]);
+
+    return head;
+  },
   srcExclude: ["./README.md"],
   base: "/arch-guidelines/",
   themeConfig: {

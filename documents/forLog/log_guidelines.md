@@ -325,7 +325,7 @@ ANSIエスケープのよくある課題は、ANSIエスケープシーケンス
 
 ## ログレベル
 
-主要なログレベルは下表の通り。
+主要なログレベルは下表の通り。 [RFC 5424 - The Syslog Protocol](https://tex2e.github.io/rfc-translater/html/rfc5424.html)のSeverity定義、およびAndroidの[ロギング定義](https://source.android.com/docs/core/tests/debug/understanding-logging?hl=ja)と整合性を持たせ、システムの運用監視と開発効率の両立を目指す。
 
 【凡例】 ✅️:ログ出力を行う
 

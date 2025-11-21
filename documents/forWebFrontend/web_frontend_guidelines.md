@@ -89,7 +89,7 @@ AWSを前提として各パターンを下表で比較する。
 | 性能                     | ✅️CDNのエッジロケーション利用が可能                                          | ❌️常にS3直接アクセスのため、オーバーヘッドが大きい                                                                   | ⚠️Webサーバーのキャッシュが利用可能                                                   |
 | サーバー管理             | ✅️フルマネージド                                                             | ✅️フルマネージド                                                                                                     | ❌️Webサーバーの保守運用が必要                                                        |
 | 運用費用                 | ✅️                                                                           | ✅️                                                                                                                   | ❌️Webサーバーの費用                                                                  |
-| SPAルーティング          | ✅️CloudFrontでindex.htmlへのフォールバックにより、ヒストリーモード対応が可能 | ❌️ALBではindex.htmlへのフォールバックが不可                                                                          | ✅️Webサーバー設定によりindex.htmlへのフォールバックが可能                            |
+| SPAルーティング          | ✅️CloudFrontでindex.htmlへのフォールバックにより、ヒストリーモード対応が可能 | ✅️2025/10/15「URL書き換え」機能のアップデートにより、index.htmlへのフォールバックが可能                              | ✅️Webサーバー設定によりindex.htmlへのフォールバックが可能                            |
 | レスポンスヘッダーの変更 | ✅️CloudFrontのレスポンスヘッダーポリシーで任意のヘッダー追加が可能           | ⚠️2024年11月よりALBで特定のセキュリティヘッダー（HSTSなど）を追加可能                                                 | ✅️Webサーバー設定で任意のヘッダー追加が可能                                          |
 | B/Gデプロイ              | ✅️S3に新旧コンテンツを配備、CloudFrontディストリビューション切り替えで実現   | ❌️ALBのターゲットはS3のVPCエンドポイントのIPベースになる。バケットやオブジェクトごとにルーティング切り替えはできない | ✅️新しいコンテンツを内包したWebサーバーを構築。ALBターゲットグループの切り替えで実現 |
 
@@ -97,7 +97,7 @@ AWSを前提として各パターンを下表で比較する。
 
 - プライベート（閉域）SPA: (3) を選択する
   - 閉域ネットワークからのアクセスに対応しつつ、SPAルーティングや柔軟なレスポンスヘッダー設定、B/Gデプロイが可能であるため
-  - （２）は制約が多いためSPAホスティングとしては不向きである
+  - （２）はHSTSはALBで対応可能だが、その他のセキュリティヘッダー（CSP等）の付与にはAWS WAFの併用が必須となり、閉域という条件を満たせない
 - インターネット公開SPA: (1) を選択する
   - CDNによる高性能な配信、フルマネージドによる運用負荷の低減、比較的低コスト、SPAルーティングやヘッダー追加への柔軟な対応が可能であるため
 
@@ -109,6 +109,16 @@ AWSを前提として各パターンを下表で比較する。
 - HTTPSをネイティブでサポートしない（HTTPのみ）
 - カスタムレスポンスヘッダー（HSTSなど）の追加ができない
 - B/Gデプロイの実現が困難
+
+:::
+
+::: info 参考
+2025/10/15に発表されたALBのURL書き換え機能で、index.htmlへのフォールバックが可能となった。
+
+- [AWS Application Load Balancer で URL とホストヘッダーの書き換えが可能に](https://aws.amazon.com/jp/about-aws/whats-new/2025/10/application-load-balancer-url-header-rewrite/)
+- [Introducing URL and host header rewrite with AWS Application Load Balancers](https://aws.amazon.com/jp/blogs/networking-and-content-delivery/introducing-url-and-host-header-rewrite-with-aws-application-load-balancers/)
+
+そのため、閉域の場合でも（3）ではなく（2）のパターンを選択できる可能性は高くなったが、依然としてセキュリティヘッダーの観点や、デプロイの柔軟性を考え見て（3）を推奨する。
 
 :::
 

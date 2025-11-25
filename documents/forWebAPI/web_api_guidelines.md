@@ -343,6 +343,22 @@ HTTPリクエストメソッドは[RFC 7231](https://datatracker.ietf.org/doc/ht
 | PATCH    | ❌️    | ⚠️     | 指定された項目だけ部分的に更新する。リソースの新規作成をサポートする場合もあるが、禁止とする（※後述）                                               |
 | DELETE   | ❌️    | ✅️    | リソースを削除する                                                                                                                                  |
 
+::: tip 中間機器によるPATCHメソッドのブロック
+
+PATCHメソッドについては [新規APIの実装でPATCHメソッドを使用しないようにしました](https://developers.prtimes.jp/2025/11/11/no-patch-in-new-api/)にあるように、企業の社内ネットワーク（プロキシサーバー、Firewall、セキュアWebゲートウェイ等） の状態によっては、501 Not Implemented エラーなどでブロックされる事例が確認されている。なぜPATCHだけブロックされるかは、PATCH (RFC 5789) が標準化されたのは 2010年 と他のメソッドと比較すると新しいため、それ以前に構築された古いミドルウェアが残っている場合は、未知のメソッドとして処理されていると推測できる。そのような古い環境を持つ顧客をターゲットにする必要がある場合は、PATCHの代わりにPOSTと `X-HTTP-Method-Override` ヘッダーで代用することを検討する。
+
+```sh
+# X-HTTP-Method-Overrideの例
+POST /api/v1/users/123 HTTP/1.1
+Host: api.example.com
+Content-Type: application/json
+X-HTTP-Method-Override: PATCH
+```
+
+そのような特殊な要件が存在しない限りは、PATCHメソッドを用いたRESTに則った設計を推奨する。
+
+:::
+
 ## 複雑な検索条件が必要な場合にPOSTを用いてよいか
 
 推奨は以下の通り。

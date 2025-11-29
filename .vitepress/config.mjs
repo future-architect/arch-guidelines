@@ -43,6 +43,13 @@ const links = {
       link: "/documents/forIF/if_guidelines.html",
     },
   ],
+  "/documents/forAsync/": [
+    { text: "Introduction", link: "/documents/forAsync/" },
+    {
+      text: "非同期設計ガイドライン",
+      link: "/documents/forAsync/async_guidelines.html",
+    },
+  ],
   "/documents/forMail/": [
     { text: "Introduction", link: "/documents/forMail/" },
     {

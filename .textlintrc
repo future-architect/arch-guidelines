@@ -1,0 +1,26 @@
+{
+  "filters": {
+      "allowlist": {
+          "allow": [
+            "/^:::/"
+          ]
+      }
+  },
+  "rules": {
+    "preset-ja-technical-writing": {
+      "no-mix-dearu-desumasu": {
+        "preferInHeader": "である",
+        "preferInBody": "である"
+      },
+      "sentence-length": {
+        "max": 200
+      },
+      "no-exclamation-question-mark": true,
+      "ja-no-weak-phrase": true,
+      "max-kanji-continuous-len": {
+        "max": 10
+      }
+    },
+    "spellcheck-tech-word": true
+  }
+}

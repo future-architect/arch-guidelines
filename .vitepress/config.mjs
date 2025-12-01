@@ -307,7 +307,6 @@ export default defineConfig({
               },
             ],
           },
-
           {
             text: "開発生産性",
             items: [
@@ -326,6 +325,15 @@ export default defineConfig({
               {
                 text: "Slack利用ガイドライン",
                 link: "/documents/forSlack/slack_usage_guidelines.html",
+              },
+            ],
+          },
+          {
+            text: "その他",
+            items: [
+              {
+                text: "ソフトスキルガイドライン",
+                link: "/documents/forSoftSkill/softskill_standards.html",
               },
             ],
           },

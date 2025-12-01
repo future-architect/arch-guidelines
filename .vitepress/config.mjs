@@ -196,7 +196,7 @@ export default defineConfig({
 
     // タイトルの設定: Frontmatterにタイトルがあれば「記事タイトル | サイト名」、なければ「サイト名」
     const title = pageData.frontmatter.title
-      ? `${pageData.frontmatter.title} | アーキテクチャ設計ガイドライン`
+      ? `${pageData.frontmatter.title}`
       : "アーキテクチャ設計ガイドライン";
 
     head.push(["meta", { property: "og:title", content: title }]);

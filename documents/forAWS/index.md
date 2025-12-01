@@ -11,10 +11,6 @@ hero:
       link: ./aws_guidelines.md
 ---
 
-# AWS設計ガイドライン
-
-チーム開発する上で必要となる[AWS設計ガイドライン](aws_guidelines.md)です。
-
-次のリンクから単一ファイル版を取得できます。
+# コンテンツ
 
 - [Markdown](https://github.com/future-architect/arch-guidelines/blob/main/documents/forAWS/aws_guidelines.md)

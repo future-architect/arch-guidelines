@@ -11,11 +11,7 @@ hero:
       link: ./web_frontend_guidelines.md
 ---
 
-# Web フロントエンド設計ガイドライン
-
-チーム開発する上で必要となる[Web フロントエンドガイドライン](web_frontend_guidelines.md)です。
-
-次のリンクから単一ファイル版を取得できます。
+# コンテンツ
 
 - [Markdown](https://github.com/future-architect/arch-guidelines/blob/main/documents/forWebFrontend/web_frontend_guidelines.md)
 

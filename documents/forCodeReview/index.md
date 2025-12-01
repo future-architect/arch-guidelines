@@ -11,19 +11,13 @@ hero:
       link: ./code_review.md
 ---
 
-# コードレビューガイドライン
-
-チーム開発する上で必要となる、[コードレビューガイドライン](code_review.md)です。
-
-次のリンクから単一ファイル版を取得できます。
+# コンテンツ
 
 - [Markdown](https://github.com/future-architect/arch-guidelines/blob/main/documents/forCodeReview/code_review.md)
 - [HTML(Single File)](https://github.com/future-architect/arch-guidelines/blob/gh-pages/resources/コードレビューガイドライン.html) （[ブラウザで見る](https://future-architect.github.io/arch-guidelines/resources/コードレビューガイドライン.html)）
 - [Word](https://github.com/future-architect/arch-guidelines/raw/gh-pages/resources/コードレビューガイドライン.docx)
 
-ファイルは[Pandoc]を利用して作成しています。
-
-[pandoc]: https://pandoc.org/
+ファイルは[Pandoc](https://pandoc.org/)を利用して作成している。
 
 ## Articles
 

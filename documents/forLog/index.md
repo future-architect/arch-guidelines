@@ -11,8 +11,6 @@ hero:
       link: ./log_guidelines.md
 ---
 
-# ログ設計ガイドライン
+# コンテンツ
 
-チーム開発する上で必要となるログ設計ガイドラインです。
-
-- [ログ設計ガイドライン](log_guidelines.md)
+- [Markdown](https://github.com/future-architect/arch-guidelines/blob/main/documents/forLog/log_guidelines.md)

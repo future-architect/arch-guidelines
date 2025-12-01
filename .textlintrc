@@ -1,11 +1,11 @@
 {
   "filters": {
-      "allowlist": {
-          "allow": [
-            "/:::.*/",
-            "/.*:/"
-          ]
-      }
+    "allowlist": {
+        "allow": [
+          "/:::.*/",
+          "/.*:/"
+        ]
+    }
   },
   "rules": {
     "preset-ja-technical-writing": {

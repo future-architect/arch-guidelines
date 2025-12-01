@@ -11,11 +11,7 @@ hero:
       link: ./terraform_guidelines.md
 ---
 
-# Terraform設計ガイドライン
-
-チーム開発する上で必要となる[Terraform設計ガイドライン](terraform_guidelines.md)です。
-
-次のリンクから単一ファイル版を取得できます。
+# コンテンツ
 
 - [Markdown](https://github.com/future-architect/arch-guidelines/blob/main/documents/forTerraform/terraform_guidelines.md)
 

@@ -11,11 +11,7 @@ hero:
       link: ./mail_guidelines.md
 ---
 
-# メール設計ガイドライン
-
-チーム開発する上で必要となる[メール設計ガイドライン](mail_guidelines.md)です。
-
-次のリンクから単一ファイル版を取得できます。
+# コンテンツ
 
 - [Markdown](https://github.com/future-architect/arch-guidelines/blob/main/documents/forMail/mail_guidelines.md)
 

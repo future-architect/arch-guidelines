@@ -13,5 +13,4 @@ hero:
 
 # コンテンツ
 
-- [ガイドライン](async_guidelines.md)
-- [Markdownファイル版](https://github.com/future-architect/arch-guidelines/blob/main/documents/forAsync/async_guidelines.md)
+- [Markdown](https://github.com/future-architect/arch-guidelines/blob/main/documents/forAsync/async_guidelines.md)

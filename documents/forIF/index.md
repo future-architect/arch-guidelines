@@ -11,11 +11,7 @@ hero:
       link: ./if_guidelines.md
 ---
 
-# I/F設計ガイドライン
-
-チーム開発する上で必要となる[I/F設計ガイドライン](if_guidelines.md)です。
-
-次のリンクから単一ファイル版を取得できます。
+# コンテンツ
 
 - [Markdown](https://github.com/future-architect/arch-guidelines/blob/main/documents/forIF/if_guidelines.md)
 

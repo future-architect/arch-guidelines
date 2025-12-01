@@ -11,10 +11,6 @@ hero:
       link: ./datamanagement_guidelines.md
 ---
 
-# データマネジメント設計ガイドライン
-
-チームでの相談や意思決定に役立つ、[データマネジメント設計ガイドライン](datamanagement_guidelines.md)です。
-
-次のリンクから単一ファイル版を取得できます。
+# コンテンツ
 
 - [Markdown](https://github.com/future-architect/arch-guidelines/blob/main/documents/forDataManagement/datamanagement_guidelines.md)

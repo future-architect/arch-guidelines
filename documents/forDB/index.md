@@ -14,12 +14,10 @@ hero:
       link: ./dynamodb_guidelines.md
 ---
 
-# DB設計ガイドライン
+# コンテンツ
 
-チーム開発する上で必要となるデータべース設計ガイドラインです。
-
-- [PostgreSQL設計ガイドライン](postgresql_guidelines.md)
-- [DynamoDB設計ガイドライン](dynamodb_guidelines.md)
+- [Markdown - PostgreSQL](https://github.com/future-architect/arch-guidelines/blob/main/documents/forDB/postgresql_guidelines.md)
+- [Markdown - DynamoDB](https://github.com/future-architect/arch-guidelines/blob/main/documents/forDB/dynamodb_guidelines.md)
 
 ## Articles
 

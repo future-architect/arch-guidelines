@@ -11,11 +11,7 @@ hero:
       link: ./batch_guidelines.md
 ---
 
-# バッチ設計ガイドライン
-
-チーム開発する上で必要となる[バッチ設計ガイドライン](batch_guidelines.md)です。
-
-次のリンクから単一ファイル版を取得できます。
+# コンテンツ
 
 - [Markdown](https://github.com/future-architect/arch-guidelines/blob/main/documents/forBatch/batch_guidelines.md)
 

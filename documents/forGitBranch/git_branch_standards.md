@@ -45,12 +45,12 @@ head:
 
 | ブランチ名称 | 役割                         | ライフサイクル | 派生元ブランチ    | 命名規則                                                                    | 直プッシュ |
 | ------------ | ---------------------------- | -------------- | ----------------- | --------------------------------------------------------------------------- | ---------- |
-| `main`       | プロダクション環境との同期   | 永続的         | -                 | `main` 固定                                                                 | ❌️        |
-| `feature`    | 特定機能の追加/変更          | 短命           | `main`／`develop` | `feature/${チケット番号}`: 詳細は[featureブランチ](#featureブランチ) を参照 | ✅️※1      |
-| `develop`    | 開発の大元                   | 永続的         | `main`            | `develop` 固定。複数必要な場合は `develop2` と連番にする                    | ❌️        |
-| `release`    | リリース作業用途             | 短命           | `develop`         | `release/${yyyymmdd}` や `release/${リリースバージョン}` など               | ❌️        |
-| `hotfix`     | mainブランチに対する即時修正 | 短命           | `main`            | `hotfix/${チケット番号}`: featureブランチに準じる                           | ✅️        |
-| `topic`      | 複数人での機能開発用途       | 短命           | `feature`         | `topic/${チケット番号}`: featureブランチに準じる                            | ✅️        |
+| `main`       | プロダクション環境との同期   | 永続的         | -                 | `main` 固定                                                                 | ❌️         |
+| `feature`    | 特定機能の追加/変更          | 短命           | `main`／`develop` | `feature/${チケット番号}`: 詳細は[featureブランチ](#featureブランチ) を参照 | ✅️※1       |
+| `develop`    | 開発の大元                   | 永続的         | `main`            | `develop` 固定。複数必要な場合は `develop2` と連番にする                    | ❌️         |
+| `release`    | リリース作業用途             | 短命           | `develop`         | `release/${yyyymmdd}` や `release/${リリースバージョン}` など               | ❌️         |
+| `hotfix`     | mainブランチに対する即時修正 | 短命           | `main`            | `hotfix/${チケット番号}`: featureブランチに準じる                           | ✅️         |
+| `topic`      | 複数人での機能開発用途       | 短命           | `feature`         | `topic/${チケット番号}`: featureブランチに準じる                            | ✅️         |
 
 ※1: topicブランチを利用する場合は、派生させたfeatureブランチへの直プッシュはNGとなる
 
@@ -336,16 +336,16 @@ Terraformはplanが成功しても、applyが失敗することは多々あり�
 
 それぞれの特徴を下表にまとめる。
 
-| 観点                 | ①マージ後にapply                                                             | ②Approve後にapply                                                                 | ③レビュー依頼前にapply                                                          |
-| -------------------- | ---------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| 説明                 | developブランチにマージ後にapply。アプリコードと同じメンタルモデルを共有可能 | レビュアー承認後にapply。featureブランチからapplyするため、あるべき姿からは外れる | レビュー依頼前にapplyで成功したことを確認する方式                               |
-| developブランチ品質  | ❌️一時的にapplyが失敗するコードが混入するリスク                             | ✅️apply可能なコードのみに保つことができる                                        | ✅️apply可能なコードのみに保つことができる                                      |
-| レビュー負荷         | ❌️applyの成否は不明なので心理的負荷あり                                     | ❌️applyの成否は不明なので心理的負荷あり                                          | ✅️applyが成功している前提で対応可能。apply結果をコンソールからも確認可能       |
-| apply失敗時のコスト  | ❌️再度PRを作る必要があり手間                                                | ✅️同一PRを流用できる                                                             | ✅️apply成功後にPR作成が可能                                                    |
-| PRのトレーサビリティ | ❌️PRが割れると面倒                                                          | ✅️同一PRである                                                                   | ✅️同一PRである                                                                 |
-| 環境のバッティング   | ✅️ない                                                                      | ⚠️Approveからdevelopマージまでの間に、他メンバーの作業と重複するとややこしい      | ❌️作業調整が必要                                                               |
-| ガバナンス           | ✅️applyをCIのみに絞るなど自動化と相性が良い                                 | ⚠️レビュアー承認後のコードのみapply対象とできる                                   | ❌️ノーレビューのインフラ変更を適用するため、初学者が多いチームには適用が難しい |
-| 結論                 | applyの成功率が高く維持できる場合に有効                                      | applyの成功率が低い場合に有効                                                     | 少数精鋭の場合に採用可能な、上級者向けの方式                                    |
+| 観点                 | ①マージ後にapply                                                             | ②Approve後にapply                                                                 | ③レビュー依頼前にapply                                                         |
+| -------------------- | ---------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| 説明                 | developブランチにマージ後にapply。アプリコードと同じメンタルモデルを共有可能 | レビュアー承認後にapply。featureブランチからapplyするため、あるべき姿からは外れる | レビュー依頼前にapplyで成功したことを確認する方式                              |
+| developブランチ品質  | ❌️一時的にapplyが失敗するコードが混入するリスク                              | ✅️apply可能なコードのみに保つことができる                                         | ✅️apply可能なコードのみに保つことができる                                      |
+| レビュー負荷         | ❌️applyの成否は不明なので心理的負荷あり                                      | ❌️applyの成否は不明なので心理的負荷あり                                           | ✅️applyが成功している前提で対応可能。apply結果をコンソールからも確認可能       |
+| apply失敗時のコスト  | ❌️再度PRを作る必要があり手間                                                 | ✅️同一PRを流用できる                                                              | ✅️apply成功後にPR作成が可能                                                    |
+| PRのトレーサビリティ | ❌️PRが割れると面倒                                                           | ✅️同一PRである                                                                    | ✅️同一PRである                                                                 |
+| 環境のバッティング   | ✅️ない                                                                       | ⚠️Approveからdevelopマージまでの間に、他メンバーの作業と重複するとややこしい      | ❌️作業調整が必要                                                               |
+| ガバナンス           | ✅️applyをCIのみに絞るなど自動化と相性が良い                                  | ⚠️レビュアー承認後のコードのみapply対象とできる                                   | ❌️ノーレビューのインフラ変更を適用するため、初学者が多いチームには適用が難しい |
+| 結論                 | applyの成功率が高く維持できる場合に有効                                      | applyの成功率が低い場合に有効                                                     | 少数精鋭の場合に採用可能な、上級者向けの方式                                   |
 
 本規約の推奨は以下。
 
@@ -418,12 +418,12 @@ git merge --no-ff $SOURCE_SHA
 
 プルリクエストの承認（Approve）をもらった後、マージはレビュアー／レビュイーのどちらが行うべきか議論になる場合がある。
 
-| 観点       | レビュアー派                                                              | レビュイー派                                                                         |
-| ---------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| 説明       | 開発者の責務が、developブランチにマージするまでという役割分担の場合に有効 | 各開発者がその機能のリリースについて責任を負うモデルの場合に有効                     |
+| 観点       | レビュアー派                                                              | レビュイー派                                                                        |
+| ---------- | ------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| 説明       | 開発者の責務が、developブランチにマージするまでという役割分担の場合に有効 | 各開発者がその機能のリリースについて責任を負うモデルの場合に有効                    |
 | 生産性     | ⚠️レビュアーがブロッキングになりがち                                      | ✅️高い。コメントはあるがApproveしたので、適時対応してマージして、といった運用が可能 |
-| 統制       | ✅️レビュアーが管理しやすい                                               | ✅️メンバーの自主性に依存                                                            |
-| 要求スキル | ✅️低い。中央で統制を行いやすい                                           | ⚠️開発メンバーの練度が求められる                                                     |
+| 統制       | ✅️レビュアーが管理しやすい                                                | ✅️メンバーの自主性に依存                                                            |
+| 要求スキル | ✅️低い。中央で統制を行いやすい                                            | ⚠️開発メンバーの練度が求められる                                                    |
 
 上記にあるように、そのプルリクエストで実装した機能を、本番環境にデリバリーする責務をどちらに持たせるかという観点で、意思決定することが多い。
 
@@ -908,14 +908,14 @@ GitHubでは `.github/PULL_REQUEST_TEMPLATE.md` に記載する。（GitLabで�
 | ------------- | ---------------------------------------------------------------- | ------------ | ------------------------------------------------------------------------------------------ |
 | General       | Require contributors to sign off on web-based commits            | チェックなし | 著作権・ライセンス承諾の場合に用いるが、業務アプリ開発では不要                             |
 |               | Default branch                                                   | develop      |                                                                                            |
-| Pull Requests | Allow merge commits                                              | ✅️          | main <- developなどのマージ時に必要                                                        |
-|               | Allow squash merging                                             | ✅️          | develop <- feature はSquash mergeを推奨                                                    |
+| Pull Requests | Allow merge commits                                              | ✅️           | main <- developなどのマージ時に必要                                                        |
+|               | Allow squash merging                                             | ✅️           | develop <- feature はSquash mergeを推奨                                                    |
 |               | Allow rebase merging                                             | -            | 利用しないため、チェックを外す                                                             |
-|               | Allow suggest updating pull request branches                     | ✅️          | Pull Request作成後、ベースブランチが更新された場合、ソースブランチの更新を提案してくれる   |
-|               | Automatically delete head branches                               | ✅️          | マージ後にfeature branchを削除するため有効にする                                           |
+|               | Allow suggest updating pull request branches                     | ✅️           | Pull Request作成後、ベースブランチが更新された場合、ソースブランチの更新を提案してくれる   |
+|               | Automatically delete head branches                               | ✅️           | マージ後にfeature branchを削除するため有効にする                                           |
 | Pushes        | Limit how many branches and tags can be updated in a single push | 5            | git push origin –mirrorで誤ってリモートブランチを破壊しないようにする。推奨値の5を設定する |
-| Security      | Secret scanning                                                  | ✅️          | コードやIssue、コメント等のクレデンシャル情報を検知し、通知を行う                          |
-|               | Push Protection                                                  | ✅️          | プッシュ時にクレデンシャル情報が検知された場合、プッシュをブロックする                     |
+| Security      | Secret scanning                                                  | ✅️           | コードやIssue、コメント等のクレデンシャル情報を検知し、通知を行う                          |
+|               | Push Protection                                                  | ✅️           | プッシュ時にクレデンシャル情報が検知された場合、プッシュをブロックする                     |
 
 ## Access
 
@@ -938,16 +938,16 @@ Branch protection rules にdevelop, mainなど永続的なブランチに保護�
 
 | Category                  | Item                                                             | Value | Memo                                                                                                 |
 | ------------------------- | ---------------------------------------------------------------- | ----- | ---------------------------------------------------------------------------------------------------- |
-| Protect matching branches | Require a pull request before merging                            | ✅️   | プルリクエストを必須とする                                                                           |
-|                           | Require approvals                                                | ✅️   | レビューを必須とする                                                                                 |
+| Protect matching branches | Require a pull request before merging                            | ✅️    | プルリクエストを必須とする                                                                           |
+|                           | Require approvals                                                | ✅️    | レビューを必須とする                                                                                 |
 |                           | Required number of approvals before merging                      | 1     | 最低1名以上の承認を必須とする                                                                        |
 |                           | Dismiss stale pull request approvals when new commits are pushed | -     | レビュー承認後のPushで再承認を必要とするかだが、レビュー運用上に支障となることも多く、チェックを外す |
-|                           | Require status checks to pass before merging                     | ✅️   | CIの成功を条件とする                                                                                 |
+|                           | Require status checks to pass before merging                     | ✅️    | CIの成功を条件とする                                                                                 |
 |                           | Require branches to be up to date before merging                 | 任意  | CIパイプラインのワークフロー名を指定                                                                 |
 |                           | Require conversation resolution before merging                   | -     | レビューコメントがすべて解決していることを条件とする。チェックを外す                                 |
-|                           | Require signed commits                                           | ✅️   | 署名付きコミットを必須化し、セキュアな設定にする                                                     |
-|                           | Require linear history                                           | ✅️/- | mainブランチの場合はOFFとするが、developの場合はSquash mergeを求めるため有効にする                   |
-|                           | Do not allow bypassing the above settings                        | ✅️   | パイパスを許容しない                                                                                 |
+|                           | Require signed commits                                           | ✅️    | 署名付きコミットを必須化し、セキュアな設定にする                                                     |
+|                           | Require linear history                                           | ✅️/-  | mainブランチの場合はOFFとするが、developの場合はSquash mergeを求めるため有効にする                   |
+|                           | Do not allow bypassing the above settings                        | ✅️    | パイパスを許容しない                                                                                 |
 
 developブランチに対し「require linear history」を選択することを推奨することで、「Create a merge commit」が選択できないようにする。
 
@@ -965,16 +965,16 @@ developブランチに対し「require linear history」を選択することを
 
 | Category            | Item                                                                                                                                | Value | Memo |
 | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ----- | ---- |
-| Actions permissions | Allow asset-taskforce, and select non-asset-taskforce, actions and reusable workflows > Allow actions created by GitHub             | ✅️   |      |
-|                     | Allow asset-taskforce, and select non-asset-taskforce, actions and reusable workflows > Allow actions Marketplace verified creators | ✅️   |      |
+| Actions permissions | Allow asset-taskforce, and select non-asset-taskforce, actions and reusable workflows > Allow actions created by GitHub             | ✅️    |      |
+|                     | Allow asset-taskforce, and select non-asset-taskforce, actions and reusable workflows > Allow actions Marketplace verified creators | ✅️    |      |
 
 ### Code security and analysis
 
 | Category   | Item                        | Value | Memo                                       |
 | ---------- | --------------------------- | ----- | ------------------------------------------ |
-| Dependabot | Dependabot alerts           | ✅️   | 依存パッケージのアップデートを検知するため |
-|            | Dependabot security updates | ✅️   |                                            |
-|            | Dependabot version updates  | ✅️   |                                            |
+| Dependabot | Dependabot alerts           | ✅️    | 依存パッケージのアップデートを検知するため |
+|            | Dependabot security updates | ✅️    |                                            |
+|            | Dependabot version updates  | ✅️    |                                            |
 
 # GitLab推奨設定
 

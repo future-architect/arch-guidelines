@@ -138,7 +138,7 @@ Terraformではコレクション型として、tuple、list、map、objectと�
 | 型の混在     | ✅️可能             | ❌️不可 ※`list(any)`は互換性のために存在するため、原則使用しない | ❌️値の型が全て同じ ※`map(any)`は互換性のために存在するため、原則使用しない | ✅️可能                                                                     |
 | for_each相性 | ❌️向かない         | ⚠️setに変換する必要                                             | ✅️良い                                                                     | ⚠️mapに変換する必要                                                        |
 
-▼例: tupleの宣言（型混在）
+【例: tupleの宣言（型混在）】
 
 ```tf
 variable "example_tuple" {
@@ -147,7 +147,7 @@ variable "example_tuple" {
 }
 ```
 
-▼例: listの宣言
+【例: listの宣言】
 
 ```tf
 variable "instance_types" {
@@ -156,7 +156,7 @@ variable "instance_types" {
 }
 ```
 
-▼例: mapの宣言
+【例: mapの宣言】
 
 ```tf
 variable "map" {
@@ -167,7 +167,7 @@ variable "map" {
 }
 ```
 
-▼例: objectの宣言
+【例: objectの宣言】
 
 ```tf
 variable "object" {
@@ -184,7 +184,7 @@ variable "object" {
 
 またこれらは組み合わせて使用できる。
 
-▼例: map(object)の宣言
+【例: map(object)の宣言】
 
 ```tf
 variable "map_object" {
@@ -351,7 +351,7 @@ resource "aws_lambda_function" "foo_example_api" {
   - `for_each` のキーにリソース属性参照した値を設定する場合は、依存する属性が常にknown valueである場合のみを許容する
   - `count` の利用は、リソース作成有無 (0/1) の場合にのみ絞る。例えば、ルートモジュール上でdev環境はリソースを作成しないといった定義に用いる
 
-▼例: countの利用
+【例: countの利用】
 
 ```tf
 resource "aws_instance" "foo_example_webapi" {
@@ -375,7 +375,7 @@ for_eachの2重ループは、次の2つのうちどちらかを指すことが�
 1. for_eachを付けたリソースにおいて、[Dynamic Blocks](https://developer.hashicorp.com/terraform/language/expressions/dynamic-blocks) でfor_eachを使う方法
 2. ネストした変数を元に、擬似的に多重のfor_eachを実現する方法
 
-▼例: Dynamic Blocks で for_eachを用いる
+【例: Dynamic Blocks で for_eachを用いる】
 
 ```tf
 locals {
@@ -428,7 +428,7 @@ resource "aws_instance" "example" {
 | 設計難易度 | ✅️moduleを作らなくても済む分、楽である                                                                                                                        | ❌️module設計が必要                                                                                     |
 | 可読性     | ❓️moduleが無い分、見通しは良い                                                                                                                                | ❓️フラット化した変数宣言がない分、見通しが良い                                                         |
 
-▼例: flatten利用パターン
+【例: flatten利用パターン】
 
 ```tf
 locals {
@@ -466,7 +466,7 @@ resource "aws_instance" "foo_example" {
 }
 ```
 
-▼例: module利用パターン
+【例: module利用パターン】
 
 :::code-group
 
@@ -537,7 +537,7 @@ resource "aws_instance" "example" {
 
 [For Expressions](https://developer.hashicorp.com/terraform/language/expressions/for)は式である。入力は `list` `set` `tuple` `map` `object` を受け付け、出力は `[ for ]` は `tuple` を、`{ for }` は `object` を返す。
 
-▼例: リストからマップ `{"alice" = 5, "bob" = 3, "charlie" = 7}` を出力
+【例: リストからマップ `{"alice" = 5, "bob" = 3, "charlie" = 7}` を出力】
 
 ```tf
 variable "names" {
@@ -552,7 +552,7 @@ output "name_lengths" {
 
 `for` は `if` と組み合わせて使用できる。AND条件やOR条件も設定可能である。
 
-▼複雑なforの例
+【複雑なforの例】
 
 ```tf
 locals {
@@ -585,7 +585,7 @@ output "filtered_employees" {
 
 AWS Providerではデフォルトのタグを設定できる。全てのリソースに振り下ろして良い内容である場合は、Provider側で定義することで、各リソース側の定義をシンプルに保つことができる。なお、各リソース側で同名のタグ名を指定した場合は、各リソース側の値が優先して使用される。
 
-▼例: `default_tags` に共通的なタグを設定
+【例: `default_tags` に共通的なタグを設定】
 
 ```tf
 provider "aws" {
@@ -713,7 +713,7 @@ resource "aws_security_group" "example_sg" {
 
 [aws_route_table](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route_table) のように、スタンドアローンのリソースと、インラインで定義できるリソースの2種類が提供されている場合がある。例であげたルートテーブルの場合は、共存が不可能であるためどちらかを選択する必要がある。
 
-▼例1: スタンドアローンリソース
+【例1: スタンドアローンリソース】
 
 ```tf
 resource "aws_vpc" "example" {...}
@@ -731,7 +731,7 @@ resource "aws_route" "example_route" {
 }
 ```
 
-▼例2: インラインの例
+【例2: インラインの例】
 
 ```tf
 resource "aws_vpc" "example" {...}
@@ -840,7 +840,7 @@ Terraformを利用してパスワードなどの機密情報を作成する場�
 - （2）prevent_destroy=trueは1の削除保護が存在せず、かつ再作成がありえるが、再作成されたら困るリソースのみに設定する。例えば、AWSでは一部のEC2やAPI Gatewayなどが該当する。削除されたら困るかつ再作成されることはないリソースに対しては、視認性を下げるだけのため指定する必要はない
 - （3）重要なS3バケットやVPCネットワーキング系が該当するが、IAM権限の設計が複雑化し、運用難易度が上がるためこれの利用は最低限に抑える
 
-▼例: クラウドリソースの削除保護を有効化
+【例: クラウドリソースの削除保護を有効化】
 
 ```tf
 resource "aws_db_instance" "important_db" {
@@ -849,7 +849,7 @@ resource "aws_db_instance" "important_db" {
 }
 ```
 
-▼例: prevent_destroy = true の例
+【例: prevent_destroy = true の例】
 
 ```tf
 resource "aws_s3_bucket" "important_bucket" {
@@ -900,7 +900,7 @@ Terraformで複数のデプロイメント環境を切り替える方法は下�
 [google_practice]: https://cloud.google.com/docs/terraform/best-practices/root-modules?hl=ja
 [workspace]: https://developer.hashicorp.com/terraform/cli/workspaces#when-not-to-use-multiple-workspaces
 
-▼例: （1）ディレクトリ分離
+【例: （1）ディレクトリ分離】
 
 ```sh
 infrastructure
@@ -920,7 +920,7 @@ infrastructure
           └── ...
 ```
 
-▼例: （2）ワークスペース分離（（1）と比較すると、envフォルダ無し）
+【例: （2）ワークスペース分離（（1）と比較すると、envフォルダ無し）】
 
 ```sh
 infrastructure
@@ -936,7 +936,7 @@ infrastructure
           └── ...
 ```
 
-▼例: （3）変数ファイル分離（（2）と比較すると、ステート単位にenvフォルダと.tfvarsが追加）
+【例: （3）変数ファイル分離（（2）と比較すると、ステート単位にenvフォルダと.tfvarsが追加）】
 
 ```sh
 infrastructure
@@ -977,7 +977,7 @@ infrastructure
 過去の経緯などで（2）ワークスペース分離を採用しているチームも多く、実際これを採用して困ったという話もあまり聞かない。  
 ワークスペース分離の場合、locals.tf は全環境で共用する。そのため環境別の値を保持する場合は以下の例にあるように、変数＞環境の順で定義する
 
-▼Local Valuesの例
+【Local Valuesの例】
 
 ```tf
 locals {
@@ -1110,7 +1110,7 @@ resource "aws_hogehoge" "sample_resource" {
 
 - .tfファイルあたり20を超えるなど、リソース数が多くなりそうであれば、機能分類などでグループを作り、コメントで区切る
 
-▼例: コメントでAWS Lambdaを2つのグループに分類
+【例: コメントでAWS Lambdaを2つのグループに分類】
 
 ```tf
 # ==============================
@@ -1163,7 +1163,7 @@ resource "aws_lambda_function" "order_cancel" {...}
 5. depends_on
 6. タグなど、全リソース共通的に指定可能なパラメータ（★拡張部分）
 
-▼例: パラメータ順序の例
+【例: パラメータ順序の例】
 
 ```tf
 resource "aws_instance" "example" {
@@ -1207,7 +1207,7 @@ Terraformのコード管理で、複数のステート間で共有したいリ�
 - シンボリックリンク可能なファイルは `terraform.tf` 、 `providers.tf`、のみとする
   - `providers.tf` も、`default_tags` がステート間で異なる場合は共有不可とする
 
-▼例: シンボリックリンクの利用
+【例: シンボリックリンクの利用】
 
 ```sh
 infrastructure
@@ -1247,7 +1247,7 @@ infrastructure
 
 [Standard Module Structure](https://developer.hashicorp.com/terraform/language/modules/develop/structure) に従い、以下の構成とする。ファイル粒度はリソース種別ごとにする必要はなく、`main.tf` に集約する。
 
-▼推奨ディレクトリ構成
+【推奨ディレクトリ構成】
 
 ```tf
 ├── modules/                         # モジュールディレクトリ
@@ -1284,7 +1284,7 @@ infrastructure
 
 以下のようにモジュールから別のモジュールを読み込む事が可能である。これにより、コードがスリム化し開発初期の生産性を向上できる可能性がある。
 
-▼モジュールから別のモジュールを読み込む例（modules/module_name1/main.tf）
+【モジュールから別のモジュールを読み込む例（modules/module_name1/main.tf）】
 
 ```tf
 module "module2_instance" {
@@ -1308,7 +1308,7 @@ resource "example_resource" "example" {
 
 モジュールは入力パラメータによってカスタマイズ可能とできる。一方で、どこまで柔軟に対応すべきか検討の余地がある。また、入力チェックも記述可能である。
 
-▼入力パラメータの例
+【入力パラメータの例】
 
 ```tf
 variable "instance_count" {
@@ -1383,7 +1383,7 @@ variable "instance_count" {
 | 実行タイミング | `terraform plan`                                       | `known after apply` な値が無いなら `terraform plan` | `known after apply` な値が無いなら `terraform plan`                            |
 | 失敗時の挙動   | `terraform plan` が失敗                                | `terraform apply`が失敗                             | 該当のリソースは作成され、自動で破棄されない。それ後続のリソース作成は停止する |
 
-▼precondition、postconditionの例
+【precondition、postconditionの例】
 
 ```tf
 resource "aws_instance" "example" {
@@ -1490,7 +1490,7 @@ resource "aws_instance" "example" {
 
 以下に例を上げる。
 
-▼構成例
+【構成例】
 
 ```sh
 infrastructure
@@ -1551,7 +1551,7 @@ data "aws_subnet" "foo_example" {
 
 リモートステートを管理するためのバケットは、 `terraform init` する前に必要であるため、通常はTerraform構築対象外とすることが多い。それゆえ、コンソール画面経由や、CLI経由で作成するチームも多い。一方で `backend=false` とし、ステートファイルをgit commitして管理することも考えられる。これを行うメリットは、インフラ構築をTerraformで統一することで、運用手順書などの作成を極小化できることなどがある。
 
-▼リモートステートを保持するバケットの作成案
+【リモートステートを保持するバケットの作成案】
 
 |                | （1）手組み                                                                                  | （2）backend無しのterraformコマンド経由                                                                                                                                                                                                                                                                                    |
 | :------------- | :------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -1616,7 +1616,7 @@ AWS、Google Cloud、Azureなどクラウドでは新機能が活発にリリー
 - Providerが正規で対応している場合は、terraform_dataを利用せず正規の機能で定義する
 - terraform_dataとlocal-execを利用する場合は、下表の設計ルールに従う
 
-▼terraform_dataとlocal-execを用いる場合のルール
+【terraform_dataとlocal-execを用いる場合のルール】
 
 | No  | 項目                                                   | 説明                                                                                                                                                                                      |
 | :-- | :----------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -1630,7 +1630,7 @@ AWS、Google Cloud、Azureなどクラウドでは新機能が活発にリリー
 | 8   | destroyも対応する                                      | 作成だけではなく、削除も対応することで、環境の破棄も簡易的にする                                                                                                                          |
 | 9   | トリガー                                               | スクリプトのハッシュ値が変更した場合にも対応する                                                                                                                                          |
 
-▼null_resource+local-execの例
+【null_resource+local-execの例】
 
 ```tf
 resource "terraform_data" "custom_xxx_resource" {
@@ -1705,7 +1705,7 @@ terraform {
 
 バージョン管理については[tfenv](https://github.com/tfutils/`tfenv`) や [tenv](https://github.com/tofuutils/tenv)を用いることが多い。どちらも `.terraform-version` ファイルに以下のようにバージョンを記載することで、利用バージョンを固定する（`tfenv`を全員がインストールしていれば、バージョンを上げて`tfenv`上で新しいバージョンのTerraformのインストールを行ってくれる）ことができる。
 
-▼.terraform-version の例
+【.terraform-version の例】
 
 ```tf
 1.10.4
@@ -1778,9 +1778,9 @@ Terraformについてはマイナーアップデートの対応がメインだ�
 
 作業フローは以下が参考になる。
 
-▼[「楽」する前のTerraformバージョンアップ方針と運用整理（とポエム） - 東京ガス内製開発チーム Tech Blog](https://tech-blog.tokyo-gas.co.jp/entry/2024/05/07/113451) の記事から引用
-
 ![Terraformのバージョンアップ作業フロー](image1.jpg)
+
+※[「楽」する前のTerraformバージョンアップ方針と運用整理（とポエム） - 東京ガス内製開発チーム Tech Blog](https://tech-blog.tokyo-gas.co.jp/entry/2024/05/07/113451) の記事から引用。
 
 # テスト
 
@@ -1811,7 +1811,7 @@ run "test" {
 
 [Testing HashiCorp Terraform](https://www.hashicorp.com/blog/testing-hashicorp-terraform) の記事によると、Terraformのテストは下図の分類がなされる。上位になればなるほど踏み込んだテストができるが、実行に時間がかかる。
 
-▼Testing HashiCorp Terraform から引用したテストピラミッド
+【Testing HashiCorp Terraform から引用したテストピラミッド】
 
 ![](image3.png)
 
@@ -1876,9 +1876,7 @@ run "test" {
 
 `terraform state` などのコマンドで、リモートステートを分離／統合ができる。ある程度、インフラ構築が固まってきたタイミングで、変更タイミング（ライフサイクル）などを基に、リモートステートの粒度を見直すと良い。
 
-▼リモートステートのpull、編集、push、削除が可能である
-
-```sh
+```sh リモートステートのpull、編集、push、削除
 terraform state pull
 terraform state mv {操作対象}
 terraform state push
@@ -1913,7 +1911,7 @@ terraform apply --parallelism=20
 なお、 以下のように環境変数での指定も可能である。
 
 ```sh
-$ export TF_CLI_ARGS_plan=20
+export TF_CLI_ARGS_plan=20
 ```
 
 # 権限管理
@@ -2081,7 +2079,7 @@ Gitブランチフローの詳細は、[Gitブランチフロー規約 | Future 
 
 [terraform fmt](https://developer.hashicorp.com/terraform/cli/commands/fmt) を利用する。`-recursive` オプションで、再帰的にフォーマットが可能である。
 
-▼フォーマット実行例
+【フォーマット実行例】
 
 ```sh
 terraform fmt -recursive
@@ -2091,7 +2089,7 @@ terraform fmt -recursive
 
 `terraform fmt` に従っているかは、 `-check` オプションで確認が可能である。CIで未フォーマットの場合に落としたい場合は利用すると良い。 `terraform validate` は必須で実行する。`tflint`は必須で実行する。`tfsec` は `trivy`の移行を推奨しているため利用しない。`trivy` は`CRITICAL` `HIGH` は最低でもチェックする。
 
-▼リンター実行例
+【リンター実行例】
 
 ```sh
 terraform fmt -check
@@ -2116,7 +2114,7 @@ TF_WORKSPACE=dev tflint
 
 [Style Guide](https://developer.hashicorp.com/terraform/language/style#code-style)に、コミット前に [Git pre-commit hooks](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks) で `fmt` と `validate` の実施が推奨とある。その他のリンターを加えると、待ち時間が長くなるため、最低限にする。validateは実行速度が気になる場合はdevのみに絞っても良い。
 
-▼コミットフックで実行するコマンド例
+【コミットフックで実行するコマンド例】
 
 ```sh
 terraform fmt
@@ -2192,7 +2190,7 @@ terraform apply --target={aws_instance.example1,aws_security_group.example2,aws_
 
 システム開発において、システムは変化し続けるものであるとし、拡張に強い形式であることが望ましい。そのため、以下のようにTerraform以外のIaCツールの利用や、複数クラウドを利用する想定のディレクトリ構成を組むことを推奨する。例えば以下のような形式となる。
 
-▼ディレクトリ構成例
+【ディレクトリ構成例】
 
 ```sh
 infrastructure                      # アプリケーションコードとリポジトリを共用している場合は、infrastructureフォルダを作成する

@@ -3,7 +3,15 @@
     "allowlist": {
         "allow": [
           "/:::.*/",
-          "/.*:/"
+          "/.*:/",
+          "/【.*】/",
+          "/✅️.*/",
+          "/❌️.*/",
+          "ジョブスケジューラ",
+          "単体テスト",
+          "データスチュワード",
+          "@timestamp",
+          "フラッシュ"
         ]
     }
   },
@@ -13,10 +21,11 @@
         "preferInHeader": "である",
         "preferInBody": "である"
       },
+      "allowQuestionMark": true,
       "sentence-length": {
         "max": 200
       },
-      "no-exclamation-question-mark": true,
+      "no-exclamation-question-mark": false,
       "ja-no-weak-phrase": true,
       "max-kanji-continuous-len": {
         "max": 10

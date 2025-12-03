@@ -1234,6 +1234,7 @@ DELETE /items/12345?lock_no=6192
 3. 更新対象のリソースの更新日時が2の日時よりも前である場合は更新成功
 
 ```mermaid
+%%{init: {'sequence': {'mirrorActors': false}}}%%
 sequenceDiagram
     participant Client
     participant WebAPI
@@ -1308,6 +1309,7 @@ Last-Modified及びIf-Unmodified-Sinceを用いると以下の特徴がある。
 ウィルスチェックの処理フロー例を以下に示す。
 
 ```mermaid
+%%{init: {'sequence': {'mirrorActors': false}}}%%
 sequenceDiagram
     participant Client as クライアント
     participant S3 as S3 Bucket
@@ -1347,8 +1349,9 @@ sequenceDiagram
 署名付きURLを利用したファイルダウンロードの例を示す。
 
 ```mermaid
+%%{init: {'sequence': {'mirrorActors': false}}}%%
 sequenceDiagram
-    participant User
+    actor User
     participant ClientApp
     participant WebAPI
     participant S3
@@ -1366,8 +1369,9 @@ sequenceDiagram
 なお、画像参照のようにユーザー権限でダウンロードを絞り込む必要がなく、ログイン済みユーザーに対して一律参照を許容する場合は、CDN（CloudFront）を利用する構成案もある。CloudFront（CDN）は、ログイン済みユーザ（Cookieを持ったユーザ）だけに参照を許可できるためである。この場合は、署名付きURLの参照を行わなくても済む。
 
 ```mermaid
+%%{init: {'sequence': {'mirrorActors': false}}}%%
 sequenceDiagram
-    participant User
+    actor User
     participant ClientApp
     participant CloudFront
     participant WebAPI
@@ -1475,6 +1479,7 @@ sequenceDiagram
 以下の処理フローのイメージを示す。
 
 ```mermaid
+%%{init: {'sequence': {'mirrorActors': false}}}%%
 sequenceDiagram
     participant Client
     participant WebAPI
@@ -1751,6 +1756,7 @@ Rate Limit（レート制限）とは、特定の時間内に許可されるリ�
 2.クライアントクレデンシャルフローの処理例を下図に示す。
 
 ```mermaid
+%%{init: {'sequence': {'mirrorActors': false}}}%%
 sequenceDiagram
     Participant Batch_Process
     Participant Authorization_Server
@@ -1837,6 +1843,7 @@ Auth0やEntraIDなどのIdP（Identity Provider）を利用して認証する構
 以下に処理フローの例を示す。
 
 ```mermaid
+%%{init: {'sequence': {'mirrorActors': false}}}%%
 sequenceDiagram
     participant Client
     participant Server
@@ -2289,9 +2296,7 @@ Web APIアクセスに対して適切にログ出力することで、何かし�
 
 # 謝辞
 
-このアーキテクチャガイドラインの作成にあたり、多大なるご協力をいただきました皆様に心より感謝申し上げます。
+このアーキテクチャガイドラインの作成には多くの方々にご協力いただいた。心より感謝申し上げる。
 
-- **作成者**（真野隼記、佐々木伸悟、武田大輝、宮崎将太、澁川喜規、佐藤尭彰）
-- **レビュアー**（辻大志郎、合田飛）
-
-皆様のご尽力なしには、本ガイドラインの完成はなしえませんでした。改めて深く感謝いたします。
+- **作成者**: 真野隼記、佐々木伸悟、武田大輝、宮崎将太、澁川喜規、佐藤尭彰
+- **レビュアー**: 辻大志郎、合田飛

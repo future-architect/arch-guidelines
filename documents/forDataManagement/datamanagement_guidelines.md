@@ -1562,6 +1562,7 @@ ADの属性変更したタイミングで、切り替えると業務引き継ぎ
 【概念的な権限追加の依頼フロー】
 
 ```mermaid
+%%{init: {'sequence': {'mirrorActors': false}}}%%
 sequenceDiagram
     participant User as ユーザー
     participant DataCatalog as データカタログ
@@ -1652,6 +1653,7 @@ sequenceDiagram
 【ロックアウトフローの例】
 
 ```mermaid
+%%{init: {'sequence': {'mirrorActors': false}}}%%
 sequenceDiagram
     participant User as ユーザー
     participant DataPlatform as データ基盤

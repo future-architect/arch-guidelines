@@ -141,7 +141,7 @@ diagrams.netの場合は、拡張子は以下のいずれかで作成する。
 - Markdown設計書には、Figmaで判断可能な見た目の情報は **記載しない**
 - Markdown設計書には、Web APIの呼び出しやイベントの定義、パラメータの受け渡し、バリデーションロジックなどを定義する。
 
-[サンプル設計書](./future_muscle_partner/index.md)を参考にする。
+[サンプル設計書](./sample/index.md)を参考にする。
 
 # バックエンド
 

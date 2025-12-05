@@ -113,6 +113,26 @@ const links = {
       text: "Markdown設計ドキュメント規約",
       link: "/documents/forMarkdown/markdown_design_document.html",
     },
+    {
+      text: "サンプルプロジェクト",
+      link: "/documents/forMarkdown/sample",
+      items: [
+        {
+          text: "画面一覧",
+          link: "/documents/forMarkdown/sample/ui",
+          items: [
+            { text: "UIS01", link: "/documents/forMarkdown/sample/ui/UIS01" },
+            { text: "UIS02", link: "/documents/forMarkdown/sample/ui/UIS02" },
+            { text: "UIS03", link: "/documents/forMarkdown/sample/ui/UIS03" },
+            { text: "UIS04", link: "/documents/forMarkdown/sample/ui/UIS04" },
+            { text: "UIM01", link: "/documents/forMarkdown/sample/ui/UIM01" },
+            { text: "UIM02", link: "/documents/forMarkdown/sample/ui/UIM02" },
+            { text: "UIM03", link: "/documents/forMarkdown/sample/ui/UIM03" },
+            { text: "UIM04", link: "/documents/forMarkdown/sample/ui/UIM04" },
+          ],
+        },
+      ],
+    },
   ],
   "/documents/forSlack/": [
     { text: "Introduction", link: "/documents/forSlack/" },

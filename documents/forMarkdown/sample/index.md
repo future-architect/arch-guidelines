@@ -37,8 +37,8 @@
 ## 設計書
 
 - [画面設計書](ui/index.md)
-- WebAPI定義書: [openapi.yaml](openapi.yaml)
-- ERD: [erd.a5er](erd.a5er)
+- WebAPI定義書: [openapi.yaml](api_reference.md)
+- ERD: [erd.a5er](erd_reference.md)
 
 ## コード体系
 

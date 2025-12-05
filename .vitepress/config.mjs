@@ -102,6 +102,10 @@ const links = {
       text: "Gitブランチフロー規約",
       link: "/documents/forGitBranch/git_branch_standards.html",
     },
+    {
+      text: "VS Code Git操作",
+      link: "/documents/forGitBranch/vscode_git_operation.html",
+    },
   ],
   "/documents/forMarkdown/": [
     { text: "Introduction", link: "/documents/forMarkdown/" },
@@ -239,32 +243,31 @@ export default defineConfig({
         text: "Guidelines",
         items: [
           {
-            text: "フロントエンド",
+            text: "アプリケーション",
             items: [
               {
-                text: "Web フロントエンド設計ガイドライン",
+                text: "Web フロントエンド",
                 link: "/documents/forWebFrontend/web_frontend_guidelines.html",
               },
-            ],
-          },
-          {
-            text: "バックエンド",
-            items: [
               {
-                text: "Web API設計ガイドライン",
+                text: "Web API",
                 link: "/documents/forWebAPI/web_api_guidelines.html",
               },
               {
-                text: "バッチ設計ガイドライン",
+                text: "バッチ",
                 link: "/documents/forBatch/batch_guidelines.html",
               },
               {
-                text: "I/F設計ガイドライン",
+                text: "I/F",
                 link: "/documents/forIF/if_guidelines.html",
               },
               {
-                text: "Mail設計ガイドライン",
+                text: "メール",
                 link: "/documents/forMail/mail_guidelines.html",
+              },
+              {
+                text: "ログ",
+                link: "/documents/forLog/log_guidelines.html",
               },
             ],
           },
@@ -272,15 +275,15 @@ export default defineConfig({
             text: "DB",
             items: [
               {
-                text: "PostgreSQL設計ガイドライン",
+                text: "PostgreSQL",
                 link: "/documents/forDB/postgresql_guidelines.html",
               },
               {
-                text: "DynamoDB設計ガイドライン",
+                text: "DynamoDB",
                 link: "/documents/forDB/dynamodb_guidelines.html",
               },
               {
-                text: "データマネジメント設計ガイドライン",
+                text: "データマネジメント",
                 link: "/documents/forDataManagement/datamanagement_guidelines.html",
               },
             ],
@@ -289,21 +292,12 @@ export default defineConfig({
             text: "インフラ",
             items: [
               {
-                text: "AWS設計ガイドライン",
+                text: "AWS",
                 link: "/documents/forAWS/aws_guidelines.html",
               },
               {
-                text: "Terraform設計ガイドライン",
+                text: "Terraform",
                 link: "/documents/forTerraform/terraform_guidelines.html",
-              },
-            ],
-          },
-          {
-            text: "横断的関心事",
-            items: [
-              {
-                text: "ログ",
-                link: "/documents/forLog/log_guidelines.html",
               },
             ],
           },
@@ -311,19 +305,19 @@ export default defineConfig({
             text: "開発生産性",
             items: [
               {
-                text: "Gitブランチフロー規約",
+                text: "Gitブランチフロー",
                 link: "/documents/forGitBranch/git_branch_standards.html",
               },
               {
-                text: "Markdown設計ドキュメント規約",
+                text: "Markdown設計ドキュメント",
                 link: "/documents/forMarkdown/markdown_design_document.html",
               },
               {
-                text: "コードレビューガイドライン",
+                text: "コードレビュー",
                 link: "/documents/forCodeReview/code_review.html",
               },
               {
-                text: "Slack利用ガイドライン",
+                text: "Slack利用",
                 link: "/documents/forSlack/slack_usage_guidelines.html",
               },
             ],
@@ -332,7 +326,7 @@ export default defineConfig({
             text: "その他",
             items: [
               {
-                text: "ソフトスキルガイドライン",
+                text: "ソフトスキル",
                 link: "/documents/forSoftSkill/softskill_standards.html",
               },
             ],

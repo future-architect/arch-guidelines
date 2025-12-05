@@ -1,6 +1,6 @@
-# 画面
+# 画面遷移
 
-- [Figma URL](https://www.figma.com/design/kLgdi4xdGRpQudMEoZYwvq/%E3%80%90FMP%E3%80%91Future-Muscle-Partner_%E7%94%BB%E9%9D%A2%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3?node-id=0-1&t=WUJH1mSc5HgzhHcH-1)
+[Figma](https://www.figma.com/design/kLgdi4xdGRpQudMEoZYwvq/%E3%80%90FMP%E3%80%91Future-Muscle-Partner_%E7%94%BB%E9%9D%A2%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3?node-id=0-1&t=WUJH1mSc5HgzhHcH-1)
 
 ## 標準画面
 

@@ -40,7 +40,7 @@ Terraformはインフラを宣言的にコード管理するツールである�
 - Gitの基本的な知識
 - CI/CDの基本的な知識
 
-本ガイドラインの適用範囲は、Terraformの設計、開発時に利用することを想定している。クラウドサービス上の技術選定、サービス設計の手法については本ガイドラインで対象外とする。関連するドキュメントには、[AWS設計ガイドライン](/documents/forAWS/aws_guidelines.html)、[AWSインフラ命名規約](/documents/forAWSResource/AWS%E3%82%A4%E3%83%B3%E3%83%95%E3%83%A9%E3%83%AA%E3%82%BD%E3%83%BC%E3%82%B9%E5%91%BD%E5%90%8D%E8%A6%8F%E7%B4%84.html)、[Gitブランチフロー規約](/documents/forGitBranch/git_branch_standards.html)がある。
+本ガイドラインの適用範囲は、Terraformの設計、開発時に利用することを想定している。クラウドサービス上の技術選定、サービス設計の手法については本ガイドラインで対象外とする。関連するドキュメントには、[AWS設計ガイドライン](/documents/forAWS/aws_guidelines.html)、[Gitブランチフロー規約](/documents/forGitBranch/git_branch_standards.html)がある。
 
 # 用語について
 

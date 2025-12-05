@@ -36,7 +36,7 @@
 
 ## 設計書
 
-- [画面設計書](ui)
+- [画面設計書](ui/index.md)
 - WebAPI定義書: [openapi.yaml](openapi.yaml)
 - ERD: [erd.a5er](erd.a5er)
 

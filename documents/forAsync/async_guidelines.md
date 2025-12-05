@@ -81,20 +81,30 @@ graph LR
 
 ```mermaid
 graph LR
-    A((開始)) --> Q1{1.処理時間が長く、<br>UX/応答性に問題があるか};
+    Start((開始)) --> Q1{処理時間が長く<br>UX/応答性に問題があるか?}
 
-    Q1 -- Yes --> Async>非同期化を検討する];
-    Q1 -- No --> Q2{2.外部APIなどへの依存を分離し、耐障害性を高める必要があるか？};
-    Q2 -- Yes --> Async;
-    Q2 -- No --> Q3{3.突発的なバースト負荷を平準化する必要があるか？};
-    Q3 -- Yes --> Async;
-    Q3 -- No --> Q4{4.複数データストア間の整合性をリトライで担保する必要があるか？};
-    Q4 -- Yes --> Async;
-    Q4 -- No --> Sync>同期処理のままにする];
+    %% 処理時間と応答性の判断
+    Q1 -- Yes --> C1{運用工夫で<br>待機時間を許容できるか?}
+    C1 -- No --> Async>非同期化を検討する]
+    C1 -- Yes --> Q2
+    Q1 -- No --> Q2{突発的なバースト負荷を<br>平準化する必要があるか?}
+
+    %% 負荷の平準化の判断
+    Q2 -- Yes --> C2{事前のリソース増強で<br>対応可能か?}
+    C2 -- No --> Async
+    C2 -- Yes --> Q3
+    Q2 -- No --> Q3{外部依存の分離や<br>データ整合性担保が必要か?}
+
+    %% レジリエンスの判断
+    Q3 -- Yes --> C3{障害時に手動復旧などの<br>運用対応が許容できるか?}
+    C3 -- No --> Async
+    C3 -- Yes --> Sync>同期処理のままにする]
+    Q3 -- No --> Sync
 
     %% Style Definitions
-    style Sync fill:#e6ffed,stroke:#006600,stroke-width:2px
-    style Async fill:#fff0f0,stroke:#990000,stroke-width:2px
+    style Sync fill:#e6ffed,stroke:#006600,stroke-width:2px,color:#000000
+    style Async fill:#fff0f0,stroke:#990000,stroke-width:2px,color:#000000
+    style Start fill:#f9f9f9,stroke:#333,stroke-width:2px,color:#000000
 ```
 
 ## 処理時間と応答性
@@ -632,7 +642,7 @@ sequenceDiagram
     User->>Worker: サインアップ (リクエスト)
     activate Worker
 
-    rect rgb(240, 255, 240)
+    rect rgb(240, 255, 240, 0.5)
         note right of Worker: メイン処理完了 (Commit)
         Worker->>DB: ユーザー作成 (TX)
         DB-->>Worker: OK
@@ -649,7 +659,7 @@ sequenceDiagram
     PQ-->>PW: 決済ジョブ受信
     activate PW
 
-    rect rgb(255, 240, 240)
+    rect rgb(255, 240, 240, 0.5)
         note right of PW: 異常発生<br>同期部分と決済基盤でデータ不整合
         PW->>Z: 請求アカウント作成 (API Call)
         activate Z
@@ -687,7 +697,7 @@ sequenceDiagram
     User->>Worker: サインアップ (リクエスト)
     activate Worker
 
-    rect rgb(240, 255, 240)
+    rect rgb(240, 255, 240, 0.5)
         note right of Worker: メイン処理完了 (Commit)
         Worker->>DB: ユーザー作成 (TX)
         DB-->>Worker: OK
@@ -695,7 +705,7 @@ sequenceDiagram
         Worker->>SF: 顧客レコード作成 (API Call)
         SF-->>Worker: OK
 
-        Worker->>PQ: 請求アカウント作成依頼 (非同期)
+        Worker->>PQ: 請求アカウント作成依頼
         Worker->>DB: commit
         Worker-->>User: Accepted
     end
@@ -704,7 +714,7 @@ sequenceDiagram
     PQ-->>PW: 決済ジョブ受信
     activate PW
 
-    rect rgb(255, 240, 240)
+    rect rgb(255, 240, 240, 0.5)
         note right of PW: 異常発生
         PW->>Z: 請求アカウント作成 (API Call)
         activate Z
@@ -714,18 +724,14 @@ sequenceDiagram
         note over PW, Z: 【Saga開始: 補償トランザクション実行】
 
         %% --- 補償処理（Sequential: DB -> SF）---
-        note right of PW: 14. ユーザーレコード削除 (補償処理 - 必須)
+        note right of PW: ユーザーレコード削除
         PW->>DB: ユーザーレコード削除
         DB-->>PW: OK
 
-        note right of PW: 15. 顧客レコード削除 (補償処理)
+        note right of PW: 顧客レコード削除
         PW->>SF: 顧客レコード削除
         SF-->>PW: 削除完了
         PW->>DB: commit
-
-        %% ---------------------------------------
-
-        note over PW, DB: 16. Saga完了。システムは一貫性を保つ。
     end
 
     deactivate PW

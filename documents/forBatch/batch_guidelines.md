@@ -32,15 +32,11 @@ head:
 
 - ジョブスケジューラ
 
-以下の内容は含まない。
-
-- [Web API設計ガイドライン](https://future-architect.github.io/arch-guidelines/documents/forWebAPI/web_api_guidelines.html) に含まれる内容
-- [I/F設計ガイドライン](https://future-architect.github.io/arch-guidelines/documents/forIF/if_guidelines.html)に含まれる内容
-- 「非同期処理設計ガイドライン（※作成予定）」に含まれる内容
-
 対象とする技術は以下を想定している。
 
 - AWS、Google Cloud、Azureなどのクラウドサービスを用いての開発。設計観点などの説明には、特にAWSを例に上げることが多い
+
+関連領域のガイドラインには、[Web API設計ガイドライン](/documents/forWebAPI/web_api_guidelines.html)、[I/F設計ガイドライン](/documents/forIF/if_guidelines.html)、非同期処理設計ガイドライン（※作成予定）」がある。
 
 # 定義
 

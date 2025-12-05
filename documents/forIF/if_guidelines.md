@@ -58,17 +58,13 @@ I/Fとはインタフェースの略で、ここではシステム間のデー�
 - データパッチなど、保守運用者によるシステムへの直接操作
 - パートナー企業向けのWeb API提供
 
-また、以下の内容は含まない。
-
-- [Web API設計ガイドライン](https://future-architect.github.io/arch-guidelines/documents/forWebAPI/web_api_guidelines.html) に含まれる内容
-- [バッチ設計ガイドライン](https://future-architect.github.io/arch-guidelines/documents/forBatch/batch_guidelines.html) に含まれる内容
-- 「非同期処理設計ガイドライン（※作成予定）」に含まれる内容
-
 採用技術やシステム構成は以下を想定している。
 
 - AWS、Google Cloud、Azureなどのクラウドサービスを用いての開発であること
   - オンプレミスでの構築にも応用できる内容も多いと考えているが、ガイドライン作成時に強く念頭に置いていない
 - 各システムは独立したクラウドアカウントで構築されており、システム間のデータ連携は一種のクロスアカウント（クロスクラウド）でのやり取りとなること
+
+関連領域のガイドラインには、[Web API設計ガイドライン](/documents/forWebAPI/web_api_guidelines.html)、[バッチ設計ガイドライン](/documents/forBatch/batch_guidelines.html)、「非同期処理設計ガイドライン（※作成予定）」がある。
 
 # 統合パターン
 

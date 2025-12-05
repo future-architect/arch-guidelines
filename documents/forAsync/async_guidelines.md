@@ -197,7 +197,7 @@ flowchart LR
     Q1 -- No<br>(推奨) --> FullyManaged>フルマネージド]
     Q1 -- Yes --> Q2{2. インフラ管理・運用を<br>クラウドに任せたいか？}
     Q2 -- Yes --> ManagedRuntime>マネージドランタイム]
-    Q2 -- No<br>(OSレベルの制御が必要) --> SelfHosted>セルフホスト]
+    Q2 -- No<br>特定のバージョン指定など --> SelfHosted>セルフホスト]
 ```
 
 # プロトコル

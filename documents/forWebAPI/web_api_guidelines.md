@@ -2106,7 +2106,7 @@ Web APIの性能テストは、指定した同時アクセス数やリクエス�
 | 分散構成対応   | ✅️ コントローラ/ワーカー方式                      | ❌️ ネイティブ分散なし（k8s Operatorあり）                          | ❌️ 手動での分散実行                                            | ❌️手動での分散実行                                                    | ✅️AWS Fargate                                                                          |
 | 分析           | ✅️ GUI表示、HTMLレポート、CSV/XML/JTL出力         | ✅️標準出力、JSON出力、CloudWatch連携                               | ✅️HTMLレポート自動生成                                         | ⚠️ ターミナル表示、CSV/JSON出力                                       | ✅️コンソール表示、CloudWatch連携                                                       |
 | 商用サービス   | ✅️                                                | ✅️k6 Cloud                                                         | ✅️Gatling Enterprise                                           | ❌️                                                                    | ✅️AWSサービス利用料が発生                                                              |
-| GitHubスター数 | 8.6k                                              | 26.8k                                                              | 6.5k                                                           | 24.0k                                                                 | -                                                                                      |
+| GitHubスター数 | 9.1k                                              | 29.4k                                                              | 6.8k                                                           | 24.7k                                                                 | -                                                                                      |
 
 推奨は以下の通り。
 

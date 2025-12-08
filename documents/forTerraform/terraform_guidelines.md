@@ -107,6 +107,8 @@ Terraformの変数には以下の2種類がある。
 
 - 外部からのインプットにしたい場合のみ、Input Variablesを利用する
   - バージョン管理可能とするため、環境変数 `TF_VAR` ではなく、 `-var-file` を利用する
+    - **設定値のバージョン管理**: 変数の値そのものもインフラ構成の重要な要素であり、Gitなどで変更管理し、レビューを行えうようにするため
+    - **再現性**: 多数の変数を扱う場合、環境変数として扱うと揺れが生じやすい。CIや踏み台サーバーなど、どの環境でも同じ値を利用し再現性を高めるため
 - Input Variablesを利用する場合は、公式Style Guideにも記載している通り、全ての変数に `type` と `description` を含める
   - `terraform-docs` でドキュメントを生成可能となるメリットもある
 - ファイル内で閉じて利用する変数は、Local Valuesを利用する
@@ -1800,7 +1802,7 @@ run "test" {
 
 【Testing HashiCorp Terraform から引用したテストピラミッド】
 
-![](image3.png)
+![実行コストの順序。手動テスト > E2Eテスト > 結合テスト > 契約テスト > 単体テスト](image3.png)
 
 下表で自動テストの4分類についてまとめる。
 
@@ -2042,7 +2044,7 @@ Terraformに限った話ではなく、クラウドのアカウント認証はMF
 
 Terraformを用いたGitブランチフローの例を下図で示す。図で示すように、どのブランチにマージされることが（あるいはGitタグが作成されることが）、どのデプロイメント環境に `terraform apply` することを示すかを定める必要がある。また、プルリクエストの前後で `terraform apply` まで行うべきかどうかといった論点もある。
 
-![](terraform_workflow.drawio.png)
+![featureブランチでterraform plan、developブランチでdev環境にapply、mainブランチでstgとproduction環境にapplyする様子](terraform_workflow.drawio.png)
 
 Gitブランチフローの詳細は、[Gitブランチフロー規約 | Future Enterprise Coding Standards](https://future-architect.github.io/coding-standards/documents/forGitBranch/git_branch_standards.html#terraform%E3%81%AF%E3%83%AC%E3%83%92%E3%82%99%E3%83%A5%E3%83%BC%E4%BE%9D%E9%A0%BC%E6%99%82%E7%82%B9%E3%81%A6%E3%82%99%E3%81%A8%E3%82%99%E3%81%93%E3%81%BE%E3%81%A6%E3%82%99%E7%A2%BA%E8%AA%8D%E3%81%97%E3%81%A6%E3%81%8A%E3%81%8F%E3%81%B8%E3%82%99%E3%81%8D%E3%81%8B) を確認すること。
 

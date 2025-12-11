@@ -36,7 +36,7 @@ head:
 
 - AWS、Google Cloud、Azureなどのクラウドサービスを用いての開発。設計観点などの説明には、特にAWSを例に上げることが多い
 
-関連領域のガイドラインには、[Web API設計ガイドライン](/documents/forWebAPI/web_api_guidelines.html)、[I/F設計ガイドライン](/documents/forIF/if_guidelines.html)、非同期処理設計ガイドライン（※作成予定）」がある。
+関連領域のガイドラインには、[Web API設計ガイドライン](/documents/forWebAPI/web_api_guidelines.html)、[I/F設計ガイドライン](/documents/forIF/if_guidelines.html)、[非同期設計ガイドライン](/documents/forAsync/async_guidelines.html) がある。
 
 # 定義
 

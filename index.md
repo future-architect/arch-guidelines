@@ -12,6 +12,9 @@ hero:
       text: WebAPI
       link: ./documents/forWebAPI/
     - theme: brand
+      text: 非同期
+      link: ./documents/forAsync/
+    - theme: brand
       text: バッチ
       link: ./documents/forBatch/
     - theme: brand

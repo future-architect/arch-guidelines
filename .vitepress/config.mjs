@@ -274,6 +274,10 @@ export default defineConfig({
                 link: "/documents/forWebAPI/web_api_guidelines.html",
               },
               {
+                text: "非同期",
+                link: "/documents/forAsync/async_guidelines.html",
+              },
+              {
                 text: "バッチ",
                 link: "/documents/forBatch/batch_guidelines.html",
               },

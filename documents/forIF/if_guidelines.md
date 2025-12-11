@@ -64,7 +64,7 @@ I/Fとはインタフェースの略で、ここではシステム間のデー�
   - オンプレミスでの構築にも応用できる内容も多いと考えているが、ガイドライン作成時に強く念頭に置いていない
 - 各システムは独立したクラウドアカウントで構築されており、システム間のデータ連携は一種のクロスアカウント（クロスクラウド）でのやり取りとなること
 
-関連領域のガイドラインには、[Web API設計ガイドライン](/documents/forWebAPI/web_api_guidelines.html)、[バッチ設計ガイドライン](/documents/forBatch/batch_guidelines.html)、「非同期処理設計ガイドライン（※作成予定）」がある。
+関連領域のガイドラインには、[Web API設計ガイドライン](/documents/forWebAPI/web_api_guidelines.html)、[バッチ設計ガイドライン](/documents/forBatch/batch_guidelines.html)、[非同期設計ガイドライン](/documents/forAsync/async_guidelines.html) がある。
 
 # 統合パターン
 

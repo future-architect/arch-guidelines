@@ -37,6 +37,72 @@ head:
 
 関連領域のガイドラインには、[Webフロントエンド設計ガイドライン](/documents/forWebFrontend/web_frontend_guidelines.html)、[OpenAPI Specification 3.0.3規約](https://future-architect.github.io/coding-standards/documents/forOpenAPISpecification/OpenAPI_Specification_3.0.3.html)、「非同期設計ガイドライン（※作成予定）」がある。
 
+# アーキテクチャ選定フロー
+
+Web APIの提供には、REST、gRPC、GraphQLなど複数の選択肢が存在する。
+
+本ガイドラインでは原則、RESTを採用する。ただし、性能や通信量などの非機能要件やクライアント特性に応じて、以下のフローチャートに従いgRPC、GraphQLを選定する。
+
+```mermaid
+flowchart LR
+    Start([API設計開始]) --> CheckClient{クライアントは？}
+
+    %% --- フロントエンド（Web/Mobile）の分岐 ---
+    CheckClient -- Web/モバイル --> Q_DataStructure{リソース間の関連が強く<br>N+1問題が深刻か？}
+
+    %% 構造が複雑でないならREST
+    Q_DataStructure -- No --> REST>REST]
+
+    %% 構造が複雑な場合
+    Q_DataStructure -- Yes --> Q_OverFetch{オーバーフェッチング<br>対策が必須か？}
+
+    Q_OverFetch -- No --> Q_UI_Agility{UI変更頻度が高く<br>API改修を待たずに<br>追従したいか？}
+    Q_UI_Agility -- No --> REST
+
+    %% --- BFF層の技術選定 ---
+    Q_OverFetch -- Yes --> Q_DynamicQuery
+    Q_UI_Agility -- Yes --> Q_DynamicQuery
+
+    Q_DynamicQuery{クライアントが<br>取得項目を動的に<br>決定したいか？}
+
+    Q_DynamicQuery -- Yes --> GraphQL>GraphQL]
+    Q_DynamicQuery -- No（BFFを検討） --> REST
+
+    %% --- バックエンド（Server/Batch）の分岐 ---
+    CheckClient -- サーバ間/バッチ --> Q_Streaming{双方向通信や<br>即時通知が<br>必要か？}
+
+    %% ストリーミングが必要そうな場合、さらにポーリング検討を挟む
+    Q_Streaming -- Yes --> Q_Polling{ポーリングなどで<br>代替可能か？}
+
+    Q_Polling -- Yes<br>(数秒間隔でOK) --> REST
+    Q_Polling -- No<br>(厳密なリアルタイム性) --> gRPC>gRPC]
+
+    %% ストリーミング不要な場合、性能要件のチェック
+    Q_Streaming -- No --> Q_Performance{マイクロ秒単位で<br>性能にシビアか？}
+
+    Q_Performance -- Yes --> gRPC
+    Q_Performance -- No --> REST
+```
+
+理由は以下の通り。
+
+- REST
+  - 以下の理由で第一の選択肢とする
+    - HTTPのセマンティクス（キャッシュ、ステータスコード等）を最大限活用できるため
+    - AWS（ALB, WAF, CloudFront）などのマネージドサービスとの親和性が高く、インフラ構成をシンプルに保てるため
+    - エコシステムが成熟しており、開発・保守の知見が広く共有されているため
+- GraphQL
+  - 以下を満たす場合に最も有効であるため
+    - モバイルアプリなど、帯域制限がある環境で必要なデータのみを最小限の通信で取得したい
+    - UIの変更頻度が激しく、バックエンドAPIの改修を待たずにフロントエンド側で必要なデータを取得・整形したい
+  - N+1問題や複雑なクエリ制限などの対応が大変など、運用コストの高さからできる限りRESTの利用を考えること
+- gRPC
+  - 以下のいずれかの条件を満たす場合に最も有効であるため
+    - チャットやリアルタイム同期など、常時接続かつ双方向のデータ送受信が必要で、ポーリングでは負荷や遅延の要件を満たせない場合
+    - マイクロサービス間通信などで、マイクロ秒単位の低遅延や高スループットが求められ、Protocol Buffersによるバイナリシリアライズが必須となる場合
+- JSON-RPC
+  - 原則採用しない。手続き的なRPCスタイルの通信が必要な場合は、REST APIの設計を少し崩して対応可能であるため
+
 # スタイル
 
 各要素ごとのWeb APIの表記は以下のルールとする。表記形式を統一することで設計時の考慮事項や、Web API利用時のミスを減らすことを目的とする。

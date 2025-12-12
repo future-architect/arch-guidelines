@@ -650,6 +650,15 @@ flowchart LR
 - もし、（2）が必要になったとしても、 `RUNNING` 中のキャンセル可能な機能対象は絞り込む
   - 定期的なポーリングは、共通ライブラリ化（別スレッドやgoroutine）などである程度代替可能だが、テストでの検証などが追加コストが高くなるため、対象は抑えた方が良い
 
+::: tip 強制停止
+非同期タスクが起動済みで、協調的キャンセルではなくインフラ的な停止も考えられる。
+
+1.ECSジョブ: `ecs stop-task` 相当の処理で対象のコンテナアプリを停止させる
+2.StepFunctionsジョブ: `stepfunctions stop-execution` 相当の処理で対象のステートマシンを停止させる
+
+この場合も作り込みは協調的キャンセルと同様に発生するため、できる限り実行前ステータスチェックで済ませるようにすることを推奨する。
+:::
+
 # 通知
 
 非同期処理が終了したかどうかを、エンドユーザーへ通知すべきという要求事項には以下がある。
@@ -659,24 +668,57 @@ flowchart LR
 
 主な実現手段は以下の設計パターンがある。
 
+<div class="img-bg-transparent">
+
 | \#           | （1）ポーリング方式                                                                                | （2）プッシュ通知方式                                                                                                       | （3）オンデマンド確認方式                                                                  |
 | :----------- | :------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------- |
 | 説明         | ブラウザやアプリがポーリングでステータスを確認する方式。ユーザーが画面を開いて待っている前提に近い | 処理完了時にサーバー側が、クライアントにWebSocketやモバイルデバイスに通知をプッシュする方式。画面を開いていなくても通知可能 | ユーザーが「ジョブ一覧」や「通知一覧」のような専用ページを、自らのタイミングで確認する方式 |
+| フロー図     | [![uml][async_polling_img]][async_polling_url]                                                     | [![uml][async_server_push_img]][async_server_push_url]                                                                      | （省略）                                                                                   |
 | 即時性       | ⚠️ポーリング間隔分の遅延が発生                                                                     | ✅リアルタイムに通知できる                                                                                                  | ❌ (低)ユーザーの操作に依存する                                                            |
 | 実装コスト   | ⚠️UI側のポーリング・タイムアウト制御ロジックが必要                                                 | ❌ (高) WebSocket, AWS SNS, FCM/APNsといった通知基盤の設計・運用コストが高い                                                | ✅ (低) ステータス一覧APIの実装のみで済む                                                  |
 | サーバー費用 | ✅️ポーリングリクエスト程度                                                                         | ❌ (高) WebSocketコネクションの常時維持や、SNS/FCM連携の費用                                                                | ✅ (低) ユーザーが必要な時のみに、リクエストが発生                                         |
+| 接続性       | ✅高い                                                                                             | ⚠️プロトコルによっては、企業内プロキシ等でブロックされる可能性がある                                                        | ✅高い                                                                                     |
+
+</div>
+
+[async_server_push_url]: https://mermaid.live/edit#pako:eNqVVP1P00AY_lcu9_PIEPWXxpBsDs0iAnEzRtNkOdpjVLpevbtiyLLEdjo0g0hiGIriflKCMWj8iBEV_5ijxf0XXnfbgE0Ma5p-vJ_3PM-btwwNYmKoQYbvedgxcMZCRYpKugPk5SLKLcNykcPBZdvCDh-038KzqZnsoD2THrSl2JJj5BFb0B3lVEVHxsdVFQ3MTOfyIEmxSyhnSYZszArIQfYSs5hKUZEyJZPWADIM7HJsnnBJn6qrgbHRMZDqxFyapeNlHd4ls1lThxrQ4bmx8xcu6jAhPxlH3GPK3CsKK30te-fXQGvrdbi2Er1qiuC3CL6L4IMG_nz9FtbXu9imCMeALGIKzpTWatTD7bpK7SV0YMaR1Zqo_lRZ0csvUeOjBiyn4FJSpJixoZtGL4JW45nwV4Rfj--gHi6_PVyrCX-3e5JTJJLvHDEWME_mMI075aQfTCzKZ0zx1YlTBUwqlpOKd6dftBjpZDaXn5gCUqRCR5I-WN1T_AtT68HmYfNNG1MgAQl_X_jb4f6jaKc5ND_h7srBXm0oOQxScm3cm8ZMeuQYa1PT-eyV2yeAnT60o2D6Wmdcjw_mUYPuZA6I8z_2O7SfmOhunqi-F9WtGFL1cfi0Ee5vxP0Pf30K11YPfjwX_urNG5PCfyf8HTkhUfVzuLt5pvOb5L5jE2QWPGpLFDqMnqwL_2G4vCf8DeE3-1q0kcEELGFaQpYpF1M5bqNDPo9LWNFg4jnk2VyHulORocjjJCcFghqnHk5ASrziPNTmkM3kn-eaiHe3Ws8qt9EdQo7-sWlxQq-rVdjeiJW_KjcQ-g
+[async_polling_img]: https://mermaid.ink/img/pako:eNqtVFtrE0EU_ivDPLekRn1ZpNAakeKlxVYKshAmu5N0dbOzzswqJQTcXW0rSWlQm1q11hctisZbi9h6-S9ONzH_wtlubk1SSMCwD5kz53znfN-3e3JQIzqGCmT4toMtDScMlKEoq1pA_mxEuaEZNrI4OG8a2OK98XmcmpiZ6o0nJntjE2zR0uYQu6Va0WUEOjo-HqEoYGZ6dg7EKLYJ5SzGkIlZElnIXGQGi0qiTFnSAlNAfetlUCpWX2wL77fwvgvvowL-7n0LCuvnUnT8z70D4X0Q_mvh_xDeo9pesfbks3A3hVcIXu0GpRXhecL15LGrQ2JSASpEmoZtjnUVHruW99H0CoiPxcFEIytsmFPhTZKakhVh_an46TNnVTgi_zKOuMOicBs231TjKuEYkDuYgoG41cuFYKcxc6tgtDG3YSVtSjIUMzYkeHXTq5cfC7co3EL4SJWW39RKS8KtNDtGiCYhNpghpmlYGZAmFHCJCTSStU3MDdLI6mvzxQsnuhyLRIpFsrUgjpkSjuovHdkZjh2sebUHO-3cxGRHqx4hTvJwDExfGti9TtTQwBAUW_rQTgaV4uH-UreHfVlWn-9Wy5_CCRsSY_3Ez2g4fQfVVura0aNjiv8iaRuv_UUMRawfo2ad8N8Lfytk5a8Ea-Xg10Y4V-3nl6C0enjwVLir169dFu474b6V73nV_xpUng3ESyd3LZMgPelQU_JQYfXhunDvB8v7wt0Q7nZXiyNucARmMc0iQ5eLNxe2USFfwFkcCaHjNHJMHu6bvExFDiez8s2ACqcOHoGUOJkFqKSRyeTJsXXEm1u7FZXb9gYh7TPWDU7olWjVH238_D-jXldr?type=png
+[async_polling_url]: https://mermaid.live/edit#pako:eNqtVFtrE0EU_ivDPLekRn1ZpNAakeKlxVYKshAmu5N0dbOzzswqJQTcXW0rSWlQm1q11hctisZbi9h6-S9ONzH_wtlubk1SSMCwD5kz53znfN-3e3JQIzqGCmT4toMtDScMlKEoq1pA_mxEuaEZNrI4OG8a2OK98XmcmpiZ6o0nJntjE2zR0uYQu6Va0WUEOjo-HqEoYGZ6dg7EKLYJ5SzGkIlZElnIXGQGi0qiTFnSAlNAfetlUCpWX2wL77fwvgvvowL-7n0LCuvnUnT8z70D4X0Q_mvh_xDeo9pesfbks3A3hVcIXu0GpRXhecL15LGrQ2JSASpEmoZtjnUVHruW99H0CoiPxcFEIytsmFPhTZKakhVh_an46TNnVTgi_zKOuMOicBs231TjKuEYkDuYgoG41cuFYKcxc6tgtDG3YSVtSjIUMzYkeHXTq5cfC7co3EL4SJWW39RKS8KtNDtGiCYhNpghpmlYGZAmFHCJCTSStU3MDdLI6mvzxQsnuhyLRIpFsrUgjpkSjuovHdkZjh2sebUHO-3cxGRHqx4hTvJwDExfGti9TtTQwBAUW_rQTgaV4uH-UreHfVlWn-9Wy5_CCRsSY_3Ez2g4fQfVVura0aNjiv8iaRuv_UUMRawfo2ad8N8Lfytk5a8Ea-Xg10Y4V-3nl6C0enjwVLir169dFu474b6V73nV_xpUng3ESyd3LZMgPelQU_JQYfXhunDvB8v7wt0Q7nZXiyNucARmMc0iQ5eLNxe2USFfwFkcCaHjNHJMHu6bvExFDiez8s2ACqcOHoGUOJkFqKSRyeTJsXXEm1u7FZXb9gYh7TPWDU7olWjVH238_D-jXldr
+[async_server_push_img]: https://mermaid.ink/img/pako:eNqVVP1P00AY_lcu9_PIEPWXxpBsDs0iAnEzRtNkOdpjVLpevbtiyLLEdjo0g0hiGIriflKCMWj8iBEV_5ijxf0XXnfbgE0Ma5p-vJ_3PM-btwwNYmKoQYbvedgxcMZCRYpKugPk5SLKLcNykcPBZdvCDh-038KzqZnsoD2THrSl2JJj5BFb0B3lVEVHxsdVFQ3MTOfyIEmxSyhnSYZszArIQfYSs5hKUZEyJZPWADIM7HJsnnBJn6qrgbHRMZDqxFyapeNlHd4ls1lThxrQ4bmx8xcu6jAhPxlH3GPK3CsKK30te-fXQGvrdbi2Er1qiuC3CL6L4IMG_nz9FtbXu9imCMeALGIKzpTWatTD7bpK7SV0YMaR1Zqo_lRZ0csvUeOjBiyn4FJSpJixoZtGL4JW45nwV4Rfj--gHi6_PVyrCX-3e5JTJJLvHDEWME_mMI075aQfTCzKZ0zx1YlTBUwqlpOKd6dftBjpZDaXn5gCUqRCR5I-WN1T_AtT68HmYfNNG1MgAQl_X_jb4f6jaKc5ND_h7srBXm0oOQxScm3cm8ZMeuQYa1PT-eyV2yeAnT60o2D6Wmdcjw_mUYPuZA6I8z_2O7SfmOhunqi-F9WtGFL1cfi0Ee5vxP0Pf30K11YPfjwX_urNG5PCfyf8HTkhUfVzuLt5pvOb5L5jE2QWPGpLFDqMnqwL_2G4vCf8DeE3-1q0kcEELGFaQpYpF1M5bqNDPo9LWNFg4jnk2VyHulORocjjJCcFghqnHk5ASrziPNTmkM3kn-eaiHe3Ws8qt9EdQo7-sWlxQq-rVdjeiJW_KjcQ-g?type=png
 
 推奨は以下の通り。
 
-- （1）（3）を第一に検討する
-  - プッシュは構築コストが大きく、ユーザーとしても通知で業務が中断されるため、本当に必要な場合のみに適用すべきである
-- 処理時間が数分程度と短い場合は、Cに加えAを採用する
-  - UX向上のため
-- （1）を選択する場合は、ポーリング間隔に指数関数的バックオフを導入するなど、無駄なリクエストを削減する工夫を入れる
-- （2）を選択する場合、ポーリングのタイムアウトを入れる場合は、Cとの併用が必要である
-- （2）を選ぶ場合も、メールやチャットツール（Slack、Teams）などアプリ通知以外の選択肢も同時に検討する（この場合、Webとアプリで同じ通知の仕組みで共用できるため）
-- （3）の実装は、ステータス管理テーブルを参照すること楽であるが、アプリケーション要件の表示項目については、別テーブルで管理を推奨する
-  - アプリ要件の変更で、ERD変更が生じた場合の影響度を、局所化させるため
+- （1）または（3）を第一に検討する
+  - プッシュ通知は構築・運用コストが大きく、ユーザーとしても通知で業務が中断されるため、チャットシステムなど本当に必要な場合のみに適用すべきである（多くの業務システムにおいて（2）はオーバースペックとなる傾向がある）
+
+- （1）ポーリング方式を選択する場合
+  - UX向上のため、処理時間が数分程度と短い場合に適している
+  - ポーリング間隔に指数関数的バックオフを導入するなど、無駄なリクエストを削減する工夫を入れる
+- （2）プッシュ通知方式を選択する場合
+  - （1）では即時性などの要件を満たせない場合に検討する
+  - メールやチャットツール（Slack、Teams）など、アプリ通知以外の既存の仕組みを利用できないかも同時に検討する
+  - アプリ通知を行う場合でも、ポーリングのタイムアウト対策として、（3）との併用が必要になるケースが多い
+- （3）オンデマンド確認方式の実装
+  - ステータス管理テーブルを参照するだけで実装可能だが、アプリケーション要件の表示項目については、別テーブルでの管理を推奨する（アプリ要件変更時のERD変更影響を局所化するため）
+
+## サーバプッシュの方式
+
+サーバプッシュには次の3方式がある。
+
+|              | （2-A）ロングポーリング                                                                                | （2-B）Server Sent Event                                                                                               | (2-C)WebSocket                                                                                                |
+| :----------- | :----------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------ |
+| 説明         | サーバー側で更新があるまで待機し、更新があったタイミングで応答。再びクライアント側から再接続してもらう | HTTPプロトコルを使用し、クライアントからの一度のリクエストで接続を維持し、サーバから継続的にデータをストリーム送信する | TCP上で双方向通信規格を使用し、サーバ／クライアント間でメッセージを送受信する。バイナリ送信も可能で効率が良い |
+| 通信方向     | 一方向（擬似プッシュ）                                                                                 | 一方向（サーバ→クライアント）                                                                                          | 双方向                                                                                                        |
+| 即時性       | ❌️1度のやり取りでヘッダなどが付与されるためオーバーヘッドあり                                          | ⚠️高い                                                                                                                 | ✅️最も低レイテンシ                                                                                            |
+| プロキシ対応 | ✅️高い                                                                                                 | ✅️高い                                                                                                                 | ⚠️ブロックされる可能性がほかと比較すると高い                                                                  |
+| 接続維持     | ❌️自前実装（再接続実装）                                                                               | ✅️自動再接続機能がある                                                                                                 | ⚠️クライアント側で再接続ロジックを実装                                                                        |
+| 保守運用性   | ⚠️古い手法である                                                                                       | ✅️比較的低い                                                                                                           | ⚠️ステートフルな通信のため、LBやデプロイ時の切断考慮など運用難易度が高い                                      |
+
+推奨は以下の通り。
+
+- 非同期処理の完了通知という目的（一方向の通知）であれば、（2-B）Server Sent Event (SSE) の採用を推奨する
+  - HTTPベースであるため既存のWebインフラ（LB、プロキシ）との親和性が高く、WebSocketほど実装・運用が複雑にならないため
+- 双方向のリアルタイム通信が必要な場合に限り、（2-C）WebSocketを検討する
 
 # 同期待ち合わせ
 

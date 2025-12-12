@@ -351,7 +351,7 @@ export default defineConfig({
             items: [
               {
                 text: "ソフトスキル",
-                link: "/documents/forSoftSkill/softskill_standards.html",
+                link: "/documents/forSoftSkill/softskill_guidelines.html",
               },
             ],
           },

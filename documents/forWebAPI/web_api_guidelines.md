@@ -1495,108 +1495,11 @@ sequenceDiagram
 
 # 非同期
 
-同期APIがレスポンスでデータやサービスを即座に提供するのに対し、非同期APIはそれらが準備でき次第、要求側にコールバックする処理方式である。
+Web APIの非同期化については[非同期設計ガイドライン](/documents/forAsync/async_guidelines.html)に従う。次のような観点がある。
 
-それぞれのメリット/デメリットは以下のとおり。
-
-| #    | （1）同期API                                                                                                                                | (2)非同期API                                                                                                                                            |
-| :--- | :------------------------------------------------------------------------------------------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Pros | ✅️各言語でデファクトスタンダードとなる実装があり、比較的低コストで実装可能                                                                  | ✅️重量級の処理の場合、呼び出し側がブロックされず快適なUX提供につながる<br> ✅️アプリケーションの機能とリソースが新しいリクエストの処理のために解放される |
-| Cons | ❌️完了するまで呼び出し側処理がブロックされる<br> ❌️応答時間が各サービスの応答時間の合算になるなど、ユーザーの待機時間が長くなる可能性がある | ❌️非同期タスクが失敗した場合の考慮など、設計／実装コストが高い                                                                                          |
-
-推奨は以下の通り。
-
-- 原則、（1）を選択する
-  - （2）は、クライアント側に高コストな実装を要求することになるためできる限り避ける
-- 以下のケースでは（2）を検討する
-  - 接続性が不足していたり、過飽和状態の場合
-  - 処理に数分以上かかるなど、レイテンシが大きくなりすぎる場合
-
-## 非同期タスクの完了通知方式
-
-非同期処理の設計パターンとして、非同期タスクの完了時の通知をどのように行うかで下表の2パターンが存在する。
-
-<div class="img-bg-transparent">
-
-| #          | （1）ポーリング方式                                                                                                 | （2）ブロッキング方式（サーバプッシュ方式）                                                                                                                    |
-| :--------- | :------------------------------------------------------------------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 説明       | 非同期タスクの終了まで、クライアントがポーリングで結果取得を繰り返す                                                | 非同期タスク終了後、サーバ側から結果を通知する                                                                                                                 |
-| フロー図   | [![uml][async_polling_img]][async_polling_url]                                                                      | [![uml][async_server_push_img]][async_server_push_url]                                                                                                         |
-| 実装難易度 | ✅️クライアントからポーリングする点は、同期APIの組み合わせであるためサーバ側としての実装パターンを増やさなくても済む | ⚠️Server Sent Events (SSE), Web Socketなどの仕組みと組み合わせる必要がある。ロードバランサーなどのタイムアウト時に再接続が必要など、考慮点もいくつか追加される |
-| 進捗       | ✅️非同期タスク側がステータスを書き込めば進捗を返すことが可能                                                        | ✅️非同期タスク側がステータスを書き込めば進捗を返すことが可能                                                                                                   |
-| 即時性     | ⚠️ポーリング間隔分、遅延が発生                                                                                      | ✅️イベント駆動の組み合わせで対応可能                                                                                                                           |
-| リソース   | ✅️分散しやすい                                                                                                      | ⚠️コネクションが接続し続けるため、富豪的である                                                                                                                 |
-| 接続性     | ✅️高い                                                                                                              | ✅️SSEの場合高い。WebSocketの場合、企業内のプロキシなどにブロックされる可能性がわずかに上がる                                                                   |
-
-</div>
-
-[async_polling_img]: https://mermaid.ink/img/pako:eNqtVFtrE0EU_ivDPLekRn1ZpNAakeKlxVYKshAmu5N0dbOzzswqJQTcXW0rSWlQm1q11hctisZbi9h6-S9ONzH_wtlubk1SSMCwD5kz53znfN-3e3JQIzqGCmT4toMtDScMlKEoq1pA_mxEuaEZNrI4OG8a2OK98XmcmpiZ6o0nJntjE2zR0uYQu6Va0WUEOjo-HqEoYGZ6dg7EKLYJ5SzGkIlZElnIXGQGi0qiTFnSAlNAfetlUCpWX2wL77fwvgvvowL-7n0LCuvnUnT8z70D4X0Q_mvh_xDeo9pesfbks3A3hVcIXu0GpRXhecL15LGrQ2JSASpEmoZtjnUVHruW99H0CoiPxcFEIytsmFPhTZKakhVh_an46TNnVTgi_zKOuMOicBs231TjKuEYkDuYgoG41cuFYKcxc6tgtDG3YSVtSjIUMzYkeHXTq5cfC7co3EL4SJWW39RKS8KtNDtGiCYhNpghpmlYGZAmFHCJCTSStU3MDdLI6mvzxQsnuhyLRIpFsrUgjpkSjuovHdkZjh2sebUHO-3cxGRHqx4hTvJwDExfGti9TtTQwBAUW_rQTgaV4uH-UreHfVlWn-9Wy5_CCRsSY_3Ez2g4fQfVVura0aNjiv8iaRuv_UUMRawfo2ad8N8Lfytk5a8Ea-Xg10Y4V-3nl6C0enjwVLir169dFu474b6V73nV_xpUng3ESyd3LZMgPelQU_JQYfXhunDvB8v7wt0Q7nZXiyNucARmMc0iQ5eLNxe2USFfwFkcCaHjNHJMHu6bvExFDiez8s2ACqcOHoGUOJkFqKSRyeTJsXXEm1u7FZXb9gYh7TPWDU7olWjVH238_D-jXldr?type=png
-[async_polling_url]: https://mermaid.live/edit#pako:eNqtVFtrE0EU_ivDPLekRn1ZpNAakeKlxVYKshAmu5N0dbOzzswqJQTcXW0rSWlQm1q11hctisZbi9h6-S9ONzH_wtlubk1SSMCwD5kz53znfN-3e3JQIzqGCmT4toMtDScMlKEoq1pA_mxEuaEZNrI4OG8a2OK98XmcmpiZ6o0nJntjE2zR0uYQu6Va0WUEOjo-HqEoYGZ6dg7EKLYJ5SzGkIlZElnIXGQGi0qiTFnSAlNAfetlUCpWX2wL77fwvgvvowL-7n0LCuvnUnT8z70D4X0Q_mvh_xDeo9pesfbks3A3hVcIXu0GpRXhecL15LGrQ2JSASpEmoZtjnUVHruW99H0CoiPxcFEIytsmFPhTZKakhVh_an46TNnVTgi_zKOuMOicBs231TjKuEYkDuYgoG41cuFYKcxc6tgtDG3YSVtSjIUMzYkeHXTq5cfC7co3EL4SJWW39RKS8KtNDtGiCYhNpghpmlYGZAmFHCJCTSStU3MDdLI6mvzxQsnuhyLRIpFsrUgjpkSjuovHdkZjh2sebUHO-3cxGRHqx4hTvJwDExfGti9TtTQwBAUW_rQTgaV4uH-UreHfVlWn-9Wy5_CCRsSY_3Ez2g4fQfVVura0aNjiv8iaRuv_UUMRawfo2ad8N8Lfytk5a8Ea-Xg10Y4V-3nl6C0enjwVLir169dFu474b6V73nV_xpUng3ESyd3LZMgPelQU_JQYfXhunDvB8v7wt0Q7nZXiyNucARmMc0iQ5eLNxe2USFfwFkcCaHjNHJMHu6bvExFDiez8s2ACqcOHoGUOJkFqKSRyeTJsXXEm1u7FZXb9gYh7TPWDU7olWjVH238_D-jXldr
-[async_server_push_img]: https://mermaid.ink/img/pako:eNqVVP1P00AY_lcu9_PIEPWXxpBsDs0iAnEzRtNkOdpjVLpevbtiyLLEdjo0g0hiGIriflKCMWj8iBEV_5ijxf0XXnfbgE0Ma5p-vJ_3PM-btwwNYmKoQYbvedgxcMZCRYpKugPk5SLKLcNykcPBZdvCDh-038KzqZnsoD2THrSl2JJj5BFb0B3lVEVHxsdVFQ3MTOfyIEmxSyhnSYZszArIQfYSs5hKUZEyJZPWADIM7HJsnnBJn6qrgbHRMZDqxFyapeNlHd4ls1lThxrQ4bmx8xcu6jAhPxlH3GPK3CsKK30te-fXQGvrdbi2Er1qiuC3CL6L4IMG_nz9FtbXu9imCMeALGIKzpTWatTD7bpK7SV0YMaR1Zqo_lRZ0csvUeOjBiyn4FJSpJixoZtGL4JW45nwV4Rfj--gHi6_PVyrCX-3e5JTJJLvHDEWME_mMI075aQfTCzKZ0zx1YlTBUwqlpOKd6dftBjpZDaXn5gCUqRCR5I-WN1T_AtT68HmYfNNG1MgAQl_X_jb4f6jaKc5ND_h7srBXm0oOQxScm3cm8ZMeuQYa1PT-eyV2yeAnT60o2D6Wmdcjw_mUYPuZA6I8z_2O7SfmOhunqi-F9WtGFL1cfi0Ee5vxP0Pf30K11YPfjwX_urNG5PCfyf8HTkhUfVzuLt5pvOb5L5jE2QWPGpLFDqMnqwL_2G4vCf8DeE3-1q0kcEELGFaQpYpF1M5bqNDPo9LWNFg4jnk2VyHulORocjjJCcFghqnHk5ASrziPNTmkM3kn-eaiHe3Ws8qt9EdQo7-sWlxQq-rVdjeiJW_KjcQ-g?type=png
-[async_server_push_url]: https://mermaid.live/edit#pako:eNqVVP1P00AY_lcu9_PIEPWXxpBsDs0iAnEzRtNkOdpjVLpevbtiyLLEdjo0g0hiGIriflKCMWj8iBEV_5ijxf0XXnfbgE0Ma5p-vJ_3PM-btwwNYmKoQYbvedgxcMZCRYpKugPk5SLKLcNykcPBZdvCDh-038KzqZnsoD2THrSl2JJj5BFb0B3lVEVHxsdVFQ3MTOfyIEmxSyhnSYZszArIQfYSs5hKUZEyJZPWADIM7HJsnnBJn6qrgbHRMZDqxFyapeNlHd4ls1lThxrQ4bmx8xcu6jAhPxlH3GPK3CsKK30te-fXQGvrdbi2Er1qiuC3CL6L4IMG_nz9FtbXu9imCMeALGIKzpTWatTD7bpK7SV0YMaR1Zqo_lRZ0csvUeOjBiyn4FJSpJixoZtGL4JW45nwV4Rfj--gHi6_PVyrCX-3e5JTJJLvHDEWME_mMI075aQfTCzKZ0zx1YlTBUwqlpOKd6dftBjpZDaXn5gCUqRCR5I-WN1T_AtT68HmYfNNG1MgAQl_X_jb4f6jaKc5ND_h7srBXm0oOQxScm3cm8ZMeuQYa1PT-eyV2yeAnT60o2D6Wmdcjw_mUYPuZA6I8z_2O7SfmOhunqi-F9WtGFL1cfi0Ee5vxP0Pf30K11YPfjwX_urNG5PCfyf8HTkhUfVzuLt5pvOb5L5jE2QWPGpLFDqMnqwL_2G4vCf8DeE3-1q0kcEELGFaQpYpF1M5bqNDPo9LWNFg4jnk2VyHulORocjjJCcFghqnHk5ASrziPNTmkM3kn-eaiHe3Ws8qt9EdQo7-sWlxQq-rVdjeiJW_KjcQ-g
-
-推奨は以下の通り。
-
-- （1）を第一に検討する（チャットシステムでない限り、通常、そこまで即時性は求められないと想定できるので、多くの業務システムにおいて（2）は牛刀だと考えられる）
-- （1）が即時性などで要件を満たせない場合に、（2）を検討する
-
-## サーバプッシュの方式
-
-サーバプッシュの方式として、下表の3種類がよく挙げられる。
-
-|              | （1）ロングポーリング                                                                                  | （2）Server Sent Event                                                                                                                         | ③WebSocket                                                                                           |
-| :----------- | :----------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------- |
-| 説明         | サーバー側で更新があるまで待機し、更新があったタイミングで応答。再びクライアント側から再接続してもらう | HTTPプロトコルを使用し、クライアント側からサーバへHTTPリクエストを送り、その接続を維持することで、サーバから継続的にデータをストリーム送信する | 双方向通信が可能で、サーバ／クライアント間でメッセージを送受信できる。バイナリ送信も可能で効率が良い |
-| 通信方向     | 一方向                                                                                                 | 双方向                                                                                                                                         | 双方向                                                                                               |
-| 即時性       | ❌️1度のやり取りでヘッダなどが付与されるためオーバーヘッドあり                                          | ⚠️高い                                                                                                                                         | ✅️最も低レイテンシ                                                                                   |
-| プロキシ対応 | ✅️高い                                                                                                 | ✅️高い                                                                                                                                         | ⚠️ブロックされる可能性がほかと比較すると高い                                                         |
-| 接続維持     | ❌️自前実装（再接続実装）                                                                               | ✅️自動再接続機能がある                                                                                                                         | ⚠️クライアント側で再接続ロジックを実装                                                               |
-| 保守運用性   | ⚠️古い手法である                                                                                       | ✅️比較的低い                                                                                                                                   | ⚠️WebSocketの扱いをサーバ／クライアントで慣れる必要がある                                            |
-
-推奨は以下の通り。
-
-- サーバプッシュがもし必要な場合は、非同期完了通知の目的であれば（2）を採用する
-
-## 非同期タスクのキャンセル
-
-非同期タスクの起動要求時は、疎結合化／流量調整などを目的として、Amazon SQSのようなキューイングサービスを経由させることが多い。
-
-非同期タスクのキャンセルについては、状況別に以下の対応が考えられる。
-
-| 状況                   | キャンセル時対応                                                                                                                                                                                                                                                                                                                                                                  |
-| :--------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 非同期タスクが未起動   | キャンセル要求を受付時に、DBにキャンセルステータスを書き込む。 非同期タスク起動時に、DBを参照しメッセージIDがキャンセル済みかどうか判定。キャンセルの場合は起動をスキップする                                                                                                                                                                                                     |
-| 非同期タスクが起動済み | キャンセル要求を受付時に停止できないか試みる。非同期タスクがどのような形式で稼働しているかで、対応可否が変わる。 1.ECSジョブが起動している場合は、ecs stop-task相当の処理で対象のコンテナアプリを停止させる 2.StepFunctionsジョブが起動している場合、stepfunctions stop-execution相当の処理で対象のステートマシンを停止させる 3.常駐サービスのECSの場合、おそらく停止は困難である |
-
-## 非同期タスクの予約
-
-時間指定で非同期タスクを登録する場合は、DBにスケジュール情報を登録し、一定間隔でスケジュールテーブルを参照、起動要求を満たすレコードがあれば、非同期タスクを起動させる（※正確にはキューイングサービスにエンキューすることが多い）方式を取ることが多い。
-
-以下の処理フローのイメージを示す。
-
-```mermaid
-%%{init: {'sequence': {'mirrorActors': false}}}%%
-sequenceDiagram
-    participant Client
-    participant WebAPI
-    participant DB
-    participant CronJob
-    participant Task
-
-    Client->>WebAPI: 非同期タスクの予約登録リクエスト
-    WebAPI->>DB: スケジュールテーブルに書き込み
-    Note right of DB: タスクスケジュールが保存される
-    WebAPI-->>Client: 202 Accepted (受理済み)
-    loop 定時
-        CronJob->>DB: スケジュールテーブルを参照
-        DB-->>CronJob: タスクの起動条件をチェック
-        alt 起動条件を満たす場合
-            CronJob->>Task: 非同期タスクを起動<br>※正確にはキューイングを経由
-        else 起動条件を満たさない場合
-            CronJob->>CronJob: 次回チェックまで待機
-        end
-    end
-```
+- [非同期化の判断基準](/documents/forAsync/async_guidelines.html#非同期化の判断基準)
+- [非同期の予約](/documents/forAsync/async_guidelines.html#予約)
+- [非同期終了時の通知](/documents/forAsync/async_guidelines.html#通知)
 
 # API Gatewayパターン
 

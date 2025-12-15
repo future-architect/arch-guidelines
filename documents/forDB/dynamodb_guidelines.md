@@ -434,7 +434,7 @@ DynamoDBはテーブルの属性に対して、様々なデータ型がサポー
 | セット       | String Set | `SS`   | 文字列のセット。タグ、カテゴリID、関連商品IDなど、順序を問わず一意な値の集合を管理したい場合に利用 |
 |              | Number Set | `NS`   | 数値のセット                                                                                       |
 
-#### 推奨は以下の通り。
+推奨は以下の通り。
 
 - コード、区分、UUIDはString型を用いる
   - String型は最も基本的な型であり、特に避ける理由はない
@@ -811,7 +811,7 @@ GoでDynamoDBを操作する場合、大別すると以下3つの選択肢があ
 
 # テスト
 
-### ローカルモック
+## ローカルモック
 
 ローカルモックの選択肢として代表的なものには[DynamoDB local](https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/DynamoDBLocal.html) および [LocalStack](https://docs.localstack.cloud/aws/services/dynamodb/) がある。Local Stackは内部的にDynamoDB localを使用しているため、機能自体に大きな差はないが、TTLのサポートやリソースブラウザ（GUI）の提供など、DynamoDB localにはない機能も提供している。
 
@@ -830,7 +830,7 @@ GoでDynamoDBを操作する場合、大別すると以下3つの選択肢があ
 - 第一に公式のDynamoDB localの使用を検討する
 - ただし他のAWSサービス（例. S3 、SQS、Lambda）のエミュレータとしてLocalStackを使用する場合、ツールを統合するという観点から LocalStackの利用を推奨する
 
-### DynamoDB Streamsとの統合
+## DynamoDB Streamsとの統合
 
 DynamoDB local および LocalStackはDynamoDB Streamsをサポートしているが、DynamoDB StreamsをトリガーとしたLambda等の起動をローカルでエミュレートするには工夫が必要となる。
 
@@ -842,13 +842,6 @@ DynamoDB local および LocalStackはDynamoDB Streamsをサポートしてい�
 推奨は以下の通り。
 
 - DynamoDB Streamsを多用するアーキテクチャにおいては、LocalStack Lambda / LocalStack Dynamo をはじめ、LocalStackを中心的なモックツールとすること
-
-::: info 参考
-
-- https://www.isoroot.jp/blog/7753/
-- https://qiita.com/waterada/items/7f99adb4b1485b521e59
-
-:::
 
 # 性能
 

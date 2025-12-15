@@ -14,3 +14,7 @@ hero:
 # コンテンツ
 
 - [Markdown](https://github.com/future-architect/arch-guidelines/blob/main/documents/forAWS/aws_guidelines.md)
+
+## Articles
+
+- 2025.12.12 [AWS設計ガイドラインを公開しました](https://future-architect.github.io/articles/20251212a/)

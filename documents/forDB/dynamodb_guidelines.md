@@ -31,8 +31,8 @@ DynamoDB を利用してシステムを構築する全てのエンジニアお�
 - DynamoDB の詳細なAPIリファレンスや具体的なコーディング実装例を網羅するものではない。それらについては、AWS公式ドキュメントや各プログラミング言語のSDKドキュメントを参照すること
 - DynamoDBをセッションストレージのような、限定的な用途で使うようなケース。本ガイドラインの内容は要件に対して過剰な設計になる可能性がある
 - 特定のビジネス領域やアプリケーション固有の要件に特化した設計判断については、本ガイドラインの原則を踏まえつつ、各プロジェクトで個別検討すること
-- DynamoDBを利用する前提として、AWSそのものの命名や設計が必要になる。[AWSインフラ命名規約](https://future-architect.github.io/coding-standards/documents/forAWSResource/AWS%E3%82%A4%E3%83%B3%E3%83%95%E3%83%A9%E3%83%AA%E3%82%BD%E3%83%BC%E3%82%B9%E5%91%BD%E5%90%8D%E8%A6%8F%E7%B4%84.html) や[AWS設計ガイドライン](https://future-architect.github.io/arch-guidelines/documents/forAWS/aws_guidelines.html) を参考にすること
-- インフラ構築はTerraformなどのプロビジョニングツールの利用を推奨する。[Terraform設計ガイドライン](https://future-architect.github.io/arch-guidelines/documents/forTerraform/terraform_guidelines.html) を参考にすること
+- DynamoDBを利用する前提として、AWSそのものの命名や設計が必要になる。[AWSインフラ命名規約](https://future-architect.github.io/coding-standards/documents/forAWSResource/AWS%E3%82%A4%E3%83%B3%E3%83%95%E3%83%A9%E3%83%AA%E3%82%BD%E3%83%BC%E3%82%B9%E5%91%BD%E5%90%8D%E8%A6%8F%E7%B4%84.html) や[AWS設計ガイドライン](/documents/forAWS/aws_guidelines.html) を参考にすること
+- インフラ構築はTerraformなどのプロビジョニングツールの利用を推奨する。[Terraform設計ガイドライン](/documents/forTerraform/terraform_guidelines.html) を参考にすること
 
 ## 用語
 

@@ -35,8 +35,6 @@ head:
 
 また、本ガイドラインの適用範囲は、Web APIのサーバサイドの設計についてまとめる。クライアントサイドについては対象外とする。
 
-関連領域のガイドラインには、[Webフロントエンド設計ガイドライン](/documents/forWebFrontend/web_frontend_guidelines.html)、[OpenAPI Specification 3.0.3規約](https://future-architect.github.io/coding-standards/documents/forOpenAPISpecification/OpenAPI_Specification_3.0.3.html)、[非同期設計ガイドライン](/documents/forAsync/async_guidelines.html) がある。
-
 # アーキテクチャ選定フロー
 
 Web APIの提供には、REST、gRPC、GraphQLなど複数の選択肢が存在する。

@@ -37,8 +37,6 @@ description: 非同期処理特有の「本質的な難しさ」をどう乗り�
 - 各プログラミング言語で準備されている非同期処理の実装方法。例えばJavaScriptでのasync/await、Javaでのスレッド/仮想スレッド、Goのgoroutineなどには触れない
 - ブラウザのサービスワーカー
 
-バックエンドの隣接した関連領域のドキュメントには、[バッチ設計ガイドライン](/documents/forBatch/batch_guidelines.html)、[I/F設計ガイドライン](/documents/forIF/if_guidelines.html)、[Web API設計ガイドライン](/documents/forWebAPI/web_api_guidelines.html)、ストリーミング設計ガイドライン（※作成予定）がある。
-
 # 用語
 
 非同期処理には、メッセージキューのサービスを利用する。そうした種別や、プロダクトごとに呼び名が様々存在する。

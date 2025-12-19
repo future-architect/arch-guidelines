@@ -36,8 +36,6 @@ head:
 - CDN（Contents Delivery Network）
 - BFF（Backend For Frontend）
 
-Web APIの設計については、[Web API設計ガイドライン](/documents/forWebAPI/web_api_guidelines.html) を参考にすること。
-
 また、本ガイドラインは基本的に、**業務アプリケーションの開発** を想定して作成している。例えば大規模なtoC向けサービスと比較して、以下のような特性を持つことが多い点を考慮しているためである。
 
 - 権限管理が細かく、所属部署や役職で表示内容が細かく変わる、データの更新頻度が高いなどの理由で、CDN等を用いた積極的なキャッシュ戦略の効果が限定的

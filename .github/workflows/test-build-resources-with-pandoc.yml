@@ -22,7 +22,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
-      - uses: docker://pandoc/latex:2.19
+      - uses: docker://pandoc/latex:3.8
         with:
           entrypoint: "/bin/sh"
           args: "./build-resources-with-pandoc.sh"

@@ -204,11 +204,11 @@ graph LR
     %% Style Definitions
     style FinalChain fill:#fff0f0,stroke:#990000,stroke-width:2px,color:#000000
     style RetryAll fill:#e6ffed,stroke:#006600,stroke-width:2px,color:#000000
-    style ProgThread fill:#e6ffed,stroke:#006600,stroke-width:2px,color:#000000
-    style SplitTask fill:#e6ffed,stroke:#006600,stroke-width:2px,color:#000000
-    style Avoid1 fill:#e6ffed,stroke:#006600,stroke-width:2px,color:#000000
-    style AdoptPolling fill:#e6ffed,stroke:#006600,stroke-width:2px,color:#000000
-    style Avoid2 fill:#e6ffed,stroke:#006600,stroke-width:2px,color:#000000
+    style ProgThread fill:#e6ffed,stroke:#006600,stroke-width:2px,color:#000000
+    style SplitTask fill:#e6ffed,stroke:#006600,stroke-width:2px,color:#000000
+    style Avoid1 fill:#e6ffed,stroke:#006600,stroke-width:2px,color:#000000
+    style AdoptPolling fill:#e6ffed,stroke:#006600,stroke-width:2px,color:#000000
+    style Avoid2 fill:#e6ffed,stroke:#006600,stroke-width:2px,color:#000000
 ```
 
 # バッチから非同期呼び出し
@@ -257,6 +257,32 @@ flowchart LR
 現代のクラウド環境における非同期設計では、AMQP (Advanced Message Queuing Protocol) や MQTT (Message Queuing Telemetry Transport) といった古典的なメッセージングプロトコルそのものを開発者が直接意識する場面は稀である。
 
 AWS SQSやSNSは、AWS SDKを介した HTTPS APIコールによって操作されるため、プロトコルレベルの詳細は抽象化されている。AMQP、MQTT、Kafkaプロトコルなどを選択するかどうかは、どのプロトコルを使用するかどうかではなく、どのメッセージングプロダクトの選定をするかに等しい。そのため、プロトコル選定は本ガイドラインでは設計上の論点として取り扱わない。
+
+# 非同期処理の論理構成方針
+
+スケーラビリティや保守性および障害分離の観点から、各コンポーネント（プロデューサー、キュー、コンシューマー）の分割単位および論理的な配置に関する標準方針を定めることが重要となる。
+
+推奨は以下の通り。
+
+- 1業務タスク = 1キュー = 1コンシューマー(Lambda関数) とする
+  - メッセージングキューは「1つのイベントタイプ（業務処理単位）につき、1つのキュー」で定義する
+  - コンシューマーも同様にイベントタイプ（業務処理単位）で実装して、複数の業務処理を混在させないようにする
+
+**理由：**
+
+- 障害分離: 複数の異なる業務（例: メール送信と決済処理）を1つのキューに混在させると、片方の障害や遅延がもう片方に影響するため。また、エラー時にどの業務が失敗したかの切り分けが困難になる
+- スケーリング: コンシューマー（Lambda）ごとに「予約済み同時実行数」などのリソース制限を設けることで、業務の優先度に応じた[流量調整](#流量制御)（スロットリング）が可能になる
+- 排他制御・重複排除: 1つのキューで扱うメッセージのスキーマを特定の項目または複合項目で一意に設計することができて適切なステータス管理が実装可能になる
+
+複数のプロデューサーから1つのメッセージングキューに対して同じスキーマ構造を持つメッセージを送信することは問題ないが、その場合は特に順序制御や重複排除に留意して設計する必要がある。
+また、メッセージをファンアウトさせる場合、プロデューサーから直接複数のキューにメッセージに送信するのではなく、SNSを経由させる。
+
+1. 1対1のシンプル構成：`Producer (Lambda)` -> `SQS` -> `Consumer (Lambda)`
+   - 単純な高負荷処理の非同期オフロードなど、将来的にも他の業務処理が同じメッセージを利用する可能性が低い場合
+   - 例：帳票（PDF）の生成処理や外部SaaSへのデータ連携処理
+2. 1対Nのファンアウト構成：`Producer (Lambda)` -> `SNS Topic` -> `SQS A / B` -> `Consumer (Lambda) A / B`
+   - 同一のメッセージを複数の業務処理で消費する場合やコンシューマーの機能追加など拡張性を重視する場合
+   - 例：「注文確定イベント」に対して「在庫引当」だけでなく「分析基盤への通知」を追加するケース
 
 # QoS
 
@@ -318,7 +344,10 @@ RedisにはPUBLISH/SUBSCRIBE（揮発性）とは別に、Streamsという永続
 
 - 原則として、可能な限り順序制御を必要としない設計（冪等性の確保や、メッセージの独立性）を目指す
 - 「厳密な順序保証が必要な場合」は（1）を採用する
-  - SQS FIFOを採用する場合、MessageGroupId の設計がスループットの鍵であることを認識し、順序保証が必要な最小単位でグループ化すること
+  - SQS FIFOを採用する場合、MessageGroupId（論理的な順序制御グループ）の設計がスループットの鍵であることを認識し、順序保証が必要な最小単位でグループ化すること
+  - MessageGroupId は原則として 「順序が必要な一連の処理（トランザクション）単位での ID」 を設定すること
+    - ✅️**（推奨）：** コンシューマーで取り扱うビジネスエンティティID（OrderID, UserID, AccountID など）
+    - ❌️**（非推奨）：** 固定値（完全直列化）、ランダム値、粒度が粗すぎるID（Head-of-Line (HOL) ブロッキングのリスク大）
 - （2）は「FIFOキューが利用不可能なレガシー環境かつアプリケーション処理上で冪等性が担保できない場合」でなければ非推奨とする
 - 復旧可能性の「ある」エラーへの対応は [リトライ](#リトライ) 章の通りコンシューマー側で対応する
 

@@ -260,9 +260,9 @@ Inspectorには、自動スキャンとCISスキャンの2種類の機能があ�
 - FutureVulsを導入している環境では、FutureVuls側のスコアで決定する
   - InspectorはCVSSスコアのみを脆弱性のスコアリングに利用しており、多くの脆弱性の重要度が最高値となる。FutureVulsにて、CVSS以外の基準も利用し脆弱性に優先度付けを行う
 
-::: warning inspectorを用いて脆弱性管理を行う際の注意事項
+::: warning Inspectorを用いて脆弱性管理を行う際の注意事項
 
-- Aurora上のPostgreやMySQL、Elasticache上のRedisにもバージョニングの設定があり、バージョンによってそれぞれ脆弱性が存在する。しかし、これらはInspector、および後述のVulsでの脆弱性管理の対象とならない
+- Aurora上のPostgreSQLやMySQL、Elasticache上のRedisにもバージョニングの設定があり、バージョンによってそれぞれ脆弱性が存在する。しかし、これらはInspector、および後述のVulsでの脆弱性管理の対象とならない
 - マイナーバージョンアップデートの自動化設定の有効化を設定する、AWSサポートページの定期的な確認を運用項目に追加するなど、別途対応が必要となる
 
 :::

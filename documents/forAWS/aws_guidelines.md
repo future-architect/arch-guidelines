@@ -1501,7 +1501,7 @@ AWSでCI/CDを行うためのサービスには主に以下の選択肢がある
 
 | ツール                         | 概要                             | 特徴                                                                                                                                                                   |
 | :----------------------------- | :------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Github Actions                 | GitHubに統合されたCI/CDツール    | GitHubとの親和性が高く、利用者が多くCICDサービスとして人気のあるサービス。特に小規模～中規模プロジェクトで多くの採用事例があるため情報が豊富                           |
+| GitHub Actions                 | GitHubに統合されたCI/CDツール    | GitHubとの親和性が高く、利用者が多くCICDサービスとして人気のあるサービス。特に小規模～中規模プロジェクトで多くの採用事例があるため情報が豊富                           |
 | AWS CodePipeline AWS CodeBuild | AWS利用に最適化されたCI/CDツール | AWSに統合されており、IAM、ECR、S3との統合がスムーズであるが、やや柔軟性に欠ける                                                                                        |
 | Jenkins                        | オンプレミス型のCI/CDツール      | かつてのデファクトスタンダードであり、今でも利用されている。プラグインが豊富で、情報量が多い。メンテナンスが比較的大変な傾向がある（セキュリティ・プラグイン管理など） |
 | GitLab CI/CD                   | GitLab一体型のCI/CDサービス      | オールイン開発プラットフォームの思想を持つサービスで、CI/CDが中核機能として組み込まれている。DockerやKubernetesとの親和性が高い                                        |
@@ -1518,11 +1518,11 @@ AWSでCI/CDを構成する際に使用されるアーティファクトの格納
 推奨は以下の通り。
 
 - 利用するソースコードリポジトリに対応したCI/CDサービスを利用することを推奨する
-  - 例：Githubを使用する場合、Github Actions、GitLabを使用する場合、GitLab CI/CDを使用することが望ましい
+  - 例：GitHubを使用する場合、GitHub Actions、GitLabを使用する場合、GitLab CI/CDを使用することが望ましい
 - AWS CodeCommit は新規ユーザー利用を一度停止していることから、原則、新規の採用を控える
   - コンプライアンス要件等でデータの保管場所をAWSに限定する必要がある場合のミラーリング/バックアップ用途としての利用は許容する
 - 運用負荷を考慮し、JenkinsではなくマネージドなCI/CDサービスの利用を推奨する
-- 上記より、GithubとGithub Actions または GitLabとGitLab CI/CDサービスのどちらかを推奨する
+- 上記より、GitHubとGitHub Actions または GitLabとGitLab CI/CDサービスのどちらかを推奨する
 
 ::: info 参考
 2024.7.31 [AWS CodeCommit リポジトリを他の Git プロバイダーに移行する方法](https://aws.amazon.com/jp/blogs/news/aws-codecommit-returns-to-general-availability/)にて、CodeCommitは新規利用が停止され段階的に廃止する方針だと発表された。しかし、2025.11.24 [AWS CodeCommit の今後について](https://aws.amazon.com/jp/blogs/news/aws-codecommit-returns-to-general-availability/) にて一般提供（GA）に戻すという発表があった。
@@ -1552,10 +1552,10 @@ CI/CDを実現するにあたって、一般的な構成例を以下に示す。
 ```mermaid
 graph LR
     Developer([開発者])
-    Repository[CodeCommit<br>Github<br>GitLab<br>or etc...]
-    CI_Exec[CodeBuild<br>Github Runner<br>GitLab Runner<br>ビルド/テスト]
+    Repository[CodeCommit<br>GitHub<br>GitLab<br>or etc...]
+    CI_Exec[CodeBuild<br>GitHub Runner<br>GitLab Runner<br>ビルド/テスト]
     ECR[ECR<br>コンテナイメージ]
-    CD_Exec[CodeBuild<br>Github Runner<br>GitLab Runner<br>タスク定義の更新]
+    CD_Exec[CodeBuild<br>GitHub Runner<br>GitLab Runner<br>タスク定義の更新]
     ECS[ECS等<br>デプロイ先]
     Approve[承認]
 

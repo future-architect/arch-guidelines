@@ -39,11 +39,10 @@
     "textlint-filter-rule-allowlist": "^4.0.0",
     "textlint-rule-preset-ja-spacing": "^2.4.3",
     "textlint-rule-preset-ja-technical-writing": "^12.0.2",
+    "textlint-rule-preset-japanese": "^10.0.4",
+    "textlint-rule-spellcheck-tech-word": "^5.0.0",
     "vitepress": "^1.5.0",
     "vitepress-plugin-mermaid": "^2.0.17",
     "vue-github-button": "^3.1.3"
-  },
-  "dependencies": {
-    "textlint-rule-spellcheck-tech-word": "^5.0.0"
   }
 }

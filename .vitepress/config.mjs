@@ -50,6 +50,13 @@ const links = {
       link: "/documents/forAsync/async_guidelines.html",
     },
   ],
+  "/documents/forReport/": [
+    { text: "Introduction", link: "/documents/forReport/" },
+    {
+      text: "帳票設計ガイドライン",
+      link: "/documents/forMail/report_guidelines.html",
+    },
+  ],
   "/documents/forMail/": [
     { text: "Introduction", link: "/documents/forMail/" },
     {

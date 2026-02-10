@@ -676,6 +676,15 @@ Intelligent-Tieringは、128KB未満の小さなオブジェクトを低頻度�
 [Amazon S3 ストレージクラスの理解と管理 \- Amazon Simple Storage Service](https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/storage-class-intro.html)  
 :::
 
+::: warning S3 Glacier Flexible RetrievalとS3 Glacier Deep Archiveの注意点  
+S3 Glacier Flexible RetrievalとS3 Glacier Deep Archiveは、オブジェクトごとに40 KBの追加メタデータが付与され、32KBは各ストレージクラス、8KBはS3 Standardの料金が発生する。
+そのため、サイズが小さく、大量のファイルを保存する場合は、ログを1つのファイルにまとめることを検討する必要がある。
+:::
+
+::: info 参考  
+[長期データストレージとしての S3 Glacier ストレージクラスを理解する](https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/userguide/glacier-storage-classes.html)  
+:::
+
 # 踏み台サーバ
 
 踏み台サーバーとは、RDSのような内部リソースへのアクセスを安全に仲介し、かつ重大な手動操作の監査証跡を確実に残すことを目的とした、中継用のサーバーである。目的のサーバーへの中継点となることから踏み台サーバー（ジャンプサーバー）、また、内部の重要なリソースを守る要塞の役割を持つことからBastion（バスティオン）サーバーとも呼ばれる。

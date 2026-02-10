@@ -16,7 +16,7 @@ jobs:
           node-version: "24.x"
       - name: Install Packages
         run: |
-          npm ci -f
+          npm ci --legacy-peer-deps
       - name: Lint
         run: |
           npm run lint

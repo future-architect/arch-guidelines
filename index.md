@@ -91,6 +91,10 @@ pageClass: standards-home
 [![GitHub last commit](https://img.shields.io/github/last-commit/future-architect/arch-guidelines.svg)](https://github.com/future-architect/arch-guidelines)
 [![GitHub stars](https://img.shields.io/github/stars/future-architect/arch-guidelines.svg?style=social&label=Stars&logo=github)](https://github.com/future-architect/arch-guidelines/stargazers)
 
+## Articles
+
+- 2026.01.23 [アーキテクチャガイドライン振り返り（2025年）～15本を作成してみてどうだったか～](https://future-architect.github.io/articles/20260123a/)
+
 ## License
 
 [![CC-By-4.0](https://licensebuttons.net/l/by/4.0/88x31.png)](https://creativecommons.org/licenses/by/4.0/deed.ja)

@@ -14,3 +14,7 @@ hero:
 # コンテンツ
 
 - [Markdown](https://github.com/future-architect/arch-guidelines/blob/main/documents/forSoftskill/softskill_guidelines.md)
+
+## Articles
+
+- 2026.01.22 [ソフトスキルガイドラインを公開しました](https://future-architect.github.io/articles/20260122a/)

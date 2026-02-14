@@ -677,8 +677,8 @@ Intelligent-Tieringは、128KB未満の小さなオブジェクトを低頻度�
 :::
 
 ::: warning S3 Glacier Flexible RetrievalとS3 Glacier Deep Archiveの注意点  
-S3 Glacier Flexible RetrievalとS3 Glacier Deep Archiveは、オブジェクトごとに40 KBの追加メタデータが付与され、32KBは各ストレージクラス、8KBはS3 Standardの料金が発生する。
-そのため、サイズが小さく、大量のファイルを保存する場合は、ログを1つのファイルにまとめることを検討する必要がある。
+S3 Glacier Flexible RetrievalとS3 Glacier Deep Archiveは、オブジェクトごとに40KBの追加メタデータが付与され、32KBは各ストレージクラス、8KBはS3 Standardの料金が発生する。
+そのため、サイズが小さいファイルを保存する場合は、ログを1つのファイルにまとめることを検討する必要がある。
 :::
 
 ::: info 参考  

@@ -266,7 +266,6 @@ NewRelic、DataDogなども独自のキーがあるが、OTelのエクスポー�
 - Apache Combined FormatやLTSV（Labeled Tab-Separated Values）は信頼できる仕様が存在しない。
 - OpenTelemetry Protocol(OTLP)のデータをJSON形式で表現したOTLP/JSONは採用しない。
   - OTLP/JSONは深くネストされた複雑な構造を持っており、視認性やログ分析性が下がるため。
-  - 
 
 ## ローカル環境の場合
 

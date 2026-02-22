@@ -14,3 +14,7 @@ hero:
 # コンテンツ
 
 - [Markdown](https://github.com/future-architect/arch-guidelines/blob/main/documents/forDataManagement/datamanagement_guidelines.md)
+
+## Articles
+
+- 2025.12.29 [データマネジメント設計ガイドラインを公開しました](https://future-architect.github.io/articles/20251229a/)

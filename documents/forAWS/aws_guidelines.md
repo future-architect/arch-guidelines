@@ -781,7 +781,8 @@ paths:
           description: 入力が不正
         '500':
           description: 内部エラー
-      x-amazon-apigateway-integration:        type: "http_proxy"
+      x-amazon-apigateway-integration:
+        type: "http_proxy"
         uri: "${stageVariables.backendPrivateUrl}" # https://<ALBのプライベートDNS名> などを指定
         httpMethod: "POST"
         connectionType: "VPC_LINK"

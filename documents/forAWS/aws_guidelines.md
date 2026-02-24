@@ -773,13 +773,13 @@ paths:
       description: 注文を受け付ける
       x-amazon-apigateway-request-validator: allParamsValidator
       requestBody:
-        $ref: '#/components/requestBodies/CreateOrderRequest'
+        $ref: "#/components/requestBodies/CreateOrderRequest"
       responses:
-        '201':
+        "201":
           description: 成功
-        '400':
+        "400":
           description: 入力が不正
-        '500':
+        "500":
           description: 内部エラー
       x-amazon-apigateway-integration:
         type: "http_proxy"

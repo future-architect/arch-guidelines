@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="フューチャー株式会社" />
+  <title>コードレビューガイドライン</title>
+  <style>
+
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <style type="text/css">body {
+font-family: Helvetica, arial, sans-serif;
+font-size: 14px;
+line-height: 1.6;
+padding-top: 10px;
+padding-bottom: 10px;
+background-color: white;
+padding: 30px;
+}
+body > *:first-child {
+margin-top: 0 !important;
+}
+body > *:last-child {
+margin-bottom: 0 !important;
+}
+body {
+margin-left: 300px;
+}
+#TOC {
+position: fixed;
+left: 0;
+top: 0;
+bottom: 0;
+overflow-y: auto;
+width: 300px;
+transition:
+width,
+font-size,
+opacity 300ms,
+300ms,
+300ms ease-in-out,
+ease-in-out,
+ease-in-out;
+padding-left: 1em;
+box-sizing: border-box;
+}
+#TOC ul {
+margin: 0 0 0 1em;
+padding: 0;
+}
+@media all and (max-width: 1000px) {
+body {
+margin-left: 0;
+}
+#TOC {
+overflow: hidden;
+width: 0;
+opacity: 0;
+}
+}
+@media print {
+body {
+margin-left: 0;
+}
+#TOC {
+display: none;
+}
+}
+@media print {
+.print-hidden {
+display: none;
+}
+}
+h1.title {
+font-size: 42px;
+border-bottom: 2px solid #cccccc;
+}
+@media print {
+h1.title {
+text-align: center;
+margin-top: 50%;
+page-break-before: auto;
+}
+}
+h2.author {
+font-size: 12px;
+border: none;
+color: initial;
+text-align: right;
+margin: 0;
+page-break-after: always;
+}
+h1 {
+page-break-before: always;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+margin: 20px 0 10px;
+padding: 0;
+font-weight: bold;
+-webkit-font-smoothing: antialiased;
+cursor: text;
+position: relative;
+page-break-after: avoid;
+}
+a {
+color: #4183c4;
+}
+h1 {
+font-size: 28px;
+color: black;
+}
+h2 {
+font-size: 24px;
+border-bottom: 1px solid #cccccc;
+color: black;
+}
+h3 {
+font-size: 18px;
+}
+h4 {
+font-size: 16px;
+}
+h5 {
+font-size: 14px;
+}
+h6 {
+color: #777777;
+font-size: 14px;
+}
+p,
+blockquote,
+ul,
+ol,
+dl,
+li,
+table,
+pre {
+margin: 15px 0;
+}
+hr {
+border: none;
+border-bottom: 1px dashed #cccccc;
+}
+table {
+padding: 0;
+border-collapse: collapse;
+}
+table tr th {
+font-weight: bold;
+border: 1px solid #cccccc;
+text-align: left;
+padding: 6px 13px;
+}
+table tr td {
+border: 1px solid #cccccc;
+padding: 6px 13px;
+}
+table tr:nth-child(2n) {
+background-color: #f8f8f8;
+}
+table * {
+word-wrap: break-word;
+word-break: break-all;
+}
+pre {
+background-color: #f8f8f8;
+border: 1px solid #cccccc;
+font-size: 13px;
+line-height: 19px;
+overflow: auto;
+padding: 6px 10px;
+border-radius: 3px;
+}
+pre code {
+margin: 0;
+padding: 0;
+white-space: pre;
+border: none;
+background: transparent;
+}
+code,
+tt {
+margin: 0 2px;
+padding: 0 5px;
+white-space: nowrap;
+border: 1px solid #eaeaea;
+background-color: #f8f8f8;
+border-radius: 3px;
+}
+div.sourceCode {
+page-break-before: avoid;
+page-break-inside: avoid;
+}
+li * {
+margin: 0;
+}
+blockquote {
+border-left: 4px solid #dddddd;
+padding: 0 15px;
+color: #777777;
+}
+blockquote > :first-child {
+margin-top: 0;
+}
+blockquote > :last-child {
+margin-bottom: 0;
+}
+code.comment-code {
+display: block;
+white-space: pre;
+}
+table {
+overflow: auto;
+display: block;
+}
+@media screen and (max-width: 1300px) and (min-width: 1001px) {
+#TOC {
+font-size: 80%;
+width: 200px;
+}
+body {
+margin-left: 200px;
+}
+}
+@media screen and (max-width: 1100px) and (min-width: 1001px) {
+#TOC {
+font-size: 60%;
+width: 150px;
+}
+body {
+margin-left: 150px;
+}
+table tr td {
+font-size: 80%;
+padding: 3px 6px;
+}
+}
+@media all and (max-width: 1000px) {
+table tr td {
+font-size: 80%;
+padding: 3px 6px;
+}
+}
+@media all and (max-width: 800px) {
+table tr td {
+font-size: 70%;
+}
+}
+@media all and (max-width: 600px) {
+table tr td {
+font-size: 60%;
+}
+}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">コードレビューガイドライン</h1>
+<p class="author">フューチャー株式会社</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#はじめに" id="toc-はじめに"><span class="toc-section-number">1</span> はじめに</a></li>
+<li><a href="#定義" id="toc-定義"><span class="toc-section-number">2</span> 定義</a></li>
+<li><a href="#適用範囲" id="toc-適用範囲"><span class="toc-section-number">3</span> 適用範囲</a></li>
+<li><a href="#前提条件" id="toc-前提条件"><span class="toc-section-number">4</span> 前提条件</a>
+<ul>
+<li><a href="#利用するgitブランチ戦略" id="toc-利用するgitブランチ戦略"><span class="toc-section-number">4.1</span> 利用するGitブランチ戦略</a></li>
+<li><a href="#事前設定github" id="toc-事前設定github"><span class="toc-section-number">4.2</span> 事前設定（GitHub）</a></li>
+<li><a href="#機械的なチェックが可能な場合はciに寄せる方針としている" id="toc-機械的なチェックが可能な場合はciに寄せる方針としている"><span class="toc-section-number">4.3</span>
+機械的なチェックが可能な場合はCIに寄せる方針としている</a></li>
+<li><a href="#ciによるレビューコメント連携を行う" id="toc-ciによるレビューコメント連携を行う"><span class="toc-section-number">4.4</span>
+CIによるレビューコメント連携を行う</a></li>
+<li><a href="#プルリクエストテンプレートでチェックリストを設ける" id="toc-プルリクエストテンプレートでチェックリストを設ける"><span class="toc-section-number">4.5</span>
+プルリクエストテンプレートでチェックリストを設ける</a></li>
+<li><a href="#チームで合意した開発規約が存在し遵守しつつ育てる" id="toc-チームで合意した開発規約が存在し遵守しつつ育てる"><span class="toc-section-number">4.6</span>
+チームで合意した開発規約が存在し遵守しつつ育てる</a></li>
+</ul></li>
+<li><a href="#レビュー観点" id="toc-レビュー観点"><span class="toc-section-number">5</span> レビュー観点</a></li>
+<li><a href="#レビュイーの推奨行動" id="toc-レビュイーの推奨行動"><span class="toc-section-number">6</span> レビュイーの推奨行動</a>
+<ul>
+<li><a href="#重要な変更の場合方向性を事前にチームと合意形成しておく" id="toc-重要な変更の場合方向性を事前にチームと合意形成しておく"><span class="toc-section-number">6.1</span>
+重要な変更の場合、方向性を事前にチームと合意形成しておく</a></li>
+<li><a href="#プルリクエストの単位を小さくする" id="toc-プルリクエストの単位を小さくする"><span class="toc-section-number">6.2</span>
+プルリクエストの単位を小さくする</a></li>
+<li><a href="#コミットメッセージはこだわらなくても良い" id="toc-コミットメッセージはこだわらなくても良い"><span class="toc-section-number">6.3</span>
+コミットメッセージはこだわらなくても良い</a></li>
+<li><a href="#プルリクエストのタイトルにプレフィックスを入れる" id="toc-プルリクエストのタイトルにプレフィックスを入れる"><span class="toc-section-number">6.4</span>
+プルリクエストのタイトルにプレフィックスを入れる</a></li>
+<li><a href="#差分diffを極小化することにこだわりすぎない" id="toc-差分diffを極小化することにこだわりすぎない"><span class="toc-section-number">6.5</span>
+差分（diff）を極小化することにこだわりすぎない</a></li>
+<li><a href="#ファイルの移動やリネームと同時に大きく編集しない" id="toc-ファイルの移動やリネームと同時に大きく編集しない"><span class="toc-section-number">6.6</span>
+ファイルの移動やリネームと同時に大きく編集しない</a></li>
+<li><a href="#作業途中のプルリクエストはdraftにする" id="toc-作業途中のプルリクエストはdraftにする"><span class="toc-section-number">6.7</span>
+作業途中のプルリクエストはDraftにする</a></li>
+<li><a href="#プルリクエスト本文にチケット番号や関連情報を貼る" id="toc-プルリクエスト本文にチケット番号や関連情報を貼る"><span class="toc-section-number">6.8</span>
+プルリクエスト本文にチケット番号や関連情報を貼る</a></li>
+<li><a href="#チケット番号があるのであればプルリクエスト本文に重複記載は不要" id="toc-チケット番号があるのであればプルリクエスト本文に重複記載は不要"><span class="toc-section-number">6.9</span>
+チケット番号があるのであれば、プルリクエスト本文に重複記載は不要</a></li>
+<li><a href="#長くなる場合はmarkdownの折りたたみを利用する" id="toc-長くなる場合はmarkdownの折りたたみを利用する"><span class="toc-section-number">6.10</span>
+長くなる場合はMarkdownの折りたたみを利用する</a></li>
+<li><a href="#画像をエビデンスとして貼るべきかどうか" id="toc-画像をエビデンスとして貼るべきかどうか"><span class="toc-section-number">6.11</span>
+画像をエビデンスとして貼るべきかどうか</a></li>
+<li><a href="#files-changedで余計なファイルがコミットされていないか確認する" id="toc-files-changedで余計なファイルがコミットされていないか確認する"><span class="toc-section-number">6.12</span> Files
+changedで余計なファイルがコミットされていないか確認する</a></li>
+<li><a href="#files-changedで特に見て欲しいポイントを補足する" id="toc-files-changedで特に見て欲しいポイントを補足する"><span class="toc-section-number">6.13</span> Files
+changedで特に見て欲しいポイントを補足する</a></li>
+<li><a href="#assigneesは自分を設定する" id="toc-assigneesは自分を設定する"><span class="toc-section-number">6.14</span>
+Assigneesは自分を設定する</a></li>
+<li><a href="#reviewers設定はレビュー依頼時にブランクで良い" id="toc-reviewers設定はレビュー依頼時にブランクで良い"><span class="toc-section-number">6.15</span>
+Reviewers設定はレビュー依頼時にブランクで良い</a></li>
+<li><a href="#ciの成功を確認する" id="toc-ciの成功を確認する"><span class="toc-section-number">6.16</span> CIの成功を確認する</a></li>
+<li><a href="#レビュー依頼時にurlを貼る" id="toc-レビュー依頼時にurlを貼る"><span class="toc-section-number">6.17</span>
+レビュー依頼時にURLを貼る</a></li>
+<li><a href="#レビュー依頼はメンションを飛ばす" id="toc-レビュー依頼はメンションを飛ばす"><span class="toc-section-number">6.18</span>
+レビュー依頼はメンションを飛ばす</a></li>
+<li><a href="#markdown記法を活用する" id="toc-markdown記法を活用する"><span class="toc-section-number">6.19</span> Markdown記法を活用する</a></li>
+<li><a href="#マージはレビュイーが実施する" id="toc-マージはレビュイーが実施する"><span class="toc-section-number">6.20</span>
+マージはレビュイーが実施する</a></li>
+</ul></li>
+<li><a href="#レビュアーの推奨行動" id="toc-レビュアーの推奨行動"><span class="toc-section-number">7</span> レビュアーの推奨行動</a>
+<ul>
+<li><a href="#グラウンドルール" id="toc-グラウンドルール"><span class="toc-section-number">7.1</span> グラウンドルール</a></li>
+<li><a href="#レビュー依頼へのリアクションはできるだけ即レス" id="toc-レビュー依頼へのリアクションはできるだけ即レス"><span class="toc-section-number">7.2</span>
+レビュー依頼へのリアクションはできるだけ即レス</a></li>
+<li><a href="#reviewersを自分に設定する" id="toc-reviewersを自分に設定する"><span class="toc-section-number">7.3</span> Reviewersを自分に設定する</a></li>
+<li><a href="#hotfixの場合はマージ先のブランチを確認する" id="toc-hotfixの場合はマージ先のブランチを確認する"><span class="toc-section-number">7.4</span>
+hotfixの場合はマージ先のブランチを確認する</a></li>
+<li><a href="#start-a-reviewとadd-single-commentの使い分け" id="toc-start-a-reviewとadd-single-commentの使い分け"><span class="toc-section-number">7.5</span> 「Start a review」と「Add single
+comment」の使い分け</a></li>
+<li><a href="#レビュイーの思考を予想する" id="toc-レビュイーの思考を予想する"><span class="toc-section-number">7.6</span>
+レビュイーの思考を予想する</a></li>
+<li><a href="#暗黙知を形式知にする" id="toc-暗黙知を形式知にする"><span class="toc-section-number">7.7</span> 暗黙知を形式知にする</a></li>
+<li><a href="#レビューコメントにラベルを追加する" id="toc-レビューコメントにラベルを追加する"><span class="toc-section-number">7.8</span>
+レビューコメントにラベルを追加する</a></li>
+<li><a href="#適度なユーモアを取り入れる" id="toc-適度なユーモアを取り入れる"><span class="toc-section-number">7.9</span>
+適度なユーモアを取り入れる</a></li>
+<li><a href="#指摘内容は具体的であればあるだけ良い" id="toc-指摘内容は具体的であればあるだけ良い"><span class="toc-section-number">7.10</span>
+指摘内容は具体的であればあるだけ良い</a></li>
+<li><a href="#指摘内容を論理的に説明できないのであればコメントすべきではない" id="toc-指摘内容を論理的に説明できないのであればコメントすべきではない"><span class="toc-section-number">7.11</span>
+指摘内容を論理的に説明できないのであれば、コメントすべきではない</a></li>
+<li><a href="#出典があれば追記できるとベター" id="toc-出典があれば追記できるとベター"><span class="toc-section-number">7.12</span>
+出典があれば追記できるとベター</a></li>
+<li><a href="#なるべく1度のレビューで指摘し切る" id="toc-なるべく1度のレビューで指摘し切る"><span class="toc-section-number">7.13</span>
+なるべく1度のレビューで指摘し切る</a></li>
+<li><a href="#本筋から離れるコードコメントやreadmeのtypoなどはsuggestにする" id="toc-本筋から離れるコードコメントやreadmeのtypoなどはsuggestにする"><span class="toc-section-number">7.14</span>
+本筋から離れるコードコメントやREADMEのtypoなどはsuggestにする</a></li>
+<li><a href="#nitswant以下のコメントだけであれば先にapproveする" id="toc-nitswant以下のコメントだけであれば先にapproveする"><span class="toc-section-number">7.15</span>
+nits（WANT以下）のコメントだけであれば、先にapproveする</a></li>
+<li><a href="#レビュアーはローカル環境で動作確認をすべきか" id="toc-レビュアーはローカル環境で動作確認をすべきか"><span class="toc-section-number">7.16</span>
+レビュアーはローカル環境で動作確認をすべきか</a></li>
+<li><a href="#疑問点は臆せず質問する" id="toc-疑問点は臆せず質問する"><span class="toc-section-number">7.17</span> 疑問点は臆せず質問する</a></li>
+<li><a href="#自信がない場合は有識者にディスパッチする" id="toc-自信がない場合は有識者にディスパッチする"><span class="toc-section-number">7.18</span>
+自信がない場合は、有識者にディスパッチする</a></li>
+<li><a href="#ジュニアメンバーに対して大量の指摘がある場合にどうするか" id="toc-ジュニアメンバーに対して大量の指摘がある場合にどうするか"><span class="toc-section-number">7.19</span>
+ジュニアメンバーに対して大量の指摘がある場合にどうするか</a></li>
+<li><a href="#レビュー終了の連絡" id="toc-レビュー終了の連絡"><span class="toc-section-number">7.20</span> レビュー終了の連絡</a></li>
+</ul></li>
+<li><a href="#謝辞" id="toc-謝辞"><span class="toc-section-number">8</span> 謝辞</a></li>
+</ul>
+</nav>
+<p><page-title></page-title></p>
+<p>::: warning 免責事項</p>
+<ul>
+<li>有志で作成したドキュメントである。フューチャーには多様なプロジェクトが存在し、それぞれの状況に合わせて工夫された開発プロセスや高度な開発支援環境が存在する。本ガイドラインはフューチャーの全ての部署／プロジェクトで適用されているわけではなく、有志が観点を持ち寄って新たに整理したものである</li>
+<li>相容れない部分があればその領域を書き換えて利用することを想定している。プロジェクト固有の背景や要件への配慮は、ガイドライン利用者が最終的に判断すること。本ガイドラインに必ず従うことは求めておらず、設計案の提示と、それらの評価観点を利用者に提供することを主目的としている</li>
+<li>掲載内容および利用に際して発生した問題、それに伴う損害については、フューチャー株式会社は一切の責務を負わないものとする。掲載している情報は予告なく変更する場合がある</li>
+</ul>
+<p>:::</p>
+<h1 data-number="1" id="はじめに"><span class="header-section-number">1</span> はじめに</h1>
+<p><a href="https://xn--97-273ae6a4irb6e2hsoiozc2g4b8082p.com/">プログラマが知るべき97のこと</a>
+の14個目に「コードレビュー」について記述がある。コードレビューの目的は「コードの質を上げ、欠陥を減らすため」だけではなく、「チーム全員に同じ知識を共有させること、またコーディングにおいて全員が守るべきガイドラインを確立すること」が大切だとある。そして「
+レビューを楽しいものにすること」がおそらく最も有効だとある。</p>
+<p>コードレビューを楽しい場にするためにも、レビュアー／レビュイー
+が同じ方向性を向くことが重要である。同時に、人によってコメントなどの表現が揺れ、それにより認識齟齬があると楽しむ以前の問題であるため、守るべきルールも存在するはずである。このガイドラインは推奨する行動と、守るべきルールの両方を定義し、コードレビューをより有意義で学びが多く、生産性と品質を高める場とすることを目指す。</p>
+<p>::: info 参考 <a href="https://about.gitlab.com/ja-jp/topics/version-control/what-is-code-review/">コードレビューとは
+| GitLab</a> にも似た旨の記載がある :::</p>
+<h1 data-number="2" id="定義"><span class="header-section-number">2</span> 定義</h1>
+<ul>
+<li><strong>レビュアー</strong>: レビューを行う側の担当者</li>
+<li><strong>レビュイー</strong>:
+レビューを依頼する側の担当者。プルリクエストを起票する開発者でもある</li>
+<li><strong>プルリクエスト</strong>:
+GitLabではマージリクエストともいうが、本ガイドラインではプルリクエストに統一して呼称する</li>
+</ul>
+<h1 data-number="3" id="適用範囲"><span class="header-section-number">3</span> 適用範囲</h1>
+<p>GitHubやGitLabなどのサービスを利用した、コーディングについてのレビューのみを対象とする。</p>
+<p>プロジェクト計画によっては、開発プロセスを複数の「フェーズ」に分割し、各フェーズの終了時点で「フェーズレビュー」を挟むようなケースも考えられるが、それらは対象外とする。</p>
+<h1 data-number="4" id="前提条件"><span class="header-section-number">4</span> 前提条件</h1>
+<h2 data-number="4.1" id="利用するgitブランチ戦略"><span class="header-section-number">4.1</span> 利用するGitブランチ戦略</h2>
+<p><a href="https://future-architect.github.io/coding-standards/documents/forGitBranch/git_branch_standards.html#%E3%83%95%E3%82%99%E3%83%A9%E3%83%B3%E3%83%81%E6%88%A6%E7%95%A5%E3%81%AE%E9%81%B8%E5%AE%9A">Gitブランチフロー規約
+&gt; ブランチ戦略の選定</a>
+にある、以下の2パターンのいずれかを利用しているとする。</p>
+<ul>
+<li><code>Lite GitLab Flow</code></li>
+<li><code>GitLab Flow</code></li>
+</ul>
+<p>そのため当然であるが、全ての機能開発や不具合修正に、<code>feature</code>
+ブランチを使用したプルリクエストを経由してマージする方針を取る。その他の
+<code>feature</code> ブランチから <code>develop</code>
+ブランチへのマージ方法などもGitブランチフローに記載した推奨事項に則る。</p>
+<h2 data-number="4.2" id="事前設定github"><span class="header-section-number">4.2</span> 事前設定（GitHub）</h2>
+<p><a href="https://future-architect.github.io/coding-standards/documents/forGitBranch/git_branch_standards.html#git-config%E6%8E%A8%E5%A5%A8%E8%A8%AD%E5%AE%9A">Gitブランチフロー規約</a>
+に則った設定を実施する。例えば、ブランチ保護やレビューの設定には以下の内容がある。できるかぎり自動化やテンプレートを用意することで、個々人が考慮すべきことを減らすことで運用負荷を下げ、規則を形骸化にせず実効性を上げることを基本姿勢とする。</p>
+<table>
+<colgroup>
+<col style="width: 62%" />
+<col style="width: 2%" />
+<col style="width: 35%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">設定項目</th>
+<th style="text-align: left;">設定例</th>
+<th style="text-align: left;">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Require a pull request before merging</td>
+<td style="text-align: left;">✔</td>
+<td style="text-align: left;">プルリクエストを必須とする</td>
+</tr>
+<tr>
+<td style="text-align: left;">Require approvals</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1名以上の承認を必須とする</td>
+</tr>
+<tr>
+<td style="text-align: left;">Require status checks to pass before
+merging</td>
+<td style="text-align: left;">✔</td>
+<td style="text-align: left;">CIの成功をマージ条件とする</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://docs.github.com/ja/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners">CODEOWNERS</a></td>
+<td style="text-align: left;">(省略)</td>
+<td style="text-align: left;">重要ファイル（例えば、ddl.sqlやopenapi.yamlなど）は承認が必須なレビュアーを指定する</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="https://docs.github.com/ja/repositories/working-with-files/managing-files/customizing-how-changed-files-appear-on-github">linguist-generated=true</a></td>
+<td style="text-align: left;">(省略)</td>
+<td style="text-align: left;">ツールなどによる生成ファイルの差分を非表示にする
+.gitattributesの設定</td>
+</tr>
+</tbody>
+</table>
+<h2 data-number="4.3" id="機械的なチェックが可能な場合はciに寄せる方針としている"><span class="header-section-number">4.3</span>
+機械的なチェックが可能な場合はCIに寄せる方針としている</h2>
+<p>コードレビューのやり取りで、「コードフォーマットされていない」
+「リンターを通していない」といった指摘は不毛である。そのため、CIでそれらを実行し、パスしているという前提条件を作ることが重要である。それにより、レビュアーは人間が本来見るべき点に集中できるためである。</p>
+<p>例えば、下表のような内容はフォーマッタやリンターに寄せることができる可能性が高い。</p>
+<table>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">自動化可能だと考えられる指摘例</th>
+<th style="text-align: left;">ツール例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">使われていないメソッドや関数</td>
+<td style="text-align: left;">Pythonの場合、Flake8 など</td>
+</tr>
+<tr>
+<td style="text-align: left;">デッドコード</td>
+<td style="text-align: left;">Pythonの場合、Vultureなど</td>
+</tr>
+<tr>
+<td style="text-align: left;">デバック用のログの残骸</td>
+<td style="text-align: left;">JSの場合は、ESLint（console.logの検知など）。
+Pythonの場合は、Pylintなど</td>
+</tr>
+<tr>
+<td style="text-align: left;">不適切なレイヤーに対するimport</td>
+<td style="text-align: left;">Pythonの場合、import-linterなど</td>
+</tr>
+<tr>
+<td style="text-align: left;">//TODO コメントが残っている</td>
+<td style="text-align: left;">JSでは、eslint-plugin-no-inline-commentsなど</td>
+</tr>
+<tr>
+<td style="text-align: left;">フォーマッタが適用されているかどうか</td>
+<td style="text-align: left;">JSでは
+<code>prettier --check &quot;yourfile.js&quot;</code>、Pythonでは
+<code>black --check yourfile.py</code> など</td>
+</tr>
+</tbody>
+</table>
+<h2 data-number="4.4" id="ciによるレビューコメント連携を行う"><span class="header-section-number">4.4</span>
+CIによるレビューコメント連携を行う</h2>
+<p>Linterなどの検知結果をreviewdogなどと連携することで、形式的な指摘はツール側に寄せる。それにより開発者個人個人のやり取りを減らし、本当に集中すべき事項に時間を割くこととする。</p>
+<h2 data-number="4.5" id="プルリクエストテンプレートでチェックリストを設ける"><span class="header-section-number">4.5</span>
+プルリクエストテンプレートでチェックリストを設ける</h2>
+<p>プルリクエストにチェックリストを追加し、レビュー依頼前にセルフチェックする運用を採用するチームも多い。チェックリストが多すぎると形骸化するため、項目は具体的にする（例:
+設計ドキュメントを同時に直したか？など）とともに、必要最低限の項目に留め、チームの成熟度に応じて適時見直す運用とする。</p>
+<p>::: info 参考 <a href="https://docs.github.com/ja/communities/using-templates-to-encourage-useful-issues-and-pull-requests/creating-a-pull-request-template-for-your-repository">リポジトリ用のプルリクエストテンプレートの作成
+- GitHub Docs</a> :::</p>
+<h2 data-number="4.6" id="チームで合意した開発規約が存在し遵守しつつ育てる"><span class="header-section-number">4.6</span>
+チームで合意した開発規約が存在し遵守しつつ育てる</h2>
+<p>以下のような、チームで守るべきと合意形成されたコーディング規約や命名ルールが存在し、これらの内容をチームで改善し続ける運用であることを前提とする。</p>
+<ul>
+<li><a href="https://future-architect.github.io/coding-standards/documents/forJava/Java%E3%82%B3%E3%83%BC%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0%E8%A6%8F%E7%B4%84.html">Javaコーディング規約</a></li>
+<li><a href="https://future-architect.github.io/coding-standards/documents/forSQL/SQL%E3%82%B3%E3%83%BC%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B0%E8%A6%8F%E7%B4%84%EF%BC%88PostgreSQL%EF%BC%89.html">SQLコーディング規約</a></li>
+<li><a href="https://future-architect.github.io/coding-standards/documents/forAWSResource/AWS%E3%82%A4%E3%83%B3%E3%83%95%E3%83%A9%E3%83%AA%E3%82%BD%E3%83%BC%E3%82%B9%E5%91%BD%E5%90%8D%E8%A6%8F%E7%B4%84.html">AWSインフラ命名規約</a></li>
+<li><a href="https://future-architect.github.io/coding-standards/documents/forOpenAPISpecification/OpenAPI_Specification_3.0.3.html">OpenAPI
+Specification 3.0.3規約</a></li>
+</ul>
+<h1 data-number="5" id="レビュー観点"><span class="header-section-number">5</span> レビュー観点</h1>
+<p>「フォーマッタやリンター」などのツールをCIと組み合わせることで、レビュアーが見るべき領域を減らすことができる。また、「チームで合意された開発規約」をレビュイーが遵守できれば、ツールがカバーできない領域に対してもレビュアーの負担減に繋がる。</p>
+<table>
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 10%" />
+<col style="width: 13%" />
+<col style="width: 24%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">大分類</th>
+<th style="text-align: left;">中分類</th>
+<th style="text-align: left;">小分類</th>
+<th style="text-align: left;">レビュイーが気にすべきか</th>
+<th style="text-align: left;">レビュアーが見るべきか</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">開発規約に記載済</td>
+<td style="text-align: left;">ツールでカバー可能</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">⚠️ツール補助あり</td>
+<td style="text-align: left;">不要</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">ツールでカバー不可</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">✅️規約を準拠しているか確認する必要がある</td>
+<td style="text-align: left;">✅️規約を準拠しているか確認する必要がある</td>
+</tr>
+<tr>
+<td style="text-align: left;">開発規約に未記載</td>
+<td style="text-align: left;">規約に記載可能</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">⚠️Yesだが、難しい場合が多い</td>
+<td style="text-align: left;">✅️言語化して開発規約に追加すべき</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">規約に記載不可</td>
+<td style="text-align: left;">機能要件の充足</td>
+<td style="text-align: left;">✅️</td>
+<td style="text-align: left;">✅️</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">文脈依存が強く汎化不可</td>
+<td style="text-align: left;">⚠️Yesだが、難しい場合が多い</td>
+<td style="text-align: left;">✅️個別の命名や、他に類似の実装パターンがない場合は個別に見るしかない</td>
+</tr>
+</tbody>
+</table>
+<p>レビュー観点は、開発しているプロダクトの性質、開発体制、採用技術で大きく変動するためここで詳細は述べない。</p>
+<p>基本的には、チームで合意形成された開発規約（参考: <a href="https://jisou-programmer.beproud.jp/%E5%AE%9F%E8%A3%85%E3%81%AE%E9%80%B2%E3%82%81%E6%96%B9/39-%E9%96%8B%E7%99%BA%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3%E3%83%89%E3%82%AD%E3%83%A5%E3%83%A1%E3%83%B3%E3%83%88.html">開発アーキテクチャドキュメント</a>）やツール（リンターやフォーマッタ）を充実させる方向に寄せるべきである。以下に、開発規約にはどのような内容を記載すべきかを以下に参考情報としてまとめる。</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 開発ガイドライン（例）</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## 仕様確認</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>開発の入力情報となる、設計ドキュメント、チケットなどの前提が正しいかどうかの確認は開発者が行う</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>もし、入力情報が疑わしい場合は開発者自身が有識者に確認、必要に応じてチケットを起票して、ドキュメント修正を行うか、修正依頼を行う</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## 機能要件</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>フロントエンド:</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>設計書通りの見た目となっているか確認する</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>必須/任意、Readonlyなど表示仕様は適切か確認する</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>表示項目の編集仕様（時刻など）は他機能と整合性が取れているか確認する</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>バックエンド:</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>環境によって変わる値がハードコードになっていないか</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## 性能観点</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>SQL:</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>N+1クエリはなるべく避けるようにする</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>アプリケーション側でジョインしてはならない</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>SQLの検索条件で、パーティションキーの指定が抜けていないように注意する</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## 可用性</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>外部API呼び出し時などでタイムアウトは設定されているか</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>外部API呼び出し時に、リトライ設定は行っているか</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="fu">## 可読性</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">命名規則</span><span class="co">](https://java-standard.example.com)</span> に従う</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>コードコメントは、JavaDoc形式（Markdown）をなるべく使用する</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="fu">## ログ</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>loggerはxxxを利用すること</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ループ内で大量に呼び出される場合は、debugログであっても性能劣化懸念があるため不可とする</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="fu">## テスト</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>カバレッジはC0 90%程度が目安</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>バックエンドについては、デシジョンテーブル（決定表）からテストケースを作成する</span></code></pre></div>
+<p>::: tip 関連 <a href="https://fujiharuka.github.io/google-eng-practices-ja/ja/review/reviewer/looking-for.html">コードレビューの観点
+| google-eng-practices-ja</a> :::</p>
+<h1 data-number="6" id="レビュイーの推奨行動"><span class="header-section-number">6</span> レビュイーの推奨行動</h1>
+<h2 data-number="6.1" id="重要な変更の場合方向性を事前にチームと合意形成しておく"><span class="header-section-number">6.1</span>
+重要な変更の場合、方向性を事前にチームと合意形成しておく</h2>
+<p>実装する内容が、設計書に基づく新規機能の改修や、不具合改修でチケットに原因分析や対応方針が明記されている場合は、チーム内で改めて対応方針のすり合わせを行う必要はない。</p>
+<p>考慮の残がありかつ、すでに稼働済みの機能の挙動変更する場合や、原因が特定されていない不具合修正の場合は、以下の内容をチームで合意形成してから実装に入った方が、認識齟齬や手戻りを減らせ、レビュイー／レビュアー双方の負荷を下げることができる</p>
+<ul>
+<li>（不具合対応の場合）
+<ul>
+<li>事象</li>
+<li>業務影響</li>
+<li>システム影響</li>
+<li>原因分析</li>
+<li>対応方針</li>
+<li>この変更に伴う影響範囲（分割リリースを行うかどうか）</li>
+</ul></li>
+<li>（既存機能の挙動変更）
+<ul>
+<li>変更理由（顧客要望）が何か</li>
+<li>対応方針</li>
+<li>この変更に伴う影響範囲（分割リリースを行うかどうか）</li>
+</ul></li>
+</ul>
+<p>::: tip
+スキーマファイルは事前にレビューしておくと手戻りを防ぎやすい<br />
+「Web
+APIのスキーマ定義」や「DBスキーマ定義」など、システム構成要素の境界となるようなスキーマファイルの変更は、システムに対する影響度が大きいためレビュアーとしても設計を妥協しにくい。また、これらのファイルに指摘が入ると、ほぼ必然的にアプリケーションコードも修正することになるため、手戻りも大きくなる。これら境界となるようなファイルは先行して、Draftプルリクエストでレビュアーに確認してもらってから作業する工夫は有効である。そのような開発ルールにするチームも多い。<br />
+:::</p>
+<p>参考: <a href="https://user-first.ikyu.co.jp/entry/2024/12/09/143648">Design Doc
+でチームを跨いだ開発を円滑に行う - 一休.com Developers Blog</a></p>
+<h2 data-number="6.2" id="プルリクエストの単位を小さくする"><span class="header-section-number">6.2</span>
+プルリクエストの単位を小さくする</h2>
+<p>複数の改修内容が単一のプルリクエストに含まれており、変更内容が多い（20ファイル以上などの）場合、レビュアーの負荷が高くなってしまう。コミットを意味のある粒度に保ちつつ細かくするか、プルリクエストの粒度を細かくするかの2通りの対応が考えられる。</p>
+<p>推奨は以下の通り。</p>
+<ul>
+<li>プルリクエストの単位を小さくする</li>
+<li>分割したという旨を、プルリクエストの説明に追記する</li>
+<li>何が残りの作業であるかは、チケットやプルリクエストに記載し、レビュアーが把握できるようにする（作業漏れとして指摘すべきか判断可能にするため）</li>
+</ul>
+<p>::: tip 大きな変更の場合、目的別にプルリクエストを分ける<br />
+プルリクエストの粒度を細かくすることで、レビュアーの負荷を下げることができる。例えば、ある機能改修を行う際に、リファクタリングを行ってから作業をおこないたい場合は、リファクタリングのみを行うプルリクエストと、機能追加を行うプルリクエストを分けることがあげられる。なお、ローカル変数の名称を変更するといった小さな変更は、わざわざプルリクエストを分ける必要はない。<br />
+:::</p>
+<p>::: tip プルリクエストを小さくすることは学習効果もある？</p>
+<p><a href="https://tech.findy.co.jp/entry/2025/02/18/070000">Findyの爆速成長を支えるエンジニア教育メソッド
+~ 育成ノウハウの一部を初公開 ~ Findy Tech
+Blog</a>に以下の記述がある。</p>
+<blockquote>
+<p>手数に関しては、とにかく小さい修正でもいいので適切な粒度でPull
+requestを作り続け、大量のフィードバックを得るようにします。</p>
+<p>量は質に転化すると言われているように、手数が増えれば増えるほど結果的に質と理解が深まっていき、最終的にはスピードが身に付きます。</p>
+<p>また、指摘事項が多い場合はPull
+requestの粒度が大きすぎるケースが多く、そういったケースでは粒度を細かくしてPull
+requestを作り直してもらいます。一度に100個指摘されて100個覚えるよりも、1個指摘されて1個覚えることを100回繰り返すほうが覚えやすいからです。</p>
+</blockquote>
+<p>このように、学習観点でのプルリクエストの単位を小さくするメリットを説いている。一度に全てのことを覚えるのは誰にとっても難しいため、段階を追って1個ずつ学ぶことができるような進め方をすると良い。</p>
+<p>:::</p>
+<h2 data-number="6.3" id="コミットメッセージはこだわらなくても良い"><span class="header-section-number">6.3</span>
+コミットメッセージはこだわらなくても良い</h2>
+<p><a href="https://commitlint.js.org/">commitlint</a>
+を適用し、レビュー負荷軽減のためコミットメッセージの統制を図るという考え方も存在する。</p>
+<p>推奨は以下の通り。</p>
+<ul>
+<li>コミットメッセージは開発者の裁量に任せる
+<ul>
+<li>「wip」や「リファクタリング」など荒くても良い</li>
+</ul></li>
+<li>コミットメッセージより、プルリクエストのタイトルに気を配る</li>
+</ul>
+<p>理由は以下。</p>
+<ul>
+<li>プルリクエストの単位を小さくする前提であるため、コミットの粒度やメッセージを気にすることによるメリットが小さい</li>
+<li>Gitブランチ規約から、最終的にスカッシュマージするため重要度が下がる</li>
+</ul>
+<h2 data-number="6.4" id="プルリクエストのタイトルにプレフィックスを入れる"><span class="header-section-number">6.4</span>
+プルリクエストのタイトルにプレフィックスを入れる</h2>
+<p>プルリクエストのタイトルに命名規則をもたせることで、レビュアーの負荷軽減に繋げることができる。また、履歴からのトラッキングが容易になる。</p>
+<p>推奨は以下の通り。</p>
+<ul>
+<li>タイトルは <code>{type}: {subject}</code> や
+<code>{type}: {feature_id}: {subject}</code> という構成に従う</li>
+<li>type
+は下表のいずれかを選択し、複数該当する場合はより上位にあるものを選ぶ</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">type</th>
+<th style="text-align: left;">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">feat</td>
+<td style="text-align: left;">新機能の追加</td>
+</tr>
+<tr>
+<td style="text-align: left;">mod</td>
+<td style="text-align: left;">機能変更（仕様変更）</td>
+</tr>
+<tr>
+<td style="text-align: left;">fix</td>
+<td style="text-align: left;">バグの修正</td>
+</tr>
+<tr>
+<td style="text-align: left;">refactor</td>
+<td style="text-align: left;">リファクタリング</td>
+</tr>
+<tr>
+<td style="text-align: left;">docs</td>
+<td style="text-align: left;">ドキュメントの更新</td>
+</tr>
+</tbody>
+</table>
+<p>::: tip ラベルとの使い分け<br />
+プルリクエストの<a href="https://docs.github.com/ja/issues/using-labels-and-milestones-to-track-work/managing-labels">ラベル</a>でも同じ意図を持たせることができるが、レビュアーにとっての視認性を重視するため、重複した内容であってもタイトルにプレフィックスを含ませる。</p>
+<p>関連: <a href="https://future-architect.github.io/coding-standards/documents/forGitBranch/git_branch_standards.html#%E3%83%A9%E3%83%98%E3%82%99%E3%83%AB%E8%A6%8F%E5%89%87">Gitブランチフロー規約
+&gt; ラベル</a><br />
+:::</p>
+<h2 data-number="6.5" id="差分diffを極小化することにこだわりすぎない"><span class="header-section-number">6.5</span>
+差分（diff）を極小化することにこだわりすぎない</h2>
+<p>レビュー負荷軽減や、影響度の極小化の観点から、なるべく差分を小さくすることを志向した改修すべきか迷う場面がある。</p>
+<p>推奨は以下の通り。</p>
+<ul>
+<li>あるべき変更を最優先とし、その後でレビュー負荷軽減のため差分を小さくできないか考える
+<ul>
+<li>リファクタリングなど、可読性／保守性を上げる改善は継続する必要がある</li>
+<li>差分を小さくするために、コードベースの改善活動を止めるのは本末転倒である（良いモノを作るためにコードレビューをしている面がある）</li>
+</ul></li>
+<li>必要に応じて、プルリクエストの分割を検討する</li>
+</ul>
+<p>::: tip GitHubやGitLabでは空白のみの差分を無視できる</p>
+<p>GitHubやGitLabではURLの最後に、 <code>?w=1</code>
+を付与することで、空白のみの差分を無視ができる（画面上からの設定も可能）。</p>
+<p>例えば、Markdownテーブルに項目を編集するとフォーマッタにより大きな差分が出ることも多く、変更に対する心理的ハードルが上がってしまう。しかし、このオプションを利用することでレビュアーの負荷は下がり本質的なレビューに集中できる。もし、レビュアーがこのオプションを知らないようであれば、
+<code>?w=1</code>
+つきのURLをプルリクエストのDescriptionやレビューコメントで追記すると良い。</p>
+<ul>
+<li><a href="https://github.blog/news-insights/product-news/ignore-white-space-in-code-review/">Ignore
+white space in code review - The GitHub Blog</a></li>
+</ul>
+<p>:::</p>
+<h2 data-number="6.6" id="ファイルの移動やリネームと同時に大きく編集しない"><span class="header-section-number">6.6</span>
+ファイルの移動やリネームと同時に大きく編集しない</h2>
+<p>リファクタリングや構成の整理で、ファイルの移動やリネームを行う場面は多々ある。</p>
+<p>推奨は以下の通り。</p>
+<ul>
+<li>ファイルの移動やリネームと同時に、ファイル自体を大きく変更しない
+<ul>
+<li>Gitの同一ファイル判定が狂い、ファイルの削除＋ファイルの新規作成となり、該当ファイルの変更履歴が消える可能性があるため</li>
+<li>レビュアーにとって、新規ファイル扱いになると、本当の差分がどれか画面上は分からず、確認コストが上がってしまうため</li>
+</ul></li>
+<li>どうしても同一プルリクエストでファイルのリネームと編集する必要がある場合は、以下の対応をする
+<ul>
+<li><code>git mv</code> で操作してからファイルを変更する</li>
+<li>ファイルの移動やリネームで、<code>git commit</code>
+し、その後にファイルを変更する</li>
+</ul></li>
+</ul>
+<h2 data-number="6.7" id="作業途中のプルリクエストはdraftにする"><span class="header-section-number">6.7</span>
+作業途中のプルリクエストはDraftにする</h2>
+<p>何かしらの理由で、マージされたくない作業途中の状態で、プルリクエストを作成したい場合がある。例えば、作業途中の内容を部分的にメンバーに確認してもらいたい場面や、セルフチェックが完了前に別タスクを行う必要が出た場合などがある。誤ってレビューやマージされたくない</p>
+<p>推奨は以下の通り。</p>
+<ul>
+<li>GitHubにおいて、プルリクエストの<a href="https://docs.github.com/ja/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/changing-the-stage-of-a-pull-request">ドラフトステータス</a>機能を利用して、誤操作を防ぐ
+<ul>
+<li>誤認識、誤操作による作業を防ぐ</li>
+<li>プルリクエストが滞留している状況で、レビュー待ちなのか作業中なのかが区別して可視化できるようにし、開発状況をマネージャーが把握しやすくするため</li>
+</ul></li>
+</ul>
+<p>::: tip Draftプルリクエストの早期作成のススメ<br />
+作業途中であっても、早期にDraftプルリクエストを作成することで、作業の可視化／透明性に繋げることができる。他にも開発者が作業を再開しやすくなるなどメリットが大きいため、ローカルでの開発作業が完了する前の段階でDraftプルリクエストを利用することを推奨する。<br />
+:::</p>
+<h2 data-number="6.8" id="プルリクエスト本文にチケット番号や関連情報を貼る"><span class="header-section-number">6.8</span>
+プルリクエスト本文にチケット番号や関連情報を貼る</h2>
+<p>トレーサビリティのため、チケット番号（のURL）・設計検討したドキュメントのリンク・議論スレッドのURLなどをチケット本文に記載することで、後からトレース可能にする。チリツモであるがチームの開発生産性を上げることに繋がるため。</p>
+<h2 data-number="6.9" id="チケット番号があるのであればプルリクエスト本文に重複記載は不要"><span class="header-section-number">6.9</span>
+チケット番号があるのであれば、プルリクエスト本文に重複記載は不要</h2>
+<p>作業目的（どういった要望／不具合に対する対応か）などは、作業チケットに記載されているのであれば、プルリクエスト本文での記述は不要である。<br />
+なお、サマリ事項だけ転記するなど、詳細な運用ルールはチームごとに決めて良い。</p>
+<h2 data-number="6.10" id="長くなる場合はmarkdownの折りたたみを利用する"><span class="header-section-number">6.10</span>
+長くなる場合はMarkdownの折りたたみを利用する</h2>
+<p>GitHubでは <code>&lt;details&gt;</code> タグで<a href="https://docs.github.com/ja/get-started/writing-on-github/working-with-advanced-formatting/organizing-information-with-collapsed-sections">折りたたんだセクション</a>が作成可能である。例えば、単体テストケース化できないような動作確認を行い、かつ動作検証ログをエビデンスとして貼り付けるような場面では、折りたたんだセクションを活用することで、本文を簡潔に保つことができる。</p>
+<p>::: tip スラッシュコマンドを利用する<br />
+<a href="https://docs.github.com/ja/issues/tracking-your-work-with-issues/using-issues/about-slash-commands">スラッシュコマンド</a>を用いることで、簡単に折りたたみできる詳細領域を挿入できる。入力時に
+<code>/</code>
+を押すとメニューが表示されるため、「Details」を選択する。<br />
+:::</p>
+<h2 data-number="6.11" id="画像をエビデンスとして貼るべきかどうか"><span class="header-section-number">6.11</span>
+画像をエビデンスとして貼るべきかどうか</h2>
+<p><a href="https://github.blog/changelog/2023-05-09-more-secure-private-attachments/">2023年5月9日のアップデート</a>で、プライベートリポジトリのプルリクエストなどにアップロードされたファイルの閲覧に、認証が必須となった（それまではURLを知っていれば無認証でアクセスができてしまっていた）。</p>
+<p>推奨は以下の通り。</p>
+<ul>
+<li>フロントエンドなど画面開発の場合は、作成／修正後の画像（必要に応じてGIF動画）を貼ることを推奨する</li>
+<li>スタックトレースなどは、検索性を考えてテキストで貼ることを推奨する</li>
+</ul>
+<p>::: info 参考
+GIF動画を作成するには、以下の記事で紹介されているツールの利用者も多い。</p>
+<ul>
+<li><a href="https://future-architect.github.io/articles/20220107a/#ScreenToGif">Future社員が使っているWindows便利ツール（新人さん向け）
+| フューチャー技術ブログ</a></li>
+</ul>
+<p>:::</p>
+<h2 data-number="6.12" id="files-changedで余計なファイルがコミットされていないか確認する"><span class="header-section-number">6.12</span> Files
+changedで余計なファイルがコミットされていないか確認する</h2>
+<p>ジュニアメンバー／シニアメンバー問わず、特に新規参画した当初は新しい環境に慣れるのに手一杯で、誤った操作をしがちである。よくあるミスには、余分なファイルをコミットに含めてしまうことや、誤ったブランチからブランチを作成してしまったため、余計な差分が発生してしまうことなどがある。</p>
+<p>推奨は以下の通り。</p>
+<ul>
+<li>レビュー依頼前に、プルリクエスト画面の <code>Files changed</code>
+タブを開き、対象のファイルが想定通りか確認する</li>
+</ul>
+<p>このように、 <code>Files changed</code>
+を見ると、ローカルのエディタで見るのとは違ったセルフレビューの効果があるため、レビュアーになった気持ちで変更内容を確認することも推奨する。</p>
+<h2 data-number="6.13" id="files-changedで特に見て欲しいポイントを補足する"><span class="header-section-number">6.13</span> Files
+changedで特に見て欲しいポイントを補足する</h2>
+<p>プルリクエストで、特に念入りに確認して欲しいポイントや、リファクタリングなど複数のコミットが混ざり、メインの改修ポイントがわかりにくくなってしまう場合がある。後者はコミットごとにレビューすれば解決するケースもあるが、featureブランチはスカッシュマージするチームでは、必ずしもきれいなコミットを求めないケースも多い。</p>
+<p>推奨は以下の通り。</p>
+<ul>
+<li>特に注力してレビューして欲しいポイントがあれば、<code>Files changed</code>
+でセルフコメントを付ける</li>
+</ul>
+<p>::: warning セルフコメントが非推奨の場合</p>
+<ul>
+<li>意図がわかりにくい実装の補足や、背景情報などは、プルリクエスト上のコメントではなく、設計ドキュメントや、コードコメントに記載する。それにより保守運用性を高めることができる</li>
+<li>「PJの実装ガイドライン・ルールから敢えて外れる実装を選択している」場合は、コードコメントに記載すべきである</li>
+</ul>
+<p>意図や背景情報をレビュアーに強調したい場合は、コードコメントに対して「実装意図はコードコメントに記載」などセルフコメントすると良い。</p>
+<p>:::</p>
+<h2 data-number="6.14" id="assigneesは自分を設定する"><span class="header-section-number">6.14</span> Assigneesは自分を設定する</h2>
+<p>プルリクエストのAssigneesは基本的にはレビュイー本人にする。もし、作成したプルリクエストを別の担当者に引き継ぐときは、Assigneesも変更する。これにより、最終的にどの開発者がどのような作業をしたか可視化しやすくなる。</p>
+<p>Assigneesで指定された人が、そのプルリクエストの責任を持つ。つまり、マージさせるかクローズさせるか最終的に意思決定されるよう、推進する必要がある。</p>
+<h2 data-number="6.15" id="reviewers設定はレビュー依頼時にブランクで良い"><span class="header-section-number">6.15</span>
+Reviewers設定はレビュー依頼時にブランクで良い</h2>
+<p>Reviewersに設定することで、レビュアーが自身のアサインに気が付きやすくするメリットや、後からどれくらいレビューしたか把握しやすくできる。</p>
+<p>推奨は以下の通り。</p>
+<ul>
+<li>レビュアーが確定している場合は、レビュー依頼時に予め必要な数のReviewersに設定しておく</li>
+<li>チームのだれがレビューするか不明な場合は、ブランクにする（候補者を片っ端からReviewersに設定しない）</li>
+<li>CODEOWNERSで指定したファイルを編集したなどで、自明であればオーナーをReviewersに追加しておく</li>
+</ul>
+<h2 data-number="6.16" id="ciの成功を確認する"><span class="header-section-number">6.16</span> CIの成功を確認する</h2>
+<p>ローカルでLinterやテストが通っていると、プルリクエスト作成後、すぐにレビュー依頼を行いたくなる。しかし、何かしらの理由でレビュアーが確認した際にCIによるチェックが失敗している場面もよく見る。</p>
+<p>推奨は以下の通り。</p>
+<ul>
+<li>レビュー依頼を出す前にCIが通っていることを確認する</li>
+</ul>
+<p>理由は以下。</p>
+<ul>
+<li>レビュアーとして、最初のフィードバックは「CIが落ちているので修正して欲しい」となり、余計なやり取りのホップが発生するだけであるため</li>
+</ul>
+<h2 data-number="6.17" id="レビュー依頼時にurlを貼る"><span class="header-section-number">6.17</span> レビュー依頼時にURLを貼る</h2>
+<p>プルリクエストのタイトルや、<code>#511</code>
+などの番号だけで依頼を出すのではなく、URLをSlackなどチャットに貼ることを推奨する。</p>
+<p>理由は以下。</p>
+<ul>
+<li>齟齬を生じさせない依頼が可能となる</li>
+<li>後々、該当のプルリクエストのURLでSlackなどチャット検索が可能とするため
+<ul>
+<li>前提条件など、Slackのスレッド上で確認しているやり取りの有無を確認したい場面がある</li>
+</ul></li>
+</ul>
+<h2 data-number="6.18" id="レビュー依頼はメンションを飛ばす"><span class="header-section-number">6.18</span>
+レビュー依頼はメンションを飛ばす</h2>
+<p>コードレビュー待ちは他作業が捗らないことが多いし、別作業に移ったとしても集中したタイミングでレビューフィードバックがあり、集中が途切れることもしばしばある。</p>
+<p>推奨は以下の通り。</p>
+<ul>
+<li>チャット上でのレビュー依頼はメンションを飛ばす
+<ul>
+<li>なるべく早くレビューしてもらうことで、待機時間を最小化する</li>
+<li>レビュー可能なタイミングの回答をもらい、別タスクに着手するかの計画に活かす</li>
+</ul></li>
+<li>メンションは、自チームが必要最小限所属する、Slackでいうユーザーグループを利用することが好ましい</li>
+</ul>
+<p>::: tip レビュー反映後の連絡
+レビュー対応が完了した場合も、再依頼が必要な場合はメンションを飛ばす方が良い。レビュアーとしても再度見て欲しいのかどうかは関心事であるためである。
+:::</p>
+<h2 data-number="6.19" id="markdown記法を活用する"><span class="header-section-number">6.19</span> Markdown記法を活用する</h2>
+<p>Markdown記法を活用することで、Descriptionやレビューコメントを視覚的に整理し、意図を明確に伝えることを推奨する。</p>
+<p>特に、見出しやコードブロックやリストを使用することで、よりわかりやすいコメントを提供ができる。</p>
+<p>::: info 参考 <a href="https://docs.github.com/ja/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax">基本的な書き方とフォーマットの構文
+- GitHub Docs</a> :::</p>
+<h2 data-number="6.20" id="マージはレビュイーが実施する"><span class="header-section-number">6.20</span>
+マージはレビュイーが実施する</h2>
+<p><a href="/documents/forGitBranch/git_branch_standards.html#%E3%83%9E%E3%83%BC%E3%82%B7%E3%82%99%E3%81%AF%E3%81%9F%E3%82%99%E3%82%8C%E3%81%8B%E3%82%99%E8%A1%8C%E3%81%86%E3%81%B8%E3%82%99%E3%81%8D%E3%81%8B">Gitブランチフロー規約</a>で記載された推奨ルールに従う。チームの自律性と生産性を重視するのであれば、レビュイーがマージすべきである。</p>
+<p>信頼関係が構築できていれば、以下のようなやり取りが可能となり、スピード感が上がるためである。</p>
+<ul>
+<li>「コメントはしたけど承認（Approve）したので、随時対応してマージしてOKです」</li>
+<li>「Conflictだけ対応したら、マージしちゃってください」</li>
+</ul>
+<p>何かしらの理由でレビュアーの関与度を増やす必要がある場合は、レビュアーがマージする。</p>
+<p>::: tip やり取りを減らすために、レビュアーが即マージする
+typo修正など大したことがない修正であれば、やり取りを減らすためレビュアーが直接マージまで行った方が良い場面もある。
+:::</p>
+<h1 data-number="7" id="レビュアーの推奨行動"><span class="header-section-number">7</span> レビュアーの推奨行動</h1>
+<h2 data-number="7.1" id="グラウンドルール"><span class="header-section-number">7.1</span> グラウンドルール</h2>
+<p><strong>レビューはコミュニケーションである。コメント記載時には相手への敬意を忘れないこと。</strong></p>
+<p>特にレビュアー側はその責務上、指摘コメントを多く行う役割であり、より一層の配慮（上下関係を作らないやりとり）が求められる。</p>
+<p>レビューは作成者を詰問する場ではなく、より良いものをチーム一丸となって作るという考えが重要である。</p>
+<p>::: info 参考 <a href="https://tech.nri-net.com/entry/important_mindset_for_pull_requests">プルリクエストを見る時、出す時に重要なマインドセット
+- NRIネットコムBlog</a> :::</p>
+<h2 data-number="7.2" id="レビュー依頼へのリアクションはできるだけ即レス"><span class="header-section-number">7.2</span>
+レビュー依頼へのリアクションはできるだけ即レス</h2>
+<p>推奨は以下の通り。</p>
+<ul>
+<li>コードレビューの対応優先度を上げる</li>
+<li>もし、利害関係者との会議中など、即座に対応することが難しい場合は、いつごろ確認するかのコメントを記載したり、代理でレビュー可能な人に依頼する</li>
+</ul>
+<p>理由は以下。</p>
+<ul>
+<li>レビュアーが気がついていないのか、気がついているが忙しくて対応できないかで、レビュイーがリマインドを送るかどうかの行動に影響があるため</li>
+<li>レビュイーの作業見積もりに影響するため（レビュイーとして待機すべきか、他の作業を着手すべきか迷ったり、どれくらいで開発作業がクローズできそうかといった作業計画にも影響するため）</li>
+</ul>
+<p>::: tip コードレビューの優先度を上げる</p>
+<p>チーム開発において、レビュー待ちでの待機時間を最小化することでチームでの生産性を最大化できるとされる。</p>
+<p>::: info 参考 <a href="https://speakerdeck.com/okashoi/dousiteshou-wodong-kasuyorimotimunei-nokodorebiyuwoyou-xian-surubekinanoka">どうして手を動かすよりもチーム内のコードレビューを優先するべきなのか
+- Speaker Deck</a> :::</p>
+<h2 data-number="7.3" id="reviewersを自分に設定する"><span class="header-section-number">7.3</span> Reviewersを自分に設定する</h2>
+<p>プルリクエストに対して、レビューを実際に行う場合はReviewersに自分を選択する。以下の理由がある。</p>
+<ul>
+<li>後からどのプルリクエストに対してレビューを実施したか、トレース／可視化しやすくする</li>
+<li>他のレビュアーが、◯◯さんが見るなら終わってからレビューする／スキップするという判断材料を提供する</li>
+</ul>
+<h2 data-number="7.4" id="hotfixの場合はマージ先のブランチを確認する"><span class="header-section-number">7.4</span>
+hotfixの場合はマージ先のブランチを確認する</h2>
+<p>通常のプルリクエストであれば、featureブランチはデフォルトブランチ（多くはdevelopブランチ）がデフォルトで選択されるため、間違えは少ない。一方でhotfixブランチの場合は、main、developの2ブランチにマージ先がありえるため間違えやすい。</p>
+<p>特に慣れていないメンバーの場合は作業ミスも多発しやすいため、最初にマージ先のブランチが正しいか確認するクセを付けると良い。</p>
+<p>::: tip 複数のdevelopブランチがある場合も間違えやすい<br />
+複数のリリースバージョンを並行して開発する場合、一時的に
+develop、develop2
+と複数のアップストリームを保つ場合がある。このケースは特にマージ先を間違えやすいため注意する。<br />
+:::</p>
+<h2 data-number="7.5" id="start-a-reviewとadd-single-commentの使い分け"><span class="header-section-number">7.5</span> 「Start a review」と「Add
+single comment」の使い分け</h2>
+<p>GitHubでのコードレビューは、<code>Start a review</code> を行うと
+<code>Submit review</code>
+しない限り、レビューコメントが自分以外のメンバーが参照できない。</p>
+<p><code>Add single comment</code> の場合は投稿が即参照可能となる。</p>
+<p>推奨は以下の通り。</p>
+<ul>
+<li>なるべく早くレビュイーにフィードバックを返すことを重視し、
+<code>Add single comment</code> の利用を推奨する</li>
+</ul>
+<p>理由は以下。</p>
+<ul>
+<li>レビュイーとして、今レビューをしてもらっていると気付くことができ、心理的に楽になる</li>
+<li>コメントを貰った部分の疑問点を即返信しレビュアーにフィードバックしたり、随時修正できる</li>
+</ul>
+<h2 data-number="7.6" id="レビュイーの思考を予想する"><span class="header-section-number">7.6</span> レビュイーの思考を予想する</h2>
+<p>レビュアーは、レビュイーが気がついていないかもしれない観点や影響範囲を意識して見るべきである。</p>
+<p>レビュイーの経験やスキルセットから、不足していると考えられる面を重点的に確認することで、レビューの質を上げることができる。</p>
+<h2 data-number="7.7" id="暗黙知を形式知にする"><span class="header-section-number">7.7</span> 暗黙知を形式知にする</h2>
+<p>レビュー対象の変更内容が、機能上は問題なくても、他の実装方針と揺れている場合が存在する。</p>
+<p>推奨は以下の通り。</p>
+<ul>
+<li>レビュイーに「機能上は問題ないが、保守性／可読性の観点から、他の設計方針に合わせてほしい」といった旨のフィードバックを行う</li>
+<li>開発規約にその設計方針が未記載の場合は、レビュアーが追記する（Linterに追加できれば理想である）。追記内容のレビュアーに、先ほどのレビュイーを含めることが望ましい</li>
+</ul>
+<p>暗黙知を形式知にすることで、チームの方針が明文化され、透明性のある運営に繋げることができる。新規参画者にとってのオンボーディング負荷が下がり、戦力化が早まるメリットがある。</p>
+<h2 data-number="7.8" id="レビューコメントにラベルを追加する"><span class="header-section-number">7.8</span>
+レビューコメントにラベルを追加する</h2>
+<p>レビューコメントにはラベル（プレフィックス）をつけることを推奨する。レビューコメントの意図を明確にすることで、開発者間の非同期的なコミュニケーションを円滑にし、作業効率を向上させる。</p>
+<p>以下にプレフィックスを利用した例を示す。</p>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 30%" />
+<col style="width: 62%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">プレフィクス</th>
+<th style="text-align: left;">説明</th>
+<th style="text-align: left;">例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">LGTM</td>
+<td style="text-align: left;">Look Good To Me（良さげです）</td>
+<td style="text-align: left;">[LGTM]
+責務分解が明瞭で、良い実装です！💯</td>
+</tr>
+<tr>
+<td style="text-align: left;">ASK</td>
+<td style="text-align: left;">質問</td>
+<td style="text-align: left;">[ASK]
+この実装意図が理解できず、どうして必要なのか教えてもらえますか❓️🤔</td>
+</tr>
+<tr>
+<td style="text-align: left;">Q</td>
+<td style="text-align: left;">ASKと同じ意味</td>
+<td style="text-align: left;">[Q] 同上</td>
+</tr>
+<tr>
+<td style="text-align: left;">MUST</td>
+<td style="text-align: left;">必須</td>
+<td style="text-align: left;">[MUST]
+ソート処理が漏れているため、順序が不正になってしまう可能性があります！</td>
+</tr>
+<tr>
+<td style="text-align: left;">SHOULD</td>
+<td style="text-align: left;">提案</td>
+<td style="text-align: left;">[SHOULD]
+愚直なループではなく、□□□の書き方の方が可読性および性能が良いです。書き換えを検討してください。</td>
+</tr>
+<tr>
+<td style="text-align: left;">IMO</td>
+<td style="text-align: left;">In My
+Opinion（自分ならこうしますが、どうでしょうか？）</td>
+<td style="text-align: left;">[IMO]
+スコープの広さの割に変数名が短いため、 <code>name</code> ではなく
+<code>pre_ordered_product_name</code> などが良いかと思いました</td>
+</tr>
+<tr>
+<td style="text-align: left;">NITS</td>
+<td style="text-align: left;">Nitpick（枝葉ですが直して欲しい）</td>
+<td style="text-align: left;">[NITS] この変数名は、単数形よりも複数形
+<code>users</code> または <code>usersList</code>
+が適しているかと思います。</td>
+</tr>
+</tbody>
+</table>
+<p>それぞれの定義は以下。特に「ASK（Q）」と「MUST」はレビューコメントが解決しないと、プルリクエストの承認すべきではない。</p>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 6%" />
+<col style="width: 12%" />
+<col style="width: 76%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">分類</th>
+<th style="text-align: left;">プレフィクス</th>
+<th style="text-align: left;">承認のために解決が必須</th>
+<th style="text-align: left;">レビュイーの対応</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">礼賛</td>
+<td style="text-align: left;">LGTM</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">リアクション不要</td>
+</tr>
+<tr>
+<td style="text-align: left;">質問</td>
+<td style="text-align: left;">ASK</td>
+<td style="text-align: left;">✅️</td>
+<td style="text-align: left;">回答が必須</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Q</td>
+<td style="text-align: left;">✅️</td>
+<td style="text-align: left;">同上</td>
+</tr>
+<tr>
+<td style="text-align: left;">修正依頼</td>
+<td style="text-align: left;">MUST</td>
+<td style="text-align: left;">✅️</td>
+<td style="text-align: left;">対応しない場合はコメントバックまたは、コード変更の対応が必須</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">SHOULD</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">対応しない場合はコメントバックまたは、コード変更をできる限り実施する。対応見送りの場合は、チケット起票および、次リリースまでの対応が目安</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>提案</strong></td>
+<td style="text-align: left;">IMO</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">絵文字リアクションやコメントバックが推奨だが、対応の是非はレビュイーが判断する</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">NITS</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">同上</td>
+</tr>
+</tbody>
+</table>
+<p>参考: <a href="https://techblog.lycorp.co.jp/ja/20241121icq">コード品質向上のテクニック：第51回
+確信的な質問 | LINEヤフー</a>
+にも、レビュアの「要求」であるのにもかかわらず、単なる「質問」にも読み取れてしまうミスコミュニケーションの例があり、
+コードレビューにおいては要求と質問は明確に区別できるように書かれるべき
+とある。</p>
+<h2 data-number="7.9" id="適度なユーモアを取り入れる"><span class="header-section-number">7.9</span> 適度なユーモアを取り入れる</h2>
+<p>心理的安全性を担保しつつレビューを楽しい場とするためには、ポジティブな絵文字（🚀✨️💯）を使うとともに、レビューコメントに適度にユーモアを入れると良い。</p>
+<p>例えば、慣れない文化・チーム・技術スタックの中で成果を出していきたい新規参画者にとっては、どんなに論理的・建設的な内容であるレビュー指摘であっても、指摘が多いと精神的に辛くなってしまう傾向にある。そのため、何か良い点があればオーバーに褒めることや、ネガティブな内容であればちょっとしたジョークを入れることで、心理的安全性を上げていく必要がある。辛い場面であっても、辛い場面こそジョークで吹き飛ばしていけると良い。</p>
+<p>以下に例を示す。</p>
+<ul>
+<li>「このチューニングが入ると操作性がチート並に爆速になって、お客様も喜んでくれそうですね🐆💨」</li>
+<li>「さすがに年齢設定の上限が1000になっています。鶴は1000年生きると言いますが、ここは150までにしておきましょう🧝」</li>
+</ul>
+<p>::: tip 初マージはチーム全員で祝う</p>
+<p>苦労すればするほど、初めてマージされる瞬間の喜びは大きいものである。基本的に新規参画者の初めてのマージはチーム全員で祝うと良い。</p>
+<p><img role="img" src="data:image/png;base64,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" /></p>
+<p>:::</p>
+<h2 data-number="7.10" id="指摘内容は具体的であればあるだけ良い"><span class="header-section-number">7.10</span>
+指摘内容は具体的であればあるだけ良い</h2>
+<p>レビューコメントで「可読性が低いです」
+といったコメントは、レビュイーが受け取るとどのように修正して良いか判断ができず、次のアクションに繋がりにくいため不毛である。そのため、面倒であっても、どのように直して欲しいか、できる限り具体的に指示する方が建設的である。</p>
+<p>推奨は以下の通り。</p>
+<ul>
+<li>「可読性が低いです」
+「{任意の非機能要件}を満たしていません」といったコメントで終始せず、具体的にどの部分を、どのように修正して欲しいかをフィードバックする</li>
+<li>もし、修正する部分を（教育目的などで）レビュイーに考えてほしい場合は、その旨をコメントに追記する。レビュアーのお気持ちあてゲームにしないこと</li>
+</ul>
+<h2 data-number="7.11" id="指摘内容を論理的に説明できないのであればコメントすべきではない"><span class="header-section-number">7.11</span>
+指摘内容を論理的に説明できないのであれば、コメントすべきではない</h2>
+<p>「なんとなく汚いです」は指摘ではない。悪いコードだと感じたのであれば、相手が納得できるように論理的に説明する。論理的に説明できないのであれば、指摘をすべきではない。</p>
+<p>::: info 引用元 <a href="https://www.slideshare.net/rootmoon/7-37892729">デキるプログラマだけが知っているコードレビュー7つの秘訣
+| PPT</a> p26 :::</p>
+<h2 data-number="7.12" id="出典があれば追記できるとベター"><span class="header-section-number">7.12</span>
+出典があれば追記できるとベター</h2>
+<p>指摘内容の補足情報があれば追加するとベターである。例えば、「◯◯の観点で、このコードは△△の懸念があるため、□□になるように修正をお願いします。公式ブログの{URL}にも記載があり、参考にできると思います。」といった形式である。</p>
+<p>レビュイーが自分で調べれば事足りる場合もあるが、レビュアー側が出典を示すことで納得感が増す。また、誤った記事（過去のバージョンの記事や、見当違いの記事）を読んでしまい空回ってしまうことも、探す手間も減る。</p>
+<h2 data-number="7.13" id="なるべく1度のレビューで指摘し切る"><span class="header-section-number">7.13</span>
+なるべく1度のレビューで指摘し切る</h2>
+<p>レビュイーからすると、レビューの「依頼1→指摘1→対応1→確認依頼1→別の指摘2→対応2→確認依頼2→別の指摘3→…」と、依頼のたびに指摘をもらうとタスクの予実管理や作業見積もりを建てられずストレスである（ムービング・ゴールポストである）。</p>
+<p>推奨は以下の通り。</p>
+<ul>
+<li>できるかぎり最初のレビューで、指摘事項を出し切る</li>
+<li>もし、2回目以降のレビューで追加要素に気がついた場合は、「[imo]
+1度目の指摘で見逃してしまってすいません。この部分ですが、～の観点のため修正してもらいたく。」などと非を認めつつ、コメントする</li>
+</ul>
+<h2 data-number="7.14" id="本筋から離れるコードコメントやreadmeのtypoなどはsuggestにする"><span class="header-section-number">7.14</span>
+本筋から離れるコードコメントやREADMEのtypoなどはsuggestにする</h2>
+<p>プルリクエスト上のコメントで、レビュイーに対して直接変更内容を提案することができる<a href="https://docs.github.com/ja/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/incorporating-feedback-in-your-pull-request">Suggested
+changes</a>という機能がある。</p>
+<p>推奨は以下の通り。</p>
+<ul>
+<li>可能であればできる限り、Suggested
+changes形式を利用する。特にtypo、ドキュメントの言い回しや表現の訂正は、直接的に変更を指示しないと、やり取りのホップ数が増える傾向にあり、非生産的である</li>
+<li>新規参画者やジュニアメンバー向けに、教育目的で編集させたいと考える場合もあるが、何度かSuggested
+changesでフィードバックして直らなかったなど、限定的な場面で行う</li>
+</ul>
+<p>Suggested changesを使わないほうが良い場合もある。</p>
+<ul>
+<li>変数名のリネーム（一箇所だけ変更してもビルドエラーになり、その後のリファクタリングが余計に面倒であるため）</li>
+<li>上記のリネームの例のように、リンターやテストに影響を与えるものは、レビューコメントという形でコメントする方が良い</li>
+</ul>
+<p>::: info 参考 <a href="https://devblog.thebase.in/entry/2018/12/02/130657">君は GitHub の
+Suggested change を知っているか？ - BASEプロダクトチームブログ</a>
+:::</p>
+<h2 data-number="7.15" id="nitswant以下のコメントだけであれば先にapproveする"><span class="header-section-number">7.15</span>
+nits（WANT以下）のコメントだけであれば、先にapproveする</h2>
+<p>対応が必須ではない、いわゆるnitsな指摘事項だけの場合がある。</p>
+<p>この場合の推奨は以下。</p>
+<ul>
+<li>さきにapproveしてから、「コメント部分を適時対応してマージして下さい」と伝える
+<ul>
+<li>レビュイーの心理的負荷の軽減（レビュイーの裁量を増やし信頼感が作れる）</li>
+<li>余分なコミュニケーションが減り、スピード感が上がる</li>
+</ul></li>
+<li>先にapproveすることにより、nitsであるがその対応可否をまったく検討せず、セルフマージするようなメンバーがいた場合は、対応状況を見極めてからapproveしても良い
+<ul>
+<li>つまり、初回、2回目は信頼してapproveすべきである</li>
+</ul></li>
+</ul>
+<h2 data-number="7.16" id="レビュアーはローカル環境で動作確認をすべきか"><span class="header-section-number">7.16</span>
+レビュアーはローカル環境で動作確認をすべきか</h2>
+<p>レビュー対象のリモートブランチを、ローカル環境にてテストなど動作確認すべきか迷う場合がある。レビュアーがローカルで動作検証を行うと、おそらく品質は高まるはずだが、レビュイーとの作業重複でもあるため工数は非常に高くなり、費用対効果は必ずしも良いと言えない。</p>
+<p>推奨は以下の通り。</p>
+<ul>
+<li>レビュアーはローカル環境での動作確認はしなくても良い
+<ul>
+<li>もちろん、しても良いがMUSTではない</li>
+<li>CIで単体テストが成功／失敗しているかは確認できずはずである</li>
+<li>どのように品質を担保するかはテスト戦略に依存させるべきである（その後のデプロイメント環境での結合テスト、システムテスト、性能テスト、障害テストなどに含まれるはずである）</li>
+</ul></li>
+</ul>
+<p>::: tip 動作確認はレビュイーにやってもらう
+プルリクエスト作成ルールとして、CIで担保できる部分以外（例えばUIのスクリーンショットなど）は、
+<a href="#画像をエビデンスとして貼るべきかどうか">画像をエビデンスとして貼るべきかどうか</a>
+なども参考にしつつ、レビュイーにエビデンスの添付してもらうルールを考えるとよい。
+:::</p>
+<h2 data-number="7.17" id="疑問点は臆せず質問する"><span class="header-section-number">7.17</span> 疑問点は臆せず質問する</h2>
+<p>レビュアーは意図の掴みきれない部分があった場合は、そのままにせず理解できるように務める必要がある。分かったふりをすると、後でその部分が火を噴くことが多いからである。また、「チーム全員が同じ知識を共有する」というコードレビューの意図からすると、レビュイーだけ分かっていればよいという状態は不健全である。レビュイーがリーダー（テックリード）であっても臆する必要はないし、レビュイーが自分より若手であったとしても、自分が調べても分からないことを聞くことは恥ではないので、堂々と教えてもらう。</p>
+<p>推奨は以下の通り。</p>
+<ul>
+<li>不明点が少ない場合は、レビューコメントで質問する</li>
+<li>不明点が多い場合は、同期的なコミュニケーション（リモート会議。SlackのハドルやGoogle
+Meet）で確認する。やり取りのホップ数をなるべく減らすことを意識する</li>
+<li>リモート会議する場合は、レビュアー側から時間や枠を調整する</li>
+</ul>
+<h2 data-number="7.18" id="自信がない場合は有識者にディスパッチする"><span class="header-section-number">7.18</span>
+自信がない場合は、有識者にディスパッチする</h2>
+<p>レビュアーという立場だからといって、必ずしも開発チームが利用する全技術スタックや、開発プロダクトの過去の経緯に精通している訳ではない。それでも、自信が無い領域についてコードレビューを求められるケースも多々ある。</p>
+<p>推奨は以下の通り。</p>
+<ul>
+<li>自分に自信がない領域については、レビュアーが無理せず有識者にディスパッチする体制にする
+<ul>
+<li>分からないことは恥ではない。それより、知ったかぶりで手違いが発生する方がチームにとってのリスクである</li>
+</ul></li>
+<li>業務要件／機能要件が不明確であれば、プロダクトリーダー（業務担当者）に移譲する。非機能面で自信が無ければ、アーキテクトに移譲する。チーム規模によっては恒常的にこれら2つの役割のレビュアーで分担してレビュー方式も考えられる</li>
+</ul>
+<h2 data-number="7.19" id="ジュニアメンバーに対して大量の指摘がある場合にどうするか"><span class="header-section-number">7.19</span>
+ジュニアメンバーに対して大量の指摘がある場合にどうするか</h2>
+<p>対象領域のスキル不足などが原因で、レビュー事項が大量にある場合、対応をどうすべきか迷う場合がある。</p>
+<p>推奨は以下の通り。</p>
+<ul>
+<li>50でも100でも指摘事項があるのであれば、全てコメントを付ける
+<ul>
+<li>最初に全量を提示することで、レビュイーに対して作業見積もりを可能とさせる。逆に最初にコメント領域を絞ると、ムービング・ゴールポストである</li>
+<li>もし、作業負荷的に厳しい場合は同期コミュニケーションを入れることをためらわない</li>
+</ul></li>
+<li>指摘事項が多い場合、レビュイーが落胆してしまう懸念があるため、特に新規参画者で信頼構築ができていない場合は、コードレビューとは別にケアする
+<ul>
+<li>指摘事項が多くても問題ない旨を、チャット上でフィードバックする</li>
+<li>指摘事項の背景情報（開発規約や、採用技術）について説明する会議をセッテイングする（適度に同期的なコミュニケーションを取る）</li>
+<li>ペアプロで指摘内容を修正する</li>
+</ul></li>
+<li>可能であれば、Suggested
+changesを用いて、レビュイーの負荷を下げる工夫を取る</li>
+</ul>
+<p>なお、類似の指摘がある場合に、省略するかどうか判断に迷う場面もある。これについては以下を推奨する。</p>
+<ul>
+<li>「ある1点だけ取り上げて、横展開をお願いします」は機能しないため、該当箇所を全てコメントする
+<ul>
+<li>そのプルリクエスト内でレビュイーがキャッチアップしきれない可能性があるため、レビュアー側で補助した方がベター</li>
+<li>横展開が漏れることが多く、余計なやり取りが発生し、レビュアー・レビュイーともにストレスになることが多いため</li>
+</ul></li>
+</ul>
+<h2 data-number="7.20" id="レビュー終了の連絡"><span class="header-section-number">7.20</span> レビュー終了の連絡</h2>
+<p>レビュー終了した場合、レビューが終わった旨をプルリクエスト上でメンションをつけてコメントしたり、Slackなどのチャットで通知することで、レビュアーに対応を促すことができる。「Add
+single
+comment」の場合は、レビュー終了の切れ目が分からないためである。</p>
+<p>推奨は以下の通り。</p>
+<ul>
+<li>Slackでのメンション付きでレビュー終了の旨のコメントする</li>
+</ul>
+<p>理由は以下。</p>
+<ul>
+<li>普段利用しているチャットツールの方がレビュイーの気づく確率が高いため</li>
+</ul>
+<h1 data-number="8" id="謝辞"><span class="header-section-number">8</span> 謝辞</h1>
+<p>このアーキテクチャガイドラインの作成には多くの方々にご協力いただいた。心より感謝申し上げる。</p>
+<ul>
+<li><strong>作成者</strong>:
+真野隼記、村田靖拓、山本竜玄、清水雄一郎、水田祐介</li>
+<li><strong>レビュアー</strong>:
+谷村元気、栗田真、後藤玲雄、八木雅斗、辻大志郎</li>
+</ul>
+</body>
+</html>

@@ -4,7 +4,7 @@ author: フューチャー株式会社
 layout: home
 hero:
   name: "ソフトスキルガイドライン"
-  tagline: Mail Design Guidelines
+  tagline: Soft Skills Guidelines
   actions:
     - theme: brand
       text: ソフトスキルガイドライン

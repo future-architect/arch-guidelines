@@ -293,6 +293,10 @@ export default defineConfig({
                 link: "/documents/forIF/if_guidelines.html",
               },
               {
+                text: "帳票",
+                link: "/documents/forReport/report_guidelines.html",
+              },
+              {
                 text: "メール",
                 link: "/documents/forMail/mail_guidelines.html",
               },

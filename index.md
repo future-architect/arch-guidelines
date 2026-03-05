@@ -21,6 +21,9 @@ hero:
       text: I/F
       link: ./documents/forIF/
     - theme: brand
+      text: 帳票
+      link: ./documents/forReport/
+    - theme: brand
       text: メール
       link: ./documents/forMail/
     - theme: brand

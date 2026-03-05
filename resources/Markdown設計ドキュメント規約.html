@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="フューチャー株式会社" />
+  <title>Markdown設計ドキュメント規約</title>
+  <style>
+
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <style type="text/css">body {
+font-family: Helvetica, arial, sans-serif;
+font-size: 14px;
+line-height: 1.6;
+padding-top: 10px;
+padding-bottom: 10px;
+background-color: white;
+padding: 30px;
+}
+body > *:first-child {
+margin-top: 0 !important;
+}
+body > *:last-child {
+margin-bottom: 0 !important;
+}
+body {
+margin-left: 300px;
+}
+#TOC {
+position: fixed;
+left: 0;
+top: 0;
+bottom: 0;
+overflow-y: auto;
+width: 300px;
+transition:
+width,
+font-size,
+opacity 300ms,
+300ms,
+300ms ease-in-out,
+ease-in-out,
+ease-in-out;
+padding-left: 1em;
+box-sizing: border-box;
+}
+#TOC ul {
+margin: 0 0 0 1em;
+padding: 0;
+}
+@media all and (max-width: 1000px) {
+body {
+margin-left: 0;
+}
+#TOC {
+overflow: hidden;
+width: 0;
+opacity: 0;
+}
+}
+@media print {
+body {
+margin-left: 0;
+}
+#TOC {
+display: none;
+}
+}
+@media print {
+.print-hidden {
+display: none;
+}
+}
+h1.title {
+font-size: 42px;
+border-bottom: 2px solid #cccccc;
+}
+@media print {
+h1.title {
+text-align: center;
+margin-top: 50%;
+page-break-before: auto;
+}
+}
+h2.author {
+font-size: 12px;
+border: none;
+color: initial;
+text-align: right;
+margin: 0;
+page-break-after: always;
+}
+h1 {
+page-break-before: always;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+margin: 20px 0 10px;
+padding: 0;
+font-weight: bold;
+-webkit-font-smoothing: antialiased;
+cursor: text;
+position: relative;
+page-break-after: avoid;
+}
+a {
+color: #4183c4;
+}
+h1 {
+font-size: 28px;
+color: black;
+}
+h2 {
+font-size: 24px;
+border-bottom: 1px solid #cccccc;
+color: black;
+}
+h3 {
+font-size: 18px;
+}
+h4 {
+font-size: 16px;
+}
+h5 {
+font-size: 14px;
+}
+h6 {
+color: #777777;
+font-size: 14px;
+}
+p,
+blockquote,
+ul,
+ol,
+dl,
+li,
+table,
+pre {
+margin: 15px 0;
+}
+hr {
+border: none;
+border-bottom: 1px dashed #cccccc;
+}
+table {
+padding: 0;
+border-collapse: collapse;
+}
+table tr th {
+font-weight: bold;
+border: 1px solid #cccccc;
+text-align: left;
+padding: 6px 13px;
+}
+table tr td {
+border: 1px solid #cccccc;
+padding: 6px 13px;
+}
+table tr:nth-child(2n) {
+background-color: #f8f8f8;
+}
+table * {
+word-wrap: break-word;
+word-break: break-all;
+}
+pre {
+background-color: #f8f8f8;
+border: 1px solid #cccccc;
+font-size: 13px;
+line-height: 19px;
+overflow: auto;
+padding: 6px 10px;
+border-radius: 3px;
+}
+pre code {
+margin: 0;
+padding: 0;
+white-space: pre;
+border: none;
+background: transparent;
+}
+code,
+tt {
+margin: 0 2px;
+padding: 0 5px;
+white-space: nowrap;
+border: 1px solid #eaeaea;
+background-color: #f8f8f8;
+border-radius: 3px;
+}
+div.sourceCode {
+page-break-before: avoid;
+page-break-inside: avoid;
+}
+li * {
+margin: 0;
+}
+blockquote {
+border-left: 4px solid #dddddd;
+padding: 0 15px;
+color: #777777;
+}
+blockquote > :first-child {
+margin-top: 0;
+}
+blockquote > :last-child {
+margin-bottom: 0;
+}
+code.comment-code {
+display: block;
+white-space: pre;
+}
+table {
+overflow: auto;
+display: block;
+}
+@media screen and (max-width: 1300px) and (min-width: 1001px) {
+#TOC {
+font-size: 80%;
+width: 200px;
+}
+body {
+margin-left: 200px;
+}
+}
+@media screen and (max-width: 1100px) and (min-width: 1001px) {
+#TOC {
+font-size: 60%;
+width: 150px;
+}
+body {
+margin-left: 150px;
+}
+table tr td {
+font-size: 80%;
+padding: 3px 6px;
+}
+}
+@media all and (max-width: 1000px) {
+table tr td {
+font-size: 80%;
+padding: 3px 6px;
+}
+}
+@media all and (max-width: 800px) {
+table tr td {
+font-size: 70%;
+}
+}
+@media all and (max-width: 600px) {
+table tr td {
+font-size: 60%;
+}
+}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Markdown設計ドキュメント規約</h1>
+<p class="author">フューチャー株式会社</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#はじめに" id="toc-はじめに"><span class="toc-section-number">1</span> はじめに</a></li>
+<li><a href="#前提" id="toc-前提"><span class="toc-section-number">2</span> 前提</a></li>
+<li><a href="#本ガイドラインで紹介する設計ドキュメントの位置付け" id="toc-本ガイドラインで紹介する設計ドキュメントの位置付け"><span class="toc-section-number">3</span>
+本ガイドラインで紹介する設計ドキュメントの位置付け</a></li>
+<li><a href="#テキストベースにおける設計書の注意点" id="toc-テキストベースにおける設計書の注意点"><span class="toc-section-number">4</span>
+テキストベースにおける設計書の注意点</a></li>
+<li><a href="#フォルダ階層の推奨" id="toc-フォルダ階層の推奨"><span class="toc-section-number">5</span> フォルダ階層の推奨</a></li>
+<li><a href="#システム構成図" id="toc-システム構成図"><span class="toc-section-number">6</span> システム構成図</a></li>
+<li><a href="#フロントエンド" id="toc-フロントエンド"><span class="toc-section-number">7</span> フロントエンド</a></li>
+<li><a href="#バックエンド" id="toc-バックエンド"><span class="toc-section-number">8</span> バックエンド</a>
+<ul>
+<li><a href="#テーブル定義書" id="toc-テーブル定義書"><span class="toc-section-number">8.1</span> テーブル定義書</a></li>
+<li><a href="#区分値" id="toc-区分値"><span class="toc-section-number">8.2</span> 区分値</a></li>
+<li><a href="#メッセージ定義" id="toc-メッセージ定義"><span class="toc-section-number">8.3</span> メッセージ定義</a></li>
+<li><a href="#web-api-設計書" id="toc-web-api-設計書"><span class="toc-section-number">8.4</span> Web API 設計書</a></li>
+<li><a href="#プログラム設計書バッチ非同期タスクなど" id="toc-プログラム設計書バッチ非同期タスクなど"><span class="toc-section-number">8.5</span>
+プログラム設計書（バッチ、非同期タスクなど）</a></li>
+<li><a href="#プログラム設計書web-api" id="toc-プログラム設計書web-api"><span class="toc-section-number">8.6</span> プログラム設計書（Web API）</a>
+<ul>
+<li><a href="#web-api応答例" id="toc-web-api応答例"><span class="toc-section-number">8.6.1</span> Web API応答例</a></li>
+</ul></li>
+<li><a href="#if-定義書" id="toc-if-定義書"><span class="toc-section-number">8.7</span> I/F 定義書</a></li>
+</ul></li>
+<li><a href="#謝辞" id="toc-謝辞"><span class="toc-section-number">9</span> 謝辞</a></li>
+</ul>
+</nav>
+<p><page-title></page-title></p>
+<p>::: warning 免責事項</p>
+<ul>
+<li>有志で作成したドキュメントである。フューチャーには多様なプロジェクトが存在し、それぞれの状況に合わせて工夫された開発プロセスや高度な開発支援環境が存在する。本ガイドラインはフューチャーの全ての部署／プロジェクトで適用されているわけではなく、有志が観点を持ち寄って新たに整理したものである</li>
+<li>相容れない部分があればその領域を書き換えて利用することを想定している。プロジェクト固有の背景や要件への配慮は、ガイドライン利用者が最終的に判断すること。本ガイドラインに必ず従うことは求めておらず、設計案の提示と、それらの評価観点を利用者に提供することを主目的としている</li>
+<li>掲載内容および利用に際して発生した問題、それに伴う損害については、フューチャー株式会社は一切の責務を負わないものとする。掲載している情報は予告なく変更する場合がある</li>
+</ul>
+<p>:::</p>
+<h1 data-number="1" id="はじめに"><span class="header-section-number">1</span> はじめに</h1>
+<p>Markdown ベースの設計ドキュメントの規約をまとめる。</p>
+<p>システム開発にて利用する設計ドキュメントを Markdown
+ベースにすることで、コーディングと同じ慣れたツールを用いて、Git
+によるバージョン管理、レビュープロセス、CI/CD
+などに自動化（静的解析、自動生成）を行いやすくし、ドキュメントを陳腐化させず、俊敏な設計開発を目指す。</p>
+<p>Markdown
+に限った話では無いが、どういった内容を設計書に記載すべきかは悩むポイントは多い。</p>
+<p>本ガイドラインでは、アプリケーションの種別ごとに記載すべき内容と、それをどのような
+Markdown
+の構造で記載するかを規約化し、各チームで悩む余地を減らし、注力すべきことに集中できる環境を提供することを目的とする。</p>
+<h1 data-number="2" id="前提"><span class="header-section-number">2</span> 前提</h1>
+<p>本ガイドラインは以下の前提で作成されている。</p>
+<ul>
+<li>チーム/プロジェクトが 3 ～ 10 名程度の規模</li>
+<li>Git（GitHub,
+GitLab）で管理され、コードと設計書が同一リポジトリで管理される</li>
+<li>システム開発で必要なアプリケーション開発</li>
+</ul>
+<h1 data-number="3" id="本ガイドラインで紹介する設計ドキュメントの位置付け"><span class="header-section-number">3</span>
+本ガイドラインで紹介する設計ドキュメントの位置付け</h1>
+<p>設計ドキュメントは様々な前提条件／制約／経緯で作成され、Excel／Word／パワーポイントなどのファイル形式で作成することが多い。</p>
+<p>本ガイドラインはそれらを否定するものではなく、様々な利害関係者の要求に応え洗練され続けた上記の設計ドキュメントのテンプレートには、強く敬意を表する。</p>
+<p>一方で、設計ドキュメントを精緻に管理していく優先度より、プロダクト開発の効率とビジネスピードをより重視する場合もあり、それらの開発チームでは設計ドキュメントが存在さえない、あっても設計書が実装と乖離しているなどの問題が世間で課題提起されることも多い。</p>
+<p>本ガイドラインでは、後者のプロダクト開発の効率性を重視し、設計ドキュメントが開発以外の観点から求められない場合において、必要最低限必要だと思われるレベルの記載のサンプルを提供する。</p>
+<p>また、設計ドキュメントのファイル形式に制約は無いという前提に立つため、設計ドキュメントの陳腐化を防ぐのに有効だと思われる、テキストベース（Markdown）でGit管理するという思想を採用する。</p>
+<p>本ガイドラインで紹介した各設計ドキュメントの記載内容を参考にしつつ、各開発チームにおいて必要な情報を追加／削除して利用するという、テンプレートとしての利用を想定する。</p>
+<h1 data-number="4" id="テキストベースにおける設計書の注意点"><span class="header-section-number">4</span>
+テキストベースにおける設計書の注意点</h1>
+<p>特に扱いで留意すべき点として、列数が多い表形式で設計ドキュメントを記載するケースがある。</p>
+<p>Markdownは表を記載可能だが、列数が多い場合は保守性が非常に低くなり、<code>git diff</code>
+を用いた差分を確認できるメリットも下がる。</p>
+<p>例えば、1つの画面の利用項目数が数十以上になり得る場合は、Excelなどのファイル形式を利用することを推奨する。</p>
+<h1 data-number="5" id="フォルダ階層の推奨"><span class="header-section-number">5</span> フォルダ階層の推奨</h1>
+<p>リポジトリ直下に <code>docs</code>
+フォルダを作成し、その配下に設計ドキュメントとなる Markdown
+ファイルを配備する。</p>
+<p>次はバックエンド、フロントエンド、インフラのコードをモノリポで管理している例である。</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">.</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> backend <span class="co"># バックエンド系のコード</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> docs</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> frontend <span class="co"># フロントエンド系のコード</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> infrastructure <span class="co"># インフラ系のコード</span></span></code></pre></div>
+<p><code>docs</code> 配下は以下のルールにしたがった構造を取る。</p>
+<ul>
+<li><code>01_</code>、<code>02_</code> といったプレフィックスを持つ</li>
+<li>番号には体系をもたせず、必要になったタイミングでインクリメントさせる</li>
+<li>オンボーディングコストを抑えるため、なるべく先頭に新規参画者が欲する情報を配備する</li>
+</ul>
+<p>構成例を次にあげる。</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docs</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> 01_キャッチアップ <span class="co"># ドメイン知識など抑えておくべき前提知識</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> 02_環境構築     <span class="co">#</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> 03_開発規約     <span class="co"># GitFlowなど、リリース方式、CI／CD周り</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> 04_ユーザーストーリー</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> 05_UI設計      <span class="co"># Figmaのパスなど</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> 06_画面設計書</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> 07_API設計書   <span class="co"># OpenAPIのパス＋各BL設計</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> 08_データモデル <span class="co"># ERD, テーブル定義</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> 09_IF設計書    <span class="co"># I/F定義＋受信/送信BL設計</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> 10_バッチ設計書 <span class="co"># タイマー、イベント起動の非同期処理のBL設計</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> 11_インフラ設計 <span class="co"># 監視、キャパシティサイジング、コスト</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> ...</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> README.md</span></code></pre></div>
+<h1 data-number="6" id="システム構成図"><span class="header-section-number">6</span> システム構成図</h1>
+<p>図は基本的に変更差分がGitと相性が良い、PlantUML（またはMermaid.js）で作成すること。PlantUMLの場合、テーマは
+<code>toy</code> を指定すること。</p>
+<pre class="plantuml"><code>@startuml
+!theme toy
+
+participant Participant as Foo
+note over Foo: Event
+actor       Actor       as Foo1
+boundary    Boundary    as Foo2
+control     Control     as Foo3
+entity      Entity      as Foo4
+database    Database    as Foo5
+collections Collections as Foo6
+queue       Queue       as Foo7
+Foo -&gt; Foo1 : To actor
+Foo -&gt; Foo2 : To boundary
+Foo -&gt; Foo3 : To control
+Foo -&gt; Foo4 : To entity
+Foo -&gt; Foo5 : To database
+Foo -&gt; Foo6 : To collections
+Foo -&gt; Foo7: To queue
+
+@enduml</code></pre>
+<p>システム構成図などは上記では対応しにくいことが多いため、diagrams.net（draw.io）で作成する。</p>
+<p>diagrams.netの場合は、拡張子は以下のいずれかで作成する。</p>
+<ul>
+<li><code>.drawio.png</code></li>
+<li><code>.drawio.jpg</code></li>
+<li><code>.drawio.svg</code></li>
+</ul>
+<h1 data-number="7" id="フロントエンド"><span class="header-section-number">7</span> フロントエンド</h1>
+<p>以下の方針を取る。</p>
+<ul>
+<li>Figmaを用いて、画面遷移、画面表示項目を定義する</li>
+<li>Markdown設計書には、Figmaで判断可能な見た目の情報は
+<strong>記載しない</strong></li>
+<li>Markdown設計書には、Web
+APIの呼び出しやイベントの定義、パラメータの受け渡し、バリデーションロジックなどを定義する。</li>
+</ul>
+<p><a href="./sample/index.md">サンプル設計書</a>を参考にする。</p>
+<h1 data-number="8" id="バックエンド"><span class="header-section-number">8</span> バックエンド</h1>
+<h2 data-number="8.1" id="テーブル定義書"><span class="header-section-number">8.1</span> テーブル定義書</h2>
+<p><a href="https://a5m2.mmatsubara.com/">A5:SQL
+Mk-2</a>を用い、<code>erd.a5er</code> という名称で管理する。</p>
+<p>以下の情報の管理は <code>erd.a5er</code>
+で行えないため、別で定義する。</p>
+<ul>
+<li>保持期限</li>
+<li>個人情報有無</li>
+</ul>
+<h2 data-number="8.2" id="区分値"><span class="header-section-number">8.2</span> 区分値</h2>
+<p>設計書サンプルを以下に示す。</p>
+<p>::: tip 区分値設計書サンプル</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># ENUM01 ユーザー権限</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## 区分値概要</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>目的: 画面のモードの切り替えに利用する</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>物理名: user permission level</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>型: string</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>スコープ: frontend, backend</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>マスターテーブル: m_user_role</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="fu">## 区分値定義</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 論理名             <span class="pp">|</span> 物理名          <span class="pp">|</span> 値  <span class="pp">|</span> バージョン <span class="pp">|</span> コメント <span class="pp">|</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="pp">| ------------------</span> <span class="pp">| ---------------</span> <span class="pp">| ---</span> <span class="pp">| ----------</span> <span class="pp">| --------</span> <span class="pp">|</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ゲスト             <span class="pp">|</span> guest           <span class="pp">|</span> 01  <span class="pp">|</span> 1          <span class="pp">|</span>          <span class="pp">|</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 未認証ユーザー     <span class="pp">|</span> unauthenticated <span class="pp">|</span> 02  <span class="pp">|</span> 1          <span class="pp">|</span>          <span class="pp">|</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 登録ユーザー       <span class="pp">|</span> user            <span class="pp">|</span> 03  <span class="pp">|</span> 1          <span class="pp">|</span>          <span class="pp">|</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> プレミアムユーザー <span class="pp">|</span> premium_user    <span class="pp">|</span> 04  <span class="pp">|</span> 2          <span class="pp">|</span>          <span class="pp">|</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 開発者             <span class="pp">|</span> developer       <span class="pp">|</span> 05  <span class="pp">|</span> 0          <span class="pp">|</span>          <span class="pp">|</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> テスター           <span class="pp">|</span> tester          <span class="pp">|</span> 06  <span class="pp">|</span> 0          <span class="pp">|</span>          <span class="pp">|</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 管理者             <span class="pp">|</span> administrator   <span class="pp">|</span> 07  <span class="pp">|</span> 0          <span class="pp">|</span>          <span class="pp">|</span></span></code></pre></div>
+<p>:::</p>
+<h2 data-number="8.3" id="メッセージ定義"><span class="header-section-number">8.3</span> メッセージ定義</h2>
+<p>::: tip メッセージ定義サンプル</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## メッセージ定義</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 識別子 <span class="pp">|</span> レベル <span class="pp">|</span> ステータス <span class="pp">|</span> メッセージ                                 <span class="pp">|</span> コメント                     <span class="pp">|</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="pp">| ------</span> <span class="pp">| ------</span> <span class="pp">| ----------</span> <span class="pp">| ------------------------------------------</span> <span class="pp">| ----------------------------</span> <span class="pp">|</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 10001  <span class="pp">|</span> E      <span class="pp">|</span> 400        <span class="pp">|</span> ユーザー名またはパスワードが間違っています <span class="pp">|</span> ログイン画面で発生           <span class="pp">|</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 10002  <span class="pp">|</span> W      <span class="pp">|</span>            <span class="pp">|</span> 文字数オーバーです                         <span class="pp">|</span> ログイン画面で発生           <span class="pp">|</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 10003  <span class="pp">|</span> E      <span class="pp">|</span> 500        <span class="pp">|</span> {domain}は無効なユーザードメインです       <span class="pp">|</span> ユーザーの所属が異なっている <span class="pp">|</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 10004  <span class="pp">|</span> F      <span class="pp">|</span> 500        <span class="pp">|</span> EntraIDに接続できません                    <span class="pp">|</span> ログインのバックエンドで発生 <span class="pp">|</span></span></code></pre></div>
+<p>:::</p>
+<h2 data-number="8.4" id="web-api-設計書"><span class="header-section-number">8.4</span> Web API 設計書</h2>
+<p>API 定義書は <code>openapi.yaml</code> で記載すること。</p>
+<p>詳細は<a href="https://future-architect.github.io/coding-standards/documents/forOpenAPISpecification/OpenAPI_Specification_3.0.3.html">OpenAPI
+Specification 3.0.3規約</a> を参考にする。</p>
+<h2 data-number="8.5" id="プログラム設計書バッチ非同期タスクなど"><span class="header-section-number">8.5</span>
+プログラム設計書（バッチ、非同期タスクなど）</h2>
+<p>::: tip プログラム設計書サンプル</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># BAT01 xxx 計算</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## 処理概要</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>xxx（なぜこれが必要なのか）</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>xxx受信の後続処理で起動し、xxx計算を行いxxxトランに登録する（処理の概略）</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## 処理シーケンス</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="in">```plantuml</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="in">@startuml</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="in">!theme toy</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="in">participant システム</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="in">database DB</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="in">note over システム: 各種インプット取得</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="in">システム -&gt; DB: 業務日付取得 [日付マスタ]</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="in">システム -&gt; DB: 計算対象抽出xxx\n[xxx受信管理トラン]\n[xxx受信ワーク]\n[xxxマスタ]\n[yyyマスタ]\n[zzzマスタ]</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="in">システム -&gt; システム: 支払い差し引き金額計算（※ビジネスロジック1）</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="in">システム -&gt; DB: 登録\n[xxxトラン]</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="in">システム -&gt; DB: 更新\n[xxx予測ワーク]</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="in">@enduml</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## ビジネスロジック</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="fu">### ビジネスロジック1</span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="in">```txt</span></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a><span class="in">支払金額 = 受信ワーク.商品コード * xxx * xxx - yyyy</span></span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a><span class="in">IF xxx 区分</span></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a><span class="in">  支払金額 = 支払金額 * 支払い係数 + (支払金額 - 前回発注金額)/2</span></span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a><span class="in">END</span></span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a><span class="fu">## DB 項目</span></span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a><span class="fu">### 取得</span></span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>xxxマスタ.支払い金額</span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>xxxマスタ.特定商品区分</span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>yyyマスタ.新古品フラグ</span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>zzzマスタ.前回発注金額</span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>抽出条件:</span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>xxx受信管理トラン.業務日付 = 業務日付</span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>xxx受信管理トラン.処理連番 = xxx受信管理トラン の最新の処理連番</span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a><span class="fu">### 登録</span></span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>xxxトラン.会社コード = xxx</span>
+<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>xxxトラン.処理日付 = xxx</span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>xxxトラン.xxx区分 = xxx</span>
+<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>xxxトラン.支払金額 = ビジネスロジック1計算結果</span>
+<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a><span class="fu">### 更新</span></span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a>xxx 予測ワーク:</span>
+<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>xxx 予測ワーク.優先度</span>
+<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>xxx 予測ワーク.処理予定日</span></code></pre></div>
+<p>:::</p>
+<h2 data-number="8.6" id="プログラム設計書web-api"><span class="header-section-number">8.6</span> プログラム設計書（Web
+API）</h2>
+<p>Web
+APIについても、プログラム設計書（バッチ、非同期タスクなど）と同様に機能ID単位で作成する。</p>
+<p>ただし、Web APIにおいては <code>openapi.yaml</code>
+と重複する部分で自明な内容（例えば、リクエストパラメータの定義や、レスポンス項目）については、重複するため記載を省略する。</p>
+<p>もし、検索APIで複数のテーブルを参照して結果を応答する場合に、項目の由来を示すため、下表のような形式を定義すること。</p>
+<h3 data-number="8.6.1" id="web-api応答例"><span class="header-section-number">8.6.1</span> Web API応答例</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Settings</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>last_name</td>
+<td>氏名 (姓)</td>
+<td>m_user</td>
+<td></td>
+</tr>
+<tr>
+<td>first_name</td>
+<td>氏名 (名)</td>
+<td>m_user</td>
+<td></td>
+</tr>
+<tr>
+<td>last_name_kana</td>
+<td>氏名カナ (姓)</td>
+<td>m_user</td>
+<td></td>
+</tr>
+<tr>
+<td>first_name_kana</td>
+<td>氏名カナ (名)</td>
+<td>m_user</td>
+<td></td>
+</tr>
+<tr>
+<td>date_of_birth</td>
+<td>生年月日</td>
+<td>m_user_detail</td>
+<td></td>
+</tr>
+<tr>
+<td>gender_type</td>
+<td>性別区分</td>
+<td>m_user_detail</td>
+<td></td>
+</tr>
+<tr>
+<td>tel</td>
+<td>電話番号</td>
+<td>m_user_detail</td>
+<td></td>
+</tr>
+<tr>
+<td>occupation_type</td>
+<td>職業区分</td>
+<td>m_user_detail</td>
+<td></td>
+</tr>
+<tr>
+<td>zipcode</td>
+<td>郵便番号</td>
+<td>m_user_detail</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>※Descriptionは <code>openapi.yaml</code> 側の
+<code>description</code> で記載済みであれば、省略すること。
+※Noteは何かしら加工処理により生み出された項目であれば、計算ロジックを記載する。</p>
+<h2 data-number="8.7" id="if-定義書"><span class="header-section-number">8.7</span> I/F 定義書</h2>
+<p>I/F
+定義書は、システム間の連携について定義と、その受信/配信処理の設計書である。</p>
+<p>システム I/F
+は連携先の対向システムが存在するため、認識齟齬が無いように、どのようなプロトコル・項目であるかを定義する必要がある。</p>
+<p>::: tip I/F設計書サンプル</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># IF01 設備有効開始受信</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>設備有効開始の取り込みを行う。</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">## 対向システム</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 連携元     <span class="pp">|</span> 連携先 <span class="pp">|</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="pp">| ----------</span> <span class="pp">| ------</span> <span class="pp">|</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> A システム <span class="pp">|</span> Future <span class="pp">|</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="fu">## 環境情報</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="fu">### Input</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Item             <span class="pp">|</span> Value                                          <span class="pp">|</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="pp">| ----------------</span> <span class="pp">| ----------------------------------------------</span> <span class="pp">|</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 連携 S3 バケット <span class="pp">|</span> <span class="in">`${env}-example-import`</span>                        <span class="pp">|</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> プレフィックス   <span class="pp">|</span> <span class="in">`activate/year=${yyyy}/month=${MM}/day=${dd}/`</span> <span class="pp">|</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ファイル名       <span class="pp">|</span> <span class="in">`${yyyy}-${mm}-${dd}-${hh}-${MM}-${SS}.csv`</span>    <span class="pp">|</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 保持期限         <span class="pp">|</span> 3 年                                           <span class="pp">|</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="fu">### Output</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Item             <span class="pp">|</span> Value                                          <span class="pp">|</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="pp">| ----------------</span> <span class="pp">| ----------------------------------------------</span> <span class="pp">|</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 連携 S3 バケット <span class="pp">|</span> <span class="in">`${env}-example-import`</span>                        <span class="pp">|</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> プレフィックス   <span class="pp">|</span> <span class="in">`activate/year=${yyyy}/month=${MM}/day=${dd}/`</span> <span class="pp">|</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ファイル名       <span class="pp">|</span> <span class="in">`${yyyy}-${mm}-${dd}-${hh}-${MM}-${SS}.csv`</span>    <span class="pp">|</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 保持期限         <span class="pp">|</span> 3 年                                           <span class="pp">|</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="fu">## 連携元定義</span></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Category <span class="pp">|</span> Item                                <span class="pp">|</span> Value     <span class="pp">|</span> Memo                 <span class="pp">|</span></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a><span class="pp">| --------</span> <span class="pp">| -----------------------------------</span> <span class="pp">| ---------</span> <span class="pp">| --------------------</span> <span class="pp">|</span></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Protocol <span class="pp">|</span> 連携方式（ファイル/API/ストリーム） <span class="pp">|</span> ファイル  <span class="pp">|</span>                      <span class="pp">|</span></span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>          <span class="pp">|</span> 連携タイミング（随時/定時）         <span class="pp">|</span> 定時      <span class="pp">|</span>                      <span class="pp">|</span></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>          <span class="pp">|</span> 頻度                                <span class="pp">|</span> 1 回/日   <span class="pp">|</span>                      <span class="pp">|</span></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>          <span class="pp">|</span> 起動時間                            <span class="pp">|</span> **16:00** <span class="pp">|</span>                      <span class="pp">|</span></span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>          <span class="pp">|</span> 処理完了期限                        <span class="pp">|</span> **16:00** <span class="pp">|</span>                      <span class="pp">|</span></span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>          <span class="pp">|</span> 未着チェック（なし/WARN/ERROR）     <span class="pp">|</span> WARN      <span class="pp">|</span>                      <span class="pp">|</span></span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>          <span class="pp">|</span> 全件/差分                           <span class="pp">|</span> 差分      <span class="pp">|</span>                      <span class="pp">|</span></span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>          <span class="pp">|</span> 0 件時連携                          <span class="pp">|</span> あり      <span class="pp">|</span>                      <span class="pp">|</span></span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Format   <span class="pp">|</span> ファイル種別                        <span class="pp">|</span> **CSV**   <span class="pp">|</span>                      <span class="pp">|</span></span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>          <span class="pp">|</span> レイアウト                          <span class="pp">|</span> RFC 8259  <span class="pp">|</span>                      <span class="pp">|</span></span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>          <span class="pp">|</span> 文字コード                          <span class="pp">|</span> UTF-8     <span class="pp">|</span>                      <span class="pp">|</span></span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>          <span class="pp">|</span> 改行コード                          <span class="pp">|</span> LF        <span class="pp">|</span>                      <span class="pp">|</span></span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>          <span class="pp">|</span> 圧縮                                <span class="pp">|</span> -         <span class="pp">|</span>                      <span class="pp">|</span></span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>          <span class="pp">|</span> 暗号化                              <span class="pp">|</span> -         <span class="pp">|</span>                      <span class="pp">|</span></span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>          <span class="pp">|</span> ヘッダ行                            <span class="pp">|</span> あり      <span class="pp">|</span>                      <span class="pp">|</span></span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>          <span class="pp">|</span> 項目順                              <span class="pp">|</span> 固定      <span class="pp">|</span> 項目順は入れ替え不可 <span class="pp">|</span></span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>          <span class="pp">|</span> 機密情報                            <span class="pp">|</span> -         <span class="pp">|</span>                      <span class="pp">|</span></span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a><span class="fu">### 項目定義</span></span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Name       <span class="pp">|</span> Physical Name   <span class="pp">|</span> Type   <span class="pp">|</span> Length <span class="pp">|</span> Precision <span class="pp">|</span> Enum <span class="pp">|</span> Format     <span class="pp">|</span> Sensitive <span class="pp">|</span> Example    <span class="pp">|</span> Memo <span class="pp">|</span></span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a><span class="pp">| ----------</span> <span class="pp">| ---------------</span> <span class="pp">| ------</span> <span class="pp">| ------</span> <span class="pp">| ---------</span> <span class="pp">| ----</span> <span class="pp">| ----------</span> <span class="pp">| ---------</span> <span class="pp">| ----------</span> <span class="pp">| ----</span> <span class="pp">|</span></span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 会社コード <span class="pp">|</span> company_cd      <span class="pp">|</span> string <span class="pp">|</span> 5      <span class="pp">|</span> -         <span class="pp">|</span> -    <span class="pp">|</span> -          <span class="pp">|</span> -         <span class="pp">|</span> 00001      <span class="pp">|</span>      <span class="pp">|</span></span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 設備コード <span class="pp">|</span> device_cd       <span class="pp">|</span> string <span class="pp">|</span> 8      <span class="pp">|</span> -         <span class="pp">|</span> -    <span class="pp">|</span> -          <span class="pp">|</span> -         <span class="pp">|</span> 00000052   <span class="pp">|</span>      <span class="pp">|</span></span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 有効開始日 <span class="pp">|</span> activation_date <span class="pp">|</span> string <span class="pp">|</span> 10     <span class="pp">|</span> -         <span class="pp">|</span> -    <span class="pp">|</span> YYYY-MM-DD <span class="pp">|</span> -         <span class="pp">|</span> 2022-10-16 <span class="pp">|</span> <span class="ot">[^1]</span> <span class="pp">|</span></span>
+<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a><span class="ot">[^1]: </span>現在日以降である必要があるが、受信ではテスト観点で過去日も許容する</span>
+<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a><span class="fu">#### サンプル</span></span>
+<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a><span class="in">```csv</span></span>
+<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a><span class="in">company_cd,device_cd,activation_date</span></span>
+<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a><span class="in">12121,00000052,2022-03-01</span></span>
+<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a><span class="in">12121,00000053,2022-03-30</span></span>
+<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a><span class="fu">## 連携先定義</span></span>
+<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Category <span class="pp">|</span> Item                                <span class="pp">|</span> Value     <span class="pp">|</span> Memo                 <span class="pp">|</span></span>
+<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a><span class="pp">| --------</span> <span class="pp">| -----------------------------------</span> <span class="pp">| ---------</span> <span class="pp">| --------------------</span> <span class="pp">|</span></span>
+<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Protocol <span class="pp">|</span> 連携方式（ファイル/API/ストリーム） <span class="pp">|</span> ファイル  <span class="pp">|</span>                      <span class="pp">|</span></span>
+<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>          <span class="pp">|</span> 連携タイミング（随時/定時）         <span class="pp">|</span> 定時      <span class="pp">|</span>                      <span class="pp">|</span></span>
+<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>          <span class="pp">|</span> 頻度                                <span class="pp">|</span> 1 回/日   <span class="pp">|</span>                      <span class="pp">|</span></span>
+<span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>          <span class="pp">|</span> 起動時間                            <span class="pp">|</span> **16:00** <span class="pp">|</span>                      <span class="pp">|</span></span>
+<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>          <span class="pp">|</span> 処理完了期限                        <span class="pp">|</span> **16:00** <span class="pp">|</span>                      <span class="pp">|</span></span>
+<span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>          <span class="pp">|</span> 未着チェック（なし/WARN/ERROR）     <span class="pp">|</span> WARN      <span class="pp">|</span>                      <span class="pp">|</span></span>
+<span id="cb7-81"><a href="#cb7-81" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>          <span class="pp">|</span> 全件/差分                           <span class="pp">|</span> 差分      <span class="pp">|</span>                      <span class="pp">|</span></span>
+<span id="cb7-82"><a href="#cb7-82" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>          <span class="pp">|</span> 0 件時連携                          <span class="pp">|</span> あり      <span class="pp">|</span>                      <span class="pp">|</span></span>
+<span id="cb7-83"><a href="#cb7-83" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Format   <span class="pp">|</span> ファイル種別                        <span class="pp">|</span> **CSV**   <span class="pp">|</span>                      <span class="pp">|</span></span>
+<span id="cb7-84"><a href="#cb7-84" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>          <span class="pp">|</span> レイアウト                          <span class="pp">|</span> RFC 8259  <span class="pp">|</span>                      <span class="pp">|</span></span>
+<span id="cb7-85"><a href="#cb7-85" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>          <span class="pp">|</span> 文字コード                          <span class="pp">|</span> UTF-8     <span class="pp">|</span>                      <span class="pp">|</span></span>
+<span id="cb7-86"><a href="#cb7-86" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>          <span class="pp">|</span> 改行コード                          <span class="pp">|</span> LF        <span class="pp">|</span>                      <span class="pp">|</span></span>
+<span id="cb7-87"><a href="#cb7-87" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>          <span class="pp">|</span> 圧縮                                <span class="pp">|</span> -         <span class="pp">|</span>                      <span class="pp">|</span></span>
+<span id="cb7-88"><a href="#cb7-88" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>          <span class="pp">|</span> 暗号化                              <span class="pp">|</span> -         <span class="pp">|</span>                      <span class="pp">|</span></span>
+<span id="cb7-89"><a href="#cb7-89" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>          <span class="pp">|</span> ヘッダ行                            <span class="pp">|</span> あり      <span class="pp">|</span>                      <span class="pp">|</span></span>
+<span id="cb7-90"><a href="#cb7-90" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>          <span class="pp">|</span> 項目順                              <span class="pp">|</span> 固定      <span class="pp">|</span> 項目順は入れ替え不可 <span class="pp">|</span></span>
+<span id="cb7-91"><a href="#cb7-91" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>          <span class="pp">|</span> 機密情報                            <span class="pp">|</span> -         <span class="pp">|</span>                      <span class="pp">|</span></span>
+<span id="cb7-92"><a href="#cb7-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-93"><a href="#cb7-93" aria-hidden="true" tabindex="-1"></a><span class="fu">## 処理概要</span></span>
+<span id="cb7-94"><a href="#cb7-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-95"><a href="#cb7-95" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>ファイル定義に則ったバリデーションを実施</span>
+<span id="cb7-96"><a href="#cb7-96" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>次の項目変換定義に従い加工し、出力先テーブルに Merge する</span>
+<span id="cb7-97"><a href="#cb7-97" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>受信完了後、 Completed: YYYY-MM-DDTHH<span class="sc">:MI:</span>SS.SSS のタグを追加する</span>
+<span id="cb7-98"><a href="#cb7-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-99"><a href="#cb7-99" aria-hidden="true" tabindex="-1"></a><span class="fu">## 処理シーケンス</span></span>
+<span id="cb7-100"><a href="#cb7-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-101"><a href="#cb7-101" aria-hidden="true" tabindex="-1"></a><span class="in">```plantuml</span></span>
+<span id="cb7-102"><a href="#cb7-102" aria-hidden="true" tabindex="-1"></a><span class="in">@startuml</span></span>
+<span id="cb7-103"><a href="#cb7-103" aria-hidden="true" tabindex="-1"></a><span class="in">!theme toy</span></span>
+<span id="cb7-104"><a href="#cb7-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-105"><a href="#cb7-105" aria-hidden="true" tabindex="-1"></a><span class="in">participant システム</span></span>
+<span id="cb7-106"><a href="#cb7-106" aria-hidden="true" tabindex="-1"></a><span class="in">participant S3</span></span>
+<span id="cb7-107"><a href="#cb7-107" aria-hidden="true" tabindex="-1"></a><span class="in">database DB</span></span>
+<span id="cb7-108"><a href="#cb7-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-109"><a href="#cb7-109" aria-hidden="true" tabindex="-1"></a><span class="in">システム -&gt; DB: 処理日付取得\n[日付管理]</span></span>
+<span id="cb7-110"><a href="#cb7-110" aria-hidden="true" tabindex="-1"></a><span class="in">システム -&gt; S3: 対象ファイルの存在チェック</span></span>
+<span id="cb7-111"><a href="#cb7-111" aria-hidden="true" tabindex="-1"></a><span class="in">alt ファイルが存在しなかった場合</span></span>
+<span id="cb7-112"><a href="#cb7-112" aria-hidden="true" tabindex="-1"></a><span class="in">   システム -&gt; システム: 処理終了して、次の処理を待機</span></span>
+<span id="cb7-113"><a href="#cb7-113" aria-hidden="true" tabindex="-1"></a><span class="in">end</span></span>
+<span id="cb7-114"><a href="#cb7-114" aria-hidden="true" tabindex="-1"></a><span class="in">システム -&gt; DB: シーケンスの取得\n[シーケンスオブジェクト]</span></span>
+<span id="cb7-115"><a href="#cb7-115" aria-hidden="true" tabindex="-1"></a><span class="in">システム -&gt; DB: 1.実行開始レコード追加\n[IF受信管理]</span></span>
+<span id="cb7-116"><a href="#cb7-116" aria-hidden="true" tabindex="-1"></a><span class="in">システム -&gt; S3: 対象ファイルを取得</span></span>
+<span id="cb7-117"><a href="#cb7-117" aria-hidden="true" tabindex="-1"></a><span class="in">システム -&gt; DB: 対象マスタのTruncate</span></span>
+<span id="cb7-118"><a href="#cb7-118" aria-hidden="true" tabindex="-1"></a><span class="in">システム -&gt; DB: ファイル連携処理</span></span>
+<span id="cb7-119"><a href="#cb7-119" aria-hidden="true" tabindex="-1"></a><span class="in">システム -&gt; システム: 連携件数確認</span></span>
+<span id="cb7-120"><a href="#cb7-120" aria-hidden="true" tabindex="-1"></a><span class="in">システム -&gt; S3: 処理済対象ファイルを格納</span></span>
+<span id="cb7-121"><a href="#cb7-121" aria-hidden="true" tabindex="-1"></a><span class="in">システム -&gt; DB: 2.実行終了状態の更新\n[IF受信管理]</span></span>
+<span id="cb7-122"><a href="#cb7-122" aria-hidden="true" tabindex="-1"></a><span class="in">@enduml</span></span>
+<span id="cb7-123"><a href="#cb7-123" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-124"><a href="#cb7-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-125"><a href="#cb7-125" aria-hidden="true" tabindex="-1"></a><span class="fu">## DB 項目</span></span>
+<span id="cb7-126"><a href="#cb7-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-127"><a href="#cb7-127" aria-hidden="true" tabindex="-1"></a><span class="fu">### 参照</span></span>
+<span id="cb7-128"><a href="#cb7-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-129"><a href="#cb7-129" aria-hidden="true" tabindex="-1"></a>なし</span>
+<span id="cb7-130"><a href="#cb7-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-131"><a href="#cb7-131" aria-hidden="true" tabindex="-1"></a><span class="fu">### 登録</span></span>
+<span id="cb7-132"><a href="#cb7-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-133"><a href="#cb7-133" aria-hidden="true" tabindex="-1"></a>リストワークに以下のカラムでレコードを登録する</span>
+<span id="cb7-134"><a href="#cb7-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-135"><a href="#cb7-135" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>xxx ワーク.会社コード</span>
+<span id="cb7-136"><a href="#cb7-136" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>xxx ワーク.処理日付</span>
+<span id="cb7-137"><a href="#cb7-137" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>xxx ワーク.yyy 区分</span>
+<span id="cb7-138"><a href="#cb7-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-139"><a href="#cb7-139" aria-hidden="true" tabindex="-1"></a><span class="fu">### 更新</span></span>
+<span id="cb7-140"><a href="#cb7-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-141"><a href="#cb7-141" aria-hidden="true" tabindex="-1"></a>なし</span>
+<span id="cb7-142"><a href="#cb7-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-143"><a href="#cb7-143" aria-hidden="true" tabindex="-1"></a><span class="fu">## ビジネスロジック</span></span>
+<span id="cb7-144"><a href="#cb7-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-145"><a href="#cb7-145" aria-hidden="true" tabindex="-1"></a>特記事項なし</span>
+<span id="cb7-146"><a href="#cb7-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-147"><a href="#cb7-147" aria-hidden="true" tabindex="-1"></a><span class="fu">## エラー処理</span></span>
+<span id="cb7-148"><a href="#cb7-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-149"><a href="#cb7-149" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Pattern            <span class="pp">|</span> Description                                <span class="pp">|</span> recovery                               <span class="pp">|</span></span>
+<span id="cb7-150"><a href="#cb7-150" aria-hidden="true" tabindex="-1"></a><span class="pp">| ------------------</span> <span class="pp">| ------------------------------------------</span> <span class="pp">| --------------------------------------</span> <span class="pp">|</span></span>
+<span id="cb7-151"><a href="#cb7-151" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> フォーマットエラー <span class="pp">|</span> 連携元から提供されているデータ形式が想定外 <span class="pp">|</span> 連携元またはIFの処理内容の修正と再実行 <span class="pp">|</span></span></code></pre></div>
+<p>:::</p>
+<h1 data-number="9" id="謝辞"><span class="header-section-number">9</span> 謝辞</h1>
+<p>このアーキテクチャガイドラインの作成には多くの方々にご協力いただいた。心より感謝申し上げる。</p>
+<ul>
+<li><strong>作成者</strong>:
+真野隼記、武田大輝、宮崎将太、澁川喜規、合田飛、山本竜玄、清水雄一郎、保谷安胤、洞内惇、橋本竜我</li>
+</ul>
+</body>
+</html>

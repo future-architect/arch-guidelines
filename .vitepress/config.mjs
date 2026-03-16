@@ -162,6 +162,13 @@ const links = {
       link: "/documents/forSoftSkill/softskill_guidelines.html",
     },
   ],
+  "/documents/forTechnicalWriting/": [
+    { text: "Introduction", link: "/documents/forTechnicalWriting/" },
+    {
+      text: "テクニカルライティングガイドライン",
+      link: "/documents/forTechnicalWriting/technical_writing_guidelines.html",
+    },
+  ],
 };
 
 /**

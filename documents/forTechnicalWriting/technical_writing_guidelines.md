@@ -62,10 +62,10 @@ flowchart LR
         direction TB
         step2["2. 導入の作法"]
         step3["3. 本論の作法"]
-        step4["2. 構造化"]
-        step5["3. 簡潔さ"]
-        step6["4. 表現の正確性"]
-        step7["5. 実践応用"]
+        step4["4. 構造化"]
+        step5["5. 簡潔さ"]
+        step6["6. 表現の正確性"]
+        step7["7. 実践応用"]
 
         step2 --> step3 --> step4 --> step5 --> step6 --> step7
     end

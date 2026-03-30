@@ -54,6 +54,9 @@ hero:
       text: Slack利用
       link: ./documents/forSlack/
     - theme: alt
+      text: テクニカルライティング
+      link: ./documents/forTechnicalWriting/
+    - theme: alt
       text: ソフトスキル
       link: ./documents/forSoftSkill/
 features:

@@ -358,15 +358,19 @@ export default defineConfig({
                 text: "コードレビュー",
                 link: "/documents/forCodeReview/code_review.html",
               },
-              {
-                text: "Slack利用",
-                link: "/documents/forSlack/slack_usage_guidelines.html",
-              },
             ],
           },
           {
             text: "その他",
             items: [
+              {
+                text: "Slack利用",
+                link: "/documents/forSlack/slack_usage_guidelines.html",
+              },
+              {
+                text: "テクニカルライティング",
+                link: "/documents/forTechnicalWriting/technical_writing_guidelines.html",
+              },
               {
                 text: "ソフトスキル",
                 link: "/documents/forSoftSkill/softskill_guidelines.html",

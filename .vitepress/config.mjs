@@ -169,6 +169,13 @@ const links = {
       link: "/documents/forTechnicalWriting/technical_writing_guidelines.html",
     },
   ],
+  "/documents/forPrinciple/": [
+    { text: "Introduction", link: "/documents/forPrinciple/" },
+    {
+      text: "アーキテクチャ原理原則と心得ガイドライン",
+      link: "/documents/forPrinciple/principle_guidelines.html",
+    },
+  ],
 };
 
 /**

@@ -96,6 +96,13 @@ const links = {
       link: "/documents/forTerraform/terraform_guidelines.html",
     },
   ],
+  "/documents/forDataGovernance/": [
+    { text: "Introduction", link: "/documents/forDataGovernance/" },
+    {
+      text: "データガバナンス設計ガイドライン",
+      link: "/documents/forDataGovernance/data_governance_guidelines.html",
+    },
+  ],
   "/documents/forDataManagement/": [
     { text: "Introduction", link: "/documents/forDataManagement/" },
     {

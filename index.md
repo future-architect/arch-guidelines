@@ -36,6 +36,9 @@ hero:
       text: Terraform
       link: ./documents/forTerraform/
     - theme: brand
+      text: データガバナンス
+      link: ./documents/forDataGovernance/
+    - theme: brand
       text: データマネジメント
       link: ./documents/forDataManagement/
     - theme: brand
@@ -53,6 +56,9 @@ hero:
     - theme: alt
       text: Slack利用
       link: ./documents/forSlack/
+    - theme: alt
+      text: アーキテクチャ原則
+      link: ./documents/forPrinciple/
     - theme: alt
       text: テクニカルライティング
       link: ./documents/forTechnicalWriting/

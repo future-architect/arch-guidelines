@@ -162,6 +162,13 @@ const links = {
       link: "/documents/forCodeReview/code_review.html",
     },
   ],
+  "/documents/forPrinciple/": [
+    { text: "Introduction", link: "/documents/forPrinciple/" },
+    {
+      text: "アーキテクチャ原則ガイドライン",
+      link: "/documents/forPrinciple/principle_guidelines.html",
+    },
+  ],
   "/documents/forSoftSkill/": [
     { text: "Introduction", link: "/documents/forSoftSkill/" },
     {
@@ -174,13 +181,6 @@ const links = {
     {
       text: "テクニカルライティングガイドライン",
       link: "/documents/forTechnicalWriting/technical_writing_guidelines.html",
-    },
-  ],
-  "/documents/forPrinciple/": [
-    { text: "Introduction", link: "/documents/forPrinciple/" },
-    {
-      text: "アーキテクチャ原理原則と心得ガイドライン",
-      link: "/documents/forPrinciple/principle_guidelines.html",
     },
   ],
 };
@@ -339,6 +339,10 @@ export default defineConfig({
                 link: "/documents/forDB/dynamodb_guidelines.html",
               },
               {
+                text: "データガバナンス",
+                link: "/documents/forDataGovernance/data_governance_guidelines.html",
+              },
+              {
                 text: "データマネジメント",
                 link: "/documents/forDataManagement/datamanagement_guidelines.html",
               },
@@ -380,6 +384,10 @@ export default defineConfig({
               {
                 text: "Slack利用",
                 link: "/documents/forSlack/slack_usage_guidelines.html",
+              },
+              {
+                text: "アーキテクチャ原則",
+                link: "/documents/forPrinciple/principle_guidelines.html",
               },
               {
                 text: "テクニカルライティング",

@@ -183,6 +183,13 @@ const links = {
       link: "/documents/forTechnicalWriting/technical_writing_guidelines.html",
     },
   ],
+  "/documents/forPerformanceTest/": [
+    { text: "Introduction", link: "/documents/forPerformanceTest/" },
+    {
+      text: "はじめての性能テスト",
+      link: "/documents/forPerformanceTest/performance_test.html",
+    },
+  ],
 };
 
 /**

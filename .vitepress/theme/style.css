@@ -137,3 +137,8 @@ h6 {
 .img_mini img {
   width: 25%;
 }
+
+/* タスクリストの中黒を非表示 */
+.task-list-item {
+  list-style: none;
+}

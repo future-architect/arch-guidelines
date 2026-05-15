@@ -142,3 +142,19 @@ h6 {
 .task-list-item {
   list-style: none;
 }
+
+/* タスクリスト全体の左パディングを一旦リセット（1階層目を左に寄せる） */
+.vp-doc ul.contains-task-list {
+  padding-left: 0;
+}
+
+/* ネストされた（liの中にある）タスクリストにはインデントを再設定 */
+.vp-doc li.task-list-item > ul.contains-task-list {
+  padding-left: 1.5em;
+}
+
+/* チェックボックス自体の位置とテキストとの間隔を調整 */
+.vp-doc .task-list-item input[type="checkbox"] {
+  margin-left: 0;
+  margin-right: 4px;
+}

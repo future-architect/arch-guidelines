@@ -4,7 +4,7 @@
   "description": "Future Enterprise Arch Guidelines",
   "main": "index.js",
   "scripts": {
-    "watch": "vitepress dev . --open",
+    "watch": "vitepress dev . --open --host 0.0.0.0",
     "build": "vitepress build .",
     "lint": "npm run lint:format && npm run lint:js",
     "lint:js": "eslint . .vitepress",

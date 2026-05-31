@@ -44,6 +44,9 @@ hero:
     - theme: brand
       text: ログ
       link: ./documents/forLog/
+    - theme: brand
+      text: 性能テスト
+      link: ./documents/forPerformanceTest/
     - theme: alt
       text: Gitブランチフロー
       link: ./documents/forGitBranch/

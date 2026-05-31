@@ -386,6 +386,15 @@ export default defineConfig({
             ],
           },
           {
+            text: "はじめての〇〇シリーズ",
+            items: [
+              {
+                text: "はじめての性能テスト",
+                link: "/documents/forPerformanceTest/performance_test.html",
+              },
+            ],
+          },
+          {
             text: "その他",
             items: [
               {

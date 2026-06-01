@@ -2308,6 +2308,13 @@ AWS CloudFrontなど主要なCDNを用いている場合は設定変更のみで
 - [The Art of Application Performance Testing](https://a.co/d/02IcQKwY)
 - [Amazon Web Services負荷試験入門 ―クラウドの性能の引き出し方がわかる](https://gihyo.jp/book/2017/978-4-7741-9262-8)
 
+# 謝辞
+
+このガイドラインの作成には多くの方々にご協力いただいた。心より感謝申し上げる。
+
+- 作成者: 武田大輝、宮崎将太
+- レビュアー: 真野隼記、澁川喜規、亀井隆徳、山田勇一、前原応光、村瀬善則
+
 [^1]: カッコ内の英語は[原文](https://astqb.org/assets/documents/ISTQB-CTFL-PT-Syllabus-2018.pdf)の記載にもとづいている
 
 [^2]: <https://aws.amazon.com/jp/what-is/latency/>

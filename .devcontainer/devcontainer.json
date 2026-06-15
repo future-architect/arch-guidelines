@@ -7,7 +7,7 @@
 
   // Features to add to the dev container. More info: https://containers.dev/features.
   "features": {
-    "ghcr.io/devcontainers/features/node:2": {
+    "ghcr.io/devcontainers/features/node:": {
       "version": "24.15.0",
       "npmVersion": "11.14.1"
     }

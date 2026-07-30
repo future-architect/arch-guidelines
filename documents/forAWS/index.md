@@ -40,6 +40,8 @@ hero:
 
 - 2025.12.12 [AWS設計ガイドラインを公開しました](https://future-architect.github.io/articles/20251212a/)
 
----
+<div class="next-page-nav">
 
 次のページ: [AWS設計ガイドライン](./aws_guidelines.md)
+
+</div>

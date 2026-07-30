@@ -62,6 +62,8 @@ hero:
 
 - 2025.10.03 [メール設計ガイドラインを公開しました](https://future-architect.github.io/articles/20251003a/)
 
----
+<div class="next-page-nav">
 
 次のページ: [メール設計ガイドライン](./mail_guidelines.md)
+
+</div>

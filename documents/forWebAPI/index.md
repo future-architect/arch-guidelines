@@ -54,6 +54,8 @@ hero:
 
 - 2025.05.13 [Web API設計ガイドラインを公開しました](https://future-architect.github.io/articles/20250513b/)
 
----
+<div class="next-page-nav">
 
 次のページ: [Web API設計ガイドライン](./web_api_guidelines.md)
+
+</div>

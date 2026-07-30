@@ -82,6 +82,8 @@ graph LR
 
 - 2026.02.20 [非同期設計ガイドラインを公開しました](https://future-architect.github.io/articles/20260220a/)
 
----
+<div class="next-page-nav">
 
 次のページ: [非同期設計ガイドライン](./async_guidelines.md)
+
+</div>

@@ -66,6 +66,8 @@ hero:
 
 - 2026.06.10 [はじめての性能テストを公開しました](https://future-architect.github.io/articles/20260610a/)
 
----
+<div class="next-page-nav">
 
 次のページ: [はじめての性能テスト](./performance_test.md)
+
+</div>

@@ -44,7 +44,7 @@ hero:
     - theme: brand
       text: ログ
       link: ./documents/forLog/
-    - theme: brand
+    - theme: alt
       text: 性能テスト
       link: ./documents/forPerformanceTest/
     - theme: alt

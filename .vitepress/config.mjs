@@ -176,6 +176,21 @@ const links = {
       link: "/documents/forSoftSkill/softskill_guidelines.html",
     },
   ],
+  "/documents/forNFR/": [
+    { text: "はじめての非機能要件", link: "/documents/forNFR/" },
+    { text: "第一部 全体プロセス編", link: "/documents/forNFR/overview.html" },
+    {
+      text: "第二部 個別ナレッジ編",
+      link: "/documents/forNFR/knowledge.html",
+      items: [
+        {
+          text: "可用性",
+          link: "/documents/forNFR/availability.html",
+        },
+      ],
+    },
+    { text: "Appendix", link: "/documents/forNFR/appendix.html" },
+  ],
   "/documents/forTechnicalWriting/": [
     { text: "Introduction", link: "/documents/forTechnicalWriting/" },
     {

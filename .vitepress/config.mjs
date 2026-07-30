@@ -63,6 +63,10 @@ const links = {
       text: "メール設計ガイドライン",
       link: "/documents/forMail/mail_guidelines.html",
     },
+    {
+      text: "SMS設計ガイドライン",
+      link: "/documents/forMail/sms_guidelines.html",
+    },
   ],
   "/documents/forLog/": [
     { text: "Introduction", link: "/documents/forLog/" },

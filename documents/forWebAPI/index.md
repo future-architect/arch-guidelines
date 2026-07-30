@@ -38,6 +38,11 @@ hero:
 
 また、本ガイドラインの適用範囲は、Web APIのサーバサイドの設計についてまとめる。クライアントサイドについては対象外とする。
 
+## 参考資料
+
+- [Web API 設計のベスト プラクティス \- Azure Architecture Center](https://learn.microsoft.com/ja-jp/azure/architecture/best-practices/api-design)
+- [Web API 実装 \- Best practices for cloud applications](https://learn.microsoft.com/ja-jp/azure/architecture/best-practices/api-implementation)
+
 ## 謝辞
 
 このアーキテクチャガイドラインの作成には多くの方々にご協力いただいた。心より感謝申し上げる。
@@ -47,7 +52,7 @@ hero:
 
 ## Articles
 
-- 2025.5.13 [Web API設計ガイドラインを公開しました](https://future-architect.github.io/articles/20250513b/)
+- 2025.05.13 [Web API設計ガイドラインを公開しました](https://future-architect.github.io/articles/20250513b/)
 
 ---
 

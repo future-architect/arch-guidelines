@@ -80,7 +80,7 @@ graph LR
 
 ## Articles
 
-- 2026.2.20 [非同期設計ガイドラインを公開しました](https://future-architect.github.io/articles/20260220a/)
+- 2026.02.20 [非同期設計ガイドラインを公開しました](https://future-architect.github.io/articles/20260220a/)
 
 ---
 

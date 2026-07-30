@@ -2017,7 +2017,7 @@ Terraformを用いたGitブランチフローの例を下図で示す。図で�
 
 ![featureブランチでterraform plan、developブランチでdev環境にapply、mainブランチでstgとproduction環境にapplyする様子](terraform_workflow.drawio.png)
 
-Gitブランチフローの詳細は、[Gitブランチフロー規約 | Future Enterprise Coding Standards](https://future-architect.github.io/coding-standards/documents/forGitBranch/git_branch_standards.html#terraform%E3%81%AF%E3%83%AC%E3%83%92%E3%82%99%E3%83%A5%E3%83%BC%E4%BE%9D%E9%A0%BC%E6%99%82%E7%82%B9%E3%81%A6%E3%82%99%E3%81%A8%E3%82%99%E3%81%93%E3%81%BE%E3%81%A6%E3%82%99%E7%A2%BA%E8%AA%8D%E3%81%97%E3%81%A6%E3%81%8A%E3%81%8F%E3%81%B8%E3%82%99%E3%81%8D%E3%81%8B) を確認すること。
+Gitブランチフローの詳細は、[Gitブランチフローガイドライン](/documents/forGitBranch/git_branch_standards.html#terraform%E3%81%AF%E3%83%AC%E3%83%92%E3%82%99%E3%83%A5%E3%83%BC%E4%BE%9D%E9%A0%BC%E6%99%82%E7%82%B9%E3%81%A6%E3%82%99%E3%81%A8%E3%82%99%E3%81%93%E3%81%BE%E3%81%A6%E3%82%99%E7%A2%BA%E8%AA%8D%E3%81%97%E3%81%A6%E3%81%8A%E3%81%8F%E3%81%B8%E3%82%99%E3%81%8D%E3%81%8B) を確認すること。
 
 推奨は以下の通り。
 
@@ -2180,9 +2180,3 @@ infrastructure                      # アプリケーションコードとリポ
 - `.terraform.lock.hcl` も `.gitignore` に追加し、Git管理対象外とする
 - [バージョン固定](#バージョン固定)章のとおり、パッチバージョンまでバージョンを明示的に固定する方針のため、ロックファイルをチームで共有する強い理由が存在しないため
 - 上記の前提として、バージョン管理が適切ではないProviderやModuleなどを利用しないこと
-
-# 参考資料
-
-- [Terraform を使用するためのベスト プラクティス | Google Cloud](https://cloud.google.com/docs/terraform/best-practices-for-terraform?hl=ja)
-- [コードベースの構造と組織のベストプラクティス - AWS 規範ガイダンス](https://docs.aws.amazon.com/ja_jp/prescriptive-guidance/latest/terraform-aws-provider-best-practices/structure.html)
-- [最低限のTerraformコード規約を定義した | Zenn](https://zenn.dev/coconala/articles/create_code_policy)

@@ -9,6 +9,9 @@ hero:
     - theme: brand
       link: ./performance_test.md
       text: 性能テスト
+    - theme: alt
+      link: ./appendix.md
+      text: Appendix
 ---
 
 ## はじめに
@@ -46,12 +49,22 @@ hero:
 オンプレミス環境ではなくAWS等のパブリッククラウド環境を想定している。  
 ただし、本ガイドラインに記載されている考え方の大部分はオンプレミス環境でも適用できるものである。オンプレミス固有の考慮事項などは、適宜補足を入れた上で説明する。
 
+## 参考文献
+
+- Myers・Sandler・Badgett（2011）『The Art of Software Testing, Third Edition』Wiley
+- Molyneaux（2009）『The Art of Application Performance Testing』O'Reilly Media
+- 仲川・森下（2017）『Amazon Web Services負荷試験入門 ―クラウドの性能の引き出し方がわかる』技術評論社
+
 ## 謝辞
 
 このガイドラインの作成には多くの方々にご協力いただいた。心より感謝申し上げる。
 
 - **作成者**: 武田大輝、宮崎将太
 - **レビュアー**: 真野隼記、澁川喜規、亀井隆徳、山田勇一、前原応光、村瀬善則
+
+## Articles
+
+- 2026.06.10 [はじめての性能テストを公開しました](https://future-architect.github.io/articles/20260610a/)
 
 ---
 

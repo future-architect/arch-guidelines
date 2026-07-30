@@ -76,7 +76,7 @@ I/Fとはインタフェースの略で、ここではシステム間のデー�
 
 ## Articles
 
-- 2025.8.18 [I/F設計ガイドラインを公開しました](https://future-architect.github.io/articles/20250818a/)
+- 2025.08.18 [I/F設計ガイドラインを公開しました](https://future-architect.github.io/articles/20250818a/)
 
 ---
 

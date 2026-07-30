@@ -83,7 +83,7 @@ flowchart LR
 
 ## Articles
 
-- 2026.7.23 [データガバナンス設計ガイドラインを公開しました](https://future-architect.github.io/articles/20260723a/)
+- 2026.07.23 [データガバナンス設計ガイドラインを公開しました](https://future-architect.github.io/articles/20260723a/)
 
 ---
 

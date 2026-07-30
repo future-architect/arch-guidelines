@@ -10,3 +10,7 @@ hero:
       text: データガバナンス
       link: ./data_governance_guidelines.md
 ---
+
+## Articles
+
+- 2026.7.23 [データガバナンス設計ガイドラインを公開しました](https://future-architect.github.io/articles/20260723a/)

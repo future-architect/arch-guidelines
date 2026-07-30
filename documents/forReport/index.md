@@ -10,9 +10,3 @@ hero:
       text: 帳票利用ガイドライン
       link: ./report_guidelines.md
 ---
-
-# 関連したガイドライン
-
-- [I/F設計ガイドライン](/documents/forIF/if_guidelines.html)
-- [メール設計ガイドライン](/documents/forMail/mail_guidelines.html)
-- [ログ設計ガイドライン](/documents/forLog/log_guidelines.html)

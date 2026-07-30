@@ -11,6 +11,6 @@ hero:
       link: ./log_guidelines.md
 ---
 
-# Articles
+## Articles
 
 - 2026.02.10 [ログ設計ガイドラインを公開しました](https://future-architect.github.io/articles/20260210a/)

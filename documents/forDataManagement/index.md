@@ -11,6 +11,6 @@ hero:
       link: ./datamanagement_guidelines.md
 ---
 
-# Articles
+## Articles
 
 - 2025.12.29 [データマネジメント設計ガイドラインを公開しました](https://future-architect.github.io/articles/20251229a/)

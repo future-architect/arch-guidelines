@@ -14,6 +14,7 @@ hero:
       link: ./dynamodb_guidelines.md
 ---
 
-# Articles
+## Articles
 
 - 2025.5.30 [PostgreSQL設計ガイドラインのご紹介](https://future-architect.github.io/articles/20250530a/)
+- 2026.2.27 [DynamoDB設計ガイドラインを公開しました](https://future-architect.github.io/articles/20260227a/)

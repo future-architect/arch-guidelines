@@ -11,6 +11,6 @@ hero:
       link: ./web_api_guidelines.md
 ---
 
-# Articles
+## Articles
 
 - 2025.5.13 [Web API設計ガイドラインを公開しました](https://future-architect.github.io/articles/20250513b/)

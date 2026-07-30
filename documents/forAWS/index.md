@@ -11,6 +11,6 @@ hero:
       link: ./aws_guidelines.md
 ---
 
-# Articles
+## Articles
 
 - 2025.12.12 [AWS設計ガイドラインを公開しました](https://future-architect.github.io/articles/20251212a/)

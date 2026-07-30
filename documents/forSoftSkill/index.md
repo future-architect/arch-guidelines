@@ -11,6 +11,6 @@ hero:
       link: ./softskill_guidelines.md
 ---
 
-# Articles
+## Articles
 
 - 2026.01.22 [ソフトスキルガイドラインを公開しました](https://future-architect.github.io/articles/20260122a/)

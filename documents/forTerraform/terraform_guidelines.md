@@ -1033,7 +1033,7 @@ resource "aws_hogehoge" "sample_resource" {
 
 |            | （1）main.tf 集約                                                                              | （2）論理グループ化                                                                     | （3）リソース種別分離                                                                                                                             |
 | :--------- | :--------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 例         | main.tf <br>---<br>backend.tf <br>providers.tf <br>terraform.tf <br>locals.tf <br>variables.tf | network.tf <br>storage.tf <br>db.tf <br>compute.tf <br>---<br> ・・・                   | s3_bucket.tf <br>s3_bucket_acl.tf <br>s3_bucket_cors_configuration.tf <br>---<br> ・・・                                                          |
+| 例         | main.tf <br>---<br>backend.tf <br>providers.tf <br>terraform.tf <br>locals.tf <br>variables.tf | network.tf <br>storage.tf <br>db.tf <br>compute.tf <br>---<br> …                   | s3_bucket.tf <br>s3_bucket_acl.tf <br>s3_bucket_cors_configuration.tf <br>---<br> …                                                          |
 | 説明       | main.tfにリソース定義を一括で記載するケース。                                                  | 何かしらの論理グループごとにmain.tfを分割したパターン。論理グループの作成粒度が肝となる | Terraformのリソース種別ごとにファイルを分割するパターン。例えば、S3バケットを新規作成する場合も、複数のファイルへ定義の追加が必要となる場合がある |
 | 設計難易度 | ⚠️中規模以上ではモジュール運用が必須                                                           | ⚠️ファイル粒度の設計が必要。                                                            | ✅️容易                                                                                                                                            |
 | 運用難易度 | ✅️容易                                                                                         | ⚠️論理グループの設計によっては、後で再設計が必要となる懸念                              | ✅️容易                                                                                                                                            |
@@ -1509,7 +1509,7 @@ data "aws_subnet" "foo_example" {
 
 ## リモートステートの保持バケット
 
-リモートステートを管理するためのバケットは、 `terraform init` する前に必要であるため、通常はTerraform構築対象外とすることが多い。それゆえ、コンソール画面経由や、CLI経由で作成するチームも多い。一方で `backend=false` とし、ステートファイルをgit commitして管理することも考えられる。これを行うメリットは、インフラ構築をTerraformで統一することで、運用手順書などの作成を極小化できることなどがある。
+リモートステートを管理するためのバケットは、 `terraform init` する前に必要であるため、通常はTerraform構築対象外とすることが多い。それゆえ、コンソール画面経由や、CLI経由で作成するチームも多い。一方で `backend=false` とし、ステートファイルをGit commitして管理することも考えられる。これを行うメリットは、インフラ構築をTerraformで統一することで、運用手順書などの作成を極小化できることなどがある。
 
 【リモートステートを保持するバケットの作成案】
 
@@ -1630,7 +1630,7 @@ terraform_dataはTerraform 1.4で追加された機能で、null_resourceと機�
 
 その時点の最新バージョンを利用すること。
 
-## バージョン固定
+## バージョン固定
 
 Terraform上で管理すべきバージョンは以下2種類存在する。
 
@@ -2083,7 +2083,7 @@ terraform validate
 
 pre-commitの構築は、 [pre-commit](https://terraform-docs.io/how-to/pre-commit-hooks/) を利用しても良い。利用しない場合は、以下のような手順を踏む。
 
-1. `.githooks/pre-commit` フォルダにスクリプトを追加し、gitコミット
+1. `.githooks/pre-commit` フォルダにスクリプトを追加し、Gitコミット
 2. `chmod +x .githooks/pre-commit` で権限付与
 3. `git config --local core.hooksPath .githooks` でコミットフックのパスを設定
 
@@ -2111,7 +2111,7 @@ terraform apply --target={aws_instance.example1,aws_security_group.example2,aws_
 
 推奨は以下の通り。
 
-- featureブランチからterraform applyをするGitブランチ運用になっている場合、dev環境においては、target運用を許容する
+- featureブランチからterraform applyをするGitブランチ運ようになっている場合、dev環境においては、target運用を許容する
 - 原則、stgはtargetによる絞り込みを許可しない
   - stgで動作確認を長期間行う必要がある場合など一時的とし、恒常的な運用としない
 - いかなる場合も、prod環境では、targetによる絞り込みは許可しない

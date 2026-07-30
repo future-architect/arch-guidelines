@@ -1323,7 +1323,7 @@ ALB関連で監視対象となり得る主要なメトリクスを下表にま�
 
 推奨は以下の通り。
 
-- `GetRecords.IteratorAgeMilliseconds` は保持期限の50％を超過した場合にWARN、80%以上でERRORにする
+- `GetRecords.IteratorAgeMilliseconds` は保持期限の50％を超過した場合にWARN、80％以上でERRORにする
 - `ReadProvisionedThroughputExceeded` や `WriteProvisionedThroughputExceeded` は Average で0.8 以上（※しきい値は任意に変更可）でWARNまたはERRORにするといった対応を加える
   - 対応としては、流量確認・オンデマンドの場合はシャード追加などを行う
 

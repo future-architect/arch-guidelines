@@ -14,7 +14,7 @@ head:
 
 位置づけ・前提・免責事項は [Introduction](./index.md) を参照。
 
-# git config推奨設定
+# Git config推奨設定
 
 `git config` の推奨設定を紹介する。特にGitワークフローの設定が重要である。
 
@@ -51,14 +51,14 @@ git config --global alias.br branch
 
 # クレデンシャル情報の混入防止
 
-## git-secrets
+## Git-secrets
 
 [git-secrets](https://github.com/awslabs/git-secrets)を用いることで、ユーザーパスワードや AWS アクセスキーなどの機密情報が含まれる可能性のあるコードなどをGit リポジトリに追加されないようにできる。
 
 本ガイドラインの推奨と理由は以下。
 
 - チームメンバー全員に `git-secrets` を導入する
-  - Push Protection によってクレデンシャルのリモートへの Push は防げるが、ローカルにクレデンシャルを含むコミット履歴が残っていると復元される可能性がある。そこで、git-secrets を用いてコミット段階でクレデンシャルを拒否する設定を行っておく
+  - Push Protection によってクレデンシャルのリモートへの Push は防げるが、ローカルにクレデンシャルを含むコミット履歴が残っていると復元される可能性がある。そこで、Git-secrets を用いてコミット段階でクレデンシャルを拒否する設定を行っておく
 
 ## Push Protection
 
@@ -92,7 +92,7 @@ Secret Scanningではコードだけでなく、IssueやPull Requestなどもス
 本ガイドラインの推奨と理由は以下。
 
 - `git hooks` を用いたテスト実行は行わない
-  - gitのコマンドを実行するライフサイクルと、動作検証を行いたいライフサイクルは同じでないため、軽微な修正の度にテストが実行されると、作業効率が下がるため
+  - Gitのコマンドを実行するライフサイクルと、動作検証を行いたいライフサイクルは同じでないため、軽微な修正の度にテストが実行されると、作業効率が下がるため
   - CI側でテストが実行されるため、最悪CIで検知が可能
   - 開発者にとって作業効率を考えると、CIで検知ではなくローカルでテスト実行を通してからプッシュするため、CIが整備されている前提では `git hooks` で強制する必然性がないため
 
@@ -322,7 +322,7 @@ SVN環境を用意したくない、ライトに管理したい場合は、[Mark
 |               | Allow rebase merging                                             | -            | 利用しないため、チェックを外す                                                             |
 |               | Allow suggest updating pull request branches                     | ✅️           | Pull Request作成後、ベースブランチが更新された場合、ソースブランチの更新を提案してくれる   |
 |               | Automatically delete head branches                               | ✅️           | マージ後にfeature branchを削除するため有効にする                                           |
-| Pushes        | Limit how many branches and tags can be updated in a single push | 5            | git push origin –mirrorで誤ってリモートブランチを破壊しないようにする。推奨値の5を設定する |
+| Pushes        | Limit how many branches and tags can be updated in a single push | 5            | Git push origin –mirrorで誤ってリモートブランチを破壊しないようにする。推奨値の5を設定する |
 | Security      | Secret scanning                                                  | ✅️           | コードやIssue、コメント等のクレデンシャル情報を検知し、通知を行う                          |
 |               | Push Protection                                                  | ✅️           | プッシュ時にクレデンシャル情報が検知された場合、プッシュをブロックする                     |
 

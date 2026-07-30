@@ -29,7 +29,7 @@ Elastic Common Schema (ECS) 、OpenTelemetry Semantic Conventionsの2つが有�
 | 説明           | 開発者向けのオブザーバビリティ（トレース、メトリクス、ログの相関）に重点を置く。分散システムの挙動追跡に利用 | セキュリティ分析 (SIEM) と運用分析に重点を置く。豊富なイベント分類語彙、特にセキュリティ分野に強い |
 | 構造           | フラットなAttributesとResource                                                                               | ネストされたJSONオブジェクト（論理的にグルーピング）                                               |
 | 命名規則       | dot.case (例: service.name)                                                                                  | dot.case (例: service.name)                                                                        |
-| タイムスタンプ | timestamp (トップレベル)                                                                                     | @timestamp (トップレベル)                                                                          |
+| タイムスタンプ | タイムスタンプ (トップレベル)                                                                                     | @timestamp (トップレベル)                                                                          |
 | メッセージ     | body (トップレベル)                                                                                          | message (トップレベル)                                                                             |
 | サービス名     | service.name (リソース属性)                                                                                  | service.name (フィールドセット)                                                                    |
 | トレースID     | traceId (トップレベル)                                                                                       | trace.id (フィールドセット)                                                                        |
@@ -123,7 +123,7 @@ Elastic Common Schema (ECS) 、OpenTelemetry Semantic Conventionsの2つが有�
 
 各言語の構造化ロギングライブラリが利用するキー名称をまとめる。
 
-| \#               | Java (Logback \+ logstash-encoder) | Go (標準ライブラリ `slog`) | Python (標準 `logging` \+ python-json-logger) |
+| \#               | Java (Logback \+ logstash-encoder) | Go (標準ライブラリ `slog`) | Python (標準 `logging` \+ Python-json-logger) |
 | :--------------- | :--------------------------------- | :------------------------- | :-------------------------------------------- |
 | タイムスタンプ   | `@timestamp`                       | `time`                     | `timestamp`                                   |
 | メッセージ       | `message`                          | `msg`                      | `message`                                     |
@@ -166,7 +166,7 @@ AWSとGoogle Cloudのログサービスにおける、特別なキー名をま�
 
 | \#             | AWS CloudWatch Logs (Insights)                                                 | Google Cloud Logging (LogEntry)                                                                            |
 | :------------- | :----------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------- |
-| タイムスタンプ | @timestamp                                                                     | timestamp                                                                                                  |
+| タイムスタンプ | @timestamp                                                                     | タイムスタンプ                                                                                                  |
 | ログメッセージ | @message                                                                       | jsonPayload                                                                                                |
 | ログレベル     | (カスタム属性)                                                                 | severity（INFO, ERROR等の値に応じてUIのアイコンや色が変わり、フィルタリングも容易）                        |
 | トレース連携   | ※専用フィールドなし（X-RayのトレースIDをカスタムキーとして含めることが一般的） | trace、spanId（Cloud Traceと自動で連携するためのID。ログエクスプローラ上でトレースへのリンクが生成される） |
@@ -198,7 +198,7 @@ NewRelic、DataDogなども独自のキーがあるが、OTelのエクスポー�
 | :----------------------------------- | :----------- | :------------- | :--------------------- |
 | トレースID                           | dd.trace_id  | trace.id       | trace_id               |
 | スパンID                             | dd.span_id   | span.id        | span_id                |
-| サービス名                           | service      | entity.name    | service.name           |
+| サービス名                           | service      | エンティティ.name    | service.name           |
 | 環境                                 | env          | (カスタム属性) | deployment.environment |
 | バージョン                           | version      | (カスタム属性) | service.version        |
 | ホスト                               | host         | hostname       | host.name              |
@@ -328,7 +328,7 @@ ANSIエスケープのよくある課題は、ANSIエスケープシーケンス
 - デプロイメント環境（dev, stg, prod）での推奨出力レベルは上表の通りとする
   - デプロイメント環境のうち、開発環境は、SQLログなどを確認することも多いため `DEBUG` にする
   - ただし、本番データを移行するなど、データ起因で大量にログ出力がありえる場合は、 `INFO` レベルへ事前に切り上げる
-- 環境変数（ `LOG_LEVEL` ）で切り替え可能にする
+- 環境変数（ `LOG_LEVEL`）で切り替え可能にする
 - `/loggers` エンドポイントや、JMX (Java Management Extensions) を利用して、外部からログレベルを動的に変更可能にすることは非推奨とする
   - CI/CDが発達した昨今であれば、直接Terraformなどのコード変更でシームレスにデプロイ可能であるため
   - セキュリティ上、公開機能は最小限にしたいため
@@ -366,7 +366,7 @@ ANSIエスケープのよくある課題は、ANSIエスケープシーケンス
 
 [トレースIDをどこで払い出すべきか | オブザーバビリティ | Web API設計ガイドライン](https://future-architect.github.io/arch-guidelines/documents/forWebAPI/web_api_guidelines.html#%E3%83%88%E3%83%AC%E3%83%BC%E3%82%B9id%E3%82%92%E3%81%A8%E3%82%99%E3%81%93%E3%81%A6%E3%82%99%E6%89%95%E3%81%84%E5%87%BA%E3%81%99%E3%81%B8%E3%82%99%E3%81%8D%E3%81%8B) に記載したとおり、なるべく上流でトレースIDは払い出して出力する。
 
-- クライアント側のアプリケーションの統制を行えるのであれば、①クライアント側でトレースIDを生成する
+- クライアント側のアプリケーションの統制を行えるのであれば、（1）クライアント側でトレースIDを生成する
 - 統制が無理な場合は、サーバーのミドルウェア（ServletFilterやインターセプターの層）でトレースIDを発番する
 
 ## ユーザーメッセージとログ
@@ -379,7 +379,7 @@ ANSIエスケープのよくある課題は、ANSIエスケープシーケンス
   - セキュリティリスクを避けるため（詳細: [セキュリティ](#セキュリティ)章）
   - 保守性を上げるため（デバッグのためにログ情報を追加・変更したい場合でも、ユーザーメッセージの文言を気にしなくても済む。またその逆もある）
 - ログ出力をしつつ、ユーザー向けにエラーを表示することがある。それらを紐づけるために、トレースIDをユーザーメッセージにも出力し、紐づけを可能とする
-  - これにより、ユーザーからの「このIDの表示されたエラーが出ました」と問い合わせがあった際に、そのIDをキーに調査が可能となる（どのような操作をしたか？ 何時頃ですか？といったやり取りを減らすことができる）
+  - これにより、ユーザーからの「このIDの表示されたエラーが出ました」と問い合わせがあった際に、そのIDをキーに調査が可能となる（どのような操作をしたか？ 何時頃ですか？ といったやり取りを減らすことができる）
 
 ✅️出力例（開発者向けのログ）
 
@@ -591,7 +591,7 @@ Web API設計ガイドライン > [機能配置](/documents/forWebAPI/web_api_gu
 | タイムスタンプ   | timestamp                    | ✅️     | ✅️     | ISO 8601形式でミリ秒まで保持する。タイムゾーンはUTC 2024-10-12T11:23:01.123Z またはJST 2024-10-12T20:23:01.123+09:00 |
 | ログレベル       | severity.tex                 | ✅️     | ✅️     | info固定または、要求時をdebug・応答時にinfoにしても良い                                                              |
 | リクエストID     | request.id                   | ✅️     | ✅️     | トレース用のID。リクエストヘッダーに存在する場合はそれを、存在しなければサーバ側で採番した値を出力                   |
-| URLパス          | url.path                     | ✅️     | ✅️     | 相対パス。 `/api/v1/users`                                                                                           |
+| URLパス          | url.パス                     | ✅️     | ✅️     | 相対パス。 `/api/v1/users`                                                                                           |
 | HTTPメソッド     | http.request.method          | ✅️     | ✅️     | HEAD,GET,POST,PUT,PATCH,DELETE                                                                                       |
 | 送信元IPアドレス | client.address               | ❓️     | ❓️     | パブリックAPIの場合、個人情報特定に繋がる可能性があるため、出力可否はプロジェクトのセキュリティ基準に従う            |
 | ユーザーID       | user_id                      | ❓️     | ❓️     | ログイン済みの場合、ユーザーIDを出力する                                                                             |
@@ -771,7 +771,7 @@ Web API設計ガイドライン > [機能配置](/documents/forWebAPI/web_api_gu
   - SLF4J利用かつ、付加項目をメッセージに埋め込む場合、プレースホルダ ({}) を使用し、そのログレベルが出力対象でない場合、引数の文字列化などの処理自体をなくす
     - ✅️良い例: `log.debug("Processing user data: {}", userObject);`
     - ❌️悪い例: `log.debug("Processing user data: " + userObject.toString());`
-  - Pythonのloggingモジュールを利用する場合、f文字列ではなく、%形式のプレースホルダを使用することで、そのログレベルが出力対象でない場合の引数のレンダリング処理を防ぐ
+  - Pythonのloggingモジュールを利用する場合、f文字列ではなく、％形式のプレースホルダを使用することで、そのログレベルが出力対象でない場合の引数のレンダリング処理を防ぐ
     - ✅️ 良い例: `logging.debug("Processing user data: %s", user_object)`
     - ❌️ 悪い例: `logging.debug(f"Processing user data: {user_object}")`
   - 構造化ログの場合、アプリケーション側で toString() などを呼び出さず、ロガー側に任せる

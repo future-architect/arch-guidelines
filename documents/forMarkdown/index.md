@@ -9,6 +9,9 @@ hero:
     - theme: brand
       text: Markdown設計ドキュメント規約
       link: ./markdown_design_document.md
+    - theme: alt
+      text: サンプルプロジェクト
+      link: ./sample/
 ---
 
 ## はじめに
@@ -57,6 +60,8 @@ Markdown に限った話では無いが、どういった内容を設計書に�
 
 - **作成者**: 真野隼記、武田大輝、宮崎将太、澁川喜規、合田飛、山本竜玄、清水雄一郎、保谷安胤、洞内惇、橋本竜我
 
----
+<div class="next-page-nav">
 
 次のページ: [Markdown設計ドキュメント規約](./markdown_design_document.md)
+
+</div>

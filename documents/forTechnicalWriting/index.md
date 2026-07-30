@@ -106,6 +106,8 @@ flowchart LR
 - **作成者**: 真野隼記、Tiffany Chan、高瀬陸、内堀航輝、宮崎将太、小橋昌明、亀井隆徳、戸井田拓斗、武田大輝、清水雄一郎、赤坂優太、澁川喜規、長谷川寛人
 - **レビュアー**: 辻大志郎
 
----
+<div class="next-page-nav">
 
 次のページ: [テクニカルライティングガイドライン](./technical_writing_guidelines.md)
+
+</div>

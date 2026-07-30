@@ -54,6 +54,8 @@ GitHubやGitLabなどのサービスを利用した、コーディングにつ�
 
 - 2025.05.02 [コードレビューガイドラインを公開しました](https://future-architect.github.io/articles/20250502a/)
 
----
+<div class="next-page-nav">
 
 次のページ: [コードレビューガイドライン](./code_review.md)
+
+</div>

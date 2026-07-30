@@ -86,6 +86,8 @@ DynamoDB設計ガイドライン:
 - 2025.05.30 [PostgreSQL設計ガイドラインのご紹介](https://future-architect.github.io/articles/20250530a/)
 - 2026.02.27 [DynamoDB設計ガイドラインを公開しました](https://future-architect.github.io/articles/20260227a/)
 
----
+<div class="next-page-nav">
 
 次のページ: [PostgreSQL設計ガイドライン](./postgresql_guidelines.md)・[DynamoDB設計ガイドライン](./dynamodb_guidelines.md)
+
+</div>

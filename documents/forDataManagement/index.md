@@ -62,6 +62,8 @@ hero:
 
 - 2025.12.29 [データマネジメント設計ガイドラインを公開しました](https://future-architect.github.io/articles/20251229a/)
 
----
+<div class="next-page-nav">
 
 次のページ: [データマネジメント設計ガイドライン](./datamanagement_guidelines.md)
+
+</div>

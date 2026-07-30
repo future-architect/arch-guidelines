@@ -1,3 +1,10 @@
+/* index.md（homeレイアウト）末尾の「次のページ」ナビ。docレイアウトのページャーに似せて本文と区切る */
+.next-page-nav {
+  margin-top: 64px;
+  padding-top: 24px;
+  border-top: 1px solid var(--vp-c-divider);
+}
+
 :root {
   --vp-home-hero-name-color: transparent;
   --vp-home-hero-name-background: -webkit-linear-gradient(

@@ -29,7 +29,7 @@ Elastic Common Schema (ECS) 、OpenTelemetry Semantic Conventionsの2つが有�
 | 説明           | 開発者向けのオブザーバビリティ（トレース、メトリクス、ログの相関）に重点を置く。分散システムの挙動追跡に利用 | セキュリティ分析 (SIEM) と運用分析に重点を置く。豊富なイベント分類語彙、特にセキュリティ分野に強い |
 | 構造           | フラットなAttributesとResource                                                                               | ネストされたJSONオブジェクト（論理的にグルーピング）                                               |
 | 命名規則       | dot.case (例: service.name)                                                                                  | dot.case (例: service.name)                                                                        |
-| タイムスタンプ | タイムスタンプ (トップレベル)                                                                                     | @timestamp (トップレベル)                                                                          |
+| タイムスタンプ | timestamp (トップレベル)                                                                                     | @timestamp (トップレベル)                                                                          |
 | メッセージ     | body (トップレベル)                                                                                          | message (トップレベル)                                                                             |
 | サービス名     | service.name (リソース属性)                                                                                  | service.name (フィールドセット)                                                                    |
 | トレースID     | traceId (トップレベル)                                                                                       | trace.id (フィールドセット)                                                                        |
@@ -123,7 +123,7 @@ Elastic Common Schema (ECS) 、OpenTelemetry Semantic Conventionsの2つが有�
 
 各言語の構造化ロギングライブラリが利用するキー名称をまとめる。
 
-| \#               | Java (Logback \+ logstash-encoder) | Go (標準ライブラリ `slog`) | Python (標準 `logging` \+ Python-json-logger) |
+| \#               | Java (Logback \+ logstash-encoder) | Go (標準ライブラリ `slog`) | Python (標準 `logging` \+ python-json-logger) |
 | :--------------- | :--------------------------------- | :------------------------- | :-------------------------------------------- |
 | タイムスタンプ   | `@timestamp`                       | `time`                     | `timestamp`                                   |
 | メッセージ       | `message`                          | `msg`                      | `message`                                     |
@@ -198,7 +198,7 @@ NewRelic、DataDogなども独自のキーがあるが、OTelのエクスポー�
 | :----------------------------------- | :----------- | :------------- | :--------------------- |
 | トレースID                           | dd.trace_id  | trace.id       | trace_id               |
 | スパンID                             | dd.span_id   | span.id        | span_id                |
-| サービス名                           | service      | エンティティ.name    | service.name           |
+| サービス名                           | service      | entity.name    | service.name           |
 | 環境                                 | env          | (カスタム属性) | deployment.environment |
 | バージョン                           | version      | (カスタム属性) | service.version        |
 | ホスト                               | host         | hostname       | host.name              |
@@ -591,7 +591,7 @@ Web API設計ガイドライン > [機能配置](/documents/forWebAPI/web_api_gu
 | タイムスタンプ   | timestamp                    | ✅️     | ✅️     | ISO 8601形式でミリ秒まで保持する。タイムゾーンはUTC 2024-10-12T11:23:01.123Z またはJST 2024-10-12T20:23:01.123+09:00 |
 | ログレベル       | severity.tex                 | ✅️     | ✅️     | info固定または、要求時をdebug・応答時にinfoにしても良い                                                              |
 | リクエストID     | request.id                   | ✅️     | ✅️     | トレース用のID。リクエストヘッダーに存在する場合はそれを、存在しなければサーバ側で採番した値を出力                   |
-| URLパス          | url.パス                     | ✅️     | ✅️     | 相対パス。 `/api/v1/users`                                                                                           |
+| URLパス          | url.path                     | ✅️     | ✅️     | 相対パス。 `/api/v1/users`                                                                                           |
 | HTTPメソッド     | http.request.method          | ✅️     | ✅️     | HEAD,GET,POST,PUT,PATCH,DELETE                                                                                       |
 | 送信元IPアドレス | client.address               | ❓️     | ❓️     | パブリックAPIの場合、個人情報特定に繋がる可能性があるため、出力可否はプロジェクトのセキュリティ基準に従う            |
 | ユーザーID       | user_id                      | ❓️     | ❓️     | ログイン済みの場合、ユーザーIDを出力する                                                                             |

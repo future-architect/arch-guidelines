@@ -66,6 +66,8 @@ Terraformはインフラを宣言的にコード管理するツールである�
 
 - 2025.04.09 [Terraform設計ガイドラインを公開しました](https://future-architect.github.io/articles/20250409a/)
 
----
+<div class="next-page-nav">
 
 次のページ: [Terraform設計ガイドライン](./terraform_guidelines.md)
+
+</div>

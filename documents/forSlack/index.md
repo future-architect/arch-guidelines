@@ -65,6 +65,8 @@ hero:
 
 - 2025.04.02 [Slack利用ガイドラインを公開しました](https://future-architect.github.io/articles/20250402a/)
 
----
+<div class="next-page-nav">
 
 次のページ: [Slack利用ガイドライン](./slack_usage_guidelines.md)
+
+</div>

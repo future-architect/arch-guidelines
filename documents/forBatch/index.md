@@ -57,6 +57,8 @@ hero:
 
 - 2025.09.18 [バッチ設計ガイドラインを公開しました](https://future-architect.github.io/articles/20250918a/)
 
----
+<div class="next-page-nav">
 
 次のページ: [バッチ設計ガイドライン](./batch_guidelines.md)
+
+</div>

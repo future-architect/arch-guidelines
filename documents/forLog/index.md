@@ -44,6 +44,8 @@ hero:
 
 - 2026.02.10 [ログ設計ガイドラインを公開しました](https://future-architect.github.io/articles/20260210a/)
 
----
+<div class="next-page-nav">
 
 次のページ: [ログ設計ガイドライン](./log_guidelines.md)
+
+</div>

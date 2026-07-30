@@ -1509,7 +1509,7 @@ data "aws_subnet" "foo_example" {
 
 ## リモートステートの保持バケット
 
-リモートステートを管理するためのバケットは、 `terraform init` する前に必要であるため、通常はTerraform構築対象外とすることが多い。それゆえ、コンソール画面経由や、CLI経由で作成するチームも多い。一方で `backend=false` とし、ステートファイルをGit commitして管理することも考えられる。これを行うメリットは、インフラ構築をTerraformで統一することで、運用手順書などの作成を極小化できることなどがある。
+リモートステートを管理するためのバケットは、 `terraform init` する前に必要であるため、通常はTerraform構築対象外とすることが多い。それゆえ、コンソール画面経由や、CLI経由で作成するチームも多い。一方で `backend=false` とし、ステートファイルをgit commitして管理することも考えられる。これを行うメリットは、インフラ構築をTerraformで統一することで、運用手順書などの作成を極小化できることなどがある。
 
 【リモートステートを保持するバケットの作成案】
 
@@ -2111,7 +2111,7 @@ terraform apply --target={aws_instance.example1,aws_security_group.example2,aws_
 
 推奨は以下の通り。
 
-- featureブランチからterraform applyをするGitブランチ運ようになっている場合、dev環境においては、target運用を許容する
+- featureブランチからterraform applyをするGitブランチ運用になっている場合、dev環境においては、target運用を許容する
 - 原則、stgはtargetによる絞り込みを許可しない
   - stgで動作確認を長期間行う必要がある場合など一時的とし、恒常的な運用としない
 - いかなる場合も、prod環境では、targetによる絞り込みは許可しない

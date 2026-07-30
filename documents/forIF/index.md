@@ -78,6 +78,8 @@ I/Fとはインタフェースの略で、ここではシステム間のデー�
 
 - 2025.08.18 [I/F設計ガイドラインを公開しました](https://future-architect.github.io/articles/20250818a/)
 
----
+<div class="next-page-nav">
 
 次のページ: [I/F設計ガイドライン](./if_guidelines.md)
+
+</div>

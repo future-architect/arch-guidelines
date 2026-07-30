@@ -10,7 +10,3 @@ hero:
       text: Markdown設計ドキュメント規約
       link: ./markdown_design_document.md
 ---
-
-# コンテンツ
-
-- [Markdown](https://github.com/future-architect/arch-guidelines/blob/main/documents/forMarkdown/markdown_design_document.md)

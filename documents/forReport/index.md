@@ -11,10 +11,6 @@ hero:
       link: ./report_guidelines.md
 ---
 
-# コンテンツ
-
-- [Markdown](https://github.com/future-architect/arch-guidelines/blob/main/documents/forSlack/slack_usage_guidelines.md)
-
 # 関連したガイドライン
 
 - [I/F設計ガイドライン](/documents/forIF/if_guidelines.html)

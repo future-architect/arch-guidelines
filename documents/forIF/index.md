@@ -11,10 +11,6 @@ hero:
       link: ./if_guidelines.md
 ---
 
-# コンテンツ
-
-- [Markdown](https://github.com/future-architect/arch-guidelines/blob/main/documents/forIF/if_guidelines.md)
-
-## Articles
+# Articles
 
 - 2025.8.18 [I/F設計ガイドラインを公開しました](https://future-architect.github.io/articles/20250818a/)

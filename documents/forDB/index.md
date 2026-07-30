@@ -14,11 +14,6 @@ hero:
       link: ./dynamodb_guidelines.md
 ---
 
-# コンテンツ
-
-- [Markdown - PostgreSQL](https://github.com/future-architect/arch-guidelines/blob/main/documents/forDB/postgresql_guidelines.md)
-- [Markdown - DynamoDB](https://github.com/future-architect/arch-guidelines/blob/main/documents/forDB/dynamodb_guidelines.md)
-
-## Articles
+# Articles
 
 - 2025.5.30 [PostgreSQL設計ガイドラインのご紹介](https://future-architect.github.io/articles/20250530a/)

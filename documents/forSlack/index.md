@@ -11,10 +11,6 @@ hero:
       link: ./slack_usage_guidelines.md
 ---
 
-# コンテンツ
-
-- [Markdown](https://github.com/future-architect/arch-guidelines/blob/main/documents/forSlack/slack_usage_guidelines.md)
-
-## Articles
+# Articles
 
 - 2025.4.2 [Slack利用ガイドラインを公開しました](https://future-architect.github.io/articles/20250402a/)

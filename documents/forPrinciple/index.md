@@ -10,7 +10,3 @@ hero:
       text: 原理原則
       link: ./principle_guidelines.md
 ---
-
-# コンテンツ
-
-- [Markdown](https://github.com/future-architect/arch-guidelines/blob/main/documents/forPrinciple/principle.md)

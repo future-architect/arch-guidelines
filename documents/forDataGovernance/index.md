@@ -10,7 +10,3 @@ hero:
       text: データガバナンス
       link: ./data_governance_guidelines.md
 ---
-
-# コンテンツ
-
-- [Markdown](https://github.com/future-architect/arch-guidelines/blob/main/documents/forDataGovernance/data_governance_guidelines.md)

@@ -11,10 +11,6 @@ hero:
       link: ./code_review.md
 ---
 
-# コンテンツ
-
-- [Markdown](https://github.com/future-architect/arch-guidelines/blob/main/documents/forCodeReview/code_review.md)
-
-## Articles
+# Articles
 
 - 2025.5.2 [コードレビューガイドラインを公開しました](https://future-architect.github.io/articles/20250502a/)

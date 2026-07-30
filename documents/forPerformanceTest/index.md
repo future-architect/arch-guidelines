@@ -10,7 +10,3 @@ hero:
       link: ./performance_test.md
       text: 性能テスト
 ---
-
-# コンテンツ
-
-- [Markdown](https://github.com/future-architect/arch-guidelines/blob/main/documents/forPerformanceTest/performance_test.md)

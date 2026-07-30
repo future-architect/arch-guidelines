@@ -14,10 +14,6 @@ hero:
 # コンテンツ
 
 - [Markdown](https://github.com/future-architect/arch-guidelines/blob/main/documents/forCodeReview/code_review.md)
-- [HTML(Single File)](https://github.com/future-architect/arch-guidelines/blob/gh-pages/resources/コードレビューガイドライン.html) （[ブラウザで見る](https://future-architect.github.io/arch-guidelines/resources/コードレビューガイドライン.html)）
-- [Word](https://github.com/future-architect/arch-guidelines/raw/gh-pages/resources/コードレビューガイドライン.docx)
-
-ファイルは[Pandoc](https://pandoc.org/)を利用して作成している。
 
 ## Articles
 

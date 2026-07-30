@@ -63,7 +63,7 @@ hero:
 
 ## Articles
 
-- 2025.4.2 [Slack利用ガイドラインを公開しました](https://future-architect.github.io/articles/20250402a/)
+- 2025.04.02 [Slack利用ガイドラインを公開しました](https://future-architect.github.io/articles/20250402a/)
 
 ---
 

@@ -18,7 +18,7 @@ head:
 
 ## 利用するGitブランチ戦略
 
-[Gitブランチフロー規約 \> ブランチ戦略の選定](https://future-architect.github.io/coding-standards/documents/forGitBranch/git_branch_standards.html#%E3%83%95%E3%82%99%E3%83%A9%E3%83%B3%E3%83%81%E6%88%A6%E7%95%A5%E3%81%AE%E9%81%B8%E5%AE%9A) にある、以下の2パターンのいずれかを利用しているとする。
+[Gitブランチフローガイドライン \> ブランチ戦略の選定](/documents/forGitBranch/git_branch_standards.html#%E3%83%95%E3%82%99%E3%83%A9%E3%83%B3%E3%83%81%E6%88%A6%E7%95%A5%E3%81%AE%E9%81%B8%E5%AE%9A) にある、以下の2パターンのいずれかを利用しているとする。
 
 - `Lite GitLab Flow`
 - `GitLab Flow`
@@ -27,7 +27,7 @@ head:
 
 ## 事前設定（GitHub）
 
-[Gitブランチフロー規約](https://future-architect.github.io/coding-standards/documents/forGitBranch/git_branch_standards.html#git-config%E6%8E%A8%E5%A5%A8%E8%A8%AD%E5%AE%9A) に則った設定を実施する。例えば、ブランチ保護やレビューの設定には以下の内容がある。できるかぎり自動化やテンプレートを用意することで、個々人が考慮すべきことを減らすことで運用負荷を下げ、規則を形骸化にせず実効性を上げることを基本姿勢とする。
+[Gitブランチフローガイドライン](/documents/forGitBranch/git_setup_guidelines.html#git-config%E6%8E%A8%E5%A5%A8%E8%A8%AD%E5%AE%9A) に則った設定を実施する。例えば、ブランチ保護やレビューの設定には以下の内容がある。できるかぎり自動化やテンプレートを用意することで、個々人が考慮すべきことを減らすことで運用負荷を下げ、規則を形骸化にせず実効性を上げることを基本姿勢とする。
 
 | 設定項目                                                                                                                                            | 設定例 | 説明                                                                                |
 | :-------------------------------------------------------------------------------------------------------------------------------------------------- | :----- | :---------------------------------------------------------------------------------- |
@@ -231,7 +231,7 @@ SQL:
 ::: tip ラベルとの使い分け  
 プルリクエストの[ラベル](https://docs.github.com/ja/issues/using-labels-and-milestones-to-track-work/managing-labels)でも同じ意図を持たせることができるが、レビュアーにとっての視認性を重視するため、重複した内容であってもタイトルにプレフィックスを含ませる。
 
-関連: [Gitブランチフロー規約 \> ラベル](https://future-architect.github.io/coding-standards/documents/forGitBranch/git_branch_standards.html#%E3%83%A9%E3%83%98%E3%82%99%E3%83%AB%E8%A6%8F%E5%89%87)  
+関連: [Gitブランチフローガイドライン \> ラベル](/documents/forGitBranch/git_branch_standards.html#%E3%83%A9%E3%83%98%E3%82%99%E3%83%AB%E8%A6%8F%E5%89%87)  
 :::
 
 ## 差分（diff）を極小化することにこだわりすぎない
@@ -407,7 +407,7 @@ Markdown記法を活用することで、Descriptionやレビューコメント�
 
 ## マージはレビュイーが実施する
 
-[Gitブランチフロー規約](/documents/forGitBranch/git_branch_standards.html#%E3%83%9E%E3%83%BC%E3%82%B7%E3%82%99%E3%81%AF%E3%81%9F%E3%82%99%E3%82%8C%E3%81%8B%E3%82%99%E8%A1%8C%E3%81%86%E3%81%B8%E3%82%99%E3%81%8D%E3%81%8B)で記載された推奨ルールに従う。チームの自律性と生産性を重視するのであれば、レビュイーがマージすべきである。
+[Gitブランチフローガイドライン](/documents/forGitBranch/git_branch_standards.html#%E3%83%9E%E3%83%BC%E3%82%B7%E3%82%99%E3%81%AF%E3%81%9F%E3%82%99%E3%82%8C%E3%81%8B%E3%82%99%E8%A1%8C%E3%81%86%E3%81%B8%E3%82%99%E3%81%8D%E3%81%8B)で記載された推奨ルールに従う。チームの自律性と生産性を重視するのであれば、レビュイーがマージすべきである。
 
 信頼関係が構築できていれば、以下のようなやり取りが可能となり、スピード感が上がるためである。
 

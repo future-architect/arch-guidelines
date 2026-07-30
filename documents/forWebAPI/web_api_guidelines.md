@@ -2184,8 +2184,3 @@ Web APIの環境分離だが、クラウド環境のベストプラクティス�
 # ロギング
 
 ログ設計ガイドライン > [Web APIのログ出力](/documents/forLog/log_guidelines.html#web-api%E3%81%AE%E3%83%AD%E3%82%AF%E3%82%99%E5%87%BA%E5%8A%9B) に従うこと。
-
-# 参考資料
-
-- [Web API 設計のベスト プラクティス \- Azure Architecture Center](https://learn.microsoft.com/ja-jp/azure/architecture/best-practices/api-design)
-- [Web API 実装 \- Best practices for cloud applications](https://learn.microsoft.com/ja-jp/azure/architecture/best-practices/api-implementation)

@@ -50,6 +50,12 @@ Terraformはインフラを宣言的にコード管理するツールである�
 | ルートモジュール | terraformコマンドを実行するディレクトリ上にある .tf リソース               |
 | モジュール       | 本ガイドラインでは、ルートモジュールから利用される子モジュールのことを指す |
 
+## 参考資料
+
+- [Terraform を使用するためのベスト プラクティス | Google Cloud](https://cloud.google.com/docs/terraform/best-practices-for-terraform?hl=ja)
+- [コードベースの構造と組織のベストプラクティス - AWS 規範ガイダンス](https://docs.aws.amazon.com/ja_jp/prescriptive-guidance/latest/terraform-aws-provider-best-practices/structure.html)
+- [最低限のTerraformコード規約を定義した | Zenn](https://zenn.dev/coconala/articles/create_code_policy)
+
 ## 謝辞
 
 このアーキテクチャガイドラインの作成には多くの方々にご協力いただいた。心より感謝申し上げる。
@@ -58,7 +64,7 @@ Terraformはインフラを宣言的にコード管理するツールである�
 
 ## Articles
 
-- 2025.4.9 [Terraform設計ガイドラインを公開しました](https://future-architect.github.io/articles/20250409a/)
+- 2025.04.09 [Terraform設計ガイドラインを公開しました](https://future-architect.github.io/articles/20250409a/)
 
 ---
 

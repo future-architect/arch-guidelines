@@ -60,7 +60,7 @@ hero:
 
 ## Articles
 
-- 2025.10.3 [メール設計ガイドラインを公開しました](https://future-architect.github.io/articles/20251003a/)
+- 2025.10.03 [メール設計ガイドラインを公開しました](https://future-architect.github.io/articles/20251003a/)
 
 ---
 

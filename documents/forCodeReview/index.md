@@ -52,7 +52,7 @@ GitHubやGitLabなどのサービスを利用した、コーディングにつ�
 
 ## Articles
 
-- 2025.5.2 [コードレビューガイドラインを公開しました](https://future-architect.github.io/articles/20250502a/)
+- 2025.05.02 [コードレビューガイドラインを公開しました](https://future-architect.github.io/articles/20250502a/)
 
 ---
 

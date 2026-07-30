@@ -3,17 +3,23 @@ sidebarDepth: 4
 author: フューチャー株式会社
 layout: home
 hero:
-  name: Git<wbr>ブランチフロー規約
-  tagline: Git branch flow standards
+  name: Git<wbr>ブランチフロー<wbr>ガイドライン
+  tagline: Git Branch Flow Guidelines
   actions:
     - theme: brand
-      text: Gitブランチフロー規約
+      text: Gitブランチフローガイドライン
       link: ./git_branch_standards.md
+    - theme: alt
+      text: Git環境設定ガイドライン
+      link: ./git_setup_guidelines.md
+    - theme: alt
+      text: VS Code Git操作
+      link: ./vscode_git_operation.md
 ---
 
 ## はじめに
 
-本規約は、Gitブランチ管理の運用ルールをまとめたものである。
+本ガイドラインは、Gitブランチ管理の運用ルールをまとめたものである。
 
 ::: warning 免責事項
 
@@ -44,4 +50,4 @@ hero:
 
 ---
 
-次のページ: [Gitブランチフロー規約](./git_branch_standards.md)
+次のページ: [Gitブランチフローガイドライン](./git_branch_standards.md)

@@ -1055,7 +1055,7 @@ Airflowを利用する場合は [Pools](https://airflow.apache.org/docs/apache-a
 
 推奨は以下。
 
-- リリース周りのプロセスは、[Gitブランチフロー規約](https://future-architect.github.io/arch-guidelines/documents/forGitBranch/git_branch_standards.html) を参考に整備する（開発環境、検証環境で動作確認を取ってから、本番環境にデプロイするなど）
+- リリース周りのプロセスは、[Gitブランチフローガイドライン](https://future-architect.github.io/arch-guidelines/documents/forGitBranch/git_branch_standards.html) を参考に整備する（開発環境、検証環境で動作確認を取ってから、本番環境にデプロイするなど）
 - いざというときのために、前回のバージョンに、切り戻せるようにしておく
 - もし、影響範囲が大きい重要なジョブを大きく改修した場合は、データバックアップを取っておくと良い
 

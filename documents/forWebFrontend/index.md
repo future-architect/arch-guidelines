@@ -78,7 +78,7 @@ hero:
 
 ## Articles
 
-- 2025.9.11 [Webフロントエンド設計ガイドラインを公開しました](https://future-architect.github.io/articles/20250911a/)
+- 2025.09.11 [Webフロントエンド設計ガイドラインを公開しました](https://future-architect.github.io/articles/20250911a/)
 
 ---
 

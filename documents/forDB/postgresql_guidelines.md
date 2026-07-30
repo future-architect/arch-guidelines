@@ -1586,7 +1586,7 @@ CREATE TABLE orders (
 
 | 検討パターン             | Before例     | After例                                                |
 | :----------------------- | :----------- | :----------------------------------------------------- |
-| （1）boolean型を日時型に | is_verified  | verified_at（nullable, タイムスタンプ with time zone） |
+| （1）boolean型を日時型に | is_verified  | verified_at（nullable, timestamp with time zone） |
 | （2）boolean型を区分値に | is_completed | status（varchar型、デフォルト値を未処理0などにする）   |
 | （3）boolean型を数値型に | has_comments | comment_count（integer型）                             |
 

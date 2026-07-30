@@ -35,7 +35,7 @@ head:
 | `hotfix`     | mainブランチに対する即時修正 | 短命           | `main`            | `hotfix/${チケット番号}`: featureブランチに準じる                           | ✅️         |
 | `topic`      | 複数人での機能開発用途       | 短命           | `feature`         | `topic/${チケット番号}`: featureブランチに準じる                            | ✅️         |
 
-※1: topicブランチを利用する場合は、派生させた`feature`ブランチへの直プッシュはNGとなる
+※1: topicブランチを利用する場合は、派生させた`feature`ブランチへの直プッシュはNGとなる。
 
 ## mainブランチ
 
@@ -198,7 +198,7 @@ fixtypo
 
 `develop`から`develop2`へマージ後、`develop2`を`main`ブランチに反映させる手順も考えられるが、`develop2`から`develop`へのマージとすると以下のメリットがある。
 
-- プロダクション環境（=`develop`）との差分を把握することができる
+- プロダクション環境（=`develop`）との差分を把握できる
 - より一般的な名称である `develop` ブランチのみ残るため、新規参画者フレンドリーである
 
 ## 過去バージョンをサポートする場合
@@ -294,7 +294,7 @@ fixtypo
 - レビュアーの負荷軽減のため
   - レビュアーがプルリクエストの差分以外の部分を参照した際に、それが古いバージョンであると、誤指摘、混乱してしまうなどの懸念がある
 - マージ後の`develop`ブランチでテスト失敗するリスクを減らすため
-  - コンフリクトせずにマージ可能だったとしても、何かしらの依存関係や整合性が狂い、マージ後のテストが失敗する可能性がある
+  - コンフリクトせずにマージ可能だったとしても、何かしらの依存関係や整合性が狂い、マージ後のテストに失敗する可能性がある
 
 ### プルリクエストのレビュー依頼までにどこまでテストしておくべきか
 
@@ -333,12 +333,12 @@ Terraformはplanが成功しても、applyが失敗することは多々あり�
 本ガイドラインの推奨は以下。
 
 - 新規参画者が多く統制を取りたい場合や、applyの成功率が高く維持できる場合は（1）を選択
-- ある程度インフラメンバーが絞れ、かつapplyの失敗率が高くレビュー負荷が高くなってしまう懸念がある場合は（2）を選択
+- ある程度インフラメンバーが絞れ、かつapplyの失敗率が高くレビュー負荷も高くなってしまう懸念がある場合は（2）を選択
 - インフラメンバーが少数精鋭（通常、同時の作業はほぼ発生しない）の場合は必要に応じて、（2）をベースにしながら（3）を取り入れて生産性を上げる
 
 ## featureブランチからdevelopブランチへ変更を取り込む
 
-プルリクエスト（以下、PR）を経由して、開発が完了したfeatureブランチをメインのdevelopブランチに取り込むためには、GitHub（GitLab）上でPRを経由する運用を行う。
+プルリクエスト（以下、PR）を経由して、開発が完了したfeatureブランチをメインのdevelopブランチに取り込むためには、GitHub（GitLab）上でPRを経由する運用とする。
 
 developブランチにfeatureブランチの変更を取り込む方法は下表のように3パターン存在する。
 
@@ -361,7 +361,7 @@ GitLabでも開発ブランチに機能ブランチの変更を取り込む方�
 | 説明 | GitHubにおける `Create a merge commit` と同様のマージ方法                                                                                            | `Merge commit` と同じコマンドを使用して、機能ブランチの変更を取り込む方法        | GitHubにおける `Rebase and merge` と同様のマージ方法                                                                                 |
 | 注意 | `Squash commits` を選択してマージした場合、`squash commit` と `merge commit` の2つのコミットが作成される                                             | ソースブランチがターゲットブランチより古い場合はリベースしないとマージできない。 | マージリクエスト上で `Squash commits` を選択してマージした場合、GitHubにおける `Squash and merge` と同様のマージ方法になる（※補足1） |
 
-（※補足1）マージ方法で Merge commit を選択して、マージリクエスト上で Squash commits オプションを選択してマージした場合は以下と同義である
+（※補足1）マージ方法で Merge commit を選択して、マージリクエスト上で Squash commits オプションを選択してマージした場合は以下と同義である。
 
 ```bash
 git checkout `git merge-base feature/A develop`
@@ -393,7 +393,7 @@ git merge --no-ff $SOURCE_SHA
    - 履歴上は1つのコミットになるため、マージ後に一部の変更だけの取り消しが不可能。そのためPRをなるべく小さなまとまりにする
 2. Authorが失われる
    - `feature`ブランチにコミットを行った人がAuthorになるのではなく、「スカッシュマージ」を行った人がAuthorになる。OSS開発の場合など、厳密にコントリビューションを管理する必要がある場合は注意する
-   - GitHubでは「スカッシュマージ」を行う場合、デフォルトでコミットメッセージに `co-authored-by` トレーラーが追加され、1つのコミットが複数の作成者に帰属するようになっている[^2]。この記述は削除しないようにする
+   - GitHubでは「スカッシュマージ」を行う場合、デフォルトでコミットメッセージに `co-authored-by` トレーラーが追加され、1つのコミットが複数の作成者へ帰属するようになっている[^2]。この記述は削除しないようにする
 
 [^2]: [複数の作者を持つコミットを作成する - GitHub Docs](https://docs.github.com/ja/pull-requests/committing-changes-to-your-project/creating-and-editing-commits/creating-a-commit-with-multiple-authors)
 
@@ -553,7 +553,7 @@ $ git tag -a backend/v3.0.0 -m "🚀Release version v2.0.0"
 
 IssueやPRを分類ができるラベルについての利用は自由とする。
 
-PRに適切なラベルを設定し、 [自動生成リリースノート - GitHub Docs](https://docs.github.com/ja/repositories/releasing-projects-on-github/automatically-generated-release-notes) に記載があるように `.github/release.yml` への設定を行うことで、リリースノートの生成をラベル単位にグルーピングできる。
+PRに適切なラベルを設定し、 [自動生成リリースノート - GitHub Docs](https://docs.github.com/ja/repositories/releasing-projects-on-github/automatically-generated-release-notes) に記載があるように `.github/release.yml` へ設定することで、リリースノートの生成をラベル単位にグルーピングできる。
 
 PRを後で探しやすくするための検索キーとしての位置づけと、リリースノート自動生成という観点でラベルを準備すること。
 
@@ -570,7 +570,7 @@ Gitのコミットメッセージは原則自由とする。理由は以下で�
 ::: tip Conventional Commitsの勧め
 Gitのコミットメッセージの書式についてルール化することで、コミットの目的がわかりやすくなる、履歴からのトラッキングの容易になる利点がある。
 
-本ガイドラインのコミットメッセージの書式としては、`Conventional Commits`をベースとした規約としている。
+本ガイドラインのコミットメッセージの書式としては、`Conventional Commits`をベースにした規約としている。
 
 以下の形式でコミットメッセージを記載することとする。
 

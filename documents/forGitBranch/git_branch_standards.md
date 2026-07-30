@@ -10,7 +10,9 @@ head:
 
 <page-title/>
 
-本規約は、Gitブランチ管理の運用ルールをまとめる。位置づけ・前提・免責事項は [Introduction](./index.md) を参照。
+本規約は、Gitブランチ管理の運用ルールをまとめる。
+
+位置づけ・前提・免責事項は [Introduction](./index.md) を参照。
 
 # 基本方針
 

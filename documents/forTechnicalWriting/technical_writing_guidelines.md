@@ -35,6 +35,8 @@ head:
 
 上長やクライアントに判断や承認を求めたい場合は多い。依頼事項を整理した後は必ず、5W1H（いつまでに・だれに・何を・どうしてほしいか）を明確に定義しているか確認する。ここで重要なのは、書き手ではなく相手の立場に立って考えることである。
 
+<!-- textlint-disable ja-technical-writing/no-mix-dearu-desumasu -->
+
 1. **だれに依頼したいか**（Who）
    - その依頼や確認は、だれに行いたいか。複数人であっても構わないのでby-nameで名前を出す
 2. **相手はそれを意思決定できる権限があるか？**（Who）
@@ -51,6 +53,8 @@ head:
 6. **相手に「どのようなアクション」をとってほしいか明記しているか**（How）
    - 単なる「状況の共有」なのか、「A案かB案かの選択」なのか、「作業の承認（Approve）」なのか、相手に求める具体的なアクションを明記する。ここが曖昧だと「で、私はどうすればいいの？」と相手の時間を奪うことになる
    - このチェックは、一度書いた文章に対して、相手目線でSo what（だから何？）に回答できるかを確認すると良い
+
+<!-- textlint-enable ja-technical-writing/no-mix-dearu-desumasu -->
 
 5W1Hがふわっとすると、どれほど美しい文章であっても、業務を前進させるという目的を果たすことはできない。仕様を説明した設計ドキュメントであっても、だれの何をどうやって解決するために作成するかなど、5W1Hでチェックすると、より芯を捉えたドキュメントを作成する手助けになる。
 
@@ -75,15 +79,21 @@ head:
 自分が伝えようとしているメッセージが単なる事実の羅列になっていないかを確認するために、前項の5W1Hがそのまま使える。「誰に」「何をしてほしいか」の要件を満たそうとすれば、自然と傘（見解）が必要になるためである。  
 :::
 
+<!-- textlint-disable ja-technical-writing/no-doubled-conjunctive-particle-ga -->
+
 ::: tip 純粋な情報共有の場合のマナー  
 もし、現時点では傘（アクション）まで考えが至らない場合や、純粋な情報共有が目的である場合は、文章の冒頭で「これはInformation（共有）ですが〜」「ご報告のみですが〜」と前置きするのがマナーである。これにより、読み手は「自分がアクションを考える必要がある」または「判断はまだ不要である」と認識し、適切な心構えで情報をインプットできる。  
 :::
+
+<!-- textlint-enable ja-technical-writing/no-doubled-conjunctive-particle-ga -->
 
 ## やったことや挙動の羅列は価値が低い
 
 設計書・PR（Pull Request）・定例資料において、「システムは〇〇の処理を行う」「今週は××を実装した」と、ただシステムの挙動や作業内容をツラツラと並べるだけの文章は読み手にとって価値が低く、正直なところ退屈である。
 
 ソースコードを読めばわかるWhat（何を作ったか）や、チケットを見ればわかる「やったこと」を日本語に翻訳するだけでは、書き手の介在する意味が薄い。ドキュメントの目的に立ち返り、読み手が真に必要としている情報に焦点を当てる必要がある。
+
+<!-- textlint-disable ja-technical-writing/no-mix-dearu-desumasu -->
 
 - **目的が「設計の妥当性評価や将来の保守」である場合**
   - 例: 設計書など。システムの仕様をブラックボックス化しないことを目的として記述することが多い
@@ -94,6 +104,8 @@ head:
 - **目的が「成果や進捗の共有」である場合**
   - 例: 進捗報告やリリースノートなど
   - どれだけ手を動かしたかという作業量ではなく、その作業によって「利用者の利便性をどう上げたか、どのような技術的価値を生み出したか」を第一に記載する。自分たちの目線に寄りすぎず、読み手の関心事に沿っているかを忘れないようにする
+
+<!-- textlint-enable ja-technical-writing/no-mix-dearu-desumasu -->
 
 特に、フォーマットが決まっている設計書や繰り返しの定例資料などは、当初立てた目的を意識し続けないと、漫然と項目を埋めるだけの不毛な作業となり形骸化しやすい。「自分が書こうとしている内容は、このドキュメントの目的に合致しているか？」を常に検証する。その報告を聞いて相手が「で？（私に何をして欲しいの？）」とならないよう、So what（だから何？）を意識する。
 
@@ -295,6 +307,8 @@ head:
 
 ::: info 例: 論理関係が破綻した箇条書き
 
+<!-- textlint-disable ja-technical-writing/no-doubled-joshi -->
+
 - ❌ **NG** （論理関係が分断され、意図が伝わりにくい）
   - システムを再起動する
   - 設定が反映されない場合がある
@@ -302,6 +316,8 @@ head:
 - ✅ **OK** （情報の役割ごとにラベルを付け、関連する文をまとめている）
   - 【依頼】システムを再起動する
   - 【補足】設定が反映されない場合があるため、30秒待機してから再度試みる
+
+<!-- textlint-enable ja-technical-writing/no-doubled-joshi -->
 
 :::
 
@@ -434,10 +450,14 @@ AIは過剰に修飾子を付けがちであり、無くても意味は通じる
 ::: info 例: 削除・分割・構造化で対処する
 不必要な繰り返しを削っても長い場合は、文を分割するか、箇条書きによる構造化を行う。
 
+<!-- textlint-disable ja-technical-writing/ja-no-redundant-expression -->
+
 - ❌ **NG**  
   一時的な通信失敗が発生した場合の再試行ロジックについては、最大5回までのリトライを試行する設定を行うことは、短時間での過度なリクエスト集中を回避しつつ、最終的なログ到達率を最大化させるという結果になります（103文字）
 - ✅ **OK**  
   一時的な通信失敗に対しては、最大5回まで再試行します。この設定により短時間でのリクエスト集中を回避できます。結果として、サーバーへの負荷を抑えながらログの到達率を最大化できます（27, 27, 35文字）
+
+<!-- textlint-enable ja-technical-writing/ja-no-redundant-expression -->
 
 :::
 
@@ -503,6 +523,8 @@ AIは過剰に修飾子を付けがちであり、無くても意味は通じる
 
 :::
 
+<!-- textlint-disable ja-technical-writing/no-mix-dearu-desumasu -->
+
 ::: info 例: AI特有の「無生物主語」の解消
 
 - ❌ **NG**（無生物主語、目的語が長い名詞句になっている）  
@@ -510,6 +532,8 @@ AIは過剰に修飾子を付けがちであり、無くても意味は通じる
 - ✅ **OK**  
   Extended ThinkingモードはClaude 4の新機能である。このモードでは、モデルが自律的にコードを実行し、ウェブを検索し、ファイルを読み書きしながら、必要に応じて自分自身の計画を修正する。
   :::
+
+<!-- textlint-enable ja-technical-writing/no-mix-dearu-desumasu -->
 
 # 表現の正確性
 
@@ -708,11 +732,15 @@ AIは過剰に修飾子を付けがちであり、無くても意味は通じる
 「なぜ他ではなく、これを選んだのか」という**判断のロジック**を、客観的なトレードオフを用いて説明可能にすることが重要である。
 以下のように文章で説明するだけでなく、読み手の関心事を捉えテーブルなどを用いて対比構造やメリット・デメリット（Pros / Cons）を図解するとより効果的となる。
 
+<!-- textlint-disable ja-technical-writing/no-mix-dearu-desumasu -->
+
 - ❌ **NG**（結果のみ）  
   次期システムのインフラ環境には、Amazon Web Services（AWS）を採用する。
 - ✅ **OK**（トレードオフの明示）  
   次期システムのインフラ環境には、クラウドサービスであるAmazon Web Services（AWS）を採用する。  
   オンプレミスと比較して初期の学習コストや通信のレイテンシ増加というデメリットはあるが、今後のトラフィック増減に対して柔軟にサーバリソースを増減できる拡張性のメリットが、本プロジェクトの要件を上回ると判断したためである。
+
+<!-- textlint-enable ja-technical-writing/no-mix-dearu-desumasu -->
 
 ## Appendix（付録）を使う
 
@@ -741,9 +769,13 @@ AIは過剰に修飾子を付けがちであり、無くても意味は通じる
 
 インターネット技術の標準仕様であるRFCでは以下のキーワードで要件レベルを表すように規定されている。
 
+<!-- textlint-disable ja-technical-writing/max-comma -->
+
 > The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119.
 >
 > [RFC 2199: Key words for use in RFCs to Indicate Requirement Levels](https://datatracker.ietf.org/doc/html/rfc2119)
+
+<!-- textlint-enable ja-technical-writing/max-comma -->
 
 :::
 
@@ -806,6 +838,8 @@ AIは過剰に修飾子を付けがちであり、無くても意味は通じる
 
 <div class="img_mini">
 
+<!-- textlint-disable ja-technical-writing/no-mix-dearu-desumasu -->
+
 - **箇条書き**  
   初歩的ではあるものの、箇条書きは基礎的な情報整理に有用である。  
   情報の受け手からしても、散文で書かれているよりも視認性が高まり、要素の数が一目でわかるメリットがある。
@@ -857,6 +891,8 @@ AIは過剰に修飾子を付けがちであり、無くても意味は通じる
   業務手順、システム処理の流れ、意思決定の分岐などを、図形（ボックスや菱形）と矢印を用いて順序立てて表現する。複雑な手順や、「Aの場合はB、Cの場合はD」といった条件ごとの振る舞いを直感的に理解させることができる。  
   図表化の際は、人間の視線誘導に逆らわないよう、上から下、または左から右へ一貫した流れを作ること。  
   ![](images/flowchart.png)
+
+<!-- textlint-enable ja-technical-writing/no-mix-dearu-desumasu -->
 
 </div>
 
@@ -959,6 +995,8 @@ Cloning into 'hoge'...
 
 理想としては必要な部分をリンク先から引用し、引用元としてリンク先のURLを添付するような形である。もしくは嚙み砕いたうえで作成者自身が説明することである。
 
+<!-- textlint-disable ja-technical-writing/no-mix-dearu-desumasu -->
+
 ::: info 例: 外部サイトの閲覧を促すこと
 
 - ❌ **NG**
@@ -976,6 +1014,8 @@ Cloning into 'hoge'...
   ```
 
 :::
+
+<!-- textlint-enable ja-technical-writing/no-mix-dearu-desumasu -->
 
 ### GUIの操作を位置だけで説明する
 
@@ -1019,9 +1059,13 @@ Cloning into 'hoge'...
 - **表現**: 言葉選びが適切か？ 図や表が直感的に理解できそうかを確認したいか？
 - **最終確認**: 誤字脱字、編集漏れを確認したいのか？
 
+<!-- textlint-disable ja-technical-writing/no-mix-dearu-desumasu -->
+
 ::: info 例: レビュー依頼のテンプレ活用  
 「〇〇の構成案を作成しました。現在は構成と結論の方向性を確認したいフェーズです。細かい文言の修正は後ほど行うため、まずはロジックに破綻がないかを中心にレビューをお願いします」  
 :::
+
+<!-- textlint-enable ja-technical-writing/no-mix-dearu-desumasu -->
 
 # フィードバック技術
 

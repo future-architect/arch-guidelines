@@ -411,8 +411,12 @@ Markdown記法を活用することで、Descriptionやレビューコメント�
 
 信頼関係が構築できていれば、以下のようなやり取りが可能となり、スピード感が上がるためである。
 
+<!-- textlint-disable ja-technical-writing/no-mix-dearu-desumasu -->
+
 - 「コメントはしたけど承認（Approve）したので、随時対応してマージしてOKです」
 - 「Conflictだけ対応したら、マージしちゃってください」
+
+<!-- textlint-enable ja-technical-writing/no-mix-dearu-desumasu -->
 
 何かしらの理由でレビュアーの関与度を増やす必要がある場合は、レビュアーがマージする。
 
@@ -509,6 +513,8 @@ GitHubでのコードレビューは、`Start a review` を行うと `Submit rev
 
 以下にプレフィックスを利用した例を示す。
 
+<!-- textlint-disable ja-technical-writing/ja-no-weak-phrase -->
+
 | プレフィックス | 説明                                                    | 例                                                                                                                 |
 | :------------- | :------------------------------------------------------ | :----------------------------------------------------------------------------------------------------------------- |
 | LGTM           | Look Good To Me（良さげです）                           | \[LGTM\] 責務分解が明瞭で、良い実装です！ 💯                                                                       |
@@ -518,6 +524,8 @@ GitHubでのコードレビューは、`Start a review` を行うと `Submit rev
 | SHOULD         | 提案                                                    | \[SHOULD\] 愚直なループではなく、〇〇〇の書き方の方が可読性および性能が良いです。書き換えを検討してください。      |
 | IMO            | In My Opinion（自分ならこうしますが、どうでしょうか？） | \[IMO\] スコープの広さの割に変数名が短いため、 `name` ではなく `pre_ordered_product_name` などが良いかと思いました |
 | NITS           | Nitpick（枝葉ですが直して欲しい）                       | \[NITS\] この変数名は、単数形よりも複数形 `users` または `usersList` が適しているかと思います。                    |
+
+<!-- textlint-enable ja-technical-writing/ja-no-weak-phrase -->
 
 それぞれの定義は以下。特に「ASK（Q）」と「MUST」はレビューコメントが解決しないと、プルリクエストの承認すべきではない。
 
@@ -541,8 +549,12 @@ GitHubでのコードレビューは、`Start a review` を行うと `Submit rev
 
 以下に例を示す。
 
+<!-- textlint-disable ja-technical-writing/no-mix-dearu-desumasu -->
+
 - 「このチューニングが入ると操作性がチート並みの爆速になって、お客様も喜んでくれそうですね🐆💨」
 - 「さすがに年齢設定の上限が1000になっています。鶴は1000年生きると言いますが、ここは150までにしておきましょう🧝」
+
+<!-- textlint-enable ja-technical-writing/no-mix-dearu-desumasu -->
 
 ::: tip 初マージはチーム全員で祝う
 
@@ -571,7 +583,11 @@ GitHubでのコードレビューは、`Start a review` を行うと `Submit rev
 
 ## 出典があれば追記できるとベター
 
+<!-- textlint-disable ja-technical-writing/no-mix-dearu-desumasu, ja-technical-writing/ja-no-weak-phrase -->
+
 指摘内容の補足情報があれば追加するとベターである。例えば、「◯◯の観点で、このコードは▲▲の懸念があるため、●●になるように修正をお願いします。公式ブログの{URL}にも記載があり、参考にできると思います」といった形式である。
+
+<!-- textlint-enable ja-technical-writing/no-mix-dearu-desumasu, ja-technical-writing/ja-no-weak-phrase -->
 
 レビュイーが自分で調べれば事足りる場合もあるが、レビュアー側が出典を示すことで納得感が増す。また、誤った記事（過去のバージョンの記事や、見当違いの記事）を読んでしまい空回ってしまうことも、探す手間も減る。
 

@@ -53,7 +53,7 @@ git config --global alias.br branch
 
 ## git-secrets
 
-[git-secrets](https://github.com/awslabs/git-secrets)を用いることで、ユーザーパスワードや AWS アクセスキーなどの機密情報が含まれる可能性のあるコードなどをGit リポジトリに追加されないようにできる。
+[git-secrets](https://github.com/awslabs/git-secrets)を用いると、ユーザーパスワードや AWS アクセスキーなどの機密情報が含まれる可能性のあるコードが、Git リポジトリに追加されることを防げる。
 
 本ガイドラインの推奨と理由は以下。
 
@@ -62,9 +62,9 @@ git config --global alias.br branch
 
 ## Push Protection
 
-Push Protectionを有効化することで、コードをプッシュする際にクレデンシャルが含まれていないかチェックする。
-もしクレデンシャルが検知されると、プッシュが拒否されるようになる。
-メンバー全員が `git-secrets` を設定していれば不要であるが、設定漏れなどでプッシュされてしまうことを防ぐために、本ガイドラインでは有効化しておくことを推奨する。
+Push Protectionを有効化すると、プッシュ時にクレデンシャルが含まれていないかチェックされる。
+クレデンシャルが検知されると、プッシュは拒否される。
+メンバー全員が `git-secrets` を設定していれば不要である。しかし、設定漏れなどでプッシュされてしまうことを防ぐために、本ガイドラインでは有効化しておくことを推奨する。
 
 ::: info 参考
 
@@ -75,8 +75,8 @@ Push Protectionを有効化することで、コードをプッシュする際�
 
 ## Secret Scanning
 
-Secret Scanningを利用することで、Git リポジトリにクレデンシャルが存在するとメールなどでアラートを送ってくれるようにできる。
-Secret Scanningではコードだけでなく、IssueやPull Requestなどもスキャンできるため、本ガイドラインでは利用することを推奨する。
+Secret Scanningを利用すると、Git リポジトリにクレデンシャルが存在する場合にメールなどでアラートを受け取れる。
+コードだけでなく、IssueやPull Requestなどもスキャンできるため、本ガイドラインでは利用を推奨する。
 
 ::: info 参考
 
@@ -87,14 +87,14 @@ Secret Scanningではコードだけでなく、IssueやPull Requestなどもス
 
 # コミットフック
 
-[git hooks](https://git-scm.com/book/ja/v2/Git-%E3%81%AE%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%9E%E3%82%A4%E3%82%BA-Git-%E3%83%95%E3%83%83%E3%82%AF) を用いて、コミットやプッシュ時に単体テスト実行などのカスタム処理を追加ができる。これを用いると、ローカルでの動作検証などを未実施な状態でレビュー依頼をしてしまうといった状況を未然に防ぎ、開発フローを強制的に適用ができる。
+[git hooks](https://git-scm.com/book/ja/v2/Git-%E3%81%AE%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%9E%E3%82%A4%E3%82%BA-Git-%E3%83%95%E3%83%83%E3%82%AF) を用いると、コミットやプッシュ時に単体テスト実行などのカスタム処理を追加できる。これにより、ローカルでの動作検証などが未実施な状態でのレビュー依頼を未然に防ぎ、開発フローを強制的に適用できる。
 
 本ガイドラインの推奨と理由は以下。
 
 - `git hooks` を用いたテスト実行は行わない
-  - Gitのコマンドを実行するライフサイクルと、動作検証を行いたいライフサイクルは同じでないため、軽微な修正の度にテストが実行されると、作業効率が下がるため
+  - Gitのコマンドを実行するライフサイクルと、動作検証を行いたいライフサイクルは同じでなく、軽微な修正の度にテストが実行されると作業効率が下がるため
   - CI側でテストが実行されるため、最悪CIで検知が可能
-  - 開発者にとって作業効率を考えると、CIで検知ではなくローカルでテスト実行を通してからプッシュするため、CIが整備されている前提では `git hooks` で強制する必然性がないため
+  - 開発者は作業効率を考えると、CIで検知される前にローカルでテスト実行を通してからプッシュするため、CIが整備されている前提では `git hooks` で強制する必然性がないため
 
 ::: tip git hooksで何を行うべきか
 テスト、コード生成、リンターなど、実行時間が長いものは含めるべきでない。
@@ -106,7 +106,7 @@ Secret Scanningではコードだけでなく、IssueやPull Requestなどもス
 
 ## eol
 
-チーム開発において開発環境がWindows/Macなど複数存在することは少なくなく、また、Gitリポジトリ上の改行コードは統一しておくと余計な差分が生じず扱いやすくなる。このときよく用いるのが、 `core.autocrlf` という設定である。
+チーム開発では、開発環境がWindows/Macなど複数存在することは少なくない。Gitリポジトリ上の改行コードは統一しておくと、余計な差分が生じず扱いやすくなる。このときよく用いるのが、 `core.autocrlf` という設定である。
 
 | 名称          | 設定値 | チェックアウト時の挙動 | コミット時の挙動     |
 | ------------- | ------ | ---------------------- | -------------------- |
@@ -124,7 +124,7 @@ Secret Scanningではコードだけでなく、IssueやPull Requestなどもス
 * text=auto eol=lf
 ```
 
-通常、改行コードやインデントの設定は[EditorConfig](https://editorconfig.org/)で行うことが多く、 `.gitattributes` の設定とは重複する。しかし、環境構築ミスなど何らかのトラブルで動作しなかった場合に改行コードミスで特にジュニアクラスのメンバーが困る状況もゼロとは言えないため、本ガイドラインでは `.gitattributes` も作成しておくことを推奨する。
+通常、改行コードやインデントの設定は[EditorConfig](https://editorconfig.org/)で行うことが多く、 `.gitattributes` の設定とは重複する。しかし、環境構築ミスなど何らかのトラブルで動作しなかった場合、改行コードミスで特にジュニアクラスのメンバーが困る状況もゼロとは言えない。そのため、本ガイドラインでは `.gitattributes` も作成しておくことを推奨する。
 
 ::: warning 特定のファイルのみCRLFでコミットしたい
 テスト目的であるファイルだけCRLFで読み込ませたいとする。さきほどの `.gitattributes` の設定ではチェックアウト時に強制的にLFに変換されてしまうため、CRLFのファイルのみ個別で改行コードを指定する必要がある。例えば、`testdata/eol`配下のCSVをCRLFで扱いたい場合は、以下となる。
@@ -138,7 +138,7 @@ testdata/eol/*.csv text eol=crlf
 
 前の行に書いた設定は、後ろの行に書いた設定によって上書きされるため、記載順は「全体に適用する原則」→「個別設定」となるように注意する。
 
-この指定がちゃんと効いているか確認する場合は、 `git check-attr` コマンドを用いると良い。以下のように eolがcrlfで設定されたことが分かる。
+この指定が効いているか確認する場合は、 `git check-attr` コマンドを用いると良い。以下のように eolがcrlfで設定されたことが分かる。
 
 ```sh
 $ git check-attr -a testdata/eol/input1.csv
@@ -155,9 +155,9 @@ testdata/eol/input1.csv: eol: crlf
 
 ## linguist-generated
 
-自動生成で変更が発生し、かつ大量の変更が頻繁に発生する場合には、レビュアが毎回レビューをすることは効率的でない。
+自動生成による大量の変更が頻繁に発生する場合、レビュアーが毎回レビューをすることは効率的でない。
 
-`.gitattributes` で `linguist-generated=true` を設定することで、差分をデフォルトで表示させず、プルリクエストの可視性を向上させることができる。
+`.gitattributes` で `linguist-generated=true` を設定すると、差分がデフォルトで非表示となり、プルリクエストの可視性を向上できる。
 
 ```sh .gitattributes
 # 自動生成されたHTMLファイルの差分を無視する
@@ -197,7 +197,7 @@ GitHubでは、[言語毎に生成ファイルと判定する処理](https://git
 
 # .gitignore
 
-Gitで管理したくないファイル名のルールを定義する`.gitignore`ファイルも入れる。ウェブフロントエンドであれば新規プロジェクトを作成すると大抵作成されるのでそれを登録すれば良いが、もしない場合、あるいは複数の言語を使っている場合などは[GitHubが提供するテンプレート](https://github.com/github/gitignore)を元に作成すると良い。GlobalフォルダにはWindows/macOSのOS固有設定や、エディタ設定などもある。
+Gitで管理したくないファイル名のルールを定義する`.gitignore`ファイルも入れる。ウェブフロントエンドであれば新規プロジェクトを作成すると大抵作成されるので、それを登録すれば良い。もしない場合、あるいは複数の言語を使っている場合などは[GitHubが提供するテンプレート](https://github.com/github/gitignore)を元に作成すると良い。GlobalフォルダにはWindows/macOSのOS固有設定や、エディタ設定などもある。
 
 環境設定を`.env`で行うのが一般的になってきているが、`.env.local`、`.env.dev.local`といった`.local`がついたファイルはクレデンシャルなどの機微な情報を扱うファイルとして定着しているため、 `*.local`も追加すると良い。
 
@@ -222,14 +222,14 @@ GUIでのGit操作にあたり、次の2つの拡張機能をインストール�
 
 - [GitLens](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
   - Gitに関する様々な機能を提供する拡張機能
-  - 詳細： [VSCodeでGitLensを使う - フューチャー技術ブログ](https://future-architect.github.io/articles/）20240415a/)
+  - 詳細： [VSCodeでGitLensを使う - フューチャー技術ブログ](https://future-architect.github.io/articles/20240415a/)
 - [Git Graph](https://marketplace.visualstudio.com/items?itemName=mhutchie.git-graph)
   - コミットグラフを表示する拡張機能
-  - GitLensにもコミットグラフはありますが、Pro（有料版）限定の提供のため、ここではこちらの拡張機能を使用する
+  - GitLensにもコミットグラフはあるが、Pro（有料版）限定の提供のため、ここではGit Graphを使用する
 
 # Pull Request / Merge Request テンプレート
 
-GitHubやGitLabでは、プルリクエスト作成時のテンプレートを作ることができる。チームでプルリクエストに書いてほしいことを明示的にすることで、レビュー効率の向上や障害調査に役立てることができる。
+GitHubやGitLabでは、プルリクエスト作成時のテンプレートを作成できる。プルリクエストに書いてほしいことをチームで明示することで、レビュー効率の向上や障害調査に役立つ。
 
 GitHubでは `.github/PULL_REQUEST_TEMPLATE.md` に記載する（GitLabでは `.gitlab/merge_request_templates/{your_template}.md` を配置する）。
 
@@ -276,7 +276,8 @@ GitHubでは `.github/PULL_REQUEST_TEMPLATE.md` に記載する（GitLabでは `
 3. 更新頻度が低いWebサイトのUI画像パーツなどは、Gitをそのまま用いる
    - ファイルサイズが小さく（数KB〜数MB）、更新も稀であれば、LFS等の仕組みを導入するコストの方が高いため
 4. 更新頻度が高いイベント用バナー画像・販促素材などは、SVNか HeadlessCMSを利用する
-   - Git管理するとリポジトリが肥大化するため。コードとの同期よりも、コンテンツとしての管理が主となるため、SVNや専用のCMSでの管理が適するため
+   - Git管理するとリポジトリが肥大化するため
+   - コードとの同期よりもコンテンツとしての管理が主となり、SVNや専用のCMSでの管理が適するため
 5. バージョン管理が不要で、とりあえず共有すればよい一時的なファイルや、テストの画面キャプチャを含むエビデンス結果などは、Google Driveなどで管理する
    - リンクをREADMEに貼る運用を検討する
 
@@ -358,7 +359,7 @@ Branch protection rules にdevelop, mainなど永続的なブランチに保護�
 |                           | Require linear history                                           | ✅️/-  | mainブランチの場合はOFFとするが、developの場合はSquash mergeを求めるため有効にする                   |
 |                           | Do not allow bypassing the above settings                        | ✅️    | パイパスを許容しない                                                                                 |
 
-`develop` ブランチに対し `require linear history` を選択することを推奨することで、`Create a merge commit` が選択できないようにする。
+`develop` ブランチには `require linear history` の選択を推奨する。これにより、`Create a merge commit` が選択できなくなる。
 
 また、意図しない方法でのマージを避けるため、ブランチごとにマージ戦略を設定しておき、想定外のマージ戦略が選択された時に警告色を表示するというサードパーティ製のChrome拡張[^1]も存在する。必要に応じて導入を検討する。
 

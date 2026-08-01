@@ -1518,7 +1518,7 @@ CREATE TABLE orders (
 
 ::: tip データパッチを行う際の共通カラムの更新ルール
 
-共通カラムのうち、patched_at, patched_by, patched_id のみを更新し、updated_xxx、revision などは更新しないようにする。
+共通カラムのうち、patched_at, patched_by, patched_id のみを更新し、updated_xxx、lock_no などは更新しないようにする。
 
 データパッチ操作とシステムによる操作を分離し、データパッチ操作によりシステム側の証跡を残すようにするためである。
 

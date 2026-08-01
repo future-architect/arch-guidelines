@@ -72,7 +72,7 @@ DB設計における「ドメイン」は定義域とも呼ばれ、その属性
 
 ## 論物変換
 
-PostgreSQLの識別子（テーブル名、カラム名、シーケンス名、インデックス名、制約名、関数名など）の最大長は[PostgreSQL 文書 4.1.1. 識別子とキーワード](https://www.postgresql.jp/docs/16/sql-syntax-lexical.html#SQL-SYNTAX-IDENTIFIERS) によると63文字である。業務システムでは、専門用語の組み合わせで長くなる傾向がある（例: 配送センター別商品在庫数量: `inventory_quantity_by_distributioncenter`）。業務用語とのマッピングは後述する論物変換辞書で行う。その際は、なるべく短く簡潔な名称になるよう設計する。
+PostgreSQLの識別子（テーブル名、カラム名、シーケンス名、インデックス名、制約名、関数名など）の最大長は[PostgreSQL 文書 4.1.1. 識別子とキーワード](https://www.postgresql.jp/docs/17/sql-syntax-lexical.html#SQL-SYNTAX-IDENTIFIERS) によると63文字である。業務システムでは、専門用語の組み合わせで長くなる傾向がある（例: 配送センター別商品在庫数量: `inventory_quantity_by_distributioncenter`）。業務用語とのマッピングは後述する論物変換辞書で行う。その際は、なるべく短く簡潔な名称になるよう設計する。
 
 論物変換とは論理名を物理名に変換する行為を示す。名称揺れ/翻訳揺れが無いよう、辞書を用意し文言管理をする。辞書は論理名と物理名が対応していれば形式を問わない。
 
@@ -335,7 +335,7 @@ SELECT id, tag FROM tag WHERE tag = 'データベース';
 
 ## インデックス種別
 
-PostgreSQL 16時点では、以下のインデックス作成方法を選択できる。
+PostgreSQL 17時点では、以下のインデックス作成方法を選択できる。
 
 - B-tree、btree（デフォルト）
 - Hash、hash
@@ -345,7 +345,7 @@ PostgreSQL 16時点では、以下のインデックス作成方法を選択で�
 - BRIN、brin
 - bloom
 
-[PostgreSQL 16.4文書](https://www.postgresql.jp/docs/16/indexes-types.html)には使い分けについて以下の記載がある（btree, hash以外は省略）
+[PostgreSQL 17文書](https://www.postgresql.jp/docs/17/indexes-types.html)には使い分けについて以下の記載がある（btree, hash以外は省略）
 
 1. `<` `<=` `=` `>=` `>` や `between` 、 `in` を用いたクエリを利用する場合、**btreeを用いる**
 2. 等価比較のみ `=` にアクセスが絞られる場合は `hash` を用いる
@@ -421,7 +421,7 @@ CREATE UNIQUE INDEX idx1_example ON sample (name) NULLS NOT DISTINCT;
 ```
 
 ::: info 参考
-[11.6. 一意インデックス](https://www.postgresql.jp/docs/16/indexes-unique.html)
+[11.6. 一意インデックス](https://www.postgresql.jp/docs/17/indexes-unique.html)
 :::
 
 ### ３．式に対するインデックス（関数インデックス）
@@ -501,7 +501,7 @@ CREATE INDEX idx_employee_with_include ON employees (first_name) INCLUDE (last_n
 
 ::: info 参考
 
-- [https://www.postgresql.jp/docs/16/sql-createindex.html](https://www.postgresql.jp/docs/16/sql-createindex.html#:~:text=%E3%81%8C%E5%BF%85%E9%A0%88%E3%81%A7%E3%81%99%E3%80%82-,INCLUDE,-%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AEINCLUDE) の「INCLUDE」オプション
+- [https://www.postgresql.jp/docs/17/sql-createindex.html](https://www.postgresql.jp/docs/17/sql-createindex.html#:~:text=%E3%81%8C%E5%BF%85%E9%A0%88%E3%81%A7%E3%81%99%E3%80%82-,INCLUDE,-%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AEINCLUDE) の「INCLUDE」オプション
 - [パフォーマンスを考慮したIndex定義設計 | TECHSCORE BLOG](https://www.techscore.com/blog/2019/12/25/performance_index/)
 
 :::
@@ -560,7 +560,7 @@ SELECT id, name, age FROM json_data_table;
 
 ::: info 参考
 
-- [5.3. 生成列](https://www.postgresql.jp/docs/16/ddl-generated-columns.html)
+- [5.3. 生成列](https://www.postgresql.jp/docs/17/ddl-generated-columns.html)
 - [Is it possible to add a GENERATED COLUMN to a large table without locking/downtime on postgres? - Database Administrators Stack Exchange](https://dba.stackexchange.com/questions/324349/is-it-possible-to-add-a-generated-column-to-a-large-table-without-locking-downti)
 
 :::
@@ -893,11 +893,11 @@ CREATE TABLE order (
 
 ENUMのメンテナンスは作業内容によって以下の制約がある。
 
-|                          | 作業内容                                                                                                                                                                                                                                                                                                                                                                                                              | メンテナンスウィンドウ                             |
-| :----------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------- |
-| １．ENUMの区分値リネーム | ALTER TYPE name RENAME VALUE …                                                                                                                                                                                                                                                                                                                                                                                        | 瞬時                                               |
-| ２．ENUMの区分値追加     | ALTER TYPE name ADD VALUE …                                                                                                                                                                                                                                                                                                                                                                                           | 瞬時                                               |
-| ３．ENUMの区分値削除     | ALTER TYPEで削除する構文が提供されていないため、元のENUMをリネーム、新規でENUM作成、ALTER TABLEで変更。<br>-- ENUMをリネーム<br> ALTER TYPE order RENAME TO order_old;<br> -- 区分値を減らしたENUMを作成<br> CREATE TYPE order_state AS ENUM ('Pending', 'Processing', 'Shipped');<br> -- テーブル側のカラムの型変更<br> ALTER TABLE order ALTER COLUMN order_status TYPE mood USING order_status::text::order_state; | ALTER TABLEで、ACCESS EXLUSIVEロックを取ってしまう |
+|                          | 作業内容                                                                                                                                                                                                                                                                                                                                                                                                                     | メンテナンスウィンドウ                             |
+| :----------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------- |
+| １．ENUMの区分値リネーム | ALTER TYPE name RENAME VALUE …                                                                                                                                                                                                                                                                                                                                                                                               | 瞬時                                               |
+| ２．ENUMの区分値追加     | ALTER TYPE name ADD VALUE …                                                                                                                                                                                                                                                                                                                                                                                                  | 瞬時                                               |
+| ３．ENUMの区分値削除     | ALTER TYPEで削除する構文が提供されていないため、元のENUMをリネーム、新規でENUM作成、ALTER TABLEで変更。<br>-- ENUMをリネーム<br> ALTER TYPE order RENAME TO order_old;<br> -- 区分値を減らしたENUMを作成<br> CREATE TYPE order_state AS ENUM ('Pending', 'Processing', 'Shipped');<br> -- テーブル側のカラムの型変更<br> ALTER TABLE order ALTER COLUMN order_status TYPE order_state USING order_status::text::order_state; | ALTER TABLEで、ACCESS EXLUSIVEロックを取ってしまう |
 
 ENUMの代わりに、CHECK制約で代替することも考えられる。CHECK制約の場合は、区分値の削除時でもロックを限定的にできる（※NOT VALID、VALIDATEを利用すれば）ためである。その場合はCHECK制約側の利用ポリシーに依存する。
 
@@ -910,7 +910,7 @@ ENUMの代わりに、CHECK制約で代替することも考えられる。CHECK
 
 ::: info 参考
 
-- [ALTER TYPE](https://www.postgresql.jp/docs/16/sql-altertype.html)
+- [ALTER TYPE](https://www.postgresql.jp/docs/17/sql-altertype.html)
 - [Native enums or CHECK constraints in PostgreSQL? | The Making of Close](https://making.close.com/posts/native-enums-or-check-constraints-in-postgresql)
 
 :::
@@ -1141,7 +1141,7 @@ PostgreSQL 13ではパーティション結合時の改善、14では更新／�
 
 #### パーティションの制約
 
-[5.11. テーブルのパーティショニング](https://www.postgresql.jp/docs/16/ddl-partitioning.html#DDL-PARTITIONING-DECLARATIVE-LIMITATIONS) を参照する。
+[5.11. テーブルのパーティショニング](https://www.postgresql.jp/docs/17/ddl-partitioning.html#DDL-PARTITIONING-DECLARATIVE-LIMITATIONS) を参照する。
 
 特に、以下の点に注意する。
 
@@ -1239,7 +1239,7 @@ for values from ('2023-03-01') to ('2023-04-01');
 
 #### パーティション削除メンテナンス
 
-[5.11. テーブルのパーティショニング](https://www.postgresql.jp/docs/16/ddl-partitioning.html) から、パーティションの削除運用には以下の3つの手法が考えられる。
+[5.11. テーブルのパーティショニング](https://www.postgresql.jp/docs/17/ddl-partitioning.html) から、パーティションの削除運用には以下の3つの手法が考えられる。
 
 | No  | 手順                                                                                                                                                     |
 | :-- | :------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -1353,7 +1353,7 @@ MVIEWの増分ビューメンテナンスは、 `pg_ivm` 拡張を用いるこ�
 
 ### 継承
 
-PostgreSQLはテーブルの継承（[5.10. 継承](https://www.postgresql.jp/docs/16/ddl-inherit.html)）が行え、以下のような特徴がある。
+PostgreSQLはテーブルの継承（[5.10. 継承](https://www.postgresql.jp/docs/17/ddl-inherit.html)）が行え、以下のような特徴がある。
 
 - 親テーブル上の検査制約と非NULL制約は、NO INHERIT句を指定しない限り、子テーブルに自動的に継承される
 - 他の種類の制約（一意性制約、主キー、外部キー制約）は継承されない
@@ -1692,7 +1692,7 @@ CREATE TABLE unit_price (
 
 ::: info 参考
 
-- [8.5. 日付/時刻データ型](https://www.postgresql.jp/docs/16/datatype-datetime.html#DATATYPE-DATETIME-SPECIAL-VALUES)
+- [8.5. 日付/時刻データ型](https://www.postgresql.jp/docs/17/datatype-datetime.html#DATATYPE-DATETIME-SPECIAL-VALUES)
 - [Data types | BigQuery | Google Cloud](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-types#date_type)
 - [Aurora DB クラスターへのデータの追加と、Amazon Redshift でのクエリ - Amazon Aurora](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/zero-etl.querying.html#zero-etl.data-type-mapping)
 
@@ -2215,8 +2215,8 @@ DBを含んだテストは以下の１〜３に分類できる。
 | カラム名変更               | ALTER TABLE {テーブル名} RENAME COLUMN {カラム名} TO {カラム名};                                                                                                                                                                                                                                                                                                                                                 | AccessExclusive                              |                               |                                                                                                                                                                                                                                                                 |
 | 文字列カラムの桁数を上げる | ALTER TABLE {テーブル名} ALTER COLUMN {カラム名} TYPE VARCHAR(桁数);                                                                                                                                                                                                                                                                                                                                             | AccessExclusiveLock                          |                               | パーティションの子テーブル単位での実行は不可。一瞬で終わる                                                                                                                                                                                                      |
 | 数値型カラムの桁数を上げる | ALTER TABLE {テーブル名} ALTER COLUMN {カラム名} TYPE NUMERIC(桁, 精度)                                                                                                                                                                                                                                                                                                                                          | AccessExclusiveLock                          | ✔                             | パーティションの子テーブル単位での実行は不可。おそらくレコードを見ている? 低速な場合は、新規カラム追加、データコピー、古いカラムを削除、新規カラムをリネームの手順も取れるが、一時的にカラムが存在しなくなる                                                    |
-| デフォルト値無しカラム追加 | -- カラム追加<br> ALTER TABLE {テーブル名} ALTER COLUMN {カラム名} SET DEFAULT {デフォルト値}; <br>-- アップデート<br> UPDATE …                                                                                                                                                                                                                                                                                  | AccessExclusive                              |                               | カラム追加後のUPDATEは、静止点が取れるのであれば別テーブルで作成しSELECT INSERTでデータ登録。リネームで切り替えが安心である。                                                                                                                                   |
-| デフォルト値ありカラム追加 | ALTER TABLE {テーブル名} ALTER COLUMN {カラム名} SET DEFAULT {デフォルト値};                                                                                                                                                                                                                                                                                                                                     | AccessExclusive                              |                               | PostgreSQL 11でALTER時にはデフォルト値のUPDATEは行なわない仕様に改善されたため                                                                                                                                                                                  |
+| デフォルト値無しカラム追加 | -- カラム追加<br> ALTER TABLE {テーブル名} ADD COLUMN {カラム名} {型}; <br>-- アップデート<br> UPDATE …                                                                                                                                                                                                                                                                                                          | AccessExclusive                              |                               | カラム追加後のUPDATEは、静止点が取れるのであれば別テーブルで作成しSELECT INSERTでデータ登録。リネームで切り替えが安心である。                                                                                                                                   |
+| デフォルト値ありカラム追加 | ALTER TABLE {テーブル名} ADD COLUMN {カラム名} {型} DEFAULT {デフォルト値};                                                                                                                                                                                                                                                                                                                                      | AccessExclusive                              |                               | PostgreSQL 11でALTER時にはデフォルト値のUPDATEは行なわない仕様に改善されたため                                                                                                                                                                                  |
 | NOT NULL制約の追加         | -- (1) CHECK制約を追加<br> ALTER TABLE {テーブル名} ADD CONSTRAINT {検査名} CHECK ({カラム名} IS NOT NULL) NOT VALID;<br> -- (2) CHECK制約の既存行への適用<br> ALTER TABLE {テーブル名} VALIDATE CONSTRAINT {検査名};<br> -- (3) NOT NULL制約を追加 ALTER TABLE {テーブル名} ALTER COLUMN {カラム名} SET NOT NULL;<br> -- (4) 不要になったCHECK制約を削除<br> ALTER TABLE {テーブル名} DROP CONSTRAINT {検査名}; | AccessExclusive<br>+ShareUpdateExclusiveLock | ✔ShareUpdateExclusiveLockの際 | PostgreSQL 12以降で可能。直接ALTER TABLE ALTER COLUMN SET NOT NULLすると、AccessExclusive＋全探索になる                                                                                                                                                         |
 | インデックス新規追加       | １．各パーティションテーブルに対して、CREATE INDEX CONCURRENTLY <br>２．親テーブルにCREATE INDEXする                                                                                                                                                                                                                                                                                                             | 1:ロック無し 2:ShareLock                     | ✔1の場合 2は無し              | 親テーブルにはCONCURRENTLYオプションを指定できない。CONCURRENTLYオプション無しだと、ShareLock（書き込みロック）を取る。回避策は子パーティションテーブルにCONCURRENTLYオプションを付けてインデックスを作成してから、親テーブルにインデックスを作成する方法がある |
 | インデックス項目追加       | １．ALTER INDEX {インデックス名} RENAME TO {インデックス名}\_old;<br> ２．CREATE INDEX CONCURRENTLY {インデックス名} ON {テーブル名}(カラム1, カラム2);<br> ３．DROP INDEX {1でリネームしたインデックス名};                                                                                                                                                                                                      |                                              |                               | 同名で作成する場合はDROP & CREATEになるが、リネームしてから同名でCREATEしても良い。ヒント句などでインデックス名を指定している場合に便利。パーティションテーブルの場合は、新規追加と同じ手順を組み合わせて実施する                                               |
@@ -2656,8 +2656,8 @@ PostgreSQLで他DBに接続する（接続される）手法として、以下�
 
 ::: info 参考
 
-- [dblink](https://www.postgresql.jp/docs/16/contrib-dblink-function.html)
-- [F.35. postgres_fdw](https://www.postgresql.jp/docs/16/postgres-fdw.html)
+- [dblink](https://www.postgresql.jp/docs/17/contrib-dblink-function.html)
+- [F.35. postgres_fdw](https://www.postgresql.jp/docs/17/postgres-fdw.html)
 - [Oracleデータベースリンクを postgres_fdw に移行してみよう！ケース別の比較もしてみた](https://www.ntt-tx.co.jp/column/postgresql_blog/221121/)
 - [外部データとの連携 ～FDWで様々なデータソースとつなぐ～ | Let's POSTGRES](https://lets.postgresql.jp/documents/technical/fdw)
 
@@ -3115,7 +3115,7 @@ PostgreSQLのサーバーサイドのメッセージを深刻度（下表を参�
   - もし、メッセージ監視も行う場合は、アプリケーション側との重複検知を考慮して設計に加える
 
 ::: info 参考
-[20.8. エラー報告とログ取得](https://www.postgresql.jp/docs/16/runtime-config-logging.html)
+[20.8. エラー報告とログ取得](https://www.postgresql.jp/docs/17/runtime-config-logging.html)
 :::
 
 ## メトリクス監視項目
@@ -3143,7 +3143,7 @@ SELECT pid,
        backend_start,
        now() - backend_start AS connection_duration
 FROM pg_stat_activity
-usename LIKE 'foo_ope_%' -- メンテナンスユーザー名に絞り込み
+WHERE usename LIKE 'foo_ope_%' -- メンテナンスユーザー名に絞り込み
   AND now() - backend_start > interval '3 minutes';
 ```
 
@@ -3202,7 +3202,7 @@ CloudWatch Metricsの場合は、CloudWatchアラームを設定することで�
 
 ::: info 参考
 
-- [20.8. エラー報告とログ取得](https://www.postgresql.jp/docs/16/runtime-config-logging.html#GUC-LOG-MIN-DURATION-STATEMENT)
+- [20.8. エラー報告とログ取得](https://www.postgresql.jp/docs/17/runtime-config-logging.html#GUC-LOG-MIN-DURATION-STATEMENT)
 - [Amazon Aurora PostgreSQL のパラメータ](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/AuroraUserGuide/AuroraPostgreSQL.Reference.ParameterGroups.html)
 - [RDS PostgreSQL での SQL 統計 - Amazon Relational Database Service](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/UserGuide/USER_PerfInsights.UsingDashboard.AnalyzeDBLoad.AdditionalMetrics.PostgreSQL.html)
 
@@ -3240,7 +3240,7 @@ PostgreSQLのロールはDB権限を持ち、通常DBユーザーに付与して
 ```sql
 -- ベースとなる読み取り専用ロール
 --  デフォルトで WITH NOLOGIN オプション相当なので、ログイン不可
-CREATE ROLE foo_readonly;
+CREATE ROLE foo_ope_readonly;
 GRANT SELECT ON ALL TABLES IN SCHEMA foo TO foo_ope_readonly;
 GRANT SELECT ON ALL SEQUENCES IN SCHEMA foo TO foo_ope_readonly;
 

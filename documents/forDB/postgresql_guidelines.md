@@ -515,6 +515,13 @@ CREATE INDEX idx_employee_with_include ON employees (first_name) INCLUDE (last_n
 - 格納生成列は実際にストレージが割り当てられる、マテリアライズドビューに似ている
 - 仮想生成列は列の参照時に計算される、ビューに似ている
 
+::: tip PostgreSQL 18からは仮想生成列もサポートされる  
+PostgreSQL 18で仮想生成列がサポートされ、**キーワードを省略した場合は仮想生成列がデフォルト**となる。17以前からのマイグレーションでは、`STORED` の指定漏れにより意図せず仮想生成列となる点に注意する。
+
+- [5.4. 生成列 - PostgreSQL 18文書](https://www.postgresql.jp/docs/18/ddl-generated-columns.html)
+
+:::
+
 以下の特徴がある。
 
 - 明示的にINSERT/UPDATEができない（DEFAULTキーワードの指定は可能）

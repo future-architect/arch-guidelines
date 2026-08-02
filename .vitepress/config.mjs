@@ -63,6 +63,10 @@ const links = {
       text: "メール設計ガイドライン",
       link: "/documents/forMail/mail_guidelines.html",
     },
+    {
+      text: "SMS設計ガイドライン",
+      link: "/documents/forMail/sms_guidelines.html",
+    },
   ],
   "/documents/forLog/": [
     { text: "Introduction", link: "/documents/forLog/" },
@@ -113,8 +117,12 @@ const links = {
   "/documents/forGitBranch/": [
     { text: "Introduction", link: "/documents/forGitBranch/" },
     {
-      text: "Gitブランチフロー規約",
+      text: "Gitブランチフローガイドライン",
       link: "/documents/forGitBranch/git_branch_standards.html",
+    },
+    {
+      text: "Git環境設定ガイドライン",
+      link: "/documents/forGitBranch/git_setup_guidelines.html",
     },
     {
       text: "VS Code Git操作",
@@ -129,20 +137,20 @@ const links = {
     },
     {
       text: "サンプルプロジェクト",
-      link: "/documents/forMarkdown/sample",
+      link: "/documents/forMarkdown/sample/",
       items: [
         {
           text: "画面一覧",
-          link: "/documents/forMarkdown/sample/ui",
+          link: "/documents/forMarkdown/sample/ui/",
           items: [
-            { text: "UIS01", link: "/documents/forMarkdown/sample/ui/UIS01" },
-            { text: "UIS02", link: "/documents/forMarkdown/sample/ui/UIS02" },
-            { text: "UIS03", link: "/documents/forMarkdown/sample/ui/UIS03" },
-            { text: "UIS04", link: "/documents/forMarkdown/sample/ui/UIS04" },
-            { text: "UIM01", link: "/documents/forMarkdown/sample/ui/UIM01" },
-            { text: "UIM02", link: "/documents/forMarkdown/sample/ui/UIM02" },
-            { text: "UIM03", link: "/documents/forMarkdown/sample/ui/UIM03" },
-            { text: "UIM04", link: "/documents/forMarkdown/sample/ui/UIM04" },
+            { text: "UIS01", link: "/documents/forMarkdown/sample/ui/UIS01/" },
+            { text: "UIS02", link: "/documents/forMarkdown/sample/ui/UIS02/" },
+            { text: "UIS03", link: "/documents/forMarkdown/sample/ui/UIS03/" },
+            { text: "UIS04", link: "/documents/forMarkdown/sample/ui/UIS04/" },
+            { text: "UIM01", link: "/documents/forMarkdown/sample/ui/UIM01/" },
+            { text: "UIM02", link: "/documents/forMarkdown/sample/ui/UIM02/" },
+            { text: "UIM03", link: "/documents/forMarkdown/sample/ui/UIM03/" },
+            { text: "UIM04", link: "/documents/forMarkdown/sample/ui/UIM04/" },
           ],
         },
       ],
@@ -176,6 +184,21 @@ const links = {
       link: "/documents/forSoftSkill/softskill_guidelines.html",
     },
   ],
+  "/documents/forNFR/": [
+    { text: "はじめての非機能要件", link: "/documents/forNFR/" },
+    { text: "第一部 全体プロセス編", link: "/documents/forNFR/overview.html" },
+    {
+      text: "第二部 個別ナレッジ編",
+      link: "/documents/forNFR/knowledge.html",
+      items: [
+        {
+          text: "可用性",
+          link: "/documents/forNFR/availability.html",
+        },
+      ],
+    },
+    { text: "Appendix", link: "/documents/forNFR/appendix.html" },
+  ],
   "/documents/forTechnicalWriting/": [
     { text: "Introduction", link: "/documents/forTechnicalWriting/" },
     {
@@ -188,6 +211,10 @@ const links = {
     {
       text: "はじめての性能テスト",
       link: "/documents/forPerformanceTest/performance_test.html",
+    },
+    {
+      text: "Appendix",
+      link: "/documents/forPerformanceTest/appendix.html",
     },
   ],
 };

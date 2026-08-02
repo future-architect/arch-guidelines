@@ -44,7 +44,7 @@ hero:
     - theme: brand
       text: ログ
       link: ./documents/forLog/
-    - theme: brand
+    - theme: alt
       text: 性能テスト
       link: ./documents/forPerformanceTest/
     - theme: alt
@@ -95,11 +95,6 @@ pageClass: standards-home
 
 本ガイドラインは、設計上の "答え" を提供するためではなく、考えるための土台を提供する目的で作成されている。記載内容に必ず従うことは求めておらず、プロダクト固有の背景や要件に対して相容れない部分があれば、上書きして利用することを想定しする。そのために、設計案を複数の観点で評価するとともに、推奨案の選定理由をなるべく明記するようにしている。
 :::
-
-## 関連コンテンツ
-
-- [コーディング規約](https://future-architect.github.io/coding-standards/)
-- [仕事ですぐに使えるTypeScript](https://future-architect.github.io/typescript-guide/)
 
 ## Articles
 

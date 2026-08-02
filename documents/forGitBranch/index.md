@@ -3,22 +3,53 @@ sidebarDepth: 4
 author: フューチャー株式会社
 layout: home
 hero:
-  name: Git<wbr>ブランチフロー規約
-  tagline: Git branch flow standards
+  name: Git<wbr>ブランチフロー<wbr>ガイドライン
+  tagline: Git Branch Flow Guidelines
   actions:
     - theme: brand
-      text: Gitブランチフロー規約
+      text: Gitブランチフローガイドライン
       link: ./git_branch_standards.md
+    - theme: alt
+      text: Git環境設定ガイドライン
+      link: ./git_setup_guidelines.md
+    - theme: alt
+      text: VS Code Git操作
+      link: ./vscode_git_operation.md
 ---
 
-# コンテンツ
+## はじめに
 
-- [Markdown](https://github.com/future-architect/arch-guidelines/blob/master/documents/forGitBranch/git_branch_standards.md)
-- [HTML(Single File)](https://github.com/future-architect/arch-guidelines/blob/gh-pages/resources/Gitブランチフロー規約.html) （[ブラウザで見る](https://future-architect.github.io/arch-guidelines/resources/Gitブランチフロー規約.html)）
-- [Word](https://github.com/future-architect/arch-guidelines/raw/gh-pages/resources/Gitブランチフロー規約.docx)
+本ガイドラインは、Gitブランチ管理の運用ルールをまとめたものである。
 
-ファイル作成に[Pandoc](https://pandoc.org/)を利用している。
+::: warning 免責事項
+
+- 有志で作成したドキュメントである。フューチャーには多様なプロジェクトが存在し、それぞれの状況に合わせて工夫された開発プロセスや高度な開発支援環境が存在する。本ガイドラインはフューチャーの全ての部署／プロジェクトで適用されているわけではなく、有志が観点を持ち寄って新たに整理したものである
+- 相容れない部分があればその領域を書き換えて利用することを想定している。プロジェクト固有の背景や要件への配慮は、ガイドライン利用者が最終的に判断すること。本ガイドラインに必ず従うことは求めておらず、設計案の提示と、それらの評価観点を利用者に提供することを主目的としている
+- 掲載内容および利用に際して発生した問題、それに伴う損害については、フューチャー株式会社は一切の責務を負わないものとする。掲載している情報は予告なく変更する場合がある
+
+:::
+
+## 前提
+
+以下の想定で作成されているため留意すること。
+
+- GitHub ／ GitLab の利用
+- トランクベース開発（フィーチャーフラグ）を **採用しない**
+- ライブラリではなく、アプリケーション（CLIツール、Webアプリケーションなどの）開発で利用する
+
+## 謝辞
+
+このアーキテクチャガイドラインの作成には多くの方々にご協力いただいた。心より感謝申し上げる。
+
+- **作成者**: 宮崎将太、真野隼記、武田大輝、澁川喜規、清水雄一郎
+- **レビュアー**: 藤田春佳、中村眞之介
 
 ## Articles
 
 - 2024.12.14 [Gitブランチフロー規約の紹介](https://future-architect.github.io/articles/20241214a/)
+
+<div class="next-page-nav">
+
+次のページ: [Gitブランチフローガイドライン](./git_branch_standards.md)
+
+</div>

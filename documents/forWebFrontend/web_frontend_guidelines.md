@@ -163,7 +163,7 @@ CSRとSSRを相互に補完できるソリューションであるが、以下�
 | メニュー         | ![](images/component_menu.png)   | 画面遷移のリンクを提示する。複数リンクを束ねてまとめておきたい場合ニ利用。メニュー内の仕様によってサブメニュー等階層構造を取る場合もある                         |
 
 ::: tip デザインパターンの活用  
-再利用可能で柔軟なUI要素を作成するために、確立されたデザインパターン（ex：[ファクトリー](https://zenn.dev/morinokami/books/learning-patterns-1/viewer/factory-pattern)、[モジュール](https://zenn.dev/morinokami/books/learning-patterns-1/viewer/module-pattern)、[複合（高階）コンポーネント](https://zenn.dev/morinokami/books/learning-patterns-1/viewer/compound-pattern)、[レンダープロップ](https://zenn.dev/morinokami/books/learning-patterns-1/viewer/render-props-pattern)）を活用する。例えば、ファクトリーパターンでさまざまな種類のフォームフィールドを動的に作成したり、高階コンポーネントで既存のコンポーネントの機能を強化したりできる。デザインパターンはベストプラクティスをカプセル化し、コード効率・保守性・拡張性を高める。  
+再利用可能で柔軟なUI要素を作成するために、確立されたデザインパターン（ex：[ファクトリー](https://zenn.dev/morinokami/books/learning-patterns-1/viewer/factory-pattern)、[モジュール](https://zenn.dev/morinokami/books/learning-patterns-1/viewer/module-pattern)、[複合（高階）コンポーネント](https://zenn.dev/morinokami/books/learning-patterns-1/viewer/compound-pattern)、[レンダープロップ](https://zenn.dev/morinokami/books/learning-patterns-1/viewer/render-props-pattern)）を活用する。例えば、ファクトリーパターンでさまざまな種類のフォームフィールドを動的に作成したり、高階コンポーネントで既存のコンポーネントの機能を強化したりできる。デザインパターンはベストプラクティスをカプセル化し、開発効率・保守性・拡張性を高める。  
 :::
 
 ## 業務コンポーネント

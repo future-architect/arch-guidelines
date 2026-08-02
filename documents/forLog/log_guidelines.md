@@ -599,7 +599,7 @@ Web API設計ガイドライン > [機能配置](/documents/forWebAPI/web_api_gu
 | 処理時間         | http.server.request.duration | ー     | ✅️     | ミリ秒を推奨                                                                                                         |
 | User Agent       | user_agent.original          | ✅️     | ✅️     | クライアントの特定に利用する。                                                                                       |
 
-## バッチ実行時のログ出力
+## バッチ実行時のログ出力 {#バッチ実行時のログ出力}
 
 バッチ処理でも適切なログを出力することで、何か課題が生じた際に解析の手がかりとなり、保守運用時コストを低減できる。
 

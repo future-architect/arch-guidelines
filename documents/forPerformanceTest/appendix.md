@@ -86,9 +86,9 @@ config:
     rankSpacing: 200
 ---
 flowchart LR
-    Q1{"ラッシュテストの実施が必要か？"}
-    Q1 -- No --> Q2{"Lighthouseで解消しないエッジケースが存在するか？"}
-    Q1 -- Yes --> Q3{"Playwrightの資産を活用できそうか？"}
+    Q1{"ラッシュテストの<br>実施が必要か？"}
+    Q1 -- No --> Q2{"Lighthouseで解消しない<br>エッジケースが<br>存在するか？"}
+    Q1 -- Yes --> Q3{"Playwrightの資産を<br>活用できそうか？"}
     Q2 -- No --> Lighthouse["<p style='width:180px'>Lighthouseを採用</p>"]
     Q2 -- Yes --> WPT["<p style='width:180px'>WebPageTestを採用</p>"]
     Q3 -- No --> K6["<p style='width:180px'>k6-browserを採用</p>"]

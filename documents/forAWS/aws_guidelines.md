@@ -1214,13 +1214,13 @@ AWSサービス自体の異常の監視は、[AWS Health](https://docs.aws.amazo
 
 [Application Load Balancer の CloudWatch メトリクス \- エラスティックロードバランシング](https://docs.aws.amazon.com/ja_jp/elasticloadbalancing/latest/application/load-balancer-cloudwatch-metrics.html) によると、以下の分類が存在する。
 
-| カテゴリ                   | 説明                                                                                          | 主なメトリクス例 (一部)                                                                                            |
-| :------------------------- | :-------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------- |
-| ロードバランサー           | ALB全体の処理量、接続数、エラー、性能、LCU消費量などを示す                                    | ・RequestCount ・ActiveConnectionCount ・ProcessedBytes ・HTTPCode_ELB_4XX_Count 〜 5XX_Count ・ConsumedLCUs       |
-| ターゲット                 | ALBがリクエストを転送する先のターゲットグループ内のターゲットの応答性やエラーを示す           | ・RequestCountPerTarget ・TargetResponseTime ・HTTPCode_Target_2XX_Count 〜 5XX_Count ・TargetConnectionErrorCount |
-| ターゲットグループの正常性 | ターゲットグループ内のターゲットがヘルスチェックに成功しているか、正常/異常数を示す           | ・HealthyHostCount ・UnHealthyHostCount                                                                            |
-| Lambda 関数                | ターゲットとしてLambda関数を使用している場合に、ALBとLambda関数間のやり取りやエラー状況を示す | ・LambdaTargetProcessedBytes ・LambdaUserErrorCount                                                                |
-| ユーザー認証               | ALBの認証機能（Amazon CognitoやOIDC IdPなど）に関する成功、失敗、エラーを示す                 | ・ELBAuthError ・ELBAuthFailure                                                                                    |
+| カテゴリ                   | 説明                                                                                          | 主なメトリクス例 (一部)                                                                                                     |
+| :------------------------- | :-------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------- |
+| ロードバランサー           | ALB全体の処理量、接続数、エラー、性能、LCU消費量などを示す                                    | ・RequestCount<br>・ActiveConnectionCount<br>・ProcessedBytes<br>・HTTPCode_ELB_4XX_Count 〜 5XX_Count<br>・ConsumedLCUs    |
+| ターゲット                 | ALBがリクエストを転送する先のターゲットグループ内のターゲットの応答性やエラーを示す           | ・RequestCountPerTarget<br>・TargetResponseTime<br>・HTTPCode_Target_2XX_Count 〜 5XX_Count<br>・TargetConnectionErrorCount |
+| ターゲットグループの正常性 | ターゲットグループ内のターゲットがヘルスチェックに成功しているか、正常/異常数を示す           | ・HealthyHostCount<br>・UnHealthyHostCount                                                                                  |
+| Lambda 関数                | ターゲットとしてLambda関数を使用している場合に、ALBとLambda関数間のやり取りやエラー状況を示す | ・LambdaTargetProcessedBytes<br>・LambdaUserErrorCount                                                                      |
+| ユーザー認証               | ALBの認証機能（Amazon CognitoやOIDC IdPなど）に関する成功、失敗、エラーを示す                 | ・ELBAuthError<br>・ELBAuthFailure                                                                                          |
 
 ALB関連で監視対象となり得る主要なメトリクスを下表にまとめる。
 

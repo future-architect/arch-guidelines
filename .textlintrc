@@ -29,7 +29,15 @@
           "/△+/",
           "/×+/",
           "/◇+/",
-          "/……/"
+          "/……/",
+          "【アップデート】Security Hub 通知のフィルタルールを EventBridge から簡単に作成できます",
+          "Aurora DB クラスターへのデータの追加と、Amazon Redshift でのクエリ - Amazon Aurora",
+          "Amazon Aurora PostgreSQL DB クラスターのアップグレード",
+          "List-Unsubscribeヘッダ付与機能 | メール配信システムWEBCAS e-mail",
+          "URLリソースの非推奨を示すDeprecationヘッダ \\- ASnoKaze blog",
+          "Idempotency-Keyヘッダによるマイクロサービスの冪等性の担保",
+          "Server-Timing ヘッダの情報をフロントエンド解析に使う",
+          "CSS コンテナークエリー | MDN"
         ]
     }
   },
@@ -48,6 +56,9 @@
       "max-kanji-continuous-len": {
         "max": 10
       }
+    },
+    "prh": {
+      "rulePaths": ["./prh-choon.yml"]
     }
   }
 }

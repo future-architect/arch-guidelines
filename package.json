@@ -45,6 +45,7 @@
     "textlint-rule-preset-ja-spacing": "^3.0.0",
     "textlint-rule-preset-ja-technical-writing": "^12.0.2",
     "textlint-rule-preset-japanese": "^10.0.4",
+    "textlint-rule-prh": "^6.1.0",
     "textlint-rule-spellcheck-tech-word": "^5.0.0",
     "vitepress": "^1.5.0",
     "vitepress-plugin-mermaid": "^2.0.17",

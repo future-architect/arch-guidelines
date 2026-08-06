@@ -1,0 +1,76 @@
+# カタカナ語の長音表記ルール
+#
+# 両表記が併存していたため #390 で統一した語のみを対象とする。
+# 判断基準: 多数派が2倍以上の語は多数派へ、僅差（2倍未満）・同数の語は長音ありへ。
+# ゆれていない語（データ、インフラ、コンテナ、スキーマなど）は対象外。
+#
+# 注意: このリポジトリでは `textlint --fix` を実行してはならない。
+#       過去に --fix が文法を壊す形で多数の文書を書き換えた事故がある。
+#       検出のみに使い、修正は手で行うこと。
+#
+# 引用した外部記事のタイトルは書き換えてはならないため、.textlintrc の allowlist に
+# タイトルをそのまま登録して除外している（--fix でも書き換わらないことを確認済み）。
+# 記事タイトルを含むリンクを追加してこのルールに引っかかった場合は、
+# 本文であれば表記を直し、記事タイトルであれば allowlist に追加すること。
+version: 1
+
+rules:
+  # ---- 長音ありに統一 ----
+  - expected: ユーザー
+    # ユーザビリティは別語のため除外する
+    pattern: /ユーザ(?![ービ])/
+  - expected: サーバー
+    pattern: /サーバ(?!ー)/
+  - expected: ヘッダー
+    pattern: /ヘッダ(?!ー)/
+  - expected: コンシューマー
+    pattern: /コンシューマ(?!ー)/
+  - expected: レイヤー
+    pattern: /レイヤ(?!ー)/
+  - expected: リーダー
+    # マシンリーダブル、リーダブルコードは別語のため除外する
+    pattern: /リーダ(?![ーブ])/
+  - expected: フィルター
+    # フィルタリングは別語のため除外する
+    pattern: /フィルタ(?![ーリ])/
+  - expected: プロバイダー
+    pattern: /プロバイダ(?!ー)/
+  - expected: プライマリー
+    pattern: /プライマリ(?!ー)/
+  - expected: フォーマッター
+    pattern: /フォーマッタ(?!ー)/
+  - expected: プレースホルダー
+    pattern: /プレースホルダ(?!ー)/
+  - expected: トレーナー
+    pattern: /トレーナ(?!ー)/
+  - expected: プロデューサー
+    pattern: /プロデューサ(?!ー)/
+  - expected: バランサー
+    pattern: /バランサ(?!ー)/
+  - expected: トロフィー
+    pattern: /トロフィ(?!ー)/
+  - expected: プランナー
+    pattern: /プランナ(?!ー)/
+  - expected: ブレーカー
+    pattern: /ブレーカ(?!ー)/
+  - expected: トレーニー
+    # トレーニングは別語のため除外する
+    pattern: /トレーニ(?![ーン])/
+
+  # ---- 長音なしに統一 ----
+  - expected: クエリ
+    pattern: /クエリー/
+  - expected: パラメータ
+    pattern: /パラメーター/
+  - expected: ブラウザ
+    pattern: /ブラウザー/
+  - expected: リカバリ
+    pattern: /リカバリー/
+  - expected: ドライバ
+    pattern: /ドライバー/
+  - expected: クラスタ
+    pattern: /クラスター/
+  - expected: スケジューラ
+    pattern: /スケジューラー/
+  - expected: コンピュータ
+    pattern: /コンピューター/

@@ -416,12 +416,12 @@ export default defineConfig({
             text: "はじめての〇〇シリーズ",
             items: [
               {
-                text: "はじめての性能テスト",
-                link: "/documents/forPerformanceTest/performance_test.html",
-              },
-              {
                 text: "はじめての非機能要件",
                 link: "/documents/forNFR/",
+              },
+              {
+                text: "はじめての性能テスト",
+                link: "/documents/forPerformanceTest/performance_test.html",
               },
             ],
           },

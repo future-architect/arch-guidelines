@@ -297,7 +297,7 @@ export default defineConfig({
 
     return head;
   },
-  srcExclude: ["./README.md"],
+  srcExclude: ["./README.md", "./CLAUDE.md"],
   base: "/arch-guidelines/",
   themeConfig: {
     siteTitle: "Future <wbr>Architecture Guidelines",

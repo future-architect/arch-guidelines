@@ -48,6 +48,9 @@ hero:
       text: 性能テスト
       link: ./documents/forPerformanceTest/
     - theme: alt
+      text: 非機能要件
+      link: ./documents/forNFR/
+    - theme: alt
       text: Gitブランチフロー
       link: ./documents/forGitBranch/
     - theme: alt

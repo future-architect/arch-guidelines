@@ -45,6 +45,9 @@ hero:
       text: ログ
       link: ./documents/forLog/
     - theme: alt
+      text: 非機能要件
+      link: ./documents/forNFR/
+    - theme: alt
       text: 性能テスト
       link: ./documents/forPerformanceTest/
     - theme: alt

@@ -24,7 +24,7 @@ VS Code上でのGit操作は、サイドバーの "Source Control" から行え�
 
 白丸のグラフアイコン (Show Commit Graph) はGitLensのコミットグラフだが、Pro（有料版）でのみの提供となる。
 
-## リモートのフェッチ／プル (`git fetch` / `git pull`)
+## リモートのフェッチ / プル (`git fetch` / `git pull`)
 
 以下のいずれかを操作すると、リモートリポジトリをフェッチできる。
 
@@ -39,7 +39,7 @@ VS Code上でのGit操作は、サイドバーの "Source Control" から行え�
 
 ![Fetch2](img/vscode_git_fetch2.png)
 
-## ブランチの作成／チェックアウト (`git branch` / `git checkout`)
+## ブランチの作成 / チェックアウト (`git branch` / `git checkout`)
 
 以下のいずれかを操作すると、ブランチを作成できる。
 
@@ -53,7 +53,7 @@ VS Code上でのGit操作は、サイドバーの "Source Control" から行え�
 | -------------------------------------- | -------------------------------------- |
 | ![Branch1](img/vscode_git_branch1.png) | ![Branch2](img/vscode_git_branch2.png) |
 
-## ステージ／コミット／プッシュ (`git add` / `git commit` / `git push`)
+## ステージ / コミット / プッシュ (`git add` / `git commit` / `git push`)
 
 1. SOURCE CONTROL パネル > 変更ファイルの行 > +アイコン (Stage Changes) をクリックすると、対象ファイルをステージできる（Changes > +アイコン (Stage All Changes) をクリックすると、すべての変更をステージする）
 2. 必要な変更をステージ後、 SOURCE CONTROL パネル内でコミットメッセージを入力し、 Commit ボタンをクリックすると、コミットを作成できる

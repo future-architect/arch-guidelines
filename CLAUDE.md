@@ -35,6 +35,15 @@ VitePress で公開する設計ガイドライン集。コンテンツは日本�
 
 本サイトの図は mermaid で書く（` ```mermaid ` を vitepress-plugin-mermaid がレンダリングする）。`documents/forMarkdown/markdown_design_document.md` の PlantUML ブロックは、設計書の書き方として読者に示すサンプルなので mermaid に書き換えない。
 
+## 区切り記号のスラッシュ
+
+区切りには半角の `/` を使い、前後に半角スペースを入れる（`含める / 含めない`）。全角の `／` は使わない（#385 で統一）。ただし次の場合はスペースを入れず詰める。
+
+- `CI/CD`、`ISO/IEC`、`I/F`、`RTO/RPO`、`GET/HEAD` のように、対で定着した略語や連結表記
+- `SERIAL/BIGSERIAL型`、`INSERT/UPDATE時` のように、英数字の対に日本語の接尾辞が直付きする場合
+
+なお、`円/月`・`件/秒` のような単位の「毎」を表すスラッシュは区切りではないため、スペースを入れない。
+
 ## 確認とチェック
 
 - `npm run watch` — 開発サーバー。URL は base 込みの `http://localhost:5173/arch-guidelines/`

@@ -10,7 +10,7 @@ head:
 
 <page-title/>
 
-本ガイドラインは、[Gitブランチフローガイドライン](./git_branch_standards.md)を実効化するための、ローカルGit・リポジトリ・ホスティングサービス（GitHub／GitLab）の推奨設定をまとめる。
+本ガイドラインは、[Gitブランチフローガイドライン](./git_branch_standards.md)を実効化するための、ローカルGit・リポジトリ・ホスティングサービス（GitHub / GitLab）の推奨設定をまとめる。
 
 位置づけ・前提・免責事項は [Introduction](./index.md) を参照。
 

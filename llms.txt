@@ -1,0 +1,29 @@
+# Future Enterprise Arch Guidelines
+
+> Future Enterprise Arch Guidelinesは、フューチャー株式会社の有志によって作成された、エンタープライズ向けのシステム設計ガイドライン集です。多くの開発者が一貫性のある設計を行うための知見やパターン、推奨方式をまとめ、公開・改善を続けています。
+
+本サイトは、[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.ja)ライセンスで公開されています。
+
+- 多くの開発者が関わるシステム開発において、一貫性のある設計を行うために、有志メンバーがボトムアップ的に主要な設計項目を集め、設計パターンや推奨方式をまとめました。
+- 設計標準を公開し、フィードバックを受けて民主的に内容を改善し続けることで、IT技術の進化に柔軟に対応できることを目指します。
+- セキュリティや保守運用性などの非機能要件が特に重視される、エンタープライズ特有の要件にも配慮した設計標準の提供を目指します。
+
+## Docs
+
+- [トップページ](https://future-architect.github.io/arch-guidelines/)
+- [Webフロントエンド設計](https://raw.githubusercontent.com/future-architect/arch-guidelines/refs/heads/main/documents/forWebFrontend/web_frontend_guidelines.md): Webフロントエンド設計における考慮点・設計パターン・推奨手法を提示
+- [WebAPI設計](https://raw.githubusercontent.com/future-architect/arch-guidelines/refs/heads/main/documents/forWebAPI/web_api_guidelines.md): Web APIを利用する開発者向けに、RESTライクなWeb APIの主な設計手法をまとめて提供
+- [バッチ設計](https://raw.githubusercontent.com/future-architect/arch-guidelines/refs/heads/main/documents/forBatch/batch_guidelines.md): バッチ処理設計におけるベストプラクティス、設計時の考慮点、運用における課題とその対策を紹介
+- [DB設計](https://raw.githubusercontent.com/future-architect/arch-guidelines/refs/heads/main/documents/forDB/postgresql_guidelines.md): PostgreSQLを使用する開発者向けに、アプリケーション設計を含むDBの設計標準を紹介
+- [AWS設計](https://raw.githubusercontent.com/future-architect/arch-guidelines/refs/heads/main/documents/forAWS/aws_guidelines.md): システム間差異の少ない設計のベストプラクティスを提供
+- [Terraform設計](https://raw.githubusercontent.com/future-architect/arch-guidelines/refs/heads/main/documents/forTerraform/terraform_guidelines.md): 開発者が悩むポイントを軽減し、可読性や保守性、安全性を高めるルール
+- [データマネジメント設計](https://raw.githubusercontent.com/future-architect/arch-guidelines/refs/heads/main/documents/forDataManagement/datamanagement_guidelines.md): データマネジメントの設計における主要な論点や方針
+- [Gitブランチフロー](https://raw.githubusercontent.com/future-architect/arch-guidelines/refs/heads/main/documents/forGitBranch/git_branch_standards.md): Gitブランチ管理の標準的な運用ルール
+- [Markdown設計ドキュメント](https://raw.githubusercontent.com/future-architect/arch-guidelines/refs/heads/main/documents/forMarkdown/markdown_design_document.md): Markdown ベースの設計ドキュメントの規約
+- [コードレビュー](https://raw.githubusercontent.com/future-architect/arch-guidelines/refs/heads/main/documents/forCodeReview/code_review.md): コードレビューにおける推奨する行動と、守るべきルールの両方を定義
+- [Slack利用](https://raw.githubusercontent.com/future-architect/arch-guidelines/refs/heads/main/documents/forSlack/slack_usage_guidelines.md): Slackの利用方針についてのベースとなる規約
+
+## Optional
+
+- [GitHubリポジトリ](https://github.com/future-architect/arch-guidelines): サイトのソースコード
+- [CC BY 4.0 ライセンス詳細](https://creativecommons.org/licenses/by/4.0/deed.ja)

@@ -1,4 +1,4 @@
-く---
+---
 sidebarDepth: 4
 author: フューチャー株式会社
 layout: home

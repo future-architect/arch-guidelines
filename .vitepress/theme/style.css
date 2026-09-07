@@ -26,6 +26,32 @@
   }
 }
 
+/* ブランド色。技術ブログ（future-architect.github.io）の決まりとそろえる (#403)。
+   面（ボタン）はロゴと同じネイビー、文字（リンク・現在地）は青。
+   ネイビーは本文の文字との比が 1.49 で、文字に使うと黒と見分けが付かない。
+   ダークではネイビーが地の上で 1.05 と沈むので入れず、青の明るい段で置く。
+   --vp-c-text-3 の既定 #929295 は白地で 3.10 と AA を割る
+   （コードの言語ラベル・コピーボタンの色）ので、AA を満たす最も薄い値に */
+:root {
+  --vp-c-brand-1: #0a58ca;
+  --vp-c-brand-2: #084ba8;
+  --vp-c-brand-3: #0a1561;
+  --vp-c-brand-soft: rgba(10, 88, 202, 0.14);
+  --vp-button-brand-hover-bg: #0e1d8b;
+  --vp-button-brand-active-bg: #0a1561;
+  --vp-c-text-3: #757575;
+}
+
+.dark {
+  --vp-c-brand-1: #7cb8ff;
+  --vp-c-brand-2: #a9d1ff;
+  --vp-c-brand-3: #0a58ca;
+  --vp-c-brand-soft: rgba(124, 184, 255, 0.16);
+  --vp-button-brand-hover-bg: #0072e5;
+  --vp-button-brand-active-bg: #0a58ca;
+  --vp-c-text-3: #94949d;
+}
+
 /* ヒーロー画像を透過させる */
 .image-src {
   opacity: 0.1;

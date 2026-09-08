@@ -227,3 +227,29 @@ h6 {
   margin-left: 0;
   margin-right: 4px;
 }
+
+/* 注記の地の色を技術ブログの note にそろえる (#409)。名前は engine の語彙で交差するので
+   意味で対応させる: tip（本サイトでは「推奨」）→ ブログの info（緑）、info（補足）→
+   ブログの tip（灰青）、warning → warn、danger → alert。
+   中のコードの地は、地より一段濃い同じ色（ブログの code-bg と同じ HSL 0.94） */
+:root {
+  --vp-custom-block-tip-bg: #e5f8e2;
+  --vp-custom-block-tip-code-bg: #d1f1cc;
+  --vp-custom-block-info-bg: #eff0f3;
+  --vp-custom-block-info-code-bg: #dfe1e6;
+  --vp-custom-block-warning-bg: #fdf9e2;
+  --vp-custom-block-warning-code-bg: #faf2c9;
+  --vp-custom-block-danger-bg: #ffdbdb;
+  --vp-custom-block-danger-code-bg: #fdc0c0;
+}
+
+.dark {
+  --vp-custom-block-tip-bg: #243720;
+  --vp-custom-block-tip-code-bg: #3f6038;
+  --vp-custom-block-info-bg: #313237;
+  --vp-custom-block-info-code-bg: #565860;
+  --vp-custom-block-warning-bg: #363320;
+  --vp-custom-block-warning-code-bg: #5e5938;
+  --vp-custom-block-danger-bg: #482a2a;
+  --vp-custom-block-danger-code-bg: #7e4a4a;
+}

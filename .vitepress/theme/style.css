@@ -207,6 +207,15 @@ h6 {
   width: 25%;
 }
 
+/* 表は縞をやめ、ヘッダー行だけに地色を敷く (#408)。技術ブログ（Zenn と同じ構成）。
+   構造の起点であるヘッダーが目立ち、行数の多い表でも面がうるさくならない */
+.vp-doc tr:nth-child(2n) {
+  background-color: var(--vp-c-bg);
+}
+.vp-doc th {
+  background-color: var(--vp-c-bg-soft);
+}
+
 /* タスクリストの中黒を非表示 */
 .task-list-item {
   list-style: none;

@@ -1,0 +1,21 @@
+{
+  "https://future-architect.github.io/arch-guidelines/documents/forAWS/aws_guidelines.html": 69,
+  "https://future-architect.github.io/arch-guidelines/documents/forAsync/async_guidelines.html": 5,
+  "https://future-architect.github.io/arch-guidelines/documents/forBatch/batch_guidelines.html": 383,
+  "https://future-architect.github.io/arch-guidelines/documents/forCodeReview/code_review.html": 3,
+  "https://future-architect.github.io/arch-guidelines/documents/forDB/dynamodb_guidelines.html": 54,
+  "https://future-architect.github.io/arch-guidelines/documents/forDB/postgresql_guidelines.html": 242,
+  "https://future-architect.github.io/arch-guidelines/documents/forDataGovernance/data_governance_guidelines.html": 10,
+  "https://future-architect.github.io/arch-guidelines/documents/forDataManagement/datamanagement_guidelines.html": 7,
+  "https://future-architect.github.io/arch-guidelines/documents/forGitBranch/git_branch_standards.html": 213,
+  "https://future-architect.github.io/arch-guidelines/documents/forIF/if_guidelines.html": 65,
+  "https://future-architect.github.io/arch-guidelines/documents/forLog/log_guidelines.html": 458,
+  "https://future-architect.github.io/arch-guidelines/documents/forMail/mail_guidelines.html": 451,
+  "https://future-architect.github.io/arch-guidelines/documents/forMarkdown/markdown_design_document.html": 3,
+  "https://future-architect.github.io/arch-guidelines/documents/forSlack/slack_usage_guidelines.html": 2,
+  "https://future-architect.github.io/arch-guidelines/documents/forSoftSkill/softskill_guidelines.html": 4,
+  "https://future-architect.github.io/arch-guidelines/documents/forTechnicalWriting/technical_writing_guidelines.html": 152,
+  "https://future-architect.github.io/arch-guidelines/documents/forTerraform/terraform_guidelines.html": 238,
+  "https://future-architect.github.io/arch-guidelines/documents/forWebAPI/web_api_guidelines.html": 134,
+  "https://future-architect.github.io/arch-guidelines/documents/forWebFrontend/web_frontend_guidelines.html": 264
+}

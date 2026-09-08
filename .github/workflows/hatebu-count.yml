@@ -1,0 +1,30 @@
+name: HatebuCount
+
+# はてなブックマークの件数キャッシュを取り直して main へ push する（#425）。
+# push でそのまま GHPages が走るので、サイトの数字も日次で更新される。
+# ビルド側は外部に触らないため、Hatena 側の障害で PR の CI は落ちない。
+on:
+  schedule:
+    # 9:00 JST
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+jobs:
+  update-count:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+      - name: Update Hatena bookmark counts
+        run: npm run hatebu
+      - name: Commit and push
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .vitepress/hatebu_count_cache.json
+          # 件数が動いていない日は何もしない
+          git diff --cached --quiet && exit 0
+          git commit -m "はてなブックマーク数のキャッシュを更新"
+          git push

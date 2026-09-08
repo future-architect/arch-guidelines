@@ -88,6 +88,19 @@
   text-decoration-thickness: 2px;
 }
 
+/* 訪問済みは紫 (#407)。技術ブログの link-visited と同じ値で、白地・コードの地の
+   両方で AA を満たす。hover でも色は動かさない（下線の太さで返す） */
+.vp-doc a:visited,
+.vp-doc a:visited:hover,
+.vp-doc a:visited > code {
+  color: #590fc7;
+}
+.dark .vp-doc a:visited,
+.dark .vp-doc a:visited:hover,
+.dark .vp-doc a:visited > code {
+  color: #c8a8ff;
+}
+
 /* ヒーロー画像を透過させる */
 .image-src {
   opacity: 0.1;

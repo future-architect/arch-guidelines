@@ -54,6 +54,32 @@
   --vp-c-text-3: #94949d;
 }
 
+/* 反応の速さもブログとそろえる (#403)。押せることの合図は 0.05s の1つで、
+   VitePress 既定の 0.25s は待ちに見える。開閉・移動（.VPFlyout .menu、
+   .caret-icon の回転、.outline-marker の移動）は状態の変化なので触らない */
+#app .VPButton,
+#app .VPButton:active,
+#app .vp-doc a,
+#app .vp-doc .header-anchor,
+#app .VPSidebarItem .text,
+#app .VPSidebarItem .indicator,
+#app .VPSidebarItem .caret,
+#app .VPNavBarMenuLink,
+#app .VPFlyout .button,
+#app .VPFlyout .text,
+#app .VPFlyout .icon,
+#app .VPFlyout:hover,
+#app .VPFeature,
+#app .VPFeature .icon,
+#app .edit-link-button,
+#app .pager-link,
+#app .pager-link .title,
+#app .VPMenuLink .link,
+#app .VPSocialLink,
+#app .VPSocialLink:hover {
+  transition-duration: 0.05s;
+}
+
 /* 本文リンクの反応は下線の太さ 1px → 2px（技術ブログと同じ）。色は動かさない */
 .vp-doc a {
   text-decoration-thickness: 1px;

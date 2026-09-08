@@ -5,6 +5,20 @@
   border-top: 1px solid var(--vp-c-divider);
 }
 
+/* インラインコードの文字は本文の色 (#419)。技術ブログと同じ。コードは地で区別されて
+   いるので、文字まで青にすると注記の色の上で読みにくく、リンクとも見分けが付かない。
+   注記の中は VitePress が種類ごとに brand-1 を当て直しているので、そちらも戻す。
+   リンクの中のコードだけはリンクの色のまま */
+:root {
+  --vp-code-color: var(--vp-c-text-1);
+}
+.vp-doc .custom-block code {
+  color: var(--vp-c-text-1);
+}
+.vp-doc .custom-block a > code {
+  color: var(--vp-code-link-color);
+}
+
 :root {
   --vp-home-hero-name-color: transparent;
   --vp-home-hero-name-background: -webkit-linear-gradient(
@@ -54,6 +68,31 @@
   --vp-c-text-3: #94949d;
 }
 
+/* ヘッダーを磨りガラスにする (#411)。技術ブログ（#3220）と同じ 90% ＋ blur 8px。
+   本文の上に置かれた箱ではなく本文の一部として読ませる。90% は帯の下にいちばん暗いもの
+   （コードブロック）が来ても文字が AA を保つ値。ぼかしが効かないブラウザでは不透明のまま
+   ——透けるだけだと文字の下に本文が見えて読めない。
+   VitePress は 960px 未満で帯そのもの、960px 以上ではサイドバーの右の .content-body に
+   地を敷くので、ぼかしも同じ要素に置く */
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  :root {
+    --vp-nav-bg-color: color-mix(in srgb, var(--vp-c-bg) 90%, transparent);
+  }
+  @media (max-width: 959px) {
+    #app .VPNavBar:not(.home) {
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+    }
+  }
+  @media (min-width: 960px) {
+    #app .VPNavBar:not(.home.top) .content-body,
+    #app .VPNavBar:not(.has-sidebar):not(.home.top) {
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+    }
+  }
+}
+
 /* 反応の速さもブログとそろえる (#403)。押せることの合図は 0.05s の1つで、
    VitePress 既定の 0.25s は待ちに見える。開閉・移動（.VPFlyout .menu、
    .caret-icon の回転、.outline-marker の移動）は状態の変化なので触らない */
@@ -80,12 +119,52 @@
   transition-duration: 0.05s;
 }
 
+/* 見出しのアンカーは、左の「#」ではなく見出し文の末尾にリンクのアイコン (#410)。
+   技術ブログと同じ絵（Tabler の link）。左に出すと狭い画面で本文の左端より外に出るし、
+   記号よりアイコンのほうが「このリンクをコピーできる」と読める。
+   大きさは見出しに追従（0.7em はほぼ大文字の高さ）。SVG は currentColor を持てないので
+   色は最も薄い文字の段を明・暗で焼き込む */
+.vp-doc .header-anchor {
+  position: static;
+  margin-left: 0.25em;
+  display: inline-block;
+  vertical-align: 0;
+  line-height: 1;
+}
+.vp-doc .header-anchor::before {
+  content: "";
+  display: inline-block;
+  width: 0.7em;
+  height: 0.7em;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23757575' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 15l6 -6'/%3E%3Cpath d='M11 6l.463 -.536a5 5 0 0 1 7.071 7.072l-.534 .464'/%3E%3Cpath d='M13 18l-.397 .534a5.068 5.068 0 0 1 -7.127 0a4.972 4.972 0 0 1 0 -7.071l.524 -.463'/%3E%3C/svg%3E")
+    center / contain no-repeat;
+}
+.dark .vp-doc .header-anchor::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394949d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 15l6 -6'/%3E%3Cpath d='M11 6l.463 -.536a5 5 0 0 1 7.071 7.072l-.534 .464'/%3E%3Cpath d='M13 18l-.397 .534a5.068 5.068 0 0 1 -7.127 0a4.972 4.972 0 0 1 0 -7.071l.524 -.463'/%3E%3C/svg%3E");
+}
+.vp-doc h2 .header-anchor {
+  top: auto;
+}
+
 /* 本文リンクの反応は下線の太さ 1px → 2px（技術ブログと同じ）。色は動かさない */
 .vp-doc a {
   text-decoration-thickness: 1px;
 }
 .vp-doc a:hover {
   text-decoration-thickness: 2px;
+}
+
+/* 訪問済みは紫 (#407)。技術ブログの link-visited と同じ値で、白地・コードの地の
+   両方で AA を満たす。hover でも色は動かさない（下線の太さで返す） */
+.vp-doc a:visited,
+.vp-doc a:visited:hover,
+.vp-doc a:visited > code {
+  color: #590fc7;
+}
+.dark .vp-doc a:visited,
+.dark .vp-doc a:visited:hover,
+.dark .vp-doc a:visited > code {
+  color: #c8a8ff;
 }
 
 /* ヒーロー画像を透過させる */
@@ -207,6 +286,33 @@ h6 {
   width: 25%;
 }
 
+/* 表は縞をやめ、ヘッダー行だけに地色を敷く (#408)。技術ブログ（Zenn と同じ構成）。
+   構造の起点であるヘッダーが目立ち、行数の多い表でも面がうるさくならない */
+.vp-doc tr:nth-child(2n) {
+  background-color: var(--vp-c-bg);
+}
+.vp-doc th {
+  background-color: var(--vp-c-bg-soft);
+}
+/* 注記（::: tip 等）の中の表は、地が注記のもの。本文行は注記の地を透かし、
+   ヘッダー行は注記の地より一段濃い同じ色（中のコードの地と同じ値）。
+   白や灰を敷くと注記の色の中で表だけ浮く（技術ブログの note と同じ扱い） */
+.vp-doc .custom-block tr {
+  background-color: transparent;
+}
+.vp-doc .custom-block th {
+  background-color: var(--vp-custom-block-info-code-bg);
+}
+.vp-doc .custom-block.tip th {
+  background-color: var(--vp-custom-block-tip-code-bg);
+}
+.vp-doc .custom-block.warning th {
+  background-color: var(--vp-custom-block-warning-code-bg);
+}
+.vp-doc .custom-block.danger th {
+  background-color: var(--vp-custom-block-danger-code-bg);
+}
+
 /* タスクリストの中黒を非表示 */
 .task-list-item {
   list-style: none;
@@ -226,4 +332,30 @@ h6 {
 .vp-doc .task-list-item input[type="checkbox"] {
   margin-left: 0;
   margin-right: 4px;
+}
+
+/* 注記の地の色を技術ブログの note にそろえる (#409)。名前は engine の語彙で交差するので
+   意味で対応させる: tip（本サイトでは「推奨」）→ ブログの info（緑）、info（補足）→
+   ブログの tip（灰青）、warning → warn、danger → alert。
+   中のコードの地は、地より一段濃い同じ色（ブログの code-bg と同じ HSL 0.94） */
+:root {
+  --vp-custom-block-tip-bg: #e5f8e2;
+  --vp-custom-block-tip-code-bg: #d1f1cc;
+  --vp-custom-block-info-bg: #eff0f3;
+  --vp-custom-block-info-code-bg: #dfe1e6;
+  --vp-custom-block-warning-bg: #fdf9e2;
+  --vp-custom-block-warning-code-bg: #faf2c9;
+  --vp-custom-block-danger-bg: #ffdbdb;
+  --vp-custom-block-danger-code-bg: #fdc0c0;
+}
+
+.dark {
+  --vp-custom-block-tip-bg: #243720;
+  --vp-custom-block-tip-code-bg: #3f6038;
+  --vp-custom-block-info-bg: #313237;
+  --vp-custom-block-info-code-bg: #565860;
+  --vp-custom-block-warning-bg: #363320;
+  --vp-custom-block-warning-code-bg: #5e5938;
+  --vp-custom-block-danger-bg: #482a2a;
+  --vp-custom-block-danger-code-bg: #7e4a4a;
 }

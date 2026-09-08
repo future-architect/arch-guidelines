@@ -1,5 +1,7 @@
+import { defineAsyncComponent } from "vue";
 import DefaultTheme from "vitepress/theme";
 import "./style.css";
+import "./mermaid.css";
 import PageTitle from "./components/PageTitle.vue";
 import FutureStar from "./components/FutureStar.vue";
 
@@ -17,5 +19,12 @@ export default {
 
     ctx.app.component("PageTitle", PageTitle);
     ctx.app.component("FutureStar", FutureStar);
+    // SVG キャッシュの無い図だけがクライアント描画に落ちる。mermaid.js はそのときだけ読む
+    ctx.app.component(
+      "Mermaid",
+      defineAsyncComponent(
+        () => import("vitepress-plugin-mermaid/Mermaid.vue"),
+      ),
+    );
   },
 };

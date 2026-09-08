@@ -1,0 +1,20 @@
+# mermaid 図の SVG 生成用の kroki セルフホスト（#406、ローカル専用。CI では使わない）。
+# 公開 kroki.io はレート制限で 403 が返るためセルフホストする。
+# 起動・利用は mermaid_svg.mjs が行う。手動なら:
+#   docker compose -f mermaid_svg.compose.yml up -d
+#   docker compose -f mermaid_svg.compose.yml down
+# 技術ブログの kroki（127.0.0.1:8006）と同時に起こせるようポートは 8007 にしている。
+# バージョンは2つ揃えて上げる。上げても既存の SVG は再生成されず、
+# 描画差異は新規生成分にしか現れない
+name: arch-guidelines-kroki
+services:
+  kroki:
+    image: yuzutech/kroki:0.32.0
+    environment:
+      KROKI_MERMAID_HOST: mermaid
+    ports:
+      - "127.0.0.1:8007:8000"
+    depends_on:
+      - mermaid
+  mermaid:
+    image: yuzutech/kroki-mermaid:0.32.0

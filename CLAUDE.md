@@ -33,7 +33,9 @@ VitePress で公開する設計ガイドライン集。コンテンツは日本�
 
 ## 図
 
-本サイトの図は mermaid で書く（` ```mermaid ` を vitepress-plugin-mermaid がレンダリングする）。`documents/forMarkdown/markdown_design_document.md` の PlantUML ブロックは、設計書の書き方として読者に示すサンプルなので mermaid に書き換えない。
+本サイトの図は mermaid で書く。`documents/forMarkdown/markdown_design_document.md` の PlantUML ブロックは、設計書の書き方として読者に示すサンプルなので mermaid に書き換えない。
+
+図はビルド時に SVG へ展開する（#406）。図を追加・編集したら `npm run mermaid` を実行し、生成された `.vitepress/mermaid/<sha256>.svg` をコミットする（Docker 必須。kroki を `docker compose` で自動起動する）。SVG の無い図は従来どおり vitepress-plugin-mermaid がブラウザで描くので表示は壊れないが、そのページだけ mermaid.js を読むことになる。ビルド時の警告 `mermaid: ... に SVG キャッシュ未生成の図があります` が出たら生成漏れである。
 
 ## 区切り記号のスラッシュ
 

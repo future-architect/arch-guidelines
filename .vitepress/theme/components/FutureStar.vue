@@ -42,7 +42,7 @@ const starPath = `path("M 0 ${starSize / 2} l ${starSize * lengthRate} -${starSi
 }
 .future-star {
   position: absolute;
-  background-color: #da0058;
+  background-color: #e5004f;
   height: v-bind(starSize + "px");
   width: v-bind(starWidth + "px");
   clip-path: v-bind(starPath);

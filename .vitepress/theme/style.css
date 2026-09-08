@@ -26,6 +26,68 @@
   }
 }
 
+/* ブランド色。技術ブログ（future-architect.github.io）の決まりとそろえる (#403)。
+   面（ボタン）はロゴと同じネイビー、文字（リンク・現在地）は青。
+   ネイビーは本文の文字との比が 1.49 で、文字に使うと黒と見分けが付かない。
+   ダークではネイビーが地の上で 1.05 と沈むので入れず、青の明るい段で置く。
+   反応もブログと同じ: ボタンは hover で差し色のクリムゾン（白文字 4.72）、
+   リンクは色を動かさず下線を太くする（brand-2 を brand-1 と同じ値にして色の変化を消す）。
+   --vp-c-text-3 の既定 #929295 は白地で 3.10 と AA を割る
+   （コードの言語ラベル・コピーボタンの色）ので、AA を満たす最も薄い値に */
+:root {
+  --vp-c-brand-1: #0a58ca;
+  --vp-c-brand-2: #0a58ca;
+  --vp-c-brand-3: #0a1561;
+  --vp-c-brand-soft: rgba(10, 88, 202, 0.14);
+  --vp-button-brand-hover-bg: #e5004f;
+  --vp-button-brand-active-bg: #e5004f;
+  --vp-c-text-3: #757575;
+}
+
+.dark {
+  --vp-c-brand-1: #7cb8ff;
+  --vp-c-brand-2: #7cb8ff;
+  --vp-c-brand-3: #0a58ca;
+  --vp-c-brand-soft: rgba(124, 184, 255, 0.16);
+  --vp-button-brand-hover-bg: #e5004f;
+  --vp-button-brand-active-bg: #e5004f;
+  --vp-c-text-3: #94949d;
+}
+
+/* 反応の速さもブログとそろえる (#403)。押せることの合図は 0.05s の1つで、
+   VitePress 既定の 0.25s は待ちに見える。開閉・移動（.VPFlyout .menu、
+   .caret-icon の回転、.outline-marker の移動）は状態の変化なので触らない */
+#app .VPButton,
+#app .VPButton:active,
+#app .vp-doc a,
+#app .vp-doc .header-anchor,
+#app .VPSidebarItem .text,
+#app .VPSidebarItem .indicator,
+#app .VPSidebarItem .caret,
+#app .VPNavBarMenuLink,
+#app .VPFlyout .button,
+#app .VPFlyout .text,
+#app .VPFlyout .icon,
+#app .VPFlyout:hover,
+#app .VPFeature,
+#app .VPFeature .icon,
+#app .edit-link-button,
+#app .pager-link,
+#app .pager-link .title,
+#app .VPMenuLink .link,
+#app .VPSocialLink,
+#app .VPSocialLink:hover {
+  transition-duration: 0.05s;
+}
+
+/* 本文リンクの反応は下線の太さ 1px → 2px（技術ブログと同じ）。色は動かさない */
+.vp-doc a {
+  text-decoration-thickness: 1px;
+}
+.vp-doc a:hover {
+  text-decoration-thickness: 2px;
+}
+
 /* ヒーロー画像を透過させる */
 .image-src {
   opacity: 0.1;

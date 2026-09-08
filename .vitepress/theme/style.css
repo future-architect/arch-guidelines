@@ -220,6 +220,33 @@ h6 {
   width: 25%;
 }
 
+/* 表は縞をやめ、ヘッダー行だけに地色を敷く (#408)。技術ブログ（Zenn と同じ構成）。
+   構造の起点であるヘッダーが目立ち、行数の多い表でも面がうるさくならない */
+.vp-doc tr:nth-child(2n) {
+  background-color: var(--vp-c-bg);
+}
+.vp-doc th {
+  background-color: var(--vp-c-bg-soft);
+}
+/* 注記（::: tip 等）の中の表は、地が注記のもの。本文行は注記の地を透かし、
+   ヘッダー行は注記の地より一段濃い同じ色（中のコードの地と同じ値）。
+   白や灰を敷くと注記の色の中で表だけ浮く（技術ブログの note と同じ扱い） */
+.vp-doc .custom-block tr {
+  background-color: transparent;
+}
+.vp-doc .custom-block th {
+  background-color: var(--vp-custom-block-info-code-bg);
+}
+.vp-doc .custom-block.tip th {
+  background-color: var(--vp-custom-block-tip-code-bg);
+}
+.vp-doc .custom-block.warning th {
+  background-color: var(--vp-custom-block-warning-code-bg);
+}
+.vp-doc .custom-block.danger th {
+  background-color: var(--vp-custom-block-danger-code-bg);
+}
+
 /* タスクリストの中黒を非表示 */
 .task-list-item {
   list-style: none;

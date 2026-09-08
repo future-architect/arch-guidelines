@@ -80,6 +80,33 @@
   transition-duration: 0.05s;
 }
 
+/* 見出しのアンカーは、左の「#」ではなく見出し文の末尾にリンクのアイコン (#410)。
+   技術ブログと同じ絵（Tabler の link）。左に出すと狭い画面で本文の左端より外に出るし、
+   記号よりアイコンのほうが「このリンクをコピーできる」と読める。
+   大きさは見出しに追従（0.7em はほぼ大文字の高さ）。SVG は currentColor を持てないので
+   色は最も薄い文字の段を明・暗で焼き込む */
+.vp-doc .header-anchor {
+  position: static;
+  margin-left: 0.25em;
+  display: inline-block;
+  vertical-align: 0;
+  line-height: 1;
+}
+.vp-doc .header-anchor::before {
+  content: "";
+  display: inline-block;
+  width: 0.7em;
+  height: 0.7em;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23757575' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 15l6 -6'/%3E%3Cpath d='M11 6l.463 -.536a5 5 0 0 1 7.071 7.072l-.534 .464'/%3E%3Cpath d='M13 18l-.397 .534a5.068 5.068 0 0 1 -7.127 0a4.972 4.972 0 0 1 0 -7.071l.524 -.463'/%3E%3C/svg%3E")
+    center / contain no-repeat;
+}
+.dark .vp-doc .header-anchor::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394949d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 15l6 -6'/%3E%3Cpath d='M11 6l.463 -.536a5 5 0 0 1 7.071 7.072l-.534 .464'/%3E%3Cpath d='M13 18l-.397 .534a5.068 5.068 0 0 1 -7.127 0a4.972 4.972 0 0 1 0 -7.071l.524 -.463'/%3E%3C/svg%3E");
+}
+.vp-doc h2 .header-anchor {
+  top: auto;
+}
+
 /* 本文リンクの反応は下線の太さ 1px → 2px（技術ブログと同じ）。色は動かさない */
 .vp-doc a {
   text-decoration-thickness: 1px;

@@ -1,0 +1,65 @@
+/*
+ * ビルド時に SVG 化した mermaid 図（#406）。
+ * .mermaid（キャッシュの無い図の vitepress-plugin-mermaid によるクライアント描画）は
+ * mermaid.js 自身がテーマを切り替えるので、ここでは触らない。
+ */
+.mermaid-svg {
+  margin: 16px 0;
+  line-height: 1; /* SVG の下にできる余分な空白を消す */
+}
+
+.mermaid-svg svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ラベルは foreignObject の中の HTML。.vp-doc p の行間・余白が波及して
+   kroki が計測した箱からはみ出すので打ち消す */
+.vp-doc .mermaid-svg p {
+  margin: 0;
+  line-height: inherit;
+}
+
+/* ラベルの箱は kroki 側のフォントで計測されている。読者側のフォントが大きいと
+   既定の overflow: hidden で文字が途中で切れるので、はみ出しても描画する */
+.mermaid-svg foreignObject {
+  overflow: visible;
+}
+
+/*
+ * ダーク。線と矢印の色はビルド時に SVG へ焼き付いていてテーマに追従しないので、
+ * VitePress の変数で塗り直す。SVG 内の規則は #mermaid-<id> .edgePath の形
+ * （詳細度 1,1,0）なので !important でないと勝てない。
+ * 箱の地と中の文字は焼き付いたままにする。貼られた画像と同じ扱いで、
+ * 暗い地の上では明るい箱として出る。
+ */
+.dark .mermaid-svg .edgePath,
+.dark .mermaid-svg .flowchart-link,
+.dark .mermaid-svg .relationshipLine,
+.dark .mermaid-svg .transition {
+  stroke: var(--vp-c-text-1) !important;
+}
+
+.dark .mermaid-svg .marker,
+.dark .mermaid-svg .arrowheadPath,
+.dark .mermaid-svg .arrowMarkerPath {
+  fill: var(--vp-c-text-1) !important;
+  stroke: var(--vp-c-text-1) !important;
+}
+
+/* 線の上のラベルの下敷き。焼き付いた薄い灰（半透明）だと暗い地では霞むので、
+   ページの地に寄せて不透明にし、文字も地の文の色にする */
+.dark .mermaid-svg .edgeLabel rect {
+  fill: var(--vp-c-bg) !important;
+  opacity: 1 !important;
+}
+
+.dark .mermaid-svg .edgeLabel,
+.dark .mermaid-svg .edgeLabel p {
+  color: var(--vp-c-text-1) !important;
+  background-color: var(--vp-c-bg) !important;
+}
+
+.dark .mermaid-svg .edgeLabel .label text {
+  fill: var(--vp-c-text-1) !important;
+}

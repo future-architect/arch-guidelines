@@ -169,7 +169,11 @@ function copyLink() {
   margin: 0;
   position: relative;
 }
-.share-btn {
+/* 訪問済みでも色を変えない (#422)。本文の参照リンクの紫（#407）は
+   .vp-doc の中にある共有ボタンにも当たるが、ここでの色は行き先の合図で、
+   読んだ記録ではない。詳細度で勝つように :visited を並べて書く */
+.share-btn,
+.share-btn:visited {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -190,18 +194,23 @@ function copyLink() {
     color 0.05s ease;
 }
 .share-btn:hover,
-.share-btn:focus-visible {
+.share-btn:visited:hover,
+.share-btn:focus-visible,
+.share-btn:visited:focus-visible {
   background: var(--vp-c-brand-3);
   border-color: var(--vp-c-brand-3);
   color: #fff;
   text-decoration: none;
 }
 /* ダークではネイビーが地に沈むので、明るい青で置く */
-.dark .share-btn {
+.dark .share-btn,
+.dark .share-btn:visited {
   color: var(--vp-c-brand-1);
 }
 .dark .share-btn:hover,
-.dark .share-btn:focus-visible {
+.dark .share-btn:visited:hover,
+.dark .share-btn:focus-visible,
+.dark .share-btn:visited:focus-visible {
   background: var(--vp-c-brand-1);
   border-color: var(--vp-c-brand-1);
   color: var(--vp-c-bg);

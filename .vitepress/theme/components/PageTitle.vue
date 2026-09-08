@@ -8,7 +8,7 @@
           target="_blank"
           rel="noopener"
           :title="s.label"
-          :aria-label="s.label"
+          :aria-label="s.name"
         >
           <svg
             class="share-btn-icon"
@@ -19,6 +19,9 @@
             <path v-for="d in s.icon.paths" :key="d" :d="d" />
           </svg>
         </a>
+        <span v-if="s.count" class="share-count" aria-hidden="true">{{
+          s.count
+        }}</span>
       </li>
       <li v-if="canCopy" class="share-item">
         <button
@@ -62,6 +65,7 @@
 <script setup>
 import { computed, onMounted, ref } from "vue";
 import { useData, useRoute } from "vitepress";
+import hatebuCounts from "../../hatebu_count_cache.json";
 
 /**
  * `markdown-it-plugin-header-shift`でheaderタグを1つづつずらす前提であるため、Markdownファイルにはタイトルがありません。
@@ -69,6 +73,9 @@ import { useData, useRoute } from "vitepress";
  *
  * 共有ボタンは技術ブログ（future-architect.github.io）と同じ形。intent URL への素のリンクで、
  * 各サービスの SDK は読まない。ロゴは塗りのインライン SVG で、色は currentColor で追従させる。
+ *
+ * はてなブックマークの件数は `npm run hatebu` が作るキャッシュから引く（#425）。
+ * 件数 API は CORS ヘッダを持たずブラウザから叩けないので、ビルド時に焼き込む。
  */
 const { page, site } = useData();
 const route = useRoute();
@@ -125,9 +132,15 @@ const shares = computed(() => {
       // リンク先は追加フォームではなくエントリーページなので「見る」
       icon: ICONS.hatebu,
       label: "はてなブックマークで見る",
+      // 数字は円の外に出すのでリンクの中には無い。読み上げでは名前に含める
+      count: hatebuCounts[url] || 0,
+      unit: "ブックマーク",
       href: `https://b.hatena.ne.jp/entry/s/${encodeURI(url).replace("https://", "")}`,
     },
-  ];
+  ].map((s) => ({
+    ...s,
+    name: s.count ? `${s.label}（${s.count}${s.unit}）` : s.label,
+  }));
 });
 
 // クリップボードへの書き込みは https（と localhost）でしか許可されないので、
@@ -165,9 +178,28 @@ function copyLink() {
   padding: 0;
   list-style: none;
 }
+/* 数字は円の外（下）に置く。ボタンの一部ではなく「どれだけブックマークされたか」の
+   実績で、押す対象でもない。0 のときは出さないので、枠の中に入れると
+   押せる箱の高さがボタンごとに揃わない */
 .share-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
   margin: 0;
   position: relative;
+}
+/* 数字はボタンと同じ色。同じ色にすると円と数字が1つの部品として読める。
+   押せる部分ではないので hover では動かさない（反応はボタンが持つ） */
+.share-count {
+  color: var(--vp-c-brand-3);
+  font-size: 12px;
+  line-height: 1;
+  /* 桁が変わってもアイコンの中心からずれないように等幅の数字にする */
+  font-variant-numeric: tabular-nums;
+}
+.dark .share-count {
+  color: var(--vp-c-brand-1);
 }
 .share-btn {
   display: inline-flex;

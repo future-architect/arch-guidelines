@@ -291,6 +291,23 @@ h6 {
 .vp-doc tr:nth-child(2n) {
   background-color: var(--vp-c-bg);
 }
+/* セルの罫線は技術ブログと同じ濃さにする (#421)。VitePress 既定の
+   --vp-c-divider は区切りのための段で、白地で 1.29・注記の地の上では
+   1.01〜1.22 しか出ない（danger の中では消える）。行を目で追う役を
+   この線が担っているので、枠より一段強い段を当てる。
+   注記の中でも同じ線を使う（地の色に染めると表ごとに濃さが変わり、
+   構造の読み取りが不安定になる） */
+:root {
+  --table-border: #ccc;
+}
+.dark {
+  --table-border: #4d4d59;
+}
+.vp-doc tr,
+.vp-doc th,
+.vp-doc td {
+  border-color: var(--table-border);
+}
 .vp-doc th {
   background-color: var(--vp-c-bg-soft);
 }

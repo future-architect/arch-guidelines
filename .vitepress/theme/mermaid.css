@@ -28,38 +28,78 @@
 
 /*
  * ダーク。線と矢印の色はビルド時に SVG へ焼き付いていてテーマに追従しないので、
- * VitePress の変数で塗り直す。SVG 内の規則は #mermaid-<id> .edgePath の形
+ * flowchart だけ VitePress の変数で塗り直す。SVG 内の規則は #mermaid-<id> .edgePath の形
  * （詳細度 1,1,0）なので !important でないと勝てない。
  * 箱の地と中の文字は焼き付いたままにする。貼られた画像と同じ扱いで、
  * 暗い地の上では明るい箱として出る。
  */
-.dark .mermaid-svg .edgePath,
-.dark .mermaid-svg .flowchart-link,
-.dark .mermaid-svg .relationshipLine,
-.dark .mermaid-svg .transition {
+.dark
+  .mermaid-svg
+  svg[aria-roledescription^="flowchart"]:not(:has(.cluster))
+  .edgePath,
+.dark
+  .mermaid-svg
+  svg[aria-roledescription^="flowchart"]:not(:has(.cluster))
+  .flowchart-link {
   stroke: var(--vp-c-text-1) !important;
 }
 
-.dark .mermaid-svg .marker,
-.dark .mermaid-svg .arrowheadPath,
-.dark .mermaid-svg .arrowMarkerPath {
+.dark
+  .mermaid-svg
+  svg[aria-roledescription^="flowchart"]:not(:has(.cluster))
+  .marker,
+.dark
+  .mermaid-svg
+  svg[aria-roledescription^="flowchart"]:not(:has(.cluster))
+  .arrowheadPath,
+.dark
+  .mermaid-svg
+  svg[aria-roledescription^="flowchart"]:not(:has(.cluster))
+  .arrowMarkerPath {
   fill: var(--vp-c-text-1) !important;
   stroke: var(--vp-c-text-1) !important;
 }
 
 /* 線の上のラベルの下敷き。焼き付いた薄い灰（半透明）だと暗い地では霞むので、
    ページの地に寄せて不透明にし、文字も地の文の色にする */
-.dark .mermaid-svg .edgeLabel rect {
+.dark
+  .mermaid-svg
+  svg[aria-roledescription^="flowchart"]:not(:has(.cluster))
+  .edgeLabel
+  rect {
   fill: var(--vp-c-bg) !important;
   opacity: 1 !important;
 }
 
-.dark .mermaid-svg .edgeLabel,
-.dark .mermaid-svg .edgeLabel p {
+.dark
+  .mermaid-svg
+  svg[aria-roledescription^="flowchart"]:not(:has(.cluster))
+  .edgeLabel,
+.dark
+  .mermaid-svg
+  svg[aria-roledescription^="flowchart"]:not(:has(.cluster))
+  .edgeLabel
+  p {
   color: var(--vp-c-text-1) !important;
   background-color: var(--vp-c-bg) !important;
 }
 
-.dark .mermaid-svg .edgeLabel .label text {
+.dark
+  .mermaid-svg
+  svg[aria-roledescription^="flowchart"]:not(:has(.cluster))
+  .edgeLabel
+  .label
+  text {
   fill: var(--vp-c-text-1) !important;
+}
+
+/* flowchart 以外（sequence / er / gantt / state）は箱の外の文字（#333）も線も
+   白い紙を前提に焼き付いていて、線だけ塗り直す手が届かない（sequence の
+   メッセージが暗い地に沈む）。subgraph を持つ flowchart も同じで、明るい
+   クラスタの地の上を線が通るので塗り直すと消える。
+   図の紙を白のまま敷き、貼った白地の画像と同じ扱いにする */
+.dark .mermaid-svg svg:not([aria-roledescription^="flowchart"]),
+.dark .mermaid-svg svg:has(.cluster) {
+  background: var(--vp-c-white);
+  border-radius: 8px;
 }

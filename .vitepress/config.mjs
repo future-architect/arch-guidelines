@@ -5,6 +5,8 @@ import { Module } from "module";
 import markdownItTaskLists from "markdown-it-task-lists";
 import markdownItFootnote from "markdown-it-footnote";
 import markdownItHeaderShift from "./lib/markdown-it-plugin-header-shift.mjs";
+import markdownItMermaidSvg from "./lib/markdown-it-plugin-mermaid-svg.mjs";
+import lazyMermaid from "./lib/vite-plugin-lazy-mermaid.mjs";
 import * as plantumlLanguage from "./lib/plantuml.tmlanguage.mjs";
 const __filename = fileURLToPath(import.meta.url);
 const pkg = Module.createRequire(__filename)("../package.json");
@@ -227,7 +229,10 @@ const links = {
  * @returns {VitepressConfig} config
  */
 function defineConfig(config) {
-  return withMermaid(defineConfigBase(config));
+  const resolved = withMermaid(defineConfigBase(config));
+  // withMermaid が足したプラグインの後ろに置く（その transform の結果を書き換える）
+  resolved.vite.plugins.push(lazyMermaid());
+  return resolved;
 }
 
 export default defineConfig({
@@ -242,6 +247,8 @@ export default defineConfig({
       md.use(markdownItHeaderShift);
       md.use(markdownItTaskLists);
       md.use(markdownItFootnote);
+      // withMermaid が先に fence を包むので、ここで包むと外側になり先に走る
+      md.use(markdownItMermaidSvg);
     },
     languages: [plantumlLanguage],
   },

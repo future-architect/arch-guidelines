@@ -6,6 +6,7 @@
   "scripts": {
     "watch": "vitepress dev . --open --host 0.0.0.0",
     "build": "vitepress build .",
+    "mermaid": "node mermaid_svg.mjs",
     "lint": "npm run lint:format && npm run lint:js",
     "lint:js": "eslint . .vitepress",
     "lint:format": "prettier . --list-different",

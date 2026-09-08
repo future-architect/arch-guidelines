@@ -54,6 +54,31 @@
   --vp-c-text-3: #94949d;
 }
 
+/* ヘッダーを磨りガラスにする (#411)。技術ブログ（#3220）と同じ 90% ＋ blur 8px。
+   本文の上に置かれた箱ではなく本文の一部として読ませる。90% は帯の下にいちばん暗いもの
+   （コードブロック）が来ても文字が AA を保つ値。ぼかしが効かないブラウザでは不透明のまま
+   ——透けるだけだと文字の下に本文が見えて読めない。
+   VitePress は 960px 未満で帯そのもの、960px 以上ではサイドバーの右の .content-body に
+   地を敷くので、ぼかしも同じ要素に置く */
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  :root {
+    --vp-nav-bg-color: color-mix(in srgb, var(--vp-c-bg) 90%, transparent);
+  }
+  @media (max-width: 959px) {
+    #app .VPNavBar:not(.home) {
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+    }
+  }
+  @media (min-width: 960px) {
+    #app .VPNavBar:not(.home.top) .content-body,
+    #app .VPNavBar:not(.has-sidebar):not(.home.top) {
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+    }
+  }
+}
+
 /* 反応の速さもブログとそろえる (#403)。押せることの合図は 0.05s の1つで、
    VitePress 既定の 0.25s は待ちに見える。開閉・移動（.VPFlyout .menu、
    .caret-icon の回転、.outline-marker の移動）は状態の変化なので触らない */

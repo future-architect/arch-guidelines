@@ -5,6 +5,20 @@
   border-top: 1px solid var(--vp-c-divider);
 }
 
+/* インラインコードの文字は本文の色 (#419)。技術ブログと同じ。コードは地で区別されて
+   いるので、文字まで青にすると注記の色の上で読みにくく、リンクとも見分けが付かない。
+   注記の中は VitePress が種類ごとに brand-1 を当て直しているので、そちらも戻す。
+   リンクの中のコードだけはリンクの色のまま */
+:root {
+  --vp-code-color: var(--vp-c-text-1);
+}
+.vp-doc .custom-block code {
+  color: var(--vp-c-text-1);
+}
+.vp-doc .custom-block a > code {
+  color: var(--vp-code-link-color);
+}
+
 :root {
   --vp-home-hero-name-color: transparent;
   --vp-home-hero-name-background: -webkit-linear-gradient(

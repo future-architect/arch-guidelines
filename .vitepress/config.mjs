@@ -327,6 +327,8 @@ export default defineConfig({
     outline: {
       level: "deep",
     },
+    // 既定は英語の "Skip to content"。サイトの他の UI と同じ日本語にする (#435)
+    skipToContentLabel: "本文へスキップ",
     nav: [
       {
         text: "Guidelines",

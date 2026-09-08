@@ -308,6 +308,21 @@ h6 {
 .vp-doc td {
   border-color: var(--table-border);
 }
+/* 注記の中は地が白より暗いので、白地に合わせた1本を持ち込むと一段弱くなる
+   （白地 1.61 に対して tip 1.44 / info 1.41 / warning 1.52）。無彩色のまま
+   濃さだけ一段振って、白地の表と同じ見え方に戻す。リンクの色を地ごとに
+   暗い側へ振るのと同じ考え方で、色相は増やさない */
+:root {
+  --table-border-on-note: #bfbfbf;
+}
+.dark {
+  --table-border-on-note: #5f5f6d;
+}
+.vp-doc .custom-block tr,
+.vp-doc .custom-block th,
+.vp-doc .custom-block td {
+  border-color: var(--table-border-on-note);
+}
 .vp-doc th {
   background-color: var(--vp-c-bg-soft);
 }

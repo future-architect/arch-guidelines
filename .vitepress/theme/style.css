@@ -155,16 +155,18 @@
 }
 
 /* 訪問済みは紫 (#407)。技術ブログの link-visited と同じ値で、白地・コードの地の
-   両方で AA を満たす。hover でも色は動かさない（下線の太さで返す） */
+   両方で AA を満たす。hover でも色は動かさない（下線の太さで返す）。
+   注記の中でも同じ値を使うのでトークンにしている (#427) */
+:root {
+  --link-visited: #590fc7;
+}
+.dark {
+  --link-visited: #c8a8ff;
+}
 .vp-doc a:visited,
 .vp-doc a:visited:hover,
 .vp-doc a:visited > code {
-  color: #590fc7;
-}
-.dark .vp-doc a:visited,
-.dark .vp-doc a:visited:hover,
-.dark .vp-doc a:visited > code {
-  color: #c8a8ff;
+  color: var(--link-visited);
 }
 
 /* ヒーロー画像を透過させる */
@@ -390,4 +392,53 @@ h6 {
   --vp-custom-block-warning-code-bg: #5e5938;
   --vp-custom-block-danger-bg: #482a2a;
   --vp-custom-block-danger-code-bg: #7e4a4a;
+}
+
+/* 注記の中のリンクは、その注記の地の色相を借りる (#427)。技術ブログ (#3241) と同じ。
+   色を持つ箱の中で青いリンクは唯一の外来色になる。色相まで振れるのは #404 で
+   本文のリンクが常時下線を持つようになったからで、リンクであることは下線が名乗り、
+   色は「その注記のものである」ことだけを担う。
+
+   値は「地の色相を保ち、注記の地とその中のインラインコードの地の両方で 4.6 を
+   満たす、いちばん明るい色」。AA の 4.5 ちょうどでは取らない。
+   対応させるのは名前ではなく地の色で、本サイトの tip（緑）はブログの info、
+   info（灰青）はブログの tip に当たる (#409)。
+   info の地は無彩色に近いので、色相を保つと青になる */
+:root {
+  --link-on-note-tip: #257718;
+  --link-on-note-info: #2d58d7;
+  --link-on-note-warning: #7b6d18;
+  --link-on-note-danger: #ac1b1b;
+}
+/* 暗い側は種別で割らず1色。暗い地ではリンクを明るくするしかなく、色相を保って
+   彩度を残すと注記の中のコードの地で 2.5 まで落ち、AA を取ると本文との比が
+   1.2 のほぼ白になる。種別ごとの色相は明るい側だけが持つ */
+.dark {
+  --link-on-note-tip: #8ec2ff;
+  --link-on-note-info: #8ec2ff;
+  --link-on-note-warning: #8ec2ff;
+  --link-on-note-danger: #8ec2ff;
+}
+.vp-doc .custom-block.tip a,
+.vp-doc .custom-block.tip a code {
+  color: var(--link-on-note-tip);
+}
+.vp-doc .custom-block.info a,
+.vp-doc .custom-block.info a code {
+  color: var(--link-on-note-info);
+}
+.vp-doc .custom-block.warning a,
+.vp-doc .custom-block.warning a code {
+  color: var(--link-on-note-warning);
+}
+.vp-doc .custom-block.danger a,
+.vp-doc .custom-block.danger a code {
+  color: var(--link-on-note-danger);
+}
+/* 訪問済みは種別で割らず紫のまま。紫はサイト全体で訪問済みの意味を持ち、
+   未訪問と色相で分かれる。種別ごとに割ると同じ色相の明度違いになって読めなくなる。
+   詳細度が上の未訪問と同じ (0,3,1) なので、後ろに置いて勝たせる */
+.vp-doc .custom-block a:visited,
+.vp-doc .custom-block a:visited code {
+  color: var(--link-visited);
 }

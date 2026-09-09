@@ -368,6 +368,30 @@ h6 {
   margin-right: 4px;
 }
 
+/* 注記の本文を本文と同じ大きさ・同じ行間にする (#439)。技術ブログ (#2971 / #2864) と同じ。
+   注記の中も読み下す文章なので、添え・注記・小ラベルのための小さい段には置かない。
+   タイトルも同じ大きさで、太字だけで見出しと分かる（サイズを上げると注記が節の見出しの
+   ように強く見える）。行の高さは本文の段落（.vp-doc p）と同じ 28px。
+   中のインラインコードは --vp-custom-block-code-font-size ではなく
+   --vp-code-font-size（0.875em）が当たっている（.vp-doc :not(pre, h1〜h6) > code の方が
+   詳細度で勝つ）ので、相対値のまま本文と同じ 14px に付いてくる */
+:root {
+  --vp-custom-block-font-size: 16px;
+}
+.vp-doc .custom-block,
+.vp-doc .custom-block p {
+  line-height: 28px;
+}
+/* 表のセルは本文の表と同じ 14px / 24px のまま (#408 / #421)。VitePress は th だけ
+   .custom-block.custom-block th で注記の字送りを当て直すので font-size を戻し、
+   行の高さは .custom-block からの継承をここで止める（止めないと注記の中の表だけ
+   セルが 2px 高くなる） */
+.vp-doc .custom-block.custom-block th,
+.vp-doc .custom-block.custom-block td {
+  font-size: 14px;
+  line-height: 24px;
+}
+
 /* 注記の地の色を技術ブログの note にそろえる (#409)。名前は engine の語彙で交差するので
    意味で対応させる: tip（本サイトでは「推奨」）→ ブログの info（緑）、info（補足）→
    ブログの tip（灰青）、warning → warn、danger → alert。

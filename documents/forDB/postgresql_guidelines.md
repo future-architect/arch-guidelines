@@ -389,10 +389,6 @@ PostgreSQL 17時点では、以下のインデックス作成方法を選択で�
 - 4つ以上の複数列インデックスを用いる場合は、アーキテクト / DBA確認を推奨する
   - 公式ドキュメント（※[11.3. 複数列インデックス](https://www.postgresql.jp/document/16/html/indexes-multicolumn.html)）にも4列以上のインデックスは不適切の可能性があると記載がある
 
-::: info 参考
-[11.3. 複数列インデックス](https://www.postgresql.jp/document/16/html/indexes-multicolumn.html)
-:::
-
 ### ２．ユニークインデックス
 
 UNIQUE制約をつけたインデックスを強調したい場合に、ユニークインデックスと呼ぶことがある。

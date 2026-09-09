@@ -124,6 +124,47 @@
   transition-duration: 0.05s;
 }
 
+/* 所在の目印。反応（hover）とは別の役なので、色は差し色ではなく塗りのネイビー、
+   太さは 2px の1つだけ（技術ブログ #2686 / #2847）。VitePress 既定は a が UA の
+   リング、button が 4px の -webkit-focus-ring-color で部品ごとに違う。
+   暗い側はネイビーが地の上で 2.67 と非テキストの 3:1 に届かないので、
+   文字の最上段（12.81）に替える。
+   広げているのは本文とスキップリンクだけ——ナビ・サイドバー・検索は
+   部品ごとに outline: none / 5px auto を持ち、器の縁で輪郭が切れるかは別に見る */
+.vp-doc a:focus-visible,
+.vp-doc button:focus-visible,
+.vp-doc summary:focus-visible,
+#app .VPSkipLink:focus-visible {
+  outline: 2px solid var(--vp-c-brand-3);
+  outline-offset: 2px;
+}
+.dark .vp-doc a:focus-visible,
+.dark .vp-doc button:focus-visible,
+.dark .vp-doc summary:focus-visible,
+.dark #app .VPSkipLink:focus-visible {
+  outline-color: var(--vp-c-text-1);
+}
+
+/* スキップリンクは画面に対して固定する（技術ブログ #2846）。VitePress 既定の
+   絶対配置だと、ページの途中で Tab を押したときにブラウザがこのリンクを
+   見せるためページ先頭までスクロールし、読んでいた位置を失う。
+   塗りはネイビーに白文字（16.24）で、影は持たない。
+   位置は VitePress のまま（縁から 8px なので outline-offset の輪郭が画面に収まる）。
+   .visually-hidden（position）と scoped style（色・影）に勝つよう #app を前置する。
+   :focus で clip を外す規則は scoped のまま効くので clip / width / height は触らない */
+#app .VPSkipLink {
+  position: fixed;
+  color: #fff;
+  background-color: var(--vp-c-brand-3);
+  box-shadow: none;
+}
+/* 暗い側はネイビーが地に沈むので、明るい青の板に地の色の文字（8.30）。
+   共有ボタンのダークと同じ向き */
+.dark #app .VPSkipLink {
+  color: var(--vp-c-bg);
+  background-color: var(--vp-c-brand-1);
+}
+
 /* 見出しのアンカーは、左の「#」ではなく見出し文の末尾にリンクのアイコン (#410)。
    技術ブログと同じ絵（Tabler の link）。左に出すと狭い画面で本文の左端より外に出るし、
    記号よりアイコンのほうが「このリンクをコピーできる」と読める。

@@ -18,8 +18,6 @@ head:
 
 基幹系システム間のデータ連携方式を検討する上で、エンタープライズ統合パターン（EIP）には以下の4パターンの分類があるとされる。
 
-<div class="img-bg-transparent">
-
 | \#               | （1）Shared Database                                                              | （2）Remote Procedure Invocation      | （3）Messaging                                                     | （4）File Transfer                                             |
 | :--------------- | :-------------------------------------------------------------------------------- | :------------------------------------ | :----------------------------------------------------------------- | :------------------------------------------------------------- |
 | 図               | [![][shareddb_png]][shareddb_link]                                                | [![][rpc_png]][rpc_link]              | [![][messaging_png]][messaging_link]                               | [![][file_png]][file_link]                                     |
@@ -29,8 +27,6 @@ head:
 | データ鮮度       | ✅️高くできる可能性                                                                | ✅️高い                                | ✅️高い                                                             | ⚠️低くなる傾向                                                 |
 | 結合度           | ❌️とても高い                                                                      | ⚠️密結合と言える                      | ✅️疎結合                                                           | ✅️疎結合                                                       |
 | スケーラビリティ | ⚠️大量データの場合はロック競合のリスク                                            | ⚠️サーバー負荷が高く付く場合がある    | ⚠️サーバー負荷が高く付く場合がある                                 | ✅️バルクロードが得意                                           |
-
-</div>
 
 [shareddb_png]: https://mermaid.ink/img/pako:eNp1kT9Lw1AUxb9KuJNCrEnzmqZvKPTfIKiIqYtkeSSvbaBJ6uuLWEvBNqg4uLiJDs6Cg5MWxH6Yh6UfwyS2Vaxu98C5v3O5pw924FDA0KVHIfVtWnVJkxHP8iWpQxh3bbdDfC6ZvS6nXkkiXUmMXsRoLKILET2UVnwtwqhTLSfGj_Pn6f2ViC5F9CZGExHdpsP4b3b5N7ts-YlznrxRLC7YWPpmjm6md69ieD17j-WZtLa1a9b265sHe9VSvbae7BObu8eE0-VpP7Hlf7GzxycxnCywZm27VqmnPIeuEEEGjzKPuE78yH5isoC3qEctwPHo0AYJ29wCyx_EVhLywOz5NmDOQioDC8JmC3CDtLuxCjtOjJ63sLDEbzoMgqWkjssDtvNVXNqfDE2WpM-J1HcoqwShzwEX0nXAfTgBjDI5JW_kEdKRrudyqi5DD3BWRZm8phlaQVUKeVRA2kCG0zRQyeR0xTAMHRmKpqkoqw4-ARSB18w?type=png
 [shareddb_link]: https://mermaid.live/edit#pako:eNp1kT9Lw1AUxb9KuJNCrEnzmqZvKPTfIKiIqYtkeSSvbaBJ6uuLWEvBNqg4uLiJDs6Cg5MWxH6Yh6UfwyS2Vaxu98C5v3O5pw924FDA0KVHIfVtWnVJkxHP8iWpQxh3bbdDfC6ZvS6nXkkiXUmMXsRoLKILET2UVnwtwqhTLSfGj_Pn6f2ViC5F9CZGExHdpsP4b3b5N7ts-YlznrxRLC7YWPpmjm6md69ieD17j-WZtLa1a9b265sHe9VSvbae7BObu8eE0-VpP7Hlf7GzxycxnCywZm27VqmnPIeuEEEGjzKPuE78yH5isoC3qEctwPHo0AYJ29wCyx_EVhLywOz5NmDOQioDC8JmC3CDtLuxCjtOjJ63sLDEbzoMgqWkjssDtvNVXNqfDE2WpM-J1HcoqwShzwEX0nXAfTgBjDI5JW_kEdKRrudyqi5DD3BWRZm8phlaQVUKeVRA2kCG0zRQyeR0xTAMHRmKpqkoqw4-ARSB18w
@@ -443,11 +439,7 @@ OLAP連携する場合のI/F処理方式として以下3パターンを考える
 
 【配信ファイルの連携数】
 
-<div class="img-bg-transparent">
-
 ![](images/connect.drawio.png)
-
-</div>
 
 そのため、それぞれのシステムの要求するデータ鮮度を満たしつつ、標準的なレイアウト（各システムごとに作り込まない形式）を1つに決め、対向システムの全てがそれを集信する取り決めをする必要がある。それを実現できて初めて連携数を抑えられる。
 

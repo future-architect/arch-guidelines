@@ -235,14 +235,10 @@ dev_myproject_calc_order_v1
 - ネスト対象のタスク数が、2以下である場合（※基準となる数値はチームごとに決めて良い）
 - ネストしたタスクの集合を示す、良い命名ができない場合
 
-<div class="img-bg-transparent">
-
 | ✅️例: 機能分類でネスト化                                                         | ❌️例: 関連性は高いが処理レイヤーでネスト化                                                                           | ❌️例: レベル感が不揃いのネスト化                                                                                                                  |
 | :------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------ |
 | 関連度の高いタスクを集約し視認性を上げ、リランはファイル種別単位で行うことを想定 | 関連度の高いタスクを集約し視認性を上げているが、リランのユースケースとして、全ファイル種別をやり直すことは考えにくい | マスタ取り込みに改廃処理が存在し名称と不一致。サマリ作成にMVIEWリフレッシュがありレベル感が不一致。受注予測と発注量を束ねた名称の抽象度が高すぎる |
 | [![][nest_by_feature_png]][nest_by_feature_editor_link]                          | [![][nest_by_layer_png]][nest_by_layer_editor_link]                                                                  | [![][nest_by_odd_png]][nest_by_odd_editor_link]                                                                                                   |
-
-</div>
 
 [nest_by_feature_png]: https://mermaid.ink/img/pako:eNqNk89L40AUx_-V8E4RoqRtfh-EJFUrsqf1tAQkNqMN2EmJCailh00OW_Sgl1UE9SbIrgjLIuuKu_vHjNbuf7HTSVfThqpzynvv-973w-RNG-qBh8CA9dBtNbjlqoM5ekyeJD9J8o0kNyQ9J-kdSb_2r3887H2ecnAm2YxXs56H_UOS7PZ_35GPf8wVklyT9IykX-5_nfS6B2YmHhzPD1E98gPMLVvPWYvP93Pm1HNpjh8bNlK1uOnpWW4uSyDsvchljXNZr3HZo1xWznm-wJWv2oxr_m1c9jiX_RpXdZTLzjkvFLjy1SrjWihw1ejAo973i_vbbu_mctiwyD8e39Lk30_7_Yvu49XRML_Ek_SSpKdsI7qZy9NGmMzhLetQVE76QUXlpCt72ZeNqRWVRd9JyqJvXlljweLw9liw5GAQoInCput79IW1B0UHogZqIgcM-umhNTfeiBxwcIdK3TgK3m_jOhhRGCMBwiBeb4Cx5m5s0ihueW6Eqr5Lt6j5X9Jy8YcgeAqR50dB-C570exhC_RhD9yHE-l_R6EdxDgCoySyfjDasAWGJs8oakUqS6Kul3VVqQiwDUZZpmm5VNIlURbFkqpJHQF2mKM4IyuaqlYUXRYVTdLKnX9cGMwn?type=png
 [nest_by_feature_editor_link]: https://mermaid.live/edit#pako:eNqNk89L40AUx_-V8E4RoqRtfh-EJFUrsqf1tAQkNqMN2EmJCailh00OW_Sgl1UE9SbIrgjLIuuKu_vHjNbuf7HTSVfThqpzynvv-973w-RNG-qBh8CA9dBtNbjlqoM5ekyeJD9J8o0kNyQ9J-kdSb_2r3887H2ecnAm2YxXs56H_UOS7PZ_35GPf8wVklyT9IykX-5_nfS6B2YmHhzPD1E98gPMLVvPWYvP93Pm1HNpjh8bNlK1uOnpWW4uSyDsvchljXNZr3HZo1xWznm-wJWv2oxr_m1c9jiX_RpXdZTLzjkvFLjy1SrjWihw1ejAo973i_vbbu_mctiwyD8e39Lk30_7_Yvu49XRML_Ek_SSpKdsI7qZy9NGmMzhLetQVE76QUXlpCt72ZeNqRWVRd9JyqJvXlljweLw9liw5GAQoInCput79IW1B0UHogZqIgcM-umhNTfeiBxwcIdK3TgK3m_jOhhRGCMBwiBeb4Cx5m5s0ihueW6Eqr5Lt6j5X9Jy8YcgeAqR50dB-C570exhC_RhD9yHE-l_R6EdxDgCoySyfjDasAWGJs8oakUqS6Kul3VVqQiwDUZZpmm5VNIlURbFkqpJHQF2mKM4IyuaqlYUXRYVTdLKnX9cGMwn
@@ -538,8 +534,6 @@ I/Fファイルとは、システム間のデータ連携で利用されるCSV�
 
 ワークフローエンジンからは、キューイングサービスの利用有無に関わらず非同期タスクを呼び出すことが多々ある。AWSの `ecs run task` はそもそも非同期呼び出しである。終了の判定には `ecs describe tasks` などでポーリング監視するか、アプリケーションレベルで終了イベントをコールバックする必要がある。
 
-<div class="img-bg-transparent">
-
 | \#           | （1）ポーリング                                                                                                                                                                                                  | （2）コールバック                                                                                                                                                                                                    | （3）イベント通知                                                                                                                            |
 | :----------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------- |
 | 図           | [![][wf_async_polling_png]][wf_async_polling_editor]                                                                                                                                                             | [![][wf_async_callback_png]][wf_async_task_callback_editor]                                                                                                                                                          | [![][wf_async_event_png]][wf_async_event_png_editor]                                                                                         |
@@ -550,8 +544,6 @@ I/Fファイルとは、システム間のデータ連携で利用されるCSV�
 | 結合度       | ⚠️オブジェクトストレージに状態を保存すると、外部サービスとの依存性が増える。ネイティブの状態取得サービスのみを利用する場合、結合度は下がる                                                                       | ⚠️コールバック呼び出し分、ワークフローエンジンと各タスクの結合度が増す                                                                                                                                               | ⚠️イベントハブの連携分、ロックイン度が高まる                                                                                                 |
 | セキュリティ | ✅️なし                                                                                                                                                                                                           | ❌️ワークフローエンジン側のREST APIを呼び出し可能とするネットワーク設計/権限設計が必要                                                                                                                                | ✅️なし                                                                                                                                       |
 | リソース     | ⚠️ポーリング中にリソースを占有する懸念がある（tipに緩和策を記載）                                                                                                                                                | ✅️なし                                                                                                                                                                                                               | ⚠️イベント受信待機でリソースを占有する懸念がある（tipに緩和策を記載）                                                                        |
-
-</div>
 
 [wf_async_polling_png]: https://mermaid.ink/img/pako:eNptkUtLw0AQx79KmHMsadM8uodCfR0EvSgIksvSbNtAk63pBtTSQxL0YD2IUEGwiidFfIHUF6IfZrXqt3CbWFF0D7Mzy-8_82enBWVqE0DQJMsB8cpk0sFVH7uWJ4nTwD5zyk4De0xanJ6ScFPi8SWPH3kkYpfH50l-wuNrHt2J-FdWmklU0TOP7oWq9JeYW_hFjFteygwHjhWLogOSPnoHr9tbg_1DHh6_929fO92UqVPakN760cvDBg_3eNTh4ZNAeNwbGotPE2NXKfuzp7iRlFgW7C4PL942bwbrHR7t_Cslnv3b09wCkgZnR9-mhTC1BTK4xHexY4s_bQ1FFrAacYkFSKQ2qeCgziywvLZAccDo_KpXBsT8gMjg06BaA1TB9aaogoaN2WghI0R82RKl3yWxHUb92XSHySplqPrD6V8dhXXiT9DAY4CMRA6oBSuATC2jG2o-l1cKhVzB0FUZVgHlNPGsZbOFvKIpStYw820Z1pKBSkbTTcNQdVM3Tc1UVaP9CZBD6NA?type=png
 [wf_async_polling_editor]: https://mermaid.live/edit#pako:eNptkc9Kw0AQxl9l2XN9gT0UKupBsBcLguSyJNs2kOzGZHOQ0kM26MF6EKGCYBVPimgVpP5D9GHGpvoWThKslrqH2Znl981-zHSorRxBGY3EViykLZZc3gq5b0mCJ-Chdm034FKTjZVlwiMC6S2kr2Aw9iG9KfJLSO_BPGGcl9VWC5V5B_OMqto8UW_MEIuWLJn8w4VqFTsw8jU4HR_sZydnkFx8jh7HvX7JeEoFZDIyHy-7kByD6UHyhgikg9xYelUYuyvZvz3xZqSwjOwRJMPJ3kO20wNz-K9USGfWU73BSHZ9PjWNwtIWrVBfhD53HZxpJxdZVLeFLyzKMHVEk8eetqglu4jyWKv1bWlTpsNYVGio4labsib3IqziwOH6ZyHTV5zZplK_tXBcrcK1covFMrvfK3bNpA
@@ -725,13 +717,9 @@ PostgreSQLではデフォルトのロック取得タイムアウトが無限で�
 
 ロックをバッチ・オンラインのどちらで取得したかでケース1・ケース2のような排他制御となる。
 
-<div class="img-bg-transparent">
-
 | ケース1: バッチがロックを先取り                  | ケース2: オンラインがロックを先取り                 |
 | :----------------------------------------------- | :-------------------------------------------------- |
 | [![][bach_lock_first_img]][batch_lock_first_url] | [![][online_lock_first_img]][online_lock_first_url] |
-
-</div>
 
 [bach_lock_first_img]: https://mermaid.ink/img/pako:eNqVlF1LG0EUhv_KMFcKSvF2L4SkiSC0tdRIoezNsDuaBbObbnYLRQR3B1qpQkWMIdQ2VVJtK_0Qv21JfszZzab_ovORpqarkO7FMDM87znvnjMzS9hwTIo1XKFPfWobNGeRBZeUdBvxr0xczzKsMrE9NFehLiIVBGwf2E8Iz_iYpjLlsoTCPWA1YJ8hPJL0ObADYMdpQS6rgr6UWBtYXU4u02SWeEZRwRvAGLBAtxUlrY1PTorsGoouVrr7B53mTnKyB-Fm1Hr7633PqXAnuFx2EEMjs_l7-buFUYURw7OeEY8KXu1wl-P9BEqTnG503u3wBN32FgR1xZl0UKt2lXOhlzMNTd-ZAlaFcBfCJrBDHiR-XYvauxDUuqfn8Vo1rRSWlUk0NfMIzT3MZQr5f-xKetBwLyGwL6Jk4TeZajtu1VJ-e-Kb8nbenHS2v08MnU3x8df16OrFxLCJetrox4foYg1WAhWE-00u-fjqT5Vv6nj_9PQ1tzU9VUH0YOZxZrowVN_7RVQVjJtHnWoNjSSHZ_HGKgTrSf0q2WrwHkLQkmMDwo_APnFvo9esiHjCv4aGUf7nARM_CeExsIa8IqvDn5BrItW52xqHx3CJuiVimfzZWBKUjr0iLVEda3xq0nniL3o61u1ljhLfc2af2wbWPNenY9h1_IUi1ubJYoWv_LLJI_fenP4uv-5PHOfvmpqW57j31UMl36vl30Q__RE?type=png
 [batch_lock_first_url]: https://mermaid.live/edit#pako:eNqVlF1LG0EUhv_KMFcKSvF2L4SkiSC0tdRIoezNsDuaBbObbnYLRQR3B1qpQkWMIdQ2VVJtK_0Qv21JfszZzab_ovORpqarkO7FMDM87znvnjMzS9hwTIo1XKFPfWobNGeRBZeUdBvxr0xczzKsMrE9NFehLiIVBGwf2E8Iz_iYpjLlsoTCPWA1YJ8hPJL0ObADYMdpQS6rgr6UWBtYXU4u02SWeEZRwRvAGLBAtxUlrY1PTorsGoouVrr7B53mTnKyB-Fm1Hr7633PqXAnuFx2EEMjs_l7-buFUYURw7OeEY8KXu1wl-P9BEqTnG503u3wBN32FgR1xZl0UKt2lXOhlzMNTd-ZAlaFcBfCJrBDHiR-XYvauxDUuqfn8Vo1rRSWlUk0NfMIzT3MZQr5f-xKetBwLyGwL6Jk4TeZajtu1VJ-e-Kb8nbenHS2v08MnU3x8df16OrFxLCJetrox4foYg1WAhWE-00u-fjqT5Vv6nj_9PQ1tzU9VUH0YOZxZrowVN_7RVQVjJtHnWoNjSSHZ_HGKgTrSf0q2WrwHkLQkmMDwo_APnFvo9esiHjCv4aGUf7nARM_CeExsIa8IqvDn5BrItW52xqHx3CJuiVimfzZWBKUjr0iLVEda3xq0nniL3o61u1ljhLfc2af2wbWPNenY9h1_IUi1ubJYoWv_LLJI_fenP4uv-5PHOfvmpqW57j31UMl36vl30Q__RE
@@ -799,11 +787,7 @@ sequenceDiagram
 
 このように、ジョブに受け渡すパラメータは、種類ごとにどこで管理するかという方針を決めておく必要がある。
 
-<div class="img-bg-transparent">
-
 ![](images/parameter.drawio.png)
-
-</div>
 
 ## パラメータの管理
 

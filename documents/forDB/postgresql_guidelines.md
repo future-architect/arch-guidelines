@@ -2085,8 +2085,6 @@ WHERE EXISTS(
 
 以下の2案の設計方式があり、案2が推奨である。
 
-<div class="img-bg-transparent">
-
 | 項目     | １．条件にバージョンを指定しUPDATEの更新件数で比較                                                                                                                                                                        | ２．更新直前でSELECT FOR UPDATEしバージョンを比較 ☆推奨                                                                                                                                                                                                |
 | :------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | フロー図 | [![][lock_update_count_img]][lock_update_count_url]                                                                                                                                                                       | [![][lock_select_for_update_img]][lock_select_for_update_url]                                                                                                                                                                                          |
@@ -2094,8 +2092,6 @@ WHERE EXISTS(
 | 注意     | ・更新時にロック番号の加算を必ず行う必要                                                                                                                                                                                  | ・更新時にロック番号の加算を必ず行う必要<br>・SELECT FOR UPDATEで行ロックを取る際は、デットロックを防ぐため、ロックを取るテーブルの順序、レコードのソート順（PK順など）を決め、全てのアプリケーションがそれに従う必要                                  |
 | Pros     | SELECT FOR UPDATE分のDBアクセスを減らせる                                                                                                                                                                                 | ・ロックするテーブル順さえ守れば、1よりエラーハンドリングがシンプル<br> ・競合した場合は1より早く検知できるため、フィードバックを早められる。UPDATE処理が長い場合はUXが高められる<br> ・バッチと同一時間帯・同一データを更新する要件の場合に相性が良い |
 | Cons     | ・更新件数のハンドリングを確実に行う必要がある。特に複数テーブルを更新する場合は、都度件数チェックが必要となる<br> ・UPDATE処理が長い場合、他のトランザクションの更新が走ってしまう余地が生まれそれを取り消すコストがある | ・1よりわずかにスループット性能上不利                                                                                                                                                                                                                  |
-
-</div>
 
 [lock_update_count_img]: https://mermaid.ink/img/pako:eNqlVMtO20AU_RVrVkUKP2AVFpGR2kU37aJS5c0oHsBSYqdmvEAIKZ6pREBCtSoeiyKqoEDoEyICjZqIfMy1nXTFL3Q8E4KbBmipLVkz1-ece--Z0V1BBdciSEdL5LVPnAIxbLzg4ZLpaOIpY4_aBbuMHaoBPwLeBXYhvhP-sgPgu8A_AWtK2HfgDeBnfyKNvOmkbxrPamrTs7O3yuha1K4MjhpJfa_fOhiSb8FKISOvawoM7ATYsYD9rARRr6a4Rl6bvjufIvfPw2R_b9Dbijdbj-LwDfAvwM5SJF-H4Buwr-k6EPKhpLcVHdi7OPwMrDJ1X6myiIwLY4lrx_36jwf5BXxNBnrJ-1ayc5rRuNc2SRiz7apbfWpMbPTlk7nnc_HbQwga_fN9YBuDS-FI76q7rvLhIh1KRp2LZPtUm5kZ7uOTy0FzeCB_eSiSl1TDeOPDDe-f3M0oAK8B58A6qqNrs1NJUlwiv1f9-D-LjuvNZHtX2DjmYNTeTK_2Wku6_VH8Gjn3sN5Uoom9iexRZydLgkDc0qo4NMUdpSaOhXKoRLwSti0xHVbSsInoIikRE-liaZF57BepiUxnVUCxT90Xy04B6dTzSQ55rr-wiPR5LIzMIb9sYXo9WkZRMQ5eue7Nnlg2db1nah7JsbT6Cwrohpc?type=png
 [lock_update_count_url]: https://mermaid.live/edit#pako:eNqlVMtO20AU_RVrVkUKP2AVFpGR2kU37aJS5c0oHsBSYqdmvEAIKZ6pREBCtSoeiyKqoEDoEyICjZqIfMy1nXTFL3Q8E4KbBmipLVkz1-ece--Z0V1BBdciSEdL5LVPnAIxbLzg4ZLpaOIpY4_aBbuMHaoBPwLeBXYhvhP-sgPgu8A_AWtK2HfgDeBnfyKNvOmkbxrPamrTs7O3yuha1K4MjhpJfa_fOhiSb8FKISOvawoM7ATYsYD9rARRr6a4Rl6bvjufIvfPw2R_b9Dbijdbj-LwDfAvwM5SJF-H4Buwr-k6EPKhpLcVHdi7OPwMrDJ1X6myiIwLY4lrx_36jwf5BXxNBnrJ-1ayc5rRuNc2SRiz7apbfWpMbPTlk7nnc_HbQwga_fN9YBuDS-FI76q7rvLhIh1KRp2LZPtUm5kZ7uOTy0FzeCB_eSiSl1TDeOPDDe-f3M0oAK8B58A6qqNrs1NJUlwiv1f9-D-LjuvNZHtX2DjmYNTeTK_2Wku6_VH8Gjn3sN5Uoom9iexRZydLgkDc0qo4NMUdpSaOhXKoRLwSti0xHVbSsInoIikRE-liaZF57BepiUxnVUCxT90Xy04B6dTzSQ55rr-wiPR5LIzMIb9sYXo9WkZRMQ5eue7Nnlg2db1nah7JsbT6Cwrohpc
@@ -2651,11 +2647,7 @@ PostgreSQLで他DBに接続する（接続される）手法として、以下�
 
 図: dblink/fdw をなるべく行わない連携方式。
 
-<div class="img-bg-transparent">
-
 ![](image7.png)
-
-</div>
 
 ::: info 参考
 
@@ -2858,11 +2850,7 @@ ORDER BY
 
 ※他にもWrite Backのようにキャッシュのみに書き込み、DBには非同期で永続化する方式もあるが、データ欠損のリスクは業務システムで許容できないと考えられるので、省略する。
 
-<div class="img-bg-transparent">
-
 ![](image9.png)
-
-</div>
 
 ::: tip
 本来のRead Throughは、CDNのようにキャッシュ機構から透過的にアクセスし、呼び出し元が意識することなくキャッシュを利用する（≒インラインキャッシュ）仕組みである。上図のRead Throughはそれと区別するため、Read Aside（または、Cache Aside）と呼ぶことも多い。本紙では上記を区別せず、Read Throughとデフォルメして表現している。

@@ -11,6 +11,10 @@
    リンクの中のコードだけはリンクの色のまま */
 :root {
   --vp-code-color: var(--vp-c-text-1);
+  /* コードブロックの行間は「行として並ぶもの」の段 1.4 (#453)。技術ブログの
+     leading-row と同じで、読み下す文章の 1.75 とは目的が違う。行番号・強調行・
+     差分行も同じ変数を見るのでずれない */
+  --vp-code-line-height: 1.4;
 }
 .vp-doc .custom-block code {
   color: var(--vp-c-text-1);

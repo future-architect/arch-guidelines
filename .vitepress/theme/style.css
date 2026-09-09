@@ -169,6 +169,30 @@
   color: var(--link-visited);
 }
 
+/* テキスト選択の帯をブランドのネイビーに（技術ブログ #3103）。--vp-c-brand-3 は
+   #403 のブランドのネイビー。::-moz-selection は単独のルールにする。セレクタ
+   リストに 1 つでも解釈できないセレクタが混ざると、Chrome / Safari はルール
+   ごと捨てる（技術ブログ #3058） */
+::-moz-selection {
+  color: #fff;
+  background: var(--vp-c-brand-3);
+}
+::selection {
+  color: #fff;
+  background: var(--vp-c-brand-3);
+}
+/* ネイビーのまま暗い地に置くと帯とページの地の差が 1.05 で見えなくなるため、
+   向きを逆にする。#c2c7eb は技術ブログの dark-selection と同じ値
+   （brand-navy と同じ色相 233° のまま彩度を半分に落とした帯） */
+.dark ::-moz-selection {
+  color: var(--vp-c-bg);
+  background: #c2c7eb;
+}
+.dark ::selection {
+  color: var(--vp-c-bg);
+  background: #c2c7eb;
+}
+
 /* ヒーロー画像を透過させる */
 .image-src {
   opacity: 0.1;

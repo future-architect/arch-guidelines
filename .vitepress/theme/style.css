@@ -462,6 +462,52 @@ h6 {
   margin-right: 4px;
 }
 
+/* 箇条書きのマーカーは「本文に添える属性」なので、文字より一段薄い段に乗せて
+   記号を主張させない (#2540)。専用の灰色は作らず VitePress のトークンを借りる。
+   中黒と連番で色を分けないのも同じ理由で、マーカーの扱いを一つに保つ */
+.vp-doc li::marker {
+  color: var(--vp-c-text-2);
+}
+
+/* 箇条書きも読み下す文章なので、行間は段落と同じ 1.75 (#2864)。VitePress 既定は
+   body の 24px（16px の文字で 1.5）を継ぐため、同じ本文の中で段落と項目の行間が
+   違っていた。単位なしで持つのは、注記や脚注のように親の字が小さい場所でも比が
+   保たれるため（px で当てると小さい字のところだけ開き気味になる）。
+   項目の間の 8px は落とす——1.75 の行間そのものが項目の区切りを作る */
+.vp-doc li {
+  line-height: 1.75;
+}
+.vp-doc li + li {
+  margin-top: 0;
+}
+
+/* 緩い箇条書き（項目の間に空行を置く形）の項目の空きは、本文では li > p の
+   margin 16px が持つので li + li を落としても残る。注記の中だけは
+   .custom-block p:first-child の margin: 0 がそれを消していて、8px の空きが
+   li + li だけで作られていた。空きを段落の側へ移して、見た目を保つ */
+.vp-doc .custom-block li > p:first-child {
+  margin: 8px 0;
+}
+
+/* マーカーと本文の間隔は li 側の padding で作る (#2500)。ul / ol の padding を
+   広げても、マーカーと本文が一緒に右へ動くだけで両者の間隔は変わらない。
+   中黒は「1.」より字が細く、同じ間隔でも広く見えるので詰める (#2531)。
+   タスクリストはマーカーを消して checkbox を置いているので外す（付けると
+   checkbox ごと右へずれる） */
+.vp-doc li:not(.task-list-item) {
+  padding-left: 0.4em;
+}
+.vp-doc ul > li:not(.task-list-item) {
+  padding-left: 0.15em;
+}
+
+/* 入れ子は1段ごとに字下げが積み上がる。2段目以降を詰めて、深い入れ子でも
+   モバイルの本文幅を残す (#2531)。1段目の 20px は本文との段差として保つ */
+.vp-doc li > ul,
+.vp-doc li > ol {
+  padding-left: 1rem;
+}
+
 /* 注記の地の色を技術ブログの note にそろえる (#409)。名前は engine の語彙で交差するので
    意味で対応させる: tip（本サイトでは「推奨」）→ ブログの info（緑）、info（補足）→
    ブログの tip（灰青）、warning → warn、danger → alert。

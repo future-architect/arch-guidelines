@@ -34,10 +34,15 @@
     #fff 30%,
     #e5004f
   );
-  /* 背景が透過である画像が、ダークモードで視認性が下がるための対応 */
-  .img-bg-transparent img {
-    filter: invert(1);
-  }
+}
+
+/* 透過画像は白い紙の上で描かれた図なので、暗い地では紙を敷く (#434)。技術ブログ（#3194）と同じ。
+   background-color は透過ピクセルの下にしか出ないため、不透明なスクリーンショットや写真には
+   1 枚も影響しない。反転（filter: invert）は透過だけを選ぶセレクタが無く全画像にかかるうえ、
+   ブランチ図の色が補色に、draw.io の白い箱が黒に変わる。
+   紙の色はテーマに追従させない——「絵が描かれた紙」なので明るい側の白を焼き込む */
+.dark .vp-doc img {
+  background-color: #fff;
 }
 
 /* ブランド色。技術ブログ（future-architect.github.io）の決まりとそろえる (#403)。
@@ -119,6 +124,47 @@
   transition-duration: 0.05s;
 }
 
+/* 所在の目印。反応（hover）とは別の役なので、色は差し色ではなく塗りのネイビー、
+   太さは 2px の1つだけ（技術ブログ #2686 / #2847）。VitePress 既定は a が UA の
+   リング、button が 4px の -webkit-focus-ring-color で部品ごとに違う。
+   暗い側はネイビーが地の上で 2.67 と非テキストの 3:1 に届かないので、
+   文字の最上段（12.81）に替える。
+   広げているのは本文とスキップリンクだけ——ナビ・サイドバー・検索は
+   部品ごとに outline: none / 5px auto を持ち、器の縁で輪郭が切れるかは別に見る */
+.vp-doc a:focus-visible,
+.vp-doc button:focus-visible,
+.vp-doc summary:focus-visible,
+#app .VPSkipLink:focus-visible {
+  outline: 2px solid var(--vp-c-brand-3);
+  outline-offset: 2px;
+}
+.dark .vp-doc a:focus-visible,
+.dark .vp-doc button:focus-visible,
+.dark .vp-doc summary:focus-visible,
+.dark #app .VPSkipLink:focus-visible {
+  outline-color: var(--vp-c-text-1);
+}
+
+/* スキップリンクは画面に対して固定する（技術ブログ #2846）。VitePress 既定の
+   絶対配置だと、ページの途中で Tab を押したときにブラウザがこのリンクを
+   見せるためページ先頭までスクロールし、読んでいた位置を失う。
+   塗りはネイビーに白文字（16.24）で、影は持たない。
+   位置は VitePress のまま（縁から 8px なので outline-offset の輪郭が画面に収まる）。
+   .visually-hidden（position）と scoped style（色・影）に勝つよう #app を前置する。
+   :focus で clip を外す規則は scoped のまま効くので clip / width / height は触らない */
+#app .VPSkipLink {
+  position: fixed;
+  color: #fff;
+  background-color: var(--vp-c-brand-3);
+  box-shadow: none;
+}
+/* 暗い側はネイビーが地に沈むので、明るい青の板に地の色の文字（8.30）。
+   共有ボタンのダークと同じ向き */
+.dark #app .VPSkipLink {
+  color: var(--vp-c-bg);
+  background-color: var(--vp-c-brand-1);
+}
+
 /* h5 / h6 は VitePress に規則が無く、直前の段落からの間隔（16px）しか空かない。
    h4 と同じ 24px にする。技術ブログの本文見出しは h4 以下すべて 24px (#438)。
    h6 は3か所しか無いので、大きさの段（h5 との差）は今回は足さない */
@@ -191,6 +237,30 @@
 .vp-doc a:visited:hover,
 .vp-doc a:visited > code {
   color: var(--link-visited);
+}
+
+/* テキスト選択の帯をブランドのネイビーに（技術ブログ #3103）。--vp-c-brand-3 は
+   #403 のブランドのネイビー。::-moz-selection は単独のルールにする。セレクタ
+   リストに 1 つでも解釈できないセレクタが混ざると、Chrome / Safari はルール
+   ごと捨てる（技術ブログ #3058） */
+::-moz-selection {
+  color: #fff;
+  background: var(--vp-c-brand-3);
+}
+::selection {
+  color: #fff;
+  background: var(--vp-c-brand-3);
+}
+/* ネイビーのまま暗い地に置くと帯とページの地の差が 1.05 で見えなくなるため、
+   向きを逆にする。#c2c7eb は技術ブログの dark-selection と同じ値
+   （brand-navy と同じ色相 233° のまま彩度を半分に落とした帯） */
+.dark ::-moz-selection {
+  color: var(--vp-c-bg);
+  background: #c2c7eb;
+}
+.dark ::selection {
+  color: var(--vp-c-bg);
+  background: #c2c7eb;
 }
 
 /* ヒーロー画像を透過させる */

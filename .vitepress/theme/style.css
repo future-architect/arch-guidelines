@@ -254,12 +254,18 @@
    #403 のブランドのネイビー。::-moz-selection は単独のルールにする。セレクタ
    リストに 1 つでも解釈できないセレクタが混ざると、Chrome / Safari はルール
    ごと捨てる（技術ブログ #3058） */
+/* SVG の <text> の文字色は color ではなく fill が決めるので、fill も同じ値にする (#449)。
+   mermaid が図に焼き付けた fill:#333 が残ると、ネイビーの帯の上で 1.29 になって
+   文字の形が消える（シーケンス図の 26 枚が該当）。foreignObject の中の HTML ラベルは
+   color が効くので、こちらは fill を無視する */
 ::-moz-selection {
   color: #fff;
+  fill: #fff;
   background: var(--vp-c-brand-3);
 }
 ::selection {
   color: #fff;
+  fill: #fff;
   background: var(--vp-c-brand-3);
 }
 /* ネイビーのまま暗い地に置くと帯とページの地の差が 1.05 で見えなくなるため、
@@ -267,10 +273,12 @@
    （brand-navy と同じ色相 233° のまま彩度を半分に落とした帯） */
 .dark ::-moz-selection {
   color: var(--vp-c-bg);
+  fill: var(--vp-c-bg);
   background: #c2c7eb;
 }
 .dark ::selection {
   color: var(--vp-c-bg);
+  fill: var(--vp-c-bg);
   background: #c2c7eb;
 }
 

@@ -469,7 +469,13 @@ h6 {
 .vp-doc .custom-block td {
   border-color: var(--table-border-on-note);
 }
+/* ヘッダー行は地と太さが示すので、文字は本文と同じ段にする (#459)。技術ブログと同じ。
+   VitePress 既定の text-2 は td より一段薄く、同じ表の中で文字の濃さが 1.94 割れる。
+   注記の地の上では 3.61（danger）〜4.98 と AA も割る。
+   太さは 600 のまま——見出しも strong も 600 で、ここだけ 700 にすると本文の中で
+   いちばん重いものになる */
 .vp-doc th {
+  color: var(--vp-c-text-1);
   background-color: var(--vp-c-bg-soft);
 }
 /* 注記（::: tip 等）の中の表は、地が注記のもの。本文行は注記の地を透かし、

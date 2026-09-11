@@ -242,7 +242,7 @@ export default defineConfig({
   outDir: "docs",
   ignoreDeadLinks: "localhostLinks",
   markdown: {
-    lineNumbers: true,
+    lineNumbers: false,
     config(md) {
       md.use(markdownItHeaderShift);
       md.use(markdownItTaskLists);

@@ -542,6 +542,28 @@ h6 {
   scrollbar-color: var(--vp-c-divider) transparent;
 }
 
+/* コードフェンスのファイル名 (#473)。ブロックの上に 1 行として置く。
+
+   はじめは言語ラベル（span.lang）と同じように pre の上の余白（20px）へ
+   絶対配置で浮かせていたが、名前とコードの 1 行目の間が 3.6px しか空かず、
+   名前が中身に貼り付いて読みにくかった。流し込みに戻すと、pre がもとから
+   持っている上の余白 20px がそのまま名前と中身の間隔になる。
+
+   上端（2px）と右の余白は言語ラベルに合わせる。ラベルはカーソルを乗せると
+   コピーボタンに譲って消えるが、ファイル名はブロックの名前なので消さない。
+   色は言語ラベルより一段強い段（コードの地で 5.62）*/
+.vp-doc [class*="language-"] > span.fence-title {
+  display: block;
+  padding: 2px 72px 0 24px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 12px;
+  line-height: 1.4;
+  user-select: none;
+  color: var(--vp-c-text-2);
+}
+
 /* 表は縞をやめ、ヘッダー行だけに地色を敷く (#408)。技術ブログ（Zenn と同じ構成）。
    構造の起点であるヘッダーが目立ち、行数の多い表でも面がうるさくならない */
 .vp-doc tr:nth-child(2n) {

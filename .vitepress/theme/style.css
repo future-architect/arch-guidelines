@@ -129,24 +129,38 @@
 }
 
 /* 所在の目印。反応（hover）とは別の役なので、色は差し色ではなく塗りのネイビー、
-   太さは 2px の1つだけ（技術ブログ #2686 / #2847）。VitePress 既定は a が UA の
-   リング、button が 4px の -webkit-focus-ring-color で部品ごとに違う。
+   太さは 2px の1つだけ（技術ブログ #2686 / #2847）。VitePress 既定は部品ごとに
+   ばらばらで、a は UA のリング、button は 4px の -webkit-focus-ring-color、
+   検索ボタンは 5px auto、input は outline: none（＝目印が無い）。
+   #435 では本文とスキップリンクだけに当てていたが、ページの先頭から Tab で
+   辿ると本文へ入るまで UA のリング、本文に入ると 2px のネイビー、と 2 種類の
+   輪郭が出る。所在の目印は 1 つなので、サイト全体に広げる (#472)。
    暗い側はネイビーが地の上で 2.67 と非テキストの 3:1 に届かないので、
    文字の最上段（12.81）に替える。
-   広げているのは本文とスキップリンクだけ——ナビ・サイドバー・検索は
-   部品ごとに outline: none / 5px auto を持ち、器の縁で輪郭が切れるかは別に見る */
-.vp-doc a:focus-visible,
-.vp-doc button:focus-visible,
-.vp-doc summary:focus-visible,
-#app .VPSkipLink:focus-visible {
+
+   [tabindex] から -1 を外すのは、サイドバーの器（nav[tabindex="-1"]）と
+   スキップリンクの着地点を囲まないため。Tab で辿れる 0 のものだけが対象 */
+#app a:focus-visible,
+#app button:focus-visible,
+#app input:focus-visible,
+#app summary:focus-visible,
+#app [tabindex]:not([tabindex="-1"]):focus-visible {
   outline: 2px solid var(--vp-c-brand-3);
   outline-offset: 2px;
 }
-.dark .vp-doc a:focus-visible,
-.dark .vp-doc button:focus-visible,
-.dark .vp-doc summary:focus-visible,
-.dark #app .VPSkipLink:focus-visible {
+.dark #app a:focus-visible,
+.dark #app button:focus-visible,
+.dark #app input:focus-visible,
+.dark #app summary:focus-visible,
+.dark #app [tabindex]:not([tabindex="-1"]):focus-visible {
   outline-color: var(--vp-c-text-1);
+}
+
+/* 帯の高さ（64px）いっぱいの部品は、外側 2px の輪郭が帯の外へ出る。
+   技術ブログも帯の中だけ内側へ逃がしている */
+#app .VPNavBarMenuLink:focus-visible,
+#app .VPNavBarTitle .title:focus-visible {
+  outline-offset: -2px;
 }
 
 /* スキップリンクは画面に対して固定する（技術ブログ #2846）。VitePress 既定の

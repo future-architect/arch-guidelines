@@ -648,14 +648,20 @@ h6 {
   --link-on-note-warning: #7b6d18;
   --link-on-note-danger: #ac1b1b;
 }
-/* 暗い側は種別で割らず1色。暗い地ではリンクを明るくするしかなく、色相を保って
-   彩度を残すと注記の中のコードの地で 2.5 まで落ち、AA を取ると本文との比が
-   1.2 のほぼ白になる。種別ごとの色相は明るい側だけが持つ */
+/* 暗い側も種別ごとの色相を持つ (#470)。技術ブログ #3244 と同じ。
+   #427 の時点では「注記の地と、その中のインラインコードの地の両方で AA」を
+   条件にしていて、色相を保つとコードの地で 2.6 まで落ちるため 1 色にしていた。
+   下の a code の規則で暗い側の札を条件から外したので、注記の地だけで選べる。
+
+   4 色は同じ明るさ（Lab L* 64.2）と同じ彩度（C* 54）にそろえ、色相だけ変える。
+   色相ごとに彩度の上限を取ると緑と黄はネオン、青と赤はパステルになって家族に
+   見えないので、いちばん低い色に合わせる。地との比は 4.68 / 4.74 / 4.69 / 4.68。
+   対応は名前ではなく地の色（本サイトの tip は緑＝ブログの info、info は灰青＝ブログの tip） */
 .dark {
-  --link-on-note-tip: #8ec2ff;
-  --link-on-note-info: #8ec2ff;
-  --link-on-note-warning: #8ec2ff;
-  --link-on-note-danger: #8ec2ff;
+  --link-on-note-tip: #66ad58;
+  --link-on-note-info: #4da0fe;
+  --link-on-note-warning: #ae9e37;
+  --link-on-note-danger: #f57575;
 }
 .vp-doc .custom-block.tip a,
 .vp-doc .custom-block.tip a code {
@@ -679,6 +685,24 @@ h6 {
 .vp-doc .custom-block a:visited,
 .vp-doc .custom-block a:visited code {
   color: var(--link-visited);
+}
+
+/* リンクの中のコードは、暗い側では本体色のまま (#470)。技術ブログ #3244 と同じ。
+   順序は「これはコードである」が先で、「それがリンクになっている」が後。
+   リンクであることは下線が名乗る (#404)。
+
+   明るい側は札が地より「濃い」側にあるので、濃いリンクの色を乗せても読める。
+   暗い側は札が地より「明るい」側なので、明るいリンク色を乗せると読みにくい——
+   実測でも注記の中の札の上は brand-1 が 3.43、訪問済みの紫が 3.54、
+   #427 の 1 色（#8ec2ff）が 3.81 と、いずれも AA を割っていた。
+   本体色なら本文の札で 10.83、注記の札で 5.28〜5.32。
+
+   .custom-block.tip a code と詳細度が並ぶ (0,3,2) ので、後ろに置いて勝たせる */
+.dark .vp-doc a > code,
+.dark .vp-doc a:visited > code,
+.dark .vp-doc .custom-block a code,
+.dark .vp-doc .custom-block a:visited code {
+  color: var(--vp-c-text-1);
 }
 
 /* 注記の中のコードブロックの地は、注記の色を白で薄めた面 (#429)。VitePress 既定の

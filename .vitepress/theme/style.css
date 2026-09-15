@@ -157,10 +157,10 @@
 
    群を持たない「About Us」（平らな 6 件）には当てない */
 #app .VPMenu:has(.VPMenuGroup) {
-  width: 458px;
+  width: 500px;
 }
 #app .VPMenu:has(.VPMenuGroup) > .items {
-  column-width: 200px;
+  column-width: 220px;
   column-gap: 32px;
 }
 #app .VPMenu:has(.VPMenuGroup) > .items > .VPMenuGroup {
@@ -175,6 +175,33 @@
 }
 #app .VPMenu:has(.VPMenuGroup) > .items > .VPMenuGroup:last-child {
   margin-bottom: 0;
+}
+
+/* 群のラベルは枠を持つ (#488)。技術ブログ #3226 と同じ。
+   2 列の多段組では左に余白が無く縦罫を引く場所が無いので、群を表す印は
+   ラベル自身が持つしかない。枠はタグのチップ（ピル型）と取り違えられないよう
+   角丸は小さな部品の段（4px）の四角のままで、地は敷かない。
+   幅は文字ちょうどに留める——列幅いっぱいに伸ばすと同じ幅のボタンの列に見える。
+
+   枠を足したぶん文字は一段引く（14px/600 → 12px/400）。押せない分類の名前が
+   行き先より重いと、読む順が逆になる。大きさ・太さ・色の 3 つで押せる名前と分ける。
+   枠の中の文字（左 3 ＋ 枠 1 ＋ 余白 8 ＝ 12px）は、2 列化する前の行の文字と同じ位置 */
+#app .VPMenu:has(.VPMenuGroup) .VPMenuGroup > .title {
+  width: fit-content;
+  margin: 0 0 4px 3px;
+  padding: 2px 8px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+/* 行はラベルより 8px 下げて、その群に属することを示す。16px は強すぎる
+   （技術ブログ #3180 が実測で 8px 止まりと決めている）。
+   押せる範囲は列いっぱいのままで、下げるのは文字だけ */
+#app .VPMenu:has(.VPMenuGroup) .VPMenuGroup .link {
+  padding-left: 20px;
 }
 
 /* 角丸は 3 段（4 / 8 / 999px）だけで、12px は持たない。箱の段に寄せる */

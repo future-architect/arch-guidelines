@@ -536,6 +536,8 @@ h6 {
 .vp-doc [class*="language-"] pre,
 .vp-doc table {
   scrollbar-color: var(--vp-c-divider) transparent;
+}
+
 /* コードフェンスのファイル名 (#473)。右上の言語ラベル（span.lang）を左右で
    鏡にした形で、位置は言語ラベルと同じ pre の上の余白（20px）の中に収める。
    左端はコードの文字（code の padding 24px）にそろえる。

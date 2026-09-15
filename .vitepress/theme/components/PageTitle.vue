@@ -296,19 +296,23 @@ function copyLink() {
   display: block;
 }
 
+/* 著者は本文に添える情報なので、文字の弱い段に置く (#475)。color: initial は
+   ブラウザの初期値（明るい側は純黒、暗い側は color-scheme: dark で純白）で、
+   このサイトのどの段にも乗っていなかった。罫線の #eaecef も直書きで、
+   暗い地の上では 14.51 と区切りの線（1.27）の11倍強い白い線になっていた */
 .vitepress-page-title__author {
   padding-bottom: 8px;
-  margin-bottom: 18px;
+  margin-bottom: 16px;
   font-size: 12px;
   border: none;
-  color: initial;
+  color: var(--vp-c-text-2);
   text-align: right;
   page-break-after: always;
 
   font-weight: 600;
   line-height: 1.25;
 
-  border-bottom: 1px solid #eaecef;
+  border-bottom: 1px solid var(--vp-c-divider);
 }
 
 @media print {

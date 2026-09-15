@@ -128,6 +128,87 @@
   transition-duration: 0.05s;
 }
 
+/* 影は持たない (#467)。技術ブログ #2747 と同じ。読み物を並べる場所では輪郭を
+   なるべく作らず、浮いている部品の区切りは枠と地（と引き出しの覆い）が担う。
+   VitePress 既定は 5 部品に影を置いているが、いずれも枠・地・覆いのどれかを
+   既に持っているので、影を落としても輪郭が消える部品は無い。
+   scoped style（.VPMenu[data-v-…] などの 0,2,0）に勝つよう #app を前置する */
+#app .VPMenu,
+#app .VPLocalNavOutlineDropdown .items,
+#app .VPSidebar,
+#app .VPSwitch .check,
+#app .VPLocalSearchBox kbd {
+  box-shadow: none;
+}
+
+/* 群を持つドロップダウンは 2 列 (#488)。技術ブログ #2908 と同じ。
+   「Guidelines」は 6 群 23 件で高さ約 1,079px あり、max-height が
+   calc(100vh - 64px) なので viewport が 1,143px を超えないと中でスクロールする。
+   行き先を選ぶための一覧が一度に見えていなかった。
+
+   グリッドではなく多段組にするのは 2 つの理由から。グリッドは行の高さを
+   左右でそろえるので件数の少ない群の下に空きが出るのと、多段組なら
+   break-inside で群が列の途中で割れない。
+   列数は列幅の下限で決めるので、幅が足りない場所では 1 列に落ちる。
+
+   幅は「最長の行が折り返さない」で決める。行は Markdown設計ドキュメント の
+   175px、群ラベルは はじめての〇〇シリーズ の 154px で、左右のパディング 24px を
+   足して列の内寸 200px。溝 32px とパネルの余白 24px、枠 2px で 458px。
+
+   群を持たない「About Us」（平らな 6 件）には当てない */
+#app .VPMenu:has(.VPMenuGroup) {
+  width: 500px;
+}
+#app .VPMenu:has(.VPMenuGroup) > .items {
+  column-width: 220px;
+  column-gap: 32px;
+}
+#app .VPMenu:has(.VPMenuGroup) > .items > .VPMenuGroup {
+  break-inside: avoid;
+  /* 群の区切りは空きだけが持つ。2 列にすると 2 列目の先頭の群にも罫線と
+     余白が付き、1 列目の先頭（罫線なし）と高さがそろわない。どの群が列の
+     先頭に来るかは CSS からは分からないので、片方だけ消すことはできない。
+     列の中の切れ目 24px に対して列の溝は 32px で、階層が逆にならない */
+  margin: 0 0 24px;
+  border-top: 0;
+  padding: 0;
+}
+#app .VPMenu:has(.VPMenuGroup) > .items > .VPMenuGroup:last-child {
+  margin-bottom: 0;
+}
+
+/* 群のラベルは枠を持つ (#488)。技術ブログ #3226 と同じ。
+   2 列の多段組では左に余白が無く縦罫を引く場所が無いので、群を表す印は
+   ラベル自身が持つしかない。枠はタグのチップ（ピル型）と取り違えられないよう
+   角丸は小さな部品の段（4px）の四角のままで、地は敷かない。
+   幅は文字ちょうどに留める——列幅いっぱいに伸ばすと同じ幅のボタンの列に見える。
+
+   枠を足したぶん文字は一段引く（14px/600 → 12px/400）。押せない分類の名前が
+   行き先より重いと、読む順が逆になる。大きさ・太さ・色の 3 つで押せる名前と分ける。
+   枠の中の文字（左 3 ＋ 枠 1 ＋ 余白 8 ＝ 12px）は、2 列化する前の行の文字と同じ位置 */
+#app .VPMenu:has(.VPMenuGroup) .VPMenuGroup > .title {
+  width: fit-content;
+  margin: 0 0 4px 3px;
+  padding: 2px 8px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+/* 行はラベルより 8px 下げて、その群に属することを示す。16px は強すぎる
+   （技術ブログ #3180 が実測で 8px 止まりと決めている）。
+   押せる範囲は列いっぱいのままで、下げるのは文字だけ */
+#app .VPMenu:has(.VPMenuGroup) .VPMenuGroup .link {
+  padding-left: 20px;
+}
+
+/* 角丸は 3 段（4 / 8 / 999px）だけで、12px は持たない。箱の段に寄せる */
+#app .VPMenu {
+  border-radius: 8px;
+}
+
 /* レイアウトの部品から青を外す (#471)。技術ブログ #2893 と同じ。
    青は読み物の中の参照リンクの色で、ナビ・サイドバー・目次・ページャの
    hover や現在地に同じ色を使うと、同じ色が 2 つの役を持つ。
@@ -213,24 +294,38 @@
 }
 
 /* 所在の目印。反応（hover）とは別の役なので、色は差し色ではなく塗りのネイビー、
-   太さは 2px の1つだけ（技術ブログ #2686 / #2847）。VitePress 既定は a が UA の
-   リング、button が 4px の -webkit-focus-ring-color で部品ごとに違う。
+   太さは 2px の1つだけ（技術ブログ #2686 / #2847）。VitePress 既定は部品ごとに
+   ばらばらで、a は UA のリング、button は 4px の -webkit-focus-ring-color、
+   検索ボタンは 5px auto、input は outline: none（＝目印が無い）。
+   #435 では本文とスキップリンクだけに当てていたが、ページの先頭から Tab で
+   辿ると本文へ入るまで UA のリング、本文に入ると 2px のネイビー、と 2 種類の
+   輪郭が出る。所在の目印は 1 つなので、サイト全体に広げる (#472)。
    暗い側はネイビーが地の上で 2.67 と非テキストの 3:1 に届かないので、
    文字の最上段（12.81）に替える。
-   広げているのは本文とスキップリンクだけ——ナビ・サイドバー・検索は
-   部品ごとに outline: none / 5px auto を持ち、器の縁で輪郭が切れるかは別に見る */
-.vp-doc a:focus-visible,
-.vp-doc button:focus-visible,
-.vp-doc summary:focus-visible,
-#app .VPSkipLink:focus-visible {
+
+   [tabindex] から -1 を外すのは、サイドバーの器（nav[tabindex="-1"]）と
+   スキップリンクの着地点を囲まないため。Tab で辿れる 0 のものだけが対象 */
+#app a:focus-visible,
+#app button:focus-visible,
+#app input:focus-visible,
+#app summary:focus-visible,
+#app [tabindex]:not([tabindex="-1"]):focus-visible {
   outline: 2px solid var(--vp-c-brand-3);
   outline-offset: 2px;
 }
-.dark .vp-doc a:focus-visible,
-.dark .vp-doc button:focus-visible,
-.dark .vp-doc summary:focus-visible,
-.dark #app .VPSkipLink:focus-visible {
+.dark #app a:focus-visible,
+.dark #app button:focus-visible,
+.dark #app input:focus-visible,
+.dark #app summary:focus-visible,
+.dark #app [tabindex]:not([tabindex="-1"]):focus-visible {
   outline-color: var(--vp-c-text-1);
+}
+
+/* 帯の高さ（64px）いっぱいの部品は、外側 2px の輪郭が帯の外へ出る。
+   技術ブログも帯の中だけ内側へ逃がしている */
+#app .VPNavBarMenuLink:focus-visible,
+#app .VPNavBarTitle .title:focus-visible {
+  outline-offset: -2px;
 }
 
 /* スキップリンクは画面に対して固定する（技術ブログ #2846）。VitePress 既定の
@@ -516,6 +611,17 @@ h6 {
   line-height: 1.75;
 }
 
+/* 横スクロールのつまみは、文字ではなく線なので罫線の段から選ぶ (#468)。
+   技術ブログ #3274 と同じで、コードブロックと横に溢れる表が 1 つの値を共有する。
+   OS 既定のつまみは濃く、枠線を持たないコードブロックの下辺では輪郭に見えていた。
+   --vp-c-divider はコードの地で 1.20、暗い側は 1.34。--vp-c-gutter は暗い側が
+   純黒（地との差 1.06）で位置が読めないので使わない。
+   トラックは transparent で地をそのまま見せる */
+.vp-doc [class*="language-"] pre,
+.vp-doc table {
+  scrollbar-color: var(--vp-c-divider) transparent;
+}
+
 /* 表は縞をやめ、ヘッダー行だけに地色を敷く (#408)。技術ブログ（Zenn と同じ構成）。
    構造の起点であるヘッダーが目立ち、行数の多い表でも面がうるさくならない */
 .vp-doc tr:nth-child(2n) {
@@ -703,14 +809,20 @@ h6 {
   --link-on-note-warning: #7b6d18;
   --link-on-note-danger: #ac1b1b;
 }
-/* 暗い側は種別で割らず1色。暗い地ではリンクを明るくするしかなく、色相を保って
-   彩度を残すと注記の中のコードの地で 2.5 まで落ち、AA を取ると本文との比が
-   1.2 のほぼ白になる。種別ごとの色相は明るい側だけが持つ */
+/* 暗い側も種別ごとの色相を持つ (#470)。技術ブログ #3244 と同じ。
+   #427 の時点では「注記の地と、その中のインラインコードの地の両方で AA」を
+   条件にしていて、色相を保つとコードの地で 2.6 まで落ちるため 1 色にしていた。
+   下の a code の規則で暗い側の札を条件から外したので、注記の地だけで選べる。
+
+   4 色は同じ明るさ（Lab L* 64.2）と同じ彩度（C* 54）にそろえ、色相だけ変える。
+   色相ごとに彩度の上限を取ると緑と黄はネオン、青と赤はパステルになって家族に
+   見えないので、いちばん低い色に合わせる。地との比は 4.68 / 4.74 / 4.69 / 4.68。
+   対応は名前ではなく地の色（本サイトの tip は緑＝ブログの info、info は灰青＝ブログの tip） */
 .dark {
-  --link-on-note-tip: #8ec2ff;
-  --link-on-note-info: #8ec2ff;
-  --link-on-note-warning: #8ec2ff;
-  --link-on-note-danger: #8ec2ff;
+  --link-on-note-tip: #66ad58;
+  --link-on-note-info: #4da0fe;
+  --link-on-note-warning: #ae9e37;
+  --link-on-note-danger: #f57575;
 }
 .vp-doc .custom-block.tip a,
 .vp-doc .custom-block.tip a code {
@@ -734,6 +846,24 @@ h6 {
 .vp-doc .custom-block a:visited,
 .vp-doc .custom-block a:visited code {
   color: var(--link-visited);
+}
+
+/* リンクの中のコードは、暗い側では本体色のまま (#470)。技術ブログ #3244 と同じ。
+   順序は「これはコードである」が先で、「それがリンクになっている」が後。
+   リンクであることは下線が名乗る (#404)。
+
+   明るい側は札が地より「濃い」側にあるので、濃いリンクの色を乗せても読める。
+   暗い側は札が地より「明るい」側なので、明るいリンク色を乗せると読みにくい——
+   実測でも注記の中の札の上は brand-1 が 3.43、訪問済みの紫が 3.54、
+   #427 の 1 色（#8ec2ff）が 3.81 と、いずれも AA を割っていた。
+   本体色なら本文の札で 10.83、注記の札で 5.28〜5.32。
+
+   .custom-block.tip a code と詳細度が並ぶ (0,3,2) ので、後ろに置いて勝たせる */
+.dark .vp-doc a > code,
+.dark .vp-doc a:visited > code,
+.dark .vp-doc .custom-block a code,
+.dark .vp-doc .custom-block a:visited code {
+  color: var(--vp-c-text-1);
 }
 
 /* 注記の中のコードブロックの地は、注記の色を白で薄めた面 (#429)。VitePress 既定の

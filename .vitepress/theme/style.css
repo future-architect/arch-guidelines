@@ -136,7 +136,7 @@
 #app .VPMenu,
 #app .VPLocalNavOutlineDropdown .items,
 #app .VPSidebar,
-#app .VPSwitch,
+#app .VPSwitch .check,
 #app .VPLocalSearchBox kbd {
   box-shadow: none;
 }

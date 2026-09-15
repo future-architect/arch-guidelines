@@ -1,5 +1,7 @@
 import { defineAsyncComponent } from "vue";
-import DefaultTheme from "vitepress/theme";
+// Web フォント（Inter）を読まない入口 (#465)。変わるのは欧文と数字の字形だけで、
+// 和文は元から system-ui に落ちていた
+import DefaultTheme from "vitepress/theme-without-fonts";
 import "./style.css";
 import "./mermaid.css";
 import PageTitle from "./components/PageTitle.vue";

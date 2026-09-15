@@ -6,9 +6,14 @@ import markdownItTaskLists from "markdown-it-task-lists";
 import markdownItFootnote from "markdown-it-footnote";
 import markdownItHeaderShift from "./lib/markdown-it-plugin-header-shift.mjs";
 import markdownItMermaidSvg from "./lib/markdown-it-plugin-mermaid-svg.mjs";
+import { codeThemeLight, codeThemeDark } from "./lib/code-theme.mjs";
+import markdownItFenceTitle from "./lib/markdown-it-plugin-fence-title.mjs";
+import markdownItImageSize from "./lib/markdown-it-plugin-image-size.mjs";
 import lazyMermaid from "./lib/vite-plugin-lazy-mermaid.mjs";
 import * as plantumlLanguage from "./lib/plantuml.tmlanguage.mjs";
 const __filename = fileURLToPath(import.meta.url);
+// ルート相対の画像 src を解決する起点（.vitepress の親）
+const srcDir = fileURLToPath(new URL("..", import.meta.url));
 const pkg = Module.createRequire(__filename)("../package.json");
 
 const repoUrl = pkg.repository.url
@@ -243,10 +248,17 @@ export default defineConfig({
   ignoreDeadLinks: "localhostLinks",
   markdown: {
     lineNumbers: false,
+    // 地の上で AA を満たす配色 (#466)。github-light / github-dark の色相を借りて
+    // 明度だけ振ったもので、値と理由は lib/code-theme.mjs が持つ
+    theme: { light: codeThemeLight, dark: codeThemeDark },
     config(md) {
       md.use(markdownItHeaderShift);
       md.use(markdownItTaskLists);
       md.use(markdownItFootnote);
+      // ファイル名のタブ (#473)。mermaid より前に包んで、mermaid が外側に残るようにする
+      md.use(markdownItFenceTitle);
+      // 画像の実寸と、2枚目以降の lazy (#474)
+      md.use(markdownItImageSize, { srcDir });
       // withMermaid が先に fence を包むので、ここで包むと外側になり先に走る
       md.use(markdownItMermaidSvg);
     },
@@ -315,18 +327,51 @@ export default defineConfig({
     footer: {
       copyright: `Copyright ${new Date().getFullYear()} by Future Corporation`,
     },
+    // UI の文言は日本語にそろえる (#464)。lang は ja で本文も見出しも日本語なのに、
+    // VitePress 既定のままだと "On this page" / "Previous page" / "Search" のように
+    // 部品ごとに英語が出る。呼び名は 1 つにする
     search: {
       provider: "local",
       options: {
         detailedView: true,
+        translations: {
+          button: {
+            buttonText: "検索",
+            buttonAriaLabel: "検索",
+          },
+          modal: {
+            displayDetails: "詳細を表示",
+            resetButtonTitle: "検索語を消す",
+            backButtonTitle: "検索を閉じる",
+            // 後ろに検索語が続く（noResultsText "<語>"）
+            noResultsText: "見つかりませんでした:",
+            // いずれもキーの記号が先に出るので「◯◯で……」と読める形にする
+            footer: {
+              selectText: "で開く",
+              navigateText: "で移動",
+              closeText: "で閉じる",
+            },
+          },
+        },
       },
     },
     editLink: {
       pattern: repoUrl + "/edit/main/:path",
+      text: "このページをGitHubで編集する",
     },
     outline: {
       level: "deep",
+      label: "目次",
     },
+    docFooter: {
+      prev: "前のページ",
+      next: "次のページ",
+    },
+    returnToTopLabel: "先頭へ戻る",
+    sidebarMenuLabel: "メニュー",
+    darkModeSwitchLabel: "表示テーマ",
+    lightModeSwitchTitle: "ライトテーマに切り替える",
+    darkModeSwitchTitle: "ダークテーマに切り替える",
     // 既定は英語の "Skip to content"。サイトの他の UI と同じ日本語にする (#435)
     skipToContentLabel: "本文へスキップ",
     nav: [

@@ -432,6 +432,25 @@ h6 {
   line-height: 1.75;
 }
 
+/* コードフェンスのファイル名 (#473)。右上の言語ラベル（span.lang）を左右で
+   鏡にした形で、位置は言語ラベルと同じ pre の上の余白（20px）の中に収める。
+   左端はコードの文字（code の padding 24px）にそろえる。
+   言語ラベルはカーソルを乗せるとコピーボタンに譲って消えるが、ファイル名は
+   ブロックの名前なので消さない。色は言語ラベルより一段強い段（コードの地で 5.62）*/
+.vp-doc [class*="language-"] > span.fence-title {
+  position: absolute;
+  top: 2px;
+  left: 24px;
+  z-index: 2;
+  max-width: calc(100% - 96px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 12px;
+  user-select: none;
+  color: var(--vp-c-text-2);
+}
+
 /* 表は縞をやめ、ヘッダー行だけに地色を敷く (#408)。技術ブログ（Zenn と同じ構成）。
    構造の起点であるヘッダーが目立ち、行数の多い表でも面がうるさくならない */
 .vp-doc tr:nth-child(2n) {

@@ -128,6 +128,90 @@
   transition-duration: 0.05s;
 }
 
+/* レイアウトの部品から青を外す (#471)。技術ブログ #2893 と同じ。
+   青は読み物の中の参照リンクの色で、ナビ・サイドバー・目次・ページャの
+   hover や現在地に同じ色を使うと、同じ色が 2 つの役を持つ。
+   とくに現在地は色**だけ**で示していて、地の文（--vp-c-text-1）との比は
+   1.70 しかない。技術ブログが #2722 で退けた組み合わせでもある。
+
+   hover は文字を一段濃く（text-2 → text-1）、現在地は太さ（700）で示し、
+   もともと持っている印（サイドバーのバー・目次のマーカー）だけ
+   ブランドのネイビーで塗る。新しい面や色は足さない。
+   scoped style は (0,7,0) まで積むので、#app を前置して id で勝つ */
+
+/* ヘッダーの帯。既定は静止 text-1・hover で text-2 と、濃さが逆に動いていた */
+#app .VPFlyout .text,
+#app .VPNavBarMenuLink {
+  color: var(--vp-c-text-2);
+}
+#app .VPFlyout:hover .text,
+#app .VPNavBarMenuLink:hover {
+  color: var(--vp-c-text-1);
+}
+#app .VPFlyout.active .text,
+#app .VPFlyout.active:hover .text,
+#app .VPNavBarMenuLink.active {
+  color: var(--vp-c-text-1);
+  font-weight: 700;
+}
+
+/* ドロップダウンの行。反応は面が持つ（既定のまま）ので、文字は色を動かさない */
+#app .VPMenuLink .link:hover,
+#app .VPMenuLink .link.active {
+  color: var(--vp-c-text-1);
+}
+#app .VPMenuLink .link.active {
+  font-weight: 700;
+}
+
+/* サイドバーの行 */
+#app .VPSidebarItem.is-link > .item > .link:hover .text,
+#app .VPSidebarItem.is-active > .item .link > .text {
+  color: var(--vp-c-text-1);
+}
+#app .VPSidebarItem.is-active > .item .link > .text {
+  font-weight: 700;
+}
+#app .VPSidebarItem.is-active > .item > .indicator {
+  background-color: var(--vp-c-brand-3);
+}
+
+/* 右の目次 */
+#app .outline-link.active {
+  color: var(--vp-c-text-1);
+  font-weight: 700;
+}
+#app .outline-marker {
+  background-color: var(--vp-c-brand-3);
+}
+
+/* 暗い側はネイビーが地の上で 2.67 と非テキストの 3:1 に届かないので、
+   バーとマーカーは明るい線に替える（フォーカスリング #437 と同じ向き） */
+.dark #app .VPSidebarItem.is-active > .item > .indicator,
+.dark #app .outline-marker {
+  background-color: var(--vp-c-text-1);
+}
+
+/* ページャと編集リンクは本文に添えるリンク。静止は弱い段に置き、
+   反応は下線で返す（技術ブログ #2699）。カードの枠は動かさない——
+   下線と枠の両方が動くと 1 部品に 2 つの反応が付く */
+#app .pager-link .title {
+  color: var(--vp-c-text-1);
+}
+#app .pager-link:hover {
+  border-color: var(--vp-c-divider);
+}
+#app .pager-link:hover .title {
+  text-decoration: underline;
+}
+#app .edit-link-button {
+  color: var(--vp-c-text-2);
+}
+#app .edit-link-button:hover {
+  color: var(--vp-c-text-1);
+  text-decoration: underline;
+}
+
 /* 所在の目印。反応（hover）とは別の役なので、色は差し色ではなく塗りのネイビー、
    太さは 2px の1つだけ（技術ブログ #2686 / #2847）。VitePress 既定は a が UA の
    リング、button が 4px の -webkit-focus-ring-color で部品ごとに違う。

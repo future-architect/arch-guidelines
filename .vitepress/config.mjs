@@ -315,18 +315,51 @@ export default defineConfig({
     footer: {
       copyright: `Copyright ${new Date().getFullYear()} by Future Corporation`,
     },
+    // UI の文言は日本語にそろえる (#464)。lang は ja で本文も見出しも日本語なのに、
+    // VitePress 既定のままだと "On this page" / "Previous page" / "Search" のように
+    // 部品ごとに英語が出る。呼び名は 1 つにする
     search: {
       provider: "local",
       options: {
         detailedView: true,
+        translations: {
+          button: {
+            buttonText: "検索",
+            buttonAriaLabel: "検索",
+          },
+          modal: {
+            displayDetails: "詳細を表示",
+            resetButtonTitle: "検索語を消す",
+            backButtonTitle: "検索を閉じる",
+            // 後ろに検索語が続く（noResultsText "<語>"）
+            noResultsText: "見つかりませんでした:",
+            // いずれもキーの記号が先に出るので「◯◯で……」と読める形にする
+            footer: {
+              selectText: "で開く",
+              navigateText: "で移動",
+              closeText: "で閉じる",
+            },
+          },
+        },
       },
     },
     editLink: {
       pattern: repoUrl + "/edit/main/:path",
+      text: "このページをGitHubで編集する",
     },
     outline: {
       level: "deep",
+      label: "目次",
     },
+    docFooter: {
+      prev: "前のページ",
+      next: "次のページ",
+    },
+    returnToTopLabel: "先頭へ戻る",
+    sidebarMenuLabel: "メニュー",
+    darkModeSwitchLabel: "表示テーマ",
+    lightModeSwitchTitle: "ライトテーマに切り替える",
+    darkModeSwitchTitle: "ダークテーマに切り替える",
     // 既定は英語の "Skip to content"。サイトの他の UI と同じ日本語にする (#435)
     skipToContentLabel: "本文へスキップ",
     nav: [

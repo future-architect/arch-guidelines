@@ -15,6 +15,10 @@
      leading-row と同じで、読み下す文章の 1.75 とは目的が違う。行番号・強調行・
      差分行も同じ変数を見るのでずれない */
   --vp-code-line-height: 1.4;
+  /* コピー完了の文言だけは themeConfig に設定キーが無く、VitePress は
+     html:lang(es|fa|ko|ru|zh) にだけ訳を持っている。ja は無いので日本語の
+     サイトでも "Copied" が出る。共有ボタンの吹き出しと同じ言い回しにする (#464) */
+  --vp-code-copy-copied-text-content: "コピーしました";
 }
 .vp-doc .custom-block code {
   color: var(--vp-c-text-1);

@@ -6,9 +6,12 @@ import markdownItTaskLists from "markdown-it-task-lists";
 import markdownItFootnote from "markdown-it-footnote";
 import markdownItHeaderShift from "./lib/markdown-it-plugin-header-shift.mjs";
 import markdownItMermaidSvg from "./lib/markdown-it-plugin-mermaid-svg.mjs";
+import markdownItImageSize from "./lib/markdown-it-plugin-image-size.mjs";
 import lazyMermaid from "./lib/vite-plugin-lazy-mermaid.mjs";
 import * as plantumlLanguage from "./lib/plantuml.tmlanguage.mjs";
 const __filename = fileURLToPath(import.meta.url);
+// ルート相対の画像 src を解決する起点（.vitepress の親）
+const srcDir = fileURLToPath(new URL("..", import.meta.url));
 const pkg = Module.createRequire(__filename)("../package.json");
 
 const repoUrl = pkg.repository.url
@@ -247,6 +250,8 @@ export default defineConfig({
       md.use(markdownItHeaderShift);
       md.use(markdownItTaskLists);
       md.use(markdownItFootnote);
+      // 画像の実寸と、2枚目以降の lazy (#474)
+      md.use(markdownItImageSize, { srcDir });
       // withMermaid が先に fence を包むので、ここで包むと外側になり先に走る
       md.use(markdownItMermaidSvg);
     },

@@ -5,6 +5,19 @@
   border-top: 1px solid var(--vp-c-divider);
 }
 
+/* Web フォントを読まない (#465)。技術ブログと同じ方針で、外部依存を増やさず
+   環境のフォントで描く。VitePress 既定は先頭が Inter で、欧文と数字だけが
+   Inter、和文はその後ろの system-ui に落ちていた——178〜374KB を読んで
+   変わるのは欧文の字形だけで、1 行の中で欧文と和文が別の設計のフォントになる。
+   並びは技術ブログの body と同じものに、VitePress 既定の後ろ半分を足したもの */
+:root {
+  --vp-font-family-base:
+    "Avenir Next", "Segoe UI Variable Display", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+    "Noto Sans", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
 /* インラインコードの文字は本文の色 (#419)。技術ブログと同じ。コードは地で区別されて
    いるので、文字まで青にすると注記の色の上で読みにくく、リンクとも見分けが付かない。
    注記の中は VitePress が種類ごとに brand-1 を当て直しているので、そちらも戻す。

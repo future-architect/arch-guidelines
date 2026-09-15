@@ -6,6 +6,7 @@ import markdownItTaskLists from "markdown-it-task-lists";
 import markdownItFootnote from "markdown-it-footnote";
 import markdownItHeaderShift from "./lib/markdown-it-plugin-header-shift.mjs";
 import markdownItMermaidSvg from "./lib/markdown-it-plugin-mermaid-svg.mjs";
+import { codeThemeLight, codeThemeDark } from "./lib/code-theme.mjs";
 import lazyMermaid from "./lib/vite-plugin-lazy-mermaid.mjs";
 import * as plantumlLanguage from "./lib/plantuml.tmlanguage.mjs";
 const __filename = fileURLToPath(import.meta.url);
@@ -243,6 +244,9 @@ export default defineConfig({
   ignoreDeadLinks: "localhostLinks",
   markdown: {
     lineNumbers: false,
+    // 地の上で AA を満たす配色 (#466)。github-light / github-dark の色相を借りて
+    // 明度だけ振ったもので、値と理由は lib/code-theme.mjs が持つ
+    theme: { light: codeThemeLight, dark: codeThemeDark },
     config(md) {
       md.use(markdownItHeaderShift);
       md.use(markdownItTaskLists);

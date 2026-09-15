@@ -128,6 +128,24 @@
   transition-duration: 0.05s;
 }
 
+/* 影は持たない (#467)。技術ブログ #2747 と同じ。読み物を並べる場所では輪郭を
+   なるべく作らず、浮いている部品の区切りは枠と地（と引き出しの覆い）が担う。
+   VitePress 既定は 5 部品に影を置いているが、いずれも枠・地・覆いのどれかを
+   既に持っているので、影を落としても輪郭が消える部品は無い。
+   scoped style（.VPMenu[data-v-…] などの 0,2,0）に勝つよう #app を前置する */
+#app .VPMenu,
+#app .VPLocalNavOutlineDropdown .items,
+#app .VPSidebar,
+#app .VPSwitch,
+#app .VPLocalSearchBox kbd {
+  box-shadow: none;
+}
+
+/* 角丸は 3 段（4 / 8 / 999px）だけで、12px は持たない。箱の段に寄せる */
+#app .VPMenu {
+  border-radius: 8px;
+}
+
 /* 所在の目印。反応（hover）とは別の役なので、色は差し色ではなく塗りのネイビー、
    太さは 2px の1つだけ（技術ブログ #2686 / #2847）。VitePress 既定は a が UA の
    リング、button が 4px の -webkit-focus-ring-color で部品ごとに違う。

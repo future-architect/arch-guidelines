@@ -1,0 +1,16 @@
+{
+  "https://future-architect.github.io/arch-guidelines/documents/forAWS/aws_guidelines.html": 6,
+  "https://future-architect.github.io/arch-guidelines/documents/forBatch/batch_guidelines.html": 15,
+  "https://future-architect.github.io/arch-guidelines/documents/forDB/dynamodb_guidelines.html": 338,
+  "https://future-architect.github.io/arch-guidelines/documents/forDB/postgresql_guidelines.html": 24,
+  "https://future-architect.github.io/arch-guidelines/documents/forDataManagement/datamanagement_guidelines.html": 3,
+  "https://future-architect.github.io/arch-guidelines/documents/forIF/if_guidelines.html": 3,
+  "https://future-architect.github.io/arch-guidelines/documents/forLog/log_guidelines.html": 70,
+  "https://future-architect.github.io/arch-guidelines/documents/forMail/mail_guidelines.html": 45,
+  "https://future-architect.github.io/arch-guidelines/documents/forPerformanceTest/performance_test.html": 5,
+  "https://future-architect.github.io/arch-guidelines/documents/forSlack/slack_usage_guidelines.html": 2,
+  "https://future-architect.github.io/arch-guidelines/documents/forTechnicalWriting/technical_writing_guidelines.html": 10,
+  "https://future-architect.github.io/arch-guidelines/documents/forTerraform/terraform_guidelines.html": 257,
+  "https://future-architect.github.io/arch-guidelines/documents/forWebAPI/web_api_guidelines.html": 36,
+  "https://future-architect.github.io/arch-guidelines/documents/forWebFrontend/web_frontend_guidelines.html": 1161
+}

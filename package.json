@@ -8,6 +8,7 @@
     "build": "vitepress build .",
     "mermaid": "node mermaid_svg.mjs",
     "hatebu": "node hatebu_count.mjs",
+    "xcount": "node x_count.mjs",
     "lint": "npm run lint:format && npm run lint:js",
     "lint:js": "eslint . .vitepress",
     "lint:format": "prettier . --list-different",

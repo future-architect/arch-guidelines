@@ -286,6 +286,15 @@ export default defineConfig({
         type: "image/svg+xml",
       },
     ],
+    // Safari のピン留め用。技術ブログと同じ3点セット（icon svg / icon ico / mask-icon）にする
+    [
+      "link",
+      {
+        rel: "mask-icon",
+        href: `/arch-guidelines/images/logo-system.svg`,
+        color: "#0a1561",
+      },
+    ],
     ["meta", { property: "og:type", content: "website" }],
     ["meta", { property: "og:locale", content: "ja_JP" }],
     [

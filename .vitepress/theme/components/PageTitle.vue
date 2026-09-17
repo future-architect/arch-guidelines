@@ -66,6 +66,7 @@
 import { computed, onMounted, ref } from "vue";
 import { useData, useRoute } from "vitepress";
 import hatebuCounts from "../../hatebu_count_cache.json";
+import xCounts from "../../x_count_cache.json";
 
 /**
  * `markdown-it-plugin-header-shift`でheaderタグを1つづつずらす前提であるため、Markdownファイルにはタイトルがありません。
@@ -76,6 +77,9 @@ import hatebuCounts from "../../hatebu_count_cache.json";
  *
  * はてなブックマークの件数は `npm run hatebu` が作るキャッシュから引く（#425）。
  * 件数 API は CORS ヘッダを持たずブラウザから叩けないので、ビルド時に焼き込む。
+ *
+ * X の数字は言及ポストから出した点で、`npm run xcount` のキャッシュから引く（#490）。
+ * はてブと桁が揃わないページがあるが、ガイドラインはポストされるより保存されるため。
  */
 const { page, site } = useData();
 const route = useRoute();
@@ -121,6 +125,9 @@ const shares = computed(() => {
     {
       icon: ICONS.x,
       label: "Xでポストする",
+      // 数字はポスト・リポスト・ブックマーク・いいねを畳んだ点なので「反応」と呼ぶ
+      count: xCounts[url] || 0,
+      unit: "件の反応",
       href: `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`,
     },
     {

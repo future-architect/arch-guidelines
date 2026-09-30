@@ -43,44 +43,31 @@ flowchart TB
 
     Root["性能テスト"]
 
-    subgraph Layer2 [" "]
-      direction LR
-      Data["データ量・サイズに焦点"]
-      Load["アクセス数に焦点"]
-      Time["稼働時間に焦点"]
-    end
+    Data["データ量・サイズに焦点"]
+    Load["アクセス数に焦点"]
+    Time["稼働時間に焦点"]
 
-    subgraph Layer3 [" "]
-      direction LR
-      Normal["想定内（通常・ピーク）の負荷"]
-      Over["想定以上の限界負荷"]
-      Sudden["突発的・大規模な負荷"]
-    end
+    Normal["想定内（通常・ピーク）の負荷"]
+    Over["想定以上の限界負荷"]
+    Sudden["突発的・大規模な負荷"]
 
-    subgraph Layer4 [" "]
-      direction LR
-      Volume["ボリュームテスト"]
-      Rush["ラッシュテスト"]
-      Stress["ストレステスト"]
-      Spike["スパイクテスト"]
-      Long["ロングランテスト"]
-    end
+    Volume["ボリュームテスト"]
+    Rush["ラッシュテスト"]
+    Stress["ストレステスト"]
+    Spike["スパイクテスト"]
+    Long["ロングランテスト"]
 
     Root --> Data
     Root --> Load
     Root --> Time
 
-    Data --> Volume
+    Data ---> Volume
     Load --> Normal & Over & Sudden
-    Time --> Long
+    Time ---> Long
 
     Normal --> Rush
     Over --> Stress
     Sudden --> Spike
-
-    style Layer2 fill:none,stroke:none
-    style Layer3 fill:none,stroke:none
-    style Layer4 fill:none,stroke:none
 ```
 
 - **ボリュームテスト**  

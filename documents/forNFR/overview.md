@@ -32,6 +32,8 @@ head:
 
 ::: info 参考  
 [非機能テストを記号接地する](https://future-architect.github.io/articles/20260617a/)  
+[非機能はなぜ必要なのか](https://future-architect.github.io/articles/20261030a/)  
+[サービスレベル設計として捉える非機能の考え方](https://future-architect.github.io/articles/20261102a/)  
 :::
 
 ## 非機能要件の位置づけ

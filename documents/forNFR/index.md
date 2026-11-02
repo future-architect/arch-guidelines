@@ -88,6 +88,11 @@ flowchart LR
 - **作成者**: 真野隼記、武田大輝、清水利博、亀井隆徳
 - **レビュアー**: 澁川喜規、宮崎将太
 
+## Articles
+
+- 2026.10.30 [非機能はなぜ必要なのか](https://future-architect.github.io/articles/20261030a/)
+- 2026.11.02 [サービスレベル設計として捉える非機能の考え方](https://future-architect.github.io/articles/20261102a/)
+
 <div class="next-page-nav">
 
 次のページ: [第一部 全体プロセス編](./overview.md)

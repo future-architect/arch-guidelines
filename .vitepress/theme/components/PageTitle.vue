@@ -175,6 +175,16 @@ function copyLink() {
 </script>
 
 <style scoped>
+/* 共有ボタンは技術ブログと同じ部品なので、ブランド色（VitePress 既定 #494）には
+   従わずロゴのネイビーを持つ。ネイビーは暗い地に沈むので、暗い側は文字の最上段 */
+.share-buttons {
+  --share-color: #0a1561;
+  --share-on-color: #fff;
+}
+.dark .share-buttons {
+  --share-color: var(--vp-c-text-1);
+  --share-on-color: var(--vp-c-bg);
+}
 /* .vp-doc の ul / li / a の既定（字下げ・行間・下線・青）を打ち消す */
 .share-buttons {
   display: flex;
@@ -199,14 +209,11 @@ function copyLink() {
 /* 数字はボタンと同じ色。同じ色にすると円と数字が1つの部品として読める。
    押せる部分ではないので hover では動かさない（反応はボタンが持つ） */
 .share-count {
-  color: var(--vp-c-brand-3);
+  color: var(--share-color);
   font-size: 12px;
   line-height: 1;
   /* 桁が変わってもアイコンの中心からずれないように等幅の数字にする */
   font-variant-numeric: tabular-nums;
-}
-.dark .share-count {
-  color: var(--vp-c-brand-1);
 }
 /* 訪問済みでも色を変えない (#422)。本文の参照リンクの紫（#407）は
    .vp-doc の中にある共有ボタンにも当たるが、ここでの色は行き先の合図で、
@@ -223,7 +230,7 @@ function copyLink() {
   border: 1px solid var(--vp-c-divider);
   border-radius: 999px;
   background: transparent;
-  color: var(--vp-c-brand-3);
+  color: var(--share-color);
   text-decoration: none;
   font: inherit;
   cursor: pointer;
@@ -236,23 +243,10 @@ function copyLink() {
 .share-btn:visited:hover,
 .share-btn:focus-visible,
 .share-btn:visited:focus-visible {
-  background: var(--vp-c-brand-3);
-  border-color: var(--vp-c-brand-3);
-  color: #fff;
+  background: var(--share-color);
+  border-color: var(--share-color);
+  color: var(--share-on-color);
   text-decoration: none;
-}
-/* ダークではネイビーが地に沈むので、明るい青で置く */
-.dark .share-btn,
-.dark .share-btn:visited {
-  color: var(--vp-c-brand-1);
-}
-.dark .share-btn:hover,
-.dark .share-btn:visited:hover,
-.dark .share-btn:focus-visible,
-.dark .share-btn:visited:focus-visible {
-  background: var(--vp-c-brand-1);
-  border-color: var(--vp-c-brand-1);
-  color: var(--vp-c-bg);
 }
 .share-btn-icon {
   display: block;
@@ -276,8 +270,8 @@ function copyLink() {
   margin-bottom: 6px;
   padding: 3px 8px;
   border-radius: 4px;
-  background: var(--vp-c-brand-3);
-  color: #fff;
+  background: var(--share-color);
+  color: var(--share-on-color);
   font-size: 12px;
   font-weight: bold;
   line-height: 1.4;
@@ -285,10 +279,6 @@ function copyLink() {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.05s ease;
-}
-.dark .share-copied {
-  background: var(--vp-c-brand-1);
-  color: var(--vp-c-bg);
 }
 .share-btn.is-copied + .share-copied {
   opacity: 1;

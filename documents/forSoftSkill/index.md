@@ -35,6 +35,10 @@ hero:
 - **作成者**: 真野隼記、永井優斗
 - **レビュアー**: 武田大輝、佐藤一馬、澁川喜規、赤坂優太、井上拓、清水利博
 
+## Articles
+
+- 2026.11.11 [お客様の前に立つフロント人材になるために、技術以外の最小構成](https://future-architect.github.io/articles/20261111a/)
+
 <div class="next-page-nav">
 
 次のページ: [ソフトスキルガイドライン](./softskill_guidelines.md)

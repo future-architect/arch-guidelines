@@ -92,6 +92,7 @@ flowchart LR
 
 - 2026.10.30 [非機能はなぜ必要なのか](https://future-architect.github.io/articles/20261030a/)
 - 2026.11.02 [サービスレベル設計として捉える非機能の考え方](https://future-architect.github.io/articles/20261102a/)
+- 2026.11.04 [セキュリティ要求は、待ってくれない](https://future-architect.github.io/articles/20261104a/)
 
 <div class="next-page-nav">
 

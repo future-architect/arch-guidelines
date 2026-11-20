@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 440" width="1200" height="440" font-family="Noto Sans CJK JP, sans-serif">
+  <defs>
+    <marker id="ab" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2b5f83"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="440" fill="#ffffff"/>
+
+  <!-- 上位と下位 -->
+  <rect x="330" y="40" width="540" height="130" rx="14" fill="#e4eef5" stroke="#a6c6da" stroke-width="2"/>
+  <text x="362" y="76" font-size="16" letter-spacing="3" fill="#2b5f83">上位</text>
+  <text x="362" y="116" font-size="30" font-weight="700" fill="#1b2026">相手の価値判断</text>
+  <text x="362" y="150" font-size="18" fill="#4a5568">ビジネス目標、経営方針、譲れない条件、痛み</text>
+
+  <rect x="330" y="270" width="540" height="130" rx="14" fill="#fbfaf7" stroke="#c9d1da" stroke-width="2"/>
+  <text x="362" y="306" font-size="16" letter-spacing="3" fill="#2b5f83">下位</text>
+  <text x="362" y="346" font-size="30" font-weight="700" fill="#1b2026">技術判断</text>
+  <text x="362" y="380" font-size="18" fill="#4a5568">方式選定、アーキテクチャ、製品比較</text>
+
+  <line x1="600" y1="176" x2="600" y2="262" stroke="#2b5f83" stroke-width="4" marker-end="url(#ab)"/>
+  <text x="622" y="228" font-size="22" font-weight="700" fill="#2b5f83">従属させる</text>
+
+  <!-- 相手は上位だけをすり合わせる。下位は専門外なので問わない -->
+  <rect x="40" y="196" width="140" height="48" rx="24" fill="#2b5f83"/>
+  <text x="110" y="228" font-size="22" font-weight="700" fill="#ffffff" text-anchor="middle">相手</text>
+  <line x1="180" y1="206" x2="322" y2="118" stroke="#2b5f83" stroke-width="3" marker-end="url(#ab)"/>
+  <text x="232" y="134" font-size="17" font-weight="700" fill="#2b5f83" text-anchor="middle">すり合わせる</text>
+  <line x1="180" y1="234" x2="324" y2="334" stroke="#b5562a" stroke-width="3"/>
+  <text x="252" y="294" font-size="28" font-weight="700" fill="#b5562a" text-anchor="middle">✕</text>
+  <g font-size="16" fill="#b5562a" text-anchor="middle">
+    <text x="120" y="318">専門家ではないので</text>
+    <text x="120" y="340">判断が付かない</text>
+  </g>
+
+  <!-- 提案者は技術判断ができるが、相手には価値判断の層に翻訳して話す -->
+  <rect x="1020" y="196" width="140" height="48" rx="24" fill="#6a7179"/>
+  <text x="1090" y="228" font-size="22" font-weight="700" fill="#ffffff" text-anchor="middle">提案者</text>
+  <line x1="1020" y1="206" x2="878" y2="118" stroke="#2b5f83" stroke-width="3" marker-end="url(#ab)"/>
+  <g font-size="16" font-weight="700" fill="#2b5f83" text-anchor="middle">
+    <text x="1072" y="122">価値判断の層に</text>
+    <text x="1072" y="144">翻訳して話す</text>
+  </g>
+  <line x1="1020" y1="234" x2="876" y2="334" stroke="#6a7179" stroke-width="3" stroke-dasharray="7 6"/>
+  <text x="1080" y="330" font-size="16" fill="#6a7179" text-anchor="middle">直接は話さない</text>
+</svg>

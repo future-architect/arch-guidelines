@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1520 254" width="1520" height="254" font-family="Noto Sans CJK JP, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2b5f83"/>
+    </marker>
+  </defs>
+  <rect width="1520" height="254" fill="#ffffff"/>
+  <rect x="15.0" y="16" width="295.5" height="96" rx="10" fill="#e4eef5" stroke="#a6c6da" stroke-width="2"/>
+  <rect x="138.8" y="28" width="48" height="26" rx="13" fill="#2b5f83"/>
+  <text x="162.8" y="47" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">3-1</text>
+  <text x="162.8" y="91.0" font-size="16" font-weight="700" fill="#1b2026" text-anchor="middle">案を出す</text>
+  <line x1="312.5" y1="64.0" x2="337.5" y2="64.0" stroke="#2b5f83" stroke-width="2.5" marker-end="url(#a)"/>
+  <line x1="162.8" y1="112" x2="162.8" y2="146" stroke="#b5562a" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <rect x="15.0" y="146" width="295.5" height="94" rx="8" fill="#fbf3ee" stroke="#e2c3b2" stroke-width="1.5"/>
+  <text x="31.0" y="172" font-size="14" font-weight="700" fill="#b5562a">躓き</text>
+  <text x="31.0" y="202" font-size="14.5" fill="#1b2026">「この案は検討した？」と一覧に無い</text>
+  <text x="31.0" y="225" font-size="14.5" fill="#1b2026">案を聞かれ、検討不足と見られる</text>
+  <rect x="340.5" y="16" width="295.5" height="96" rx="10" fill="#e4eef5" stroke="#a6c6da" stroke-width="2"/>
+  <rect x="464.2" y="28" width="48" height="26" rx="13" fill="#2b5f83"/>
+  <text x="488.2" y="47" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">3-2</text>
+  <text x="488.2" y="91.0" font-size="16" font-weight="700" fill="#1b2026" text-anchor="middle">亜種を代表パターンにまとめる</text>
+  <line x1="638.0" y1="64.0" x2="663.0" y2="64.0" stroke="#2b5f83" stroke-width="2.5" marker-end="url(#a)"/>
+  <line x1="488.2" y1="112" x2="488.2" y2="146" stroke="#b5562a" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <rect x="340.5" y="146" width="295.5" height="94" rx="8" fill="#fbf3ee" stroke="#e2c3b2" stroke-width="1.5"/>
+  <text x="356.5" y="172" font-size="14" font-weight="700" fill="#b5562a">躓き</text>
+  <text x="356.5" y="202" font-size="14.5" fill="#1b2026">亜種を並べたまま比較表に載せ、</text>
+  <text x="356.5" y="225" font-size="14.5" fill="#1b2026">列が増えて違いが見えなくなる</text>
+  <rect x="666.0" y="16" width="188" height="96" rx="10" fill="#2b5f83" stroke="#2b5f83" stroke-width="2"/>
+  <text x="760.0" y="47" font-size="14" font-weight="700" fill="#ffffff" fill-opacity="0.8" text-anchor="middle">アウトプット</text>
+  <text x="760.0" y="91.0" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">案の一覧</text>
+</svg>

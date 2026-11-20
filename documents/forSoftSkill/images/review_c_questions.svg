@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1560 592" width="1560" height="592" font-family="Noto Sans CJK JP, sans-serif">
+  <rect width="1560" height="592" fill="#ffffff"/>
+  <rect x="15.0" y="15" width="120.0" height="92" fill="#adc7dc"/>
+  <text x="75.0" y="68.0" font-size="19" font-weight="700" fill="#1b2026" text-anchor="middle">場面</text>
+  <rect x="149.0" y="15" width="190.0" height="92" fill="#adc7dc"/>
+  <text x="244.0" y="68.0" font-size="19" font-weight="700" fill="#1b2026" text-anchor="middle">軸</text>
+  <rect x="353.0" y="15" width="230.0" height="92" fill="#adc7dc"/>
+  <text x="468.0" y="68.0" font-size="19" font-weight="700" fill="#1b2026" text-anchor="middle">問題点</text>
+  <rect x="597.0" y="15" width="560.0" height="92" fill="#adc7dc"/>
+  <text x="877.0" y="68.0" font-size="19" font-weight="700" fill="#1b2026" text-anchor="middle">アンチパターンな声掛け</text>
+  <rect x="1173.0" y="15" width="370.0" height="44" fill="#adc7dc"/>
+  <text x="1358.0" y="45.0" font-size="19" font-weight="700" fill="#1b2026" text-anchor="middle">発生しやすい成果物の段階</text>
+  <rect x="1173.0" y="63" width="89.5" height="44" fill="#adc7dc"/>
+  <text x="1217.8" y="93.0" font-size="18" font-weight="700" fill="#1b2026" text-anchor="middle">案出し</text>
+  <rect x="1266.5" y="63" width="89.5" height="44" fill="#adc7dc"/>
+  <text x="1311.2" y="93.0" font-size="18" font-weight="700" fill="#1b2026" text-anchor="middle">比較表</text>
+  <rect x="1360.0" y="63" width="89.5" height="44" fill="#adc7dc"/>
+  <text x="1404.8" y="93.0" font-size="18" font-weight="700" fill="#1b2026" text-anchor="middle">推奨案</text>
+  <rect x="1453.5" y="63" width="89.5" height="44" fill="#adc7dc"/>
+  <text x="1498.2" y="93.0" font-size="18" font-weight="700" fill="#1b2026" text-anchor="middle">ドラフト</text>
+  <rect x="353.0" y="121" width="230.0" height="96" fill="#e4eef5"/>
+  <text x="468.0" y="176.0" font-size="19" font-weight="700" fill="#1b2026" text-anchor="middle">手続きの順を崩す</text>
+  <text x="615.0" y="160.0" font-size="18" font-weight="700" fill="#1b2026" text-anchor="start">①「まず導入から書いて」</text>
+  <text x="633.0" y="190.0" font-size="18" font-weight="700" fill="#1b2026" text-anchor="start">「比較表は省いて、結論1枚で」</text>
+  <rect x="1173.0" y="121" width="89.5" height="96" fill="#e4eef5"/>
+  <text x="1217.8" y="178.0" font-size="24" font-weight="700" fill="#2b5f83" text-anchor="middle">●</text>
+  <rect x="1266.5" y="121" width="89.5" height="96" fill="#f4f6f8"/>
+  <rect x="1360.0" y="121" width="89.5" height="96" fill="#f4f6f8"/>
+  <rect x="1453.5" y="121" width="89.5" height="96" fill="#f4f6f8"/>
+  <line x1="597.0" y1="224.0" x2="1545.0" y2="224.0" stroke="#2b5f83" stroke-width="1.5"/>
+  <rect x="353.0" y="231" width="230.0" height="96" fill="#e4eef5"/>
+  <text x="468.0" y="286.0" font-size="19" font-weight="700" fill="#1b2026" text-anchor="middle">細部から直させる</text>
+  <text x="615.0" y="285.0" font-size="18" font-weight="700" fill="#1b2026" text-anchor="start">②「ここは◯評価じゃなくて△が良いのでは？」</text>
+  <rect x="1173.0" y="231" width="89.5" height="96" fill="#f4f6f8"/>
+  <rect x="1266.5" y="231" width="89.5" height="96" fill="#e4eef5"/>
+  <text x="1311.2" y="288.0" font-size="24" font-weight="700" fill="#2b5f83" text-anchor="middle">●</text>
+  <rect x="1360.0" y="231" width="89.5" height="96" fill="#f4f6f8"/>
+  <rect x="1453.5" y="231" width="89.5" height="96" fill="#f4f6f8"/>
+  <line x1="597.0" y1="334.0" x2="1545.0" y2="334.0" stroke="#2b5f83" stroke-width="1.5"/>
+  <rect x="353.0" y="341" width="230.0" height="96" fill="#e4eef5"/>
+  <text x="468.0" y="381.0" font-size="19" font-weight="700" fill="#1b2026" text-anchor="middle">抽象的な言葉で</text>
+  <text x="468.0" y="411.0" font-size="19" font-weight="700" fill="#1b2026" text-anchor="middle">指摘する</text>
+  <text x="615.0" y="380.0" font-size="18" font-weight="700" fill="#1b2026" text-anchor="start">③「で、論点は何？」</text>
+  <text x="615.0" y="410.0" font-size="18" font-weight="700" fill="#1b2026" text-anchor="start">④「仮説は何？」</text>
+  <rect x="1173.0" y="341" width="89.5" height="96" fill="#f4f6f8"/>
+  <rect x="1266.5" y="341" width="89.5" height="96" fill="#e4eef5"/>
+  <text x="1311.2" y="398.0" font-size="24" font-weight="700" fill="#2b5f83" text-anchor="middle">●</text>
+  <rect x="1360.0" y="341" width="89.5" height="96" fill="#e4eef5"/>
+  <text x="1404.8" y="398.0" font-size="24" font-weight="700" fill="#2b5f83" text-anchor="middle">●</text>
+  <rect x="1453.5" y="341" width="89.5" height="96" fill="#e4eef5"/>
+  <text x="1498.2" y="398.0" font-size="24" font-weight="700" fill="#2b5f83" text-anchor="middle">●</text>
+  <line x1="597.0" y1="444.0" x2="1545.0" y2="444.0" stroke="#2b5f83" stroke-width="1.5"/>
+  <rect x="353.0" y="451" width="230.0" height="126" fill="#e4eef5"/>
+  <text x="468.0" y="506.0" font-size="19" font-weight="700" fill="#1b2026" text-anchor="middle">目指すべき状態だけを</text>
+  <text x="468.0" y="536.0" font-size="19" font-weight="700" fill="#1b2026" text-anchor="middle">伝える</text>
+  <text x="615.0" y="490.0" font-size="18" font-weight="700" fill="#1b2026" text-anchor="start">⑤「相手目線で考えて」</text>
+  <text x="633.0" y="520.0" font-size="18" font-weight="700" fill="#1b2026" text-anchor="start">「相手がその上司に説得できるように書いて」</text>
+  <text x="633.0" y="550.0" font-size="18" font-weight="700" fill="#1b2026" text-anchor="start">「もっと分かりやすく」</text>
+  <rect x="1173.0" y="451" width="89.5" height="126" fill="#f4f6f8"/>
+  <rect x="1266.5" y="451" width="89.5" height="126" fill="#e4eef5"/>
+  <text x="1311.2" y="523.0" font-size="24" font-weight="700" fill="#2b5f83" text-anchor="middle">●</text>
+  <rect x="1360.0" y="451" width="89.5" height="126" fill="#e4eef5"/>
+  <text x="1404.8" y="523.0" font-size="24" font-weight="700" fill="#2b5f83" text-anchor="middle">●</text>
+  <rect x="1453.5" y="451" width="89.5" height="126" fill="#e4eef5"/>
+  <text x="1498.2" y="523.0" font-size="24" font-weight="700" fill="#2b5f83" text-anchor="middle">●</text>
+  <rect x="15.0" y="121" width="120.0" height="96.0" fill="#c9dbe8"/>
+  <text x="75.0" y="176.0" font-size="19" font-weight="700" fill="#1b2026" text-anchor="middle">作業指示</text>
+  <rect x="15.0" y="231" width="120.0" height="346.0" fill="#c9dbe8"/>
+  <text x="75.0" y="411.0" font-size="19" font-weight="700" fill="#1b2026" text-anchor="middle">レビュー</text>
+  <rect x="149.0" y="121" width="190.0" height="96.0" fill="#d6e4ef"/>
+  <text x="244.0" y="176.0" font-size="19" font-weight="700" fill="#1b2026" text-anchor="middle">-</text>
+  <rect x="149.0" y="231" width="190.0" height="96.0" fill="#d6e4ef"/>
+  <text x="244.0" y="272.0" font-size="19" font-weight="700" fill="#1b2026" text-anchor="middle">指摘対象</text>
+  <text x="244.0" y="300.0" font-size="19" font-weight="700" fill="#1b2026" text-anchor="middle">（What）</text>
+  <rect x="149.0" y="341" width="190.0" height="236.0" fill="#d6e4ef"/>
+  <text x="244.0" y="452.0" font-size="19" font-weight="700" fill="#1b2026" text-anchor="middle">伝え方</text>
+  <text x="244.0" y="480.0" font-size="19" font-weight="700" fill="#1b2026" text-anchor="middle">（How）</text>
+</svg>

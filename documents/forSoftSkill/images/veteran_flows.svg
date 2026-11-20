@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 760" width="1800" height="760" font-family="Noto Sans CJK JP, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2b5f83"/>
+    </marker>
+  </defs>
+  <rect width="1800" height="760" fill="#ffffff"/>
+  <rect x="15.0" y="16" width="1155.3" height="46" fill="#e4eef5"/>
+  <text x="592.7" y="47" font-size="20" font-weight="700" fill="#1b2026" text-anchor="middle">WBS 計画から関わる</text>
+  <rect x="15.0" y="80" width="272.3" height="68" rx="10" fill="#2b5f83"/>
+  <text x="151.2" y="120.0" font-size="18" font-weight="700" fill="#ffffff" text-anchor="middle">準備</text>
+  <line x1="289.3" y1="114.0" x2="306.3" y2="114.0" stroke="#2b5f83" stroke-width="2.5" marker-end="url(#a)"/>
+  <rect x="15.0" y="170.0" width="272.3" height="174" rx="10" fill="#e4eef5" stroke="#a6c6da" stroke-width="2"/>
+  <rect x="29.0" y="184.0" width="44" height="26" rx="13" fill="#2b5f83"/>
+  <text x="51.0" y="203.0" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="29.0" y="238.0" font-size="18" font-weight="700" fill="#1b2026">決めなければならないことを</text>
+  <text x="29.0" y="263.0" font-size="18" font-weight="700" fill="#1b2026">洗い出す</text>
+  <line x1="29.0" y1="282.0" x2="273.3" y2="282.0" stroke="#a6c6da" stroke-width="1"/>
+  <text x="29.0" y="306.0" font-size="17" fill="#1b2026">前提を列挙し、WBS と</text>
+  <text x="29.0" y="331.0" font-size="17" fill="#1b2026">課題一覧を精緻に作る</text>
+  <line x1="151.2" y1="348.0" x2="151.2" y2="367.0" stroke="#2b5f83" stroke-width="2" marker-end="url(#a)"/>
+  <rect x="15.0" y="370.0" width="272.3" height="124" rx="10" fill="#e4eef5" stroke="#a6c6da" stroke-width="2"/>
+  <rect x="29.0" y="384.0" width="44" height="26" rx="13" fill="#2b5f83"/>
+  <text x="51.0" y="403.0" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="29.0" y="438.0" font-size="18" font-weight="700" fill="#1b2026">落としどころを考える</text>
+  <line x1="29.0" y1="457.0" x2="273.3" y2="457.0" stroke="#a6c6da" stroke-width="1"/>
+  <text x="29.0" y="481.0" font-size="17" fill="#1b2026">課題一覧に粗く言葉で書く</text>
+  <line x1="151.2" y1="498.0" x2="151.2" y2="517.0" stroke="#2b5f83" stroke-width="2" marker-end="url(#a)"/>
+  <rect x="15.0" y="520.0" width="272.3" height="124" rx="10" fill="#e4eef5" stroke="#a6c6da" stroke-width="2"/>
+  <rect x="29.0" y="534.0" width="44" height="26" rx="13" fill="#2b5f83"/>
+  <text x="51.0" y="553.0" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="29.0" y="588.0" font-size="18" font-weight="700" fill="#1b2026">取りうる案を考える</text>
+  <line x1="29.0" y1="607.0" x2="273.3" y2="607.0" stroke="#a6c6da" stroke-width="1"/>
+  <text x="29.0" y="631.0" font-size="17" fill="#1b2026">頭の中でやる。手は動かさない</text>
+  <rect x="309.3" y="80" width="272.3" height="68" rx="10" fill="#2b5f83"/>
+  <text x="445.5" y="108.0" font-size="18" font-weight="700" fill="#ffffff" text-anchor="middle">初回打合せ</text>
+  <text x="445.5" y="132.0" font-size="18" font-weight="700" fill="#ffffff" text-anchor="middle">（計画の頭出し）</text>
+  <line x1="583.7" y1="114.0" x2="600.7" y2="114.0" stroke="#2b5f83" stroke-width="2.5" marker-end="url(#a)"/>
+  <rect x="309.3" y="170.0" width="272.3" height="149" rx="10" fill="#e4eef5" stroke="#a6c6da" stroke-width="2"/>
+  <rect x="323.3" y="184.0" width="44" height="26" rx="13" fill="#2b5f83"/>
+  <text x="345.3" y="203.0" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">8</text>
+  <text x="323.3" y="238.0" font-size="18" font-weight="700" fill="#1b2026">相手の反応を引き出す</text>
+  <line x1="323.3" y1="257.0" x2="567.7" y2="257.0" stroke="#a6c6da" stroke-width="1"/>
+  <text x="323.3" y="281.0" font-size="17" fill="#1b2026">計画を説明し、質問で</text>
+  <text x="323.3" y="306.0" font-size="17" fill="#1b2026">相手を探る</text>
+  <rect x="603.7" y="80" width="272.3" height="68" rx="10" fill="#2b5f83"/>
+  <text x="739.8" y="108.0" font-size="18" font-weight="700" fill="#ffffff" text-anchor="middle">テーマ別</text>
+  <text x="739.8" y="132.0" font-size="18" font-weight="700" fill="#ffffff" text-anchor="middle">1回目</text>
+  <line x1="878.0" y1="114.0" x2="895.0" y2="114.0" stroke="#2b5f83" stroke-width="2.5" marker-end="url(#a)"/>
+  <rect x="603.7" y="170.0" width="272.3" height="174" rx="10" fill="#e4eef5" stroke="#a6c6da" stroke-width="2"/>
+  <rect x="617.7" y="184.0" width="58" height="26" rx="13" fill="#2b5f83"/>
+  <text x="646.7" y="203.0" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">5〜6</text>
+  <text x="617.7" y="238.0" font-size="18" font-weight="700" fill="#1b2026">評価軸に組み替え、</text>
+  <text x="617.7" y="263.0" font-size="18" font-weight="700" fill="#1b2026">コンセプト別の選択肢を作る</text>
+  <line x1="617.7" y1="282.0" x2="862.0" y2="282.0" stroke="#a6c6da" stroke-width="1"/>
+  <text x="617.7" y="306.0" font-size="17" fill="#1b2026">探りを受けて、その場で</text>
+  <text x="617.7" y="331.0" font-size="17" fill="#1b2026">トップダウンに決める</text>
+  <line x1="739.8" y1="348.0" x2="739.8" y2="367.0" stroke="#2b5f83" stroke-width="2" marker-end="url(#a)"/>
+  <rect x="603.7" y="370.0" width="272.3" height="174" rx="10" fill="#e4eef5" stroke="#a6c6da" stroke-width="2"/>
+  <rect x="617.7" y="384.0" width="44" height="26" rx="13" fill="#2b5f83"/>
+  <text x="639.7" y="403.0" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">7</text>
+  <text x="617.7" y="438.0" font-size="18" font-weight="700" fill="#1b2026">説明用のストーリーと伝え</text>
+  <text x="617.7" y="463.0" font-size="18" font-weight="700" fill="#1b2026">方を組み立てる</text>
+  <line x1="617.7" y1="482.0" x2="862.0" y2="482.0" stroke="#a6c6da" stroke-width="1"/>
+  <text x="617.7" y="506.0" font-size="17" fill="#1b2026">論点と比較案を1枚の</text>
+  <text x="617.7" y="531.0" font-size="17" fill="#1b2026">紙にまとめる</text>
+  <line x1="739.8" y1="548.0" x2="739.8" y2="567.0" stroke="#2b5f83" stroke-width="2" marker-end="url(#a)"/>
+  <rect x="603.7" y="570.0" width="272.3" height="149" rx="10" fill="#e4eef5" stroke="#a6c6da" stroke-width="2"/>
+  <rect x="617.7" y="584.0" width="44" height="26" rx="13" fill="#2b5f83"/>
+  <text x="639.7" y="603.0" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="617.7" y="638.0" font-size="18" font-weight="700" fill="#1b2026">各案を観点ごとに評価する</text>
+  <line x1="617.7" y1="657.0" x2="862.0" y2="657.0" stroke="#a6c6da" stroke-width="1"/>
+  <text x="617.7" y="681.0" font-size="17" fill="#1b2026">後付けの根拠づけ。AI や</text>
+  <text x="617.7" y="706.0" font-size="17" fill="#1b2026">若手に任せる</text>
+  <rect x="898.0" y="80" width="272.3" height="68" rx="10" fill="#2b5f83"/>
+  <text x="1034.2" y="108.0" font-size="18" font-weight="700" fill="#ffffff" text-anchor="middle">テーマ別</text>
+  <text x="1034.2" y="132.0" font-size="18" font-weight="700" fill="#ffffff" text-anchor="middle">2回目</text>
+  <rect x="898.0" y="170.0" width="272.3" height="149" rx="10" fill="#e4eef5" stroke="#a6c6da" stroke-width="2"/>
+  <rect x="912.0" y="184.0" width="44" height="26" rx="13" fill="#2b5f83"/>
+  <text x="934.0" y="203.0" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">8</text>
+  <text x="912.0" y="238.0" font-size="18" font-weight="700" fill="#1b2026">弱みを許容できるか確かめる</text>
+  <line x1="912.0" y1="257.0" x2="1156.3" y2="257.0" stroke="#a6c6da" stroke-width="1"/>
+  <text x="912.0" y="281.0" font-size="17" fill="#1b2026">外れた仮説と前提の変更を</text>
+  <text x="912.0" y="306.0" font-size="17" fill="#1b2026">フォローする</text>
+  <line x1="1034.2" y1="323.0" x2="1034.2" y2="342.0" stroke="#2b5f83" stroke-width="2" marker-end="url(#a)"/>
+  <rect x="898.0" y="345.0" width="272.3" height="149" rx="10" fill="#e4eef5" stroke="#a6c6da" stroke-width="2"/>
+  <rect x="912.0" y="359.0" width="44" height="26" rx="13" fill="#2b5f83"/>
+  <text x="934.0" y="378.0" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">9</text>
+  <text x="912.0" y="413.0" font-size="18" font-weight="700" fill="#1b2026">クロージング</text>
+  <line x1="912.0" y1="432.0" x2="1156.3" y2="432.0" stroke="#a6c6da" stroke-width="1"/>
+  <text x="912.0" y="456.0" font-size="17" fill="#1b2026">2回で合意し、上位の会議体に</text>
+  <text x="912.0" y="481.0" font-size="17" fill="#1b2026">先回りする</text>
+  <line x1="1194.3" y1="16" x2="1194.3" y2="752" stroke="#2b5f83" stroke-width="2.5"/>
+  <rect x="1218.3" y="16" width="566.7" height="46" fill="#e4eef5"/>
+  <text x="1501.7" y="47" font-size="20" font-weight="700" fill="#1b2026" text-anchor="middle">途中から単発で参画する</text>
+  <rect x="1218.3" y="80" width="272.3" height="68" rx="10" fill="#2b5f83"/>
+  <text x="1354.5" y="108.0" font-size="18" font-weight="700" fill="#ffffff" text-anchor="middle">テーマ別</text>
+  <text x="1354.5" y="132.0" font-size="18" font-weight="700" fill="#ffffff" text-anchor="middle">1回目</text>
+  <line x1="1492.7" y1="114.0" x2="1509.7" y2="114.0" stroke="#2b5f83" stroke-width="2.5" marker-end="url(#a)"/>
+  <rect x="1218.3" y="170.0" width="272.3" height="174" rx="10" fill="#e4eef5" stroke="#a6c6da" stroke-width="2"/>
+  <rect x="1232.3" y="184.0" width="44" height="26" rx="13" fill="#2b5f83"/>
+  <text x="1254.3" y="203.0" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">7</text>
+  <text x="1232.3" y="238.0" font-size="18" font-weight="700" fill="#1b2026">説明用のストーリーと伝え</text>
+  <text x="1232.3" y="263.0" font-size="18" font-weight="700" fill="#1b2026">方を組み立てる</text>
+  <line x1="1232.3" y1="282.0" x2="1476.7" y2="282.0" stroke="#a6c6da" stroke-width="1"/>
+  <text x="1232.3" y="306.0" font-size="17" fill="#1b2026">この相手はどこなら頷くかを</text>
+  <text x="1232.3" y="331.0" font-size="17" fill="#1b2026">先に決める</text>
+  <line x1="1354.5" y1="348.0" x2="1354.5" y2="367.0" stroke="#2b5f83" stroke-width="2" marker-end="url(#a)"/>
+  <rect x="1218.3" y="370.0" width="272.3" height="199" rx="10" fill="#e4eef5" stroke="#a6c6da" stroke-width="2"/>
+  <rect x="1232.3" y="384.0" width="58" height="26" rx="13" fill="#2b5f83"/>
+  <text x="1261.3" y="403.0" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">6、5</text>
+  <text x="1232.3" y="438.0" font-size="18" font-weight="700" fill="#1b2026">選択肢と評価軸に遡る</text>
+  <line x1="1232.3" y1="457.0" x2="1476.7" y2="457.0" stroke="#a6c6da" stroke-width="1"/>
+  <text x="1232.3" y="481.0" font-size="17" fill="#1b2026">主張を支える</text>
+  <text x="1232.3" y="506.0" font-size="17" fill="#1b2026">コンセプト別の選択肢と</text>
+  <text x="1232.3" y="531.0" font-size="17" fill="#1b2026">評価軸が揃っているか</text>
+  <text x="1232.3" y="556.0" font-size="17" fill="#1b2026">確かめる</text>
+  <line x1="1354.5" y1="573.0" x2="1354.5" y2="592.0" stroke="#2b5f83" stroke-width="2" marker-end="url(#a)"/>
+  <rect x="1218.3" y="595.0" width="272.3" height="149" rx="10" fill="#e4eef5" stroke="#a6c6da" stroke-width="2"/>
+  <rect x="1232.3" y="609.0" width="44" height="26" rx="13" fill="#2b5f83"/>
+  <text x="1254.3" y="628.0" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="1232.3" y="663.0" font-size="18" font-weight="700" fill="#1b2026">各案を観点ごとに評価する</text>
+  <line x1="1232.3" y1="682.0" x2="1476.7" y2="682.0" stroke="#a6c6da" stroke-width="1"/>
+  <text x="1232.3" y="706.0" font-size="17" fill="#1b2026">主張を支えるファクトが</text>
+  <text x="1232.3" y="731.0" font-size="17" fill="#1b2026">揃っているか確かめる</text>
+  <rect x="1512.7" y="80" width="272.3" height="68" rx="10" fill="#2b5f83"/>
+  <text x="1648.8" y="108.0" font-size="18" font-weight="700" fill="#ffffff" text-anchor="middle">テーマ別</text>
+  <text x="1648.8" y="132.0" font-size="18" font-weight="700" fill="#ffffff" text-anchor="middle">2回目</text>
+  <rect x="1512.7" y="170.0" width="272.3" height="149" rx="10" fill="#e4eef5" stroke="#a6c6da" stroke-width="2"/>
+  <rect x="1526.7" y="184.0" width="44" height="26" rx="13" fill="#2b5f83"/>
+  <text x="1548.7" y="203.0" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">8</text>
+  <text x="1526.7" y="238.0" font-size="18" font-weight="700" fill="#1b2026">弱みを許容できるか確かめる</text>
+  <line x1="1526.7" y1="257.0" x2="1771.0" y2="257.0" stroke="#a6c6da" stroke-width="1"/>
+  <text x="1526.7" y="281.0" font-size="17" fill="#1b2026">外れた仮説と前提の変更を</text>
+  <text x="1526.7" y="306.0" font-size="17" fill="#1b2026">フォローする</text>
+  <line x1="1648.8" y1="323.0" x2="1648.8" y2="342.0" stroke="#2b5f83" stroke-width="2" marker-end="url(#a)"/>
+  <rect x="1512.7" y="345.0" width="272.3" height="149" rx="10" fill="#e4eef5" stroke="#a6c6da" stroke-width="2"/>
+  <rect x="1526.7" y="359.0" width="44" height="26" rx="13" fill="#2b5f83"/>
+  <text x="1548.7" y="378.0" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">9</text>
+  <text x="1526.7" y="413.0" font-size="18" font-weight="700" fill="#1b2026">クロージング</text>
+  <line x1="1526.7" y1="432.0" x2="1771.0" y2="432.0" stroke="#a6c6da" stroke-width="1"/>
+  <text x="1526.7" y="456.0" font-size="17" fill="#1b2026">2回で合意し、上位の会議体に</text>
+  <text x="1526.7" y="481.0" font-size="17" fill="#1b2026">先回りする</text>
+</svg>

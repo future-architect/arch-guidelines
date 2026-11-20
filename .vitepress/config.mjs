@@ -190,6 +190,10 @@ const links = {
       text: "ソフトスキルガイドライン",
       link: "/documents/forSoftSkill/softskill_guidelines.html",
     },
+    {
+      text: "合意形成編",
+      link: "/documents/forSoftSkill/consensus_building.html",
+    },
   ],
   "/documents/forNFR/": [
     { text: "はじめての非機能要件", link: "/documents/forNFR/" },
@@ -505,7 +509,7 @@ export default defineConfig({
               },
               {
                 text: "ソフトスキル",
-                link: "/documents/forSoftSkill/softskill_guidelines.html",
+                link: "/documents/forSoftSkill/",
               },
             ],
           },

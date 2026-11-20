@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1560 627" width="1560" height="627" font-family="Noto Sans CJK JP, sans-serif">
+  <rect width="1560" height="627" fill="#ffffff"/>
+  <rect x="225.0" y="15" width="433.3" height="70" rx="8" fill="#2b5f83"/>
+  <text x="441.7" y="57.0" font-size="20" font-weight="700" fill="#ffffff" text-anchor="middle">マルチテナントのデータ分離方式</text>
+  <rect x="668.3" y="15" width="433.3" height="70" rx="8" fill="#2b5f83"/>
+  <text x="885.0" y="57.0" font-size="20" font-weight="700" fill="#ffffff" text-anchor="middle">基幹システム刷新の移行方式</text>
+  <rect x="1111.7" y="15" width="433.3" height="70" rx="8" fill="#2b5f83"/>
+  <text x="1328.3" y="57.0" font-size="20" font-weight="700" fill="#ffffff" text-anchor="middle">社内問い合わせへの生成AIの導入範囲</text>
+  <rect x="15" y="95" width="200" height="55.2" fill="#adc7dc"/>
+  <text x="29.0" y="128.6" font-size="18" font-weight="700" fill="#1b2026" text-anchor="start">テーマ</text>
+  <rect x="225.0" y="95" width="433.3" height="55.2" fill="#e4eef5"/>
+  <text x="239.0" y="127.0" font-size="20" font-weight="700" fill="#2b5f83" text-anchor="start">技術方式の選定</text>
+  <rect x="668.3" y="95" width="433.3" height="55.2" fill="#e4eef5"/>
+  <text x="682.3" y="127.0" font-size="20" font-weight="700" fill="#2b5f83" text-anchor="start">進め方の合意</text>
+  <rect x="1111.7" y="95" width="433.3" height="55.2" fill="#e4eef5"/>
+  <text x="1125.7" y="127.0" font-size="20" font-weight="700" fill="#2b5f83" text-anchor="start">実施範囲の合意</text>
+  <rect x="15" y="160.2" width="200" height="55.2" fill="#adc7dc"/>
+  <text x="29.0" y="193.8" font-size="18" font-weight="700" fill="#1b2026" text-anchor="start">相手</text>
+  <rect x="225.0" y="160.2" width="433.3" height="55.2" fill="#e4eef5"/>
+  <text x="239.0" y="192.2" font-size="17" fill="#1b2026" text-anchor="start">人事・勤怠 SaaS の事業者。約3,000社に提供</text>
+  <rect x="668.3" y="160.2" width="433.3" height="55.2" fill="#e4eef5"/>
+  <text x="682.3" y="192.2" font-size="17" fill="#1b2026" text-anchor="start">食品スーパーチェーン。約220店</text>
+  <rect x="1111.7" y="160.2" width="433.3" height="55.2" fill="#e4eef5"/>
+  <text x="1125.7" y="192.2" font-size="17" fill="#1b2026" text-anchor="start">設備工事会社（電気・空調）。従業員約3,500人</text>
+  <rect x="15" y="225.39999999999998" width="200" height="82.4" fill="#adc7dc"/>
+  <text x="29.0" y="272.6" font-size="18" font-weight="700" fill="#1b2026" text-anchor="start">決めたいこと</text>
+  <rect x="225.0" y="225.39999999999998" width="433.3" height="82.4" fill="#e4eef5"/>
+  <text x="239.0" y="257.4" font-size="17" fill="#1b2026" text-anchor="start">利用企業ごとのデータを、次期基盤でどう分けるか</text>
+  <rect x="668.3" y="225.39999999999998" width="433.3" height="82.4" fill="#e4eef5"/>
+  <text x="682.3" y="257.4" font-size="17" fill="#1b2026" text-anchor="start">基幹システムを、どの順に新システムへ切り</text>
+  <text x="682.3" y="284.6" font-size="17" fill="#1b2026" text-anchor="start">替えるか</text>
+  <rect x="1111.7" y="225.39999999999998" width="433.3" height="82.4" fill="#e4eef5"/>
+  <text x="1125.7" y="257.4" font-size="17" fill="#1b2026" text-anchor="start">社内の問い合わせ対応に、生成AIをどこまで</text>
+  <text x="1125.7" y="284.6" font-size="17" fill="#1b2026" text-anchor="start">導入するか</text>
+  <rect x="15" y="317.79999999999995" width="200" height="109.6" fill="#adc7dc"/>
+  <text x="29.0" y="378.6" font-size="18" font-weight="700" fill="#1b2026" text-anchor="start">比べる案</text>
+  <rect x="225.0" y="317.79999999999995" width="433.3" height="109.6" fill="#e4eef5"/>
+  <text x="239.0" y="349.8" font-size="17" fill="#1b2026" text-anchor="start">5つの方式を2案に絞る。全社で DB を共有する</text>
+  <text x="239.0" y="377.0" font-size="17" fill="#1b2026" text-anchor="start">方式2 と、大手企業だけ専用 DB に分ける方式5</text>
+  <rect x="668.3" y="317.79999999999995" width="433.3" height="109.6" fill="#e4eef5"/>
+  <text x="682.3" y="349.8" font-size="17" fill="#1b2026" text-anchor="start">全店一斉、10店で検証してから一斉、エリアごとに</text>
+  <text x="682.3" y="377.0" font-size="17" fill="#1b2026" text-anchor="start">3回、の3案</text>
+  <rect x="1111.7" y="317.79999999999995" width="433.3" height="109.6" fill="#e4eef5"/>
+  <text x="1125.7" y="349.8" font-size="17" fill="#1b2026" text-anchor="start">松竹梅の3案。梅は FAQ に答える、竹は規程と</text>
+  <text x="1125.7" y="377.0" font-size="17" fill="#1b2026" text-anchor="start">手順書も調べて出典を添えて答える、松は申請の</text>
+  <text x="1125.7" y="404.2" font-size="17" fill="#1b2026" text-anchor="start">起票まで</text>
+  <rect x="15" y="437.4" width="200" height="55.2" fill="#adc7dc"/>
+  <text x="29.0" y="471.0" font-size="18" font-weight="700" fill="#1b2026" text-anchor="start">推奨</text>
+  <rect x="225.0" y="437.4" width="433.3" height="55.2" fill="#e4eef5"/>
+  <text x="239.0" y="469.4" font-size="17" fill="#1b2026" text-anchor="start">方式5（大手企業の獲得を優先する案）</text>
+  <rect x="668.3" y="437.4" width="433.3" height="55.2" fill="#e4eef5"/>
+  <text x="682.3" y="469.4" font-size="17" fill="#1b2026" text-anchor="start">案B（実店舗での検証を優先する案）</text>
+  <rect x="1111.7" y="437.4" width="433.3" height="55.2" fill="#e4eef5"/>
+  <text x="1125.7" y="469.4" font-size="17" fill="#1b2026" text-anchor="start">竹</text>
+  <rect x="15" y="502.59999999999997" width="200" height="109.6" fill="#adc7dc"/>
+  <text x="29.0" y="549.0" font-size="18" font-weight="700" fill="#1b2026" text-anchor="start">判断をお</text>
+  <text x="29.0" y="577.8" font-size="18" font-weight="700" fill="#1b2026" text-anchor="start">願いすること</text>
+  <rect x="225.0" y="502.59999999999997" width="433.3" height="109.6" fill="#e4eef5"/>
+  <text x="239.0" y="534.6" font-size="17" font-weight="700" fill="#1b2026" text-anchor="start">契約の前に初期構築費と運用委託費の増加分を</text>
+  <text x="239.0" y="561.8" font-size="17" font-weight="700" fill="#1b2026" text-anchor="start">負って、大手企業の獲得を目指すか</text>
+  <rect x="668.3" y="502.59999999999997" width="433.3" height="109.6" fill="#e4eef5"/>
+  <text x="682.3" y="534.6" font-size="17" font-weight="700" fill="#1b2026" text-anchor="start">一斉切り替えの日の影響を受け入れて案B を</text>
+  <text x="682.3" y="561.8" font-size="17" font-weight="700" fill="#1b2026" text-anchor="start">取るか、約2.5億円を追加して影響を約70店に抑える</text>
+  <text x="682.3" y="589.0" font-size="17" font-weight="700" fill="#1b2026" text-anchor="start">案C を取るか</text>
+  <rect x="1111.7" y="502.59999999999997" width="433.3" height="109.6" fill="#e4eef5"/>
+  <text x="1125.7" y="534.6" font-size="17" font-weight="700" fill="#1b2026" text-anchor="start">梅より増える費用、文書の棚卸し、回答の</text>
+  <text x="1125.7" y="561.8" font-size="17" font-weight="700" fill="#1b2026" text-anchor="start">誤りのおそれと引き換えに、規程の質問まで</text>
+  <text x="1125.7" y="589.0" font-size="17" font-weight="700" fill="#1b2026" text-anchor="start">自己解決を広げるか</text>
+</svg>

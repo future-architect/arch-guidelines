@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 690" width="960" height="690" font-family="Noto Sans CJK JP, sans-serif">
+<defs><marker id="ab" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2b5f83"/></marker><marker id="ao" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#b5562a"/></marker><marker id="ag" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6a7179"/></marker></defs>
+<rect width="960" height="690" fill="#ffffff"/>
+<path d="M280 20 L680 20 L760 470 L200 470 Z" fill="#e4eef5" stroke="#a6c6da" stroke-width="2" stroke-linejoin="round"/>
+<text x="480.0" y="50" font-size="16" letter-spacing="2" fill="#2b5f83" text-anchor="middle">相手の価値判断</text>
+<rect x="310" y="64" width="340" height="128" rx="14" fill="#ffffff" stroke="#a6c6da" stroke-width="2" stroke-dasharray="9 7"/><text x="338" y="110" font-size="26" font-weight="700" fill="#1b2026">目指す姿</text><text x="338" y="142" font-size="18" fill="#4a5568">そもそも何のためか</text><text x="338" y="172" font-size="16" fill="#b5562a">資料では仮に定めている</text>
+<rect x="220" y="340" width="520" height="110" rx="14" fill="#ffffff" stroke="#a6c6da" stroke-width="2"/><text x="248" y="386" font-size="26" font-weight="700" fill="#1b2026">今回の判断の優先度</text><text x="248" y="418" font-size="18" fill="#4a5568">何を優先し、何を諦めるか</text>
+<rect x="220" y="540" width="520" height="110" rx="14" fill="#fbfaf7" stroke="#c9d1da" stroke-width="2"/><text x="248" y="586" font-size="26" font-weight="700" fill="#1b2026">技術判断</text><text x="248" y="618" font-size="18" fill="#4a5568">どの案を採るか</text>
+<line x1="480.0" y1="456" x2="480.0" y2="532" stroke="#6a7179" stroke-width="3" marker-end="url(#ag)"/>
+<text x="494.0" y="501" font-size="16" font-weight="700" fill="#6a7179">従属させる</text>
+<rect x="190" y="324" width="580" height="342" rx="20" fill="none" stroke="#2b5f83" stroke-width="2.5" stroke-dasharray="4 6"/>
+<g font-size="18" font-weight="700" fill="#2b5f83" text-anchor="end"><text x="176" y="626">資料の範囲</text></g>
+<line x1="480.0" y1="200" x2="480.0" y2="318" stroke="#2b5f83" stroke-width="4" marker-end="url(#ab)"/>
+<g font-size="17" font-weight="700" fill="#2b5f83" text-anchor="start"><text x="496.0" y="265">判断軸を見つめ直す</text></g>
+<rect x="26" y="371.0" width="128" height="48" rx="24" fill="#6a7179"/><text x="90" y="403.0" font-size="22" font-weight="700" fill="#ffffff" text-anchor="middle">自分たち</text>
+<rect x="806" y="371.0" width="128" height="48" rx="24" fill="#2b5f83"/><text x="870" y="403.0" font-size="22" font-weight="700" fill="#ffffff" text-anchor="middle">相手</text>
+<line x1="130" y1="369.0" x2="304" y2="128.0" stroke="#6a7179" stroke-width="3" stroke-dasharray="8 6" marker-end="url(#ag)"/>
+<line x1="156" y1="395.0" x2="214" y2="395.0" stroke="#6a7179" stroke-width="3" marker-end="url(#ag)"/>
+<line x1="830" y1="369.0" x2="656" y2="128.0" stroke="#2b5f83" stroke-width="3" stroke-dasharray="8 6" marker-end="url(#ab)"/>
+<line x1="804" y1="395.0" x2="746" y2="395.0" stroke="#2b5f83" stroke-width="3" marker-end="url(#ab)"/>
+<g font-size="17" font-weight="700" fill="#b5562a" text-anchor="start"><text x="24" y="70">「もともと、やりたいことは</text><text x="24" y="96">何だったんでしょうか？」</text></g>
+<g font-size="17" font-weight="700" fill="#2b5f83" text-anchor="middle"><text x="870" y="83">改めて考える</text></g>
+</svg>

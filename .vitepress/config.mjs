@@ -190,9 +190,46 @@ const links = {
       text: "ソフトスキルガイドライン",
       link: "/documents/forSoftSkill/softskill_guidelines.html",
     },
+  ],
+  // 合意形成編は内部レビュー中のため、nav・扉・検索からは辿れない。直接開いたときだけこのサイドバーが出る
+  "/documents/forSoftSkill/consensus/": [
     {
       text: "合意形成編",
-      link: "/documents/forSoftSkill/consensus_building.html",
+      link: "/documents/forSoftSkill/consensus/consensus_building.html",
+    },
+    {
+      text: "失敗パターンと処方箋",
+      link: "/documents/forSoftSkill/consensus/failure_patterns.html",
+    },
+    {
+      text: "ケーススタディ",
+      link: "/documents/forSoftSkill/consensus/case_studies.html",
+      items: [
+        {
+          text: "マルチテナントのデータ分離方式",
+          link: "/documents/forSoftSkill/consensus/case_multitenant.html",
+        },
+        {
+          text: "基幹システム刷新の移行方式",
+          link: "/documents/forSoftSkill/consensus/case_migration.html",
+        },
+        {
+          text: "社内問い合わせへの生成AIの導入範囲",
+          link: "/documents/forSoftSkill/consensus/case_genai.html",
+        },
+      ],
+    },
+    {
+      text: "ベテランの視点",
+      link: "/documents/forSoftSkill/consensus/veteran.html",
+    },
+    {
+      text: "レビュー技術",
+      link: "/documents/forSoftSkill/consensus/review.html",
+    },
+    {
+      text: "Appendix",
+      link: "/documents/forSoftSkill/consensus/appendix.html",
     },
   ],
   "/documents/forNFR/": [
@@ -509,7 +546,7 @@ export default defineConfig({
               },
               {
                 text: "ソフトスキル",
-                link: "/documents/forSoftSkill/",
+                link: "/documents/forSoftSkill/softskill_guidelines.html",
               },
             ],
           },

@@ -191,6 +191,52 @@ const links = {
       link: "/documents/forSoftSkill/softskill_guidelines.html",
     },
   ],
+  // 合意形成編は内部レビュー中のため、nav・扉・検索からは辿れない。直接開いたときだけこのサイドバーが出る
+  "/documents/forSoftSkill/consensus/": [
+    {
+      // 最上位の項目に子を持たせると見出し扱いになり、子がインデントされないため1段包む
+      items: [
+        {
+          text: "合意形成編",
+          link: "/documents/forSoftSkill/consensus/consensus_building.html",
+        },
+        {
+          text: "失敗パターンと処方箋",
+          link: "/documents/forSoftSkill/consensus/failure_patterns.html",
+        },
+        {
+          text: "ケーススタディ",
+          link: "/documents/forSoftSkill/consensus/case_studies.html",
+          items: [
+            {
+              text: "マルチテナントのデータ分離方式",
+              link: "/documents/forSoftSkill/consensus/case_multitenant.html",
+            },
+            {
+              text: "基幹システム刷新の移行方式",
+              link: "/documents/forSoftSkill/consensus/case_migration.html",
+            },
+            {
+              text: "社内問い合わせへの生成AIの導入範囲",
+              link: "/documents/forSoftSkill/consensus/case_genai.html",
+            },
+          ],
+        },
+        {
+          text: "ベテランの視点",
+          link: "/documents/forSoftSkill/consensus/veteran.html",
+        },
+        {
+          text: "レビュー技術",
+          link: "/documents/forSoftSkill/consensus/review.html",
+        },
+        {
+          text: "Appendix",
+          link: "/documents/forSoftSkill/consensus/appendix.html",
+        },
+      ],
+    },
+  ],
   "/documents/forNFR/": [
     { text: "はじめての非機能要件", link: "/documents/forNFR/" },
     { text: "第一部 全体プロセス編", link: "/documents/forNFR/overview.html" },

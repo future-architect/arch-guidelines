@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1560 358" width="1560" height="358" font-family="Noto Sans CJK JP, sans-serif">
+  <rect width="1560" height="358" fill="#ffffff"/>
+  <text x="15.0" y="35.0" font-size="18" font-weight="700" fill="#2b5f83" text-anchor="start">メンバーの成果物</text>
+  <polygon points="15.0,51 361.5,51 389.5,90.0 361.5,129 15.0,129 15.0,90.0" fill="#eef1f4"/>
+  <text x="188.2" y="98.0" font-size="22" font-weight="700" fill="#7a8793" text-anchor="middle">案出しと調査</text>
+  <polygon points="397.5,51 744.0,51 772.0,90.0 744.0,129 397.5,129 425.5,90.0" fill="#e4eef5"/>
+  <text x="584.8" y="98.0" font-size="22" font-weight="700" fill="#1b2026" text-anchor="middle">比較表</text>
+  <polygon points="780.0,51 1126.5,51 1154.5,90.0 1126.5,129 780.0,129 808.0,90.0" fill="#e4eef5"/>
+  <text x="967.2" y="98.0" font-size="22" font-weight="700" fill="#1b2026" text-anchor="middle">推奨案</text>
+  <polygon points="1162.5,51 1509.0,51 1537.0,90.0 1509.0,129 1162.5,129 1190.5,90.0" fill="#e4eef5"/>
+  <text x="1349.8" y="98.0" font-size="22" font-weight="700" fill="#1b2026" text-anchor="middle">資料のドラフト</text>
+  <text x="15.0" y="175.0" font-size="18" font-weight="700" fill="#2b5f83" text-anchor="start">レビュアーが見ること</text>
+  <rect x="15" y="193" width="352.5" height="84" fill="#eef1f4"/>
+  <text x="191.2" y="243.0" font-size="21" font-weight="700" fill="#7a8793" text-anchor="middle">見ない</text>
+  <rect x="411.5" y="193" width="346.5" height="84" rx="8" fill="#ffffff" stroke="#2b5f83" stroke-width="2"/>
+  <text x="431.5" y="243.0" font-size="24" font-weight="700" fill="#2b5f83" text-anchor="start">②</text>
+  <text x="465.5" y="243.0" font-size="20" font-weight="700" fill="#1b2026" text-anchor="start">観点の妥当性を見る</text>
+  <rect x="794.0" y="193" width="346.5" height="84" rx="8" fill="#ffffff" stroke="#2b5f83" stroke-width="2"/>
+  <text x="814.0" y="243.0" font-size="24" font-weight="700" fill="#2b5f83" text-anchor="start">③</text>
+  <text x="848.0" y="243.0" font-size="20" font-weight="700" fill="#1b2026" text-anchor="start">落としどころを語れるか</text>
+  <rect x="1176.5" y="193" width="346.5" height="84" rx="8" fill="#ffffff" stroke="#2b5f83" stroke-width="2"/>
+  <text x="1196.5" y="243.0" font-size="24" font-weight="700" fill="#2b5f83" text-anchor="start">④</text>
+  <text x="1230.5" y="243.0" font-size="20" font-weight="700" fill="#1b2026" text-anchor="start">目的を言葉にさせる</text>
+  <line x1="393.5" y1="41" x2="393.5" y2="287" stroke="#2b5f83" stroke-width="3" stroke-dasharray="8 6"/>
+  <rect x="305.5" y="143" width="176" height="36" rx="18" fill="#2b5f83"/>
+  <text x="393.5" y="168.0" font-size="20" font-weight="700" fill="#ffffff" text-anchor="middle">①指導の出発点</text>
+  <path d="M411.5,301 v12 H1140.5 v-12" fill="none" stroke="#2b5f83" stroke-width="2"/>
+  <text x="776.0" y="343.0" font-size="18" font-weight="700" fill="#2b5f83" text-anchor="middle">最初のレビュー</text>
+  <path d="M1176.5,301 v12 H1523.0 v-12" fill="none" stroke="#2b5f83" stroke-width="2"/>
+  <text x="1349.8" y="343.0" font-size="18" font-weight="700" fill="#2b5f83" text-anchor="middle">ドラフトの後</text>
+</svg>

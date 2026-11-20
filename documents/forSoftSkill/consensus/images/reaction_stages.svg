@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1560 634" width="1560" height="634" font-family="Noto Sans CJK JP, sans-serif">
+  <rect width="1560" height="634" fill="#ffffff"/>
+  <rect x="15" y="15" width="270" height="95.0" fill="#adc7dc"/>
+  <text x="150.0" y="69.0" font-size="19" font-weight="700" fill="#1b2026" text-anchor="middle">相手の理解度</text>
+  <rect x="299" y="15" width="1246.0" height="44" fill="#adc7dc"/>
+  <text x="922.0" y="45.0" font-size="19" font-weight="700" fill="#1b2026" text-anchor="middle">相手の反応</text>
+  <rect x="299.0" y="66.0" width="616.0" height="44" fill="#adc7dc"/>
+  <text x="610.5" y="96.0" font-size="19" font-weight="700" fill="#1b2026" text-anchor="middle">悪い反応</text>
+  <rect x="929.0" y="66.0" width="616.0" height="44" fill="#adc7dc"/>
+  <text x="1233.5" y="96.0" font-size="19" font-weight="700" fill="#1b2026" text-anchor="middle">良い反応</text>
+  <polygon points="15,117 285,117 285,249 150.0,275 15,249" fill="#e4eef5"/>
+  <text x="150.0" y="153.0" font-size="24" font-weight="700" fill="#1b2026" text-anchor="middle">目的の理解</text>
+  <text x="150.0" y="181.0" font-size="17" font-weight="700" fill="#2b5f83" text-anchor="middle">Intelligence</text>
+  <text x="150.0" y="215.0" font-size="17" fill="#2b5f83" text-anchor="middle">今何が問題で、何を</text>
+  <text x="150.0" y="243.0" font-size="17" fill="#2b5f83" text-anchor="middle">解決しないといけないか</text>
+  <text x="329.0" y="179.0" font-size="20" fill="#1b2026" text-anchor="start">①</text>
+  <text x="349.0" y="179.0" font-size="20" fill="#1b2026" text-anchor="start">「それは私に聞かれても」</text>
+  <text x="952.0" y="179.0" font-size="20" fill="#1b2026" text-anchor="start">「それなら△△さんにも入ってもらったほうがいいですね」</text>
+  <text x="329.0" y="219.0" font-size="20" fill="#1b2026" text-anchor="start">②</text>
+  <text x="349.0" y="219.0" font-size="20" fill="#1b2026" text-anchor="start">「迷子になりました。私は何をしたらよいのでしょうか？」</text>
+  <text x="952.0" y="219.0" font-size="20" fill="#1b2026" text-anchor="start">「つまり、今日は〇〇を決めたいということですね」</text>
+  <polygon points="15,289 285,289 285,421 150.0,447 15,421" fill="#e4eef5"/>
+  <text x="150.0" y="325.0" font-size="24" font-weight="700" fill="#1b2026" text-anchor="middle">案の理解</text>
+  <text x="150.0" y="353.0" font-size="17" font-weight="700" fill="#2b5f83" text-anchor="middle">Design</text>
+  <text x="150.0" y="387.0" font-size="17" fill="#2b5f83" text-anchor="middle">取りうる案と、それぞれの</text>
+  <text x="150.0" y="415.0" font-size="17" fill="#2b5f83" text-anchor="middle">メリット、リスクや懸念</text>
+  <text x="329.0" y="351.0" font-size="20" fill="#1b2026" text-anchor="start">③</text>
+  <text x="349.0" y="351.0" font-size="20" fill="#1b2026" text-anchor="start">「何となくは分かりましたが、ちゃんと理解できなかった」</text>
+  <text x="952.0" y="351.0" font-size="20" fill="#1b2026" text-anchor="start">「A案だと、うちの運用チームの負担はどうなりますか」</text>
+  <text x="329.0" y="391.0" font-size="20" fill="#1b2026" text-anchor="start">④</text>
+  <text x="349.0" y="391.0" font-size="20" fill="#1b2026" text-anchor="start">「他の代替案はないのでしょうか？」</text>
+  <text x="952.0" y="391.0" font-size="20" fill="#1b2026" text-anchor="start">「なぜこの構成になるのですか」</text>
+  <line x1="299.0" y1="282.0" x2="1545.0" y2="282.0" stroke="#2b5f83" stroke-width="1.5"/>
+  <polygon points="15,461 285,461 285,593 150.0,619 15,593" fill="#e4eef5"/>
+  <text x="150.0" y="497.0" font-size="24" font-weight="700" fill="#1b2026" text-anchor="middle">選択の理解</text>
+  <text x="150.0" y="525.0" font-size="17" font-weight="700" fill="#2b5f83" text-anchor="middle">Choice</text>
+  <text x="150.0" y="559.0" font-size="17" fill="#2b5f83" text-anchor="middle">選択で迷うポイントと、</text>
+  <text x="150.0" y="587.0" font-size="17" fill="#2b5f83" text-anchor="middle">トレードオフの構造</text>
+  <text x="329.0" y="523.0" font-size="20" fill="#1b2026" text-anchor="start">⑤</text>
+  <text x="349.0" y="523.0" font-size="20" fill="#1b2026" text-anchor="start">「どういう基準で選べば良いか難しいです」</text>
+  <text x="952.0" y="523.0" font-size="20" fill="#1b2026" text-anchor="start">「今回はその観点は重視していない」</text>
+  <text x="329.0" y="563.0" font-size="20" fill="#1b2026" text-anchor="start">⑥</text>
+  <text x="349.0" y="563.0" font-size="20" fill="#1b2026" text-anchor="start">「あなたたちならどれを選びますか？」</text>
+  <text x="952.0" y="563.0" font-size="20" fill="#1b2026" text-anchor="start">「B案のその弱みは、運用でカバーできそうですね」</text>
+  <line x1="299.0" y1="454.0" x2="1545.0" y2="454.0" stroke="#2b5f83" stroke-width="1.5"/>
+</svg>

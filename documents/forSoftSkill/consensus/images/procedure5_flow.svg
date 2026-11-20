@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1520 325" width="1520" height="325" font-family="Noto Sans CJK JP, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2b5f83"/>
+    </marker>
+  </defs>
+  <rect width="1520" height="325" fill="#ffffff"/>
+  <rect x="15.0" y="16" width="295.5" height="144" rx="10" fill="#e4eef5" stroke="#a6c6da" stroke-width="2"/>
+  <rect x="138.8" y="28" width="48" height="26" rx="13" fill="#2b5f83"/>
+  <text x="162.8" y="47" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">5-1</text>
+  <text x="162.8" y="103.0" font-size="16" font-weight="700" fill="#1b2026" text-anchor="middle">評価観点を、相手の関心事に</text>
+  <text x="162.8" y="127.0" font-size="16" font-weight="700" fill="#1b2026" text-anchor="middle">紐づける</text>
+  <line x1="312.5" y1="88.0" x2="337.5" y2="88.0" stroke="#2b5f83" stroke-width="2.5" marker-end="url(#a)"/>
+  <line x1="162.8" y1="160" x2="162.8" y2="194" stroke="#b5562a" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <rect x="15.0" y="194" width="295.5" height="117" rx="8" fill="#fbf3ee" stroke="#e2c3b2" stroke-width="1.5"/>
+  <text x="31.0" y="220" font-size="14" font-weight="700" fill="#b5562a">躓き</text>
+  <text x="31.0" y="250" font-size="14.5" fill="#1b2026">技術的な評価観点のまま提示し、</text>
+  <text x="31.0" y="273" font-size="14.5" fill="#1b2026">相手が判断できない</text>
+  <rect x="340.5" y="16" width="295.5" height="144" rx="10" fill="#e4eef5" stroke="#a6c6da" stroke-width="2"/>
+  <rect x="464.2" y="28" width="48" height="26" rx="13" fill="#2b5f83"/>
+  <text x="488.2" y="47" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">5-2</text>
+  <text x="488.2" y="103.0" font-size="16" font-weight="700" fill="#1b2026" text-anchor="middle">一般的に用いられる MECE な軸を</text>
+  <text x="488.2" y="127.0" font-size="16" font-weight="700" fill="#1b2026" text-anchor="middle">利用し、網羅性を確認する</text>
+  <line x1="638.0" y1="88.0" x2="663.0" y2="88.0" stroke="#2b5f83" stroke-width="2.5" marker-end="url(#a)"/>
+  <line x1="488.2" y1="160" x2="488.2" y2="194" stroke="#b5562a" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <rect x="340.5" y="194" width="295.5" height="117" rx="8" fill="#fbf3ee" stroke="#e2c3b2" stroke-width="1.5"/>
+  <text x="356.5" y="220" font-size="14" font-weight="700" fill="#b5562a">躓き</text>
+  <text x="356.5" y="250" font-size="14.5" fill="#1b2026">なぜこの軸かと問われて答えられない</text>
+  <rect x="666.0" y="16" width="295.5" height="144" rx="10" fill="#e4eef5" stroke="#a6c6da" stroke-width="2"/>
+  <rect x="789.8" y="28" width="48" height="26" rx="13" fill="#2b5f83"/>
+  <text x="813.8" y="47" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">5-3</text>
+  <text x="813.8" y="103.0" font-size="16" font-weight="700" fill="#1b2026" text-anchor="middle">各評価軸を、プロジェクト文脈を</text>
+  <text x="813.8" y="127.0" font-size="16" font-weight="700" fill="#1b2026" text-anchor="middle">加味して自然な言葉にする</text>
+  <line x1="963.5" y1="88.0" x2="988.5" y2="88.0" stroke="#2b5f83" stroke-width="2.5" marker-end="url(#a)"/>
+  <line x1="813.8" y1="160" x2="813.8" y2="194" stroke="#b5562a" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <rect x="666.0" y="194" width="295.5" height="117" rx="8" fill="#fbf3ee" stroke="#e2c3b2" stroke-width="1.5"/>
+  <text x="682.0" y="220" font-size="14" font-weight="700" fill="#b5562a">躓き</text>
+  <text x="682.0" y="250" font-size="14.5" fill="#1b2026">数百ミリ秒、RPO 15分を</text>
+  <text x="682.0" y="273" font-size="14.5" fill="#1b2026">そのまま出し、相手が自分たちの使われ</text>
+  <text x="682.0" y="296" font-size="14.5" fill="#1b2026">方に置き換えられない</text>
+  <rect x="991.5" y="16" width="295.5" height="144" rx="10" fill="#e4eef5" stroke="#a6c6da" stroke-width="2"/>
+  <rect x="1115.2" y="28" width="48" height="26" rx="13" fill="#2b5f83"/>
+  <text x="1139.2" y="47" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">5-4</text>
+  <text x="1139.2" y="91.0" font-size="16" font-weight="700" fill="#1b2026" text-anchor="middle">だれに説明するかに合わせて、</text>
+  <text x="1139.2" y="115.0" font-size="16" font-weight="700" fill="#1b2026" text-anchor="middle">ビジネス文脈への翻訳レベルを</text>
+  <text x="1139.2" y="139.0" font-size="16" font-weight="700" fill="#1b2026" text-anchor="middle">変える</text>
+  <line x1="1289.0" y1="88.0" x2="1314.0" y2="88.0" stroke="#2b5f83" stroke-width="2.5" marker-end="url(#a)"/>
+  <line x1="1139.2" y1="160" x2="1139.2" y2="194" stroke="#b5562a" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <rect x="991.5" y="194" width="295.5" height="117" rx="8" fill="#fbf3ee" stroke="#e2c3b2" stroke-width="1.5"/>
+  <text x="1007.5" y="220" font-size="14" font-weight="700" fill="#b5562a">躓き</text>
+  <text x="1007.5" y="250" font-size="14.5" fill="#1b2026">技術が分かる相手と翻訳しないまま</text>
+  <text x="1007.5" y="273" font-size="14.5" fill="#1b2026">合意し、業務側の条件が後から出て</text>
+  <text x="1007.5" y="296" font-size="14.5" fill="#1b2026">手戻る</text>
+  <rect x="1317.0" y="16" width="188" height="144" rx="10" fill="#2b5f83" stroke="#2b5f83" stroke-width="2"/>
+  <text x="1411.0" y="47" font-size="14" font-weight="700" fill="#ffffff" fill-opacity="0.8" text-anchor="middle">アウトプット</text>
+  <text x="1411.0" y="115.0" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">評価軸</text>
+</svg>

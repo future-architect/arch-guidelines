@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1560 972" width="1560" height="972" font-family="Noto Sans CJK JP, sans-serif">
+  <rect width="1560" height="972" fill="#ffffff"/>
+  <rect x="391.0" y="15" width="778.0" height="60" rx="10" fill="#2b5f83"/>
+  <text x="780.0" y="53.0" font-size="21" font-weight="700" fill="#ffffff" text-anchor="middle">「これは何のために作ったんだっけ」「どこに落としたいと思っている？」</text>
+  <line x1="780.0" y1="75" x2="780.0" y2="107.0" stroke="#2b5f83" stroke-width="2.5"/>
+  <line x1="394.0" y1="107.0" x2="1359.0" y2="107.0" stroke="#2b5f83" stroke-width="2.5"/>
+  <line x1="394.0" y1="107.0" x2="394.0" y2="139" stroke="#2b5f83" stroke-width="2.5"/>
+  <line x1="973.0" y1="107.0" x2="973.0" y2="139" stroke="#2b5f83" stroke-width="2.5"/>
+  <line x1="1359.0" y1="107.0" x2="1359.0" y2="139" stroke="#2b5f83" stroke-width="2.5"/>
+  <rect x="286.5" y="139" width="215.0" height="84" rx="8" fill="#ffffff" stroke="#2b5f83" stroke-width="2"/>
+  <text x="394.0" y="188.0" font-size="19" fill="#1b2026" text-anchor="middle">出てこない</text>
+  <rect x="797.0" y="139" width="352.0" height="84" rx="8" fill="#ffffff" stroke="#2b5f83" stroke-width="2"/>
+  <text x="973.0" y="188.0" font-size="19" fill="#1b2026" text-anchor="middle">答えは返るが、理由が技術の話だけ</text>
+  <rect x="1183.0" y="139" width="352.0" height="84" rx="8" fill="#ffffff" stroke="#2b5f83" stroke-width="2"/>
+  <text x="1359.0" y="174.0" font-size="19" fill="#1b2026" text-anchor="middle">すらすら出るが、自分ならどれを</text>
+  <text x="1359.0" y="202.0" font-size="19" fill="#1b2026" text-anchor="middle">選ぶかに答えられない</text>
+  <line x1="394.0" y1="223" x2="394.0" y2="253" stroke="#2b5f83" stroke-width="2.5"/>
+  <polygon points="387.0,251 394.0,263 401.0,251" fill="#2b5f83"/>
+  <rect x="204.5" y="263" width="379.0" height="60" rx="10" fill="#2b5f83"/>
+  <text x="394.0" y="301.0" font-size="21" font-weight="700" fill="#ffffff" text-anchor="middle">「どこまで出すつもりだった？」</text>
+  <line x1="394.0" y1="323" x2="394.0" y2="355.0" stroke="#2b5f83" stroke-width="2.5"/>
+  <line x1="201.0" y1="355.0" x2="587.0" y2="355.0" stroke="#2b5f83" stroke-width="2.5"/>
+  <line x1="201.0" y1="355.0" x2="201.0" y2="387" stroke="#2b5f83" stroke-width="2.5"/>
+  <line x1="587.0" y1="355.0" x2="587.0" y2="387" stroke="#2b5f83" stroke-width="2.5"/>
+  <rect x="25.0" y="387" width="352.0" height="84" rx="8" fill="#ffffff" stroke="#2b5f83" stroke-width="2"/>
+  <text x="201.0" y="436.0" font-size="19" fill="#1b2026" text-anchor="middle">調査までだと思っていた</text>
+  <rect x="411.0" y="387" width="352.0" height="84" rx="8" fill="#ffffff" stroke="#2b5f83" stroke-width="2"/>
+  <text x="587.0" y="436.0" font-size="19" fill="#1b2026" text-anchor="middle">推奨案まで出すつもりだった</text>
+  <line x1="201.0" y1="471" x2="201.0" y2="575" stroke="#2b5f83" stroke-width="2.5"/>
+  <polygon points="194.0,573 201.0,585 208.0,573" fill="#2b5f83"/>
+  <rect x="15.0" y="585.0" width="372.0" height="300" fill="#e4eef5"/>
+  <text x="39.0" y="629.0" font-size="26" font-weight="700" fill="#1b2026" text-anchor="start">①作業範囲の不理解</text>
+  <text x="39.0" y="673.0" font-size="19" fill="#1b2026" text-anchor="start">推奨案まで出すことを</text>
+  <text x="39.0" y="703.0" font-size="19" fill="#1b2026" text-anchor="start">期待されていると思っていない</text>
+  <text x="39.0" y="747.0" font-size="16" font-weight="700" fill="#2b5f83" text-anchor="start">レビュアーの打ち手</text>
+  <text x="39.0" y="779.0" font-size="19" fill="#1b2026" text-anchor="start">役割分担を明確に定義する</text>
+  <line x1="587.0" y1="471" x2="587.0" y2="511" stroke="#2b5f83" stroke-width="2.5"/>
+  <polygon points="580.0,509 587.0,521 594.0,509" fill="#2b5f83"/>
+  <rect x="401.0" y="521.0" width="372.0" height="364" fill="#c9dbe8"/>
+  <text x="425.0" y="565.0" font-size="26" font-weight="700" fill="#1b2026" text-anchor="start">②知識不足</text>
+  <text x="425.0" y="609.0" font-size="19" fill="#1b2026" text-anchor="start">ゴールイメージと道筋が見えていない</text>
+  <text x="425.0" y="653.0" font-size="16" font-weight="700" fill="#2b5f83" text-anchor="start">レビュアーの打ち手</text>
+  <text x="425.0" y="685.0" font-size="19" fill="#1b2026" text-anchor="start">ゴールの完成形と、</text>
+  <text x="425.0" y="715.0" font-size="19" fill="#1b2026" text-anchor="start">そこまでの活動の並びを見せる</text>
+  <line x1="973.0" y1="223" x2="973.0" y2="447" stroke="#2b5f83" stroke-width="2.5"/>
+  <polygon points="966.0,445 973.0,457 980.0,445" fill="#2b5f83"/>
+  <rect x="787.0" y="457.0" width="372.0" height="428" fill="#adc7dc"/>
+  <text x="811.0" y="501.0" font-size="26" font-weight="700" fill="#1b2026" text-anchor="start">③相手視点の不足</text>
+  <text x="811.0" y="545.0" font-size="19" fill="#1b2026" text-anchor="start">相手の業務や予算の事情を</text>
+  <text x="811.0" y="575.0" font-size="19" fill="#1b2026" text-anchor="start">考えていない</text>
+  <text x="811.0" y="619.0" font-size="16" font-weight="700" fill="#2b5f83" text-anchor="start">レビュアーの打ち手</text>
+  <text x="811.0" y="651.0" font-size="19" fill="#1b2026" text-anchor="start">相手が何に困り、何で評価されるかを</text>
+  <text x="811.0" y="681.0" font-size="19" fill="#1b2026" text-anchor="start">伝える</text>
+  <line x1="1359.0" y1="223" x2="1359.0" y2="383" stroke="#2b5f83" stroke-width="2.5"/>
+  <polygon points="1352.0,381 1359.0,393 1366.0,381" fill="#2b5f83"/>
+  <rect x="1173.0" y="393.0" width="372.0" height="492" fill="#2b5f83"/>
+  <text x="1197.0" y="437.0" font-size="26" font-weight="700" fill="#ffffff" text-anchor="start">④自信不足</text>
+  <text x="1197.0" y="481.0" font-size="19" fill="#ffffff" text-anchor="start">分かっていても、自分の意見を</text>
+  <text x="1197.0" y="511.0" font-size="19" fill="#ffffff" text-anchor="start">持てない</text>
+  <text x="1197.0" y="555.0" font-size="16" font-weight="700" fill="#ffffff" text-anchor="start">レビュアーの打ち手</text>
+  <text x="1197.0" y="587.0" font-size="19" fill="#ffffff" text-anchor="start">仮説は外れてよいと伝え、</text>
+  <text x="1197.0" y="617.0" font-size="19" fill="#ffffff" text-anchor="start">レビュアーの仮の推奨に賛否を</text>
+  <text x="1197.0" y="647.0" font-size="19" fill="#ffffff" text-anchor="start">言わせる</text>
+  <path d="M23.0,903 v12 H379.0 v-12" fill="none" stroke="#2b5f83" stroke-width="2"/>
+  <text x="201.0" y="949.0" font-size="20" font-weight="700" fill="#2b5f83" text-anchor="middle">指示不足</text>
+  <path d="M409.0,903 v12 H1537.0 v-12" fill="none" stroke="#2b5f83" stroke-width="2"/>
+  <text x="973.0" y="949.0" font-size="20" font-weight="700" fill="#2b5f83" text-anchor="middle">能力不足</text>
+</svg>

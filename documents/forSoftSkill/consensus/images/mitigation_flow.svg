@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 692" width="1200" height="692" font-family="Noto Sans CJK JP, sans-serif">
+  <rect width="1200" height="692" fill="#ffffff"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#6a7179"/></marker></defs>
+  <rect x="90.0" y="24" width="440" height="56" rx="28" fill="#ffffff" stroke="#2b5f83" stroke-width="2"/>
+  <text x="310.0" y="60.0" font-size="20" font-weight="700" fill="#2b5f83" text-anchor="middle">相手が許容できない弱みがある</text>
+  <path d="M310,82 L310,114" fill="none" stroke="#6a7179" stroke-width="2.5" marker-end="url(#a)"/>
+  <rect x="30" y="120" width="560" height="92" rx="12" fill="#e4eef5" stroke="#adc7dc" stroke-width="2"/>
+  <text x="310.0" y="174.0" font-size="22" font-weight="700" fill="#1b2026" text-anchor="middle">弱みが生じる条件そのものを外せるか</text>
+  <rect x="690" y="120" width="480" height="92" rx="12" fill="#2b5f83"/>
+  <text x="718.0" y="160.0" font-size="26" font-weight="700" fill="#ffffff" text-anchor="start">回避</text>
+  <text x="718.0" y="192.0" font-size="17" fill="#ffffff" text-anchor="start">見込みが立つまで専用の環境を作らない、など</text>
+  <path d="M594,166 L682,166" fill="none" stroke="#6a7179" stroke-width="2.5" marker-end="url(#a)"/>
+  <text x="620.0" y="154.0" font-size="18" font-weight="700" fill="#6a7179" text-anchor="start">はい</text>
+  <path d="M310,214 L310,264" fill="none" stroke="#6a7179" stroke-width="2.5" marker-end="url(#a)"/>
+  <text x="322.0" y="248.0" font-size="18" font-weight="700" fill="#6a7179" text-anchor="start">いいえ</text>
+  <rect x="30" y="270" width="560" height="92" rx="12" fill="#e4eef5" stroke="#adc7dc" stroke-width="2"/>
+  <text x="310.0" y="324.0" font-size="22" font-weight="700" fill="#1b2026" text-anchor="middle">起こりやすさか、起きたときの影響を小さくできるか</text>
+  <rect x="690" y="270" width="480" height="92" rx="12" fill="#2b5f83"/>
+  <text x="718.0" y="310.0" font-size="26" font-weight="700" fill="#ffffff" text-anchor="start">低減</text>
+  <text x="718.0" y="342.0" font-size="17" fill="#ffffff" text-anchor="start">リハーサルを増やす、戻す手順を決めておく、など</text>
+  <path d="M594,316 L682,316" fill="none" stroke="#6a7179" stroke-width="2.5" marker-end="url(#a)"/>
+  <text x="620.0" y="304.0" font-size="18" font-weight="700" fill="#6a7179" text-anchor="start">はい</text>
+  <path d="M310,364 L310,414" fill="none" stroke="#6a7179" stroke-width="2.5" marker-end="url(#a)"/>
+  <text x="322.0" y="398.0" font-size="18" font-weight="700" fill="#6a7179" text-anchor="start">いいえ</text>
+  <rect x="30" y="420" width="560" height="92" rx="12" fill="#e4eef5" stroke="#adc7dc" stroke-width="2"/>
+  <text x="310.0" y="474.0" font-size="22" font-weight="700" fill="#1b2026" text-anchor="middle">影響を引き受けられる別の主体がいるか</text>
+  <rect x="690" y="420" width="480" height="92" rx="12" fill="#2b5f83"/>
+  <text x="718.0" y="460.0" font-size="26" font-weight="700" fill="#ffffff" text-anchor="start">転嫁</text>
+  <text x="718.0" y="492.0" font-size="17" fill="#ffffff" text-anchor="start">運用を自分たちが引き受ける、保守契約で賄う、など</text>
+  <path d="M594,466 L682,466" fill="none" stroke="#6a7179" stroke-width="2.5" marker-end="url(#a)"/>
+  <text x="620.0" y="454.0" font-size="18" font-weight="700" fill="#6a7179" text-anchor="start">はい</text>
+  <rect x="690" y="570" width="480" height="92" rx="12" fill="#2b5f83"/>
+  <text x="718.0" y="610.0" font-size="26" font-weight="700" fill="#ffffff" text-anchor="start">受容</text>
+  <text x="718.0" y="642.0" font-size="17" fill="#ffffff" text-anchor="start">起きたときの対応を決め、受け入れる理由も書く</text>
+  <path d="M310,514 L310,616 L682,616" fill="none" stroke="#6a7179" stroke-width="2.5" marker-end="url(#a)"/>
+  <text x="322.0" y="548.0" font-size="18" font-weight="700" fill="#6a7179" text-anchor="start">いいえ</text>
+</svg>

@@ -209,15 +209,15 @@ const links = {
           link: "/documents/forSoftSkill/consensus/case_studies.html",
           items: [
             {
-              text: "マルチテナントのデータ分離方式",
+              text: "1. マルチテナントのデータ分離方式",
               link: "/documents/forSoftSkill/consensus/case_multitenant.html",
             },
             {
-              text: "基幹システム刷新の移行方式",
+              text: "2. 基幹システム刷新の移行方式",
               link: "/documents/forSoftSkill/consensus/case_migration.html",
             },
             {
-              text: "社内問い合わせへの生成AIの導入範囲",
+              text: "3. 社内問い合わせへの生成AIの導入範囲",
               link: "/documents/forSoftSkill/consensus/case_genai.html",
             },
           ],

@@ -1,6 +1,6 @@
 ---
 sidebarDepth: 4
-title: "ケーススタディ: 基幹システム刷新の移行方式"
+title: "ケーススタディ2: 基幹システム刷新の移行方式"
 author: フューチャー株式会社
 search: false
 head:
@@ -12,7 +12,7 @@ head:
 <!-- ケーススタディの相手向けの資料と、相手の発言の引用はですます調のため -->
 <!-- textlint-disable ja-technical-writing/no-mix-dearu-desumasu -->
 
-# ケーススタディ: 基幹システム刷新の移行方式
+# ケーススタディ2: 基幹システム刷新の移行方式
 
 ## 題材の設定
 

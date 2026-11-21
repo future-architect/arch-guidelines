@@ -3,17 +3,17 @@
 <defs><marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#6a7179"/></marker></defs>
   <rect x="80.0" y="24" width="420" height="56" rx="28" fill="#ffffff" stroke="#2b5f83" stroke-width="2"/>
   <text x="290.0" y="60.0" font-size="20" font-weight="700" fill="#2b5f83" text-anchor="middle">相手が許容できない弱みがある</text>
-  <rect x="640" y="36" width="430" height="50" rx="8" fill="#adc7dc"/>
+  <rect x="640" y="36" width="430" height="50" fill="#adc7dc"/>
   <text x="855.0" y="68.0" font-size="20" font-weight="700" fill="#1b2026" text-anchor="middle">緩和策パターン</text>
-  <rect x="1086" y="36" width="444" height="50" rx="8" fill="#adc7dc"/>
+  <rect x="1086" y="36" width="444" height="50" fill="#adc7dc"/>
   <text x="1308.0" y="68.0" font-size="20" font-weight="700" fill="#1b2026" text-anchor="middle">例</text>
   <path d="M290,82 L290,122" fill="none" stroke="#6a7179" stroke-width="2.5" marker-end="url(#a)"/>
   <rect x="30" y="128" width="520" height="126" rx="12" fill="#e4eef5" stroke="#adc7dc" stroke-width="2"/>
   <text x="290.0" y="199.0" font-size="22" font-weight="700" fill="#1b2026" text-anchor="middle">弱みが生じる条件そのものを外せるか</text>
-  <rect x="640" y="128" width="430" height="126" rx="12" fill="#2b5f83"/>
+  <rect x="640" y="128" width="430" height="126" fill="#2b5f83"/>
   <text x="666.0" y="168.0" font-size="26" font-weight="700" fill="#ffffff" text-anchor="start">回避</text>
   <text x="666.0" y="202.0" font-size="18" fill="#ffffff" text-anchor="start">弱みが生じる条件そのものを外す</text>
-  <rect x="1086" y="128" width="444" height="126" rx="12" fill="#ffffff" stroke="#adc7dc" stroke-width="2"/>
+  <rect x="1086" y="128" width="444" height="126" fill="#ffffff" stroke="#adc7dc" stroke-width="2"/>
   <text x="1112.0" y="198.0" font-size="19" fill="#1b2026" text-anchor="start">見込みが立つまで専用の環境を作らない</text>
   <path d="M554,191 L632,191" fill="none" stroke="#6a7179" stroke-width="2.5" marker-end="url(#a)"/>
   <text x="572.0" y="179.0" font-size="18" font-weight="700" fill="#6a7179" text-anchor="start">はい</text>
@@ -22,11 +22,11 @@
   <rect x="30" y="296" width="520" height="126" rx="12" fill="#e4eef5" stroke="#adc7dc" stroke-width="2"/>
   <text x="290.0" y="351.0" font-size="22" font-weight="700" fill="#1b2026" text-anchor="middle">起こりやすさか、起きたときの影響を</text>
   <text x="290.0" y="383.0" font-size="22" font-weight="700" fill="#1b2026" text-anchor="middle">小さくできるか</text>
-  <rect x="640" y="296" width="430" height="126" rx="12" fill="#2b5f83"/>
+  <rect x="640" y="296" width="430" height="126" fill="#2b5f83"/>
   <text x="666.0" y="336.0" font-size="26" font-weight="700" fill="#ffffff" text-anchor="start">低減</text>
   <text x="666.0" y="370.0" font-size="18" fill="#ffffff" text-anchor="start">起こりやすさか、起きたときの影響を</text>
   <text x="666.0" y="397.0" font-size="18" fill="#ffffff" text-anchor="start">小さくする</text>
-  <rect x="1086" y="296" width="444" height="126" rx="12" fill="#ffffff" stroke="#adc7dc" stroke-width="2"/>
+  <rect x="1086" y="296" width="444" height="126" fill="#ffffff" stroke="#adc7dc" stroke-width="2"/>
   <text x="1112.0" y="366.0" font-size="19" fill="#1b2026" text-anchor="start">リハーサルを増やす、戻す手順を決めておく</text>
   <path d="M554,359 L632,359" fill="none" stroke="#6a7179" stroke-width="2.5" marker-end="url(#a)"/>
   <text x="572.0" y="347.0" font-size="18" font-weight="700" fill="#6a7179" text-anchor="start">はい</text>
@@ -34,19 +34,19 @@
   <text x="302.0" y="452.0" font-size="18" font-weight="700" fill="#6a7179" text-anchor="start">いいえ</text>
   <rect x="30" y="464" width="520" height="126" rx="12" fill="#e4eef5" stroke="#adc7dc" stroke-width="2"/>
   <text x="290.0" y="535.0" font-size="22" font-weight="700" fill="#1b2026" text-anchor="middle">影響を引き受けられる別の主体がいるか</text>
-  <rect x="640" y="464" width="430" height="126" rx="12" fill="#2b5f83"/>
+  <rect x="640" y="464" width="430" height="126" fill="#2b5f83"/>
   <text x="666.0" y="504.0" font-size="26" font-weight="700" fill="#ffffff" text-anchor="start">転嫁</text>
   <text x="666.0" y="538.0" font-size="18" fill="#ffffff" text-anchor="start">影響を別の主体に移す</text>
-  <rect x="1086" y="464" width="444" height="126" rx="12" fill="#ffffff" stroke="#adc7dc" stroke-width="2"/>
+  <rect x="1086" y="464" width="444" height="126" fill="#ffffff" stroke="#adc7dc" stroke-width="2"/>
   <text x="1112.0" y="520.0" font-size="19" fill="#1b2026" text-anchor="start">運用を自分たちが引き受ける、</text>
   <text x="1112.0" y="549.0" font-size="19" fill="#1b2026" text-anchor="start">保守契約で賄う</text>
   <path d="M554,527 L632,527" fill="none" stroke="#6a7179" stroke-width="2.5" marker-end="url(#a)"/>
   <text x="572.0" y="515.0" font-size="18" font-weight="700" fill="#6a7179" text-anchor="start">はい</text>
-  <rect x="640" y="632" width="430" height="126" rx="12" fill="#2b5f83"/>
+  <rect x="640" y="632" width="430" height="126" fill="#2b5f83"/>
   <text x="666.0" y="672.0" font-size="26" font-weight="700" fill="#ffffff" text-anchor="start">受容</text>
   <text x="666.0" y="706.0" font-size="18" fill="#ffffff" text-anchor="start">手を打たずに受け入れ、起きたときの</text>
   <text x="666.0" y="733.0" font-size="18" fill="#ffffff" text-anchor="start">対応だけを決めておく</text>
-  <rect x="1086" y="632" width="444" height="126" rx="12" fill="#ffffff" stroke="#adc7dc" stroke-width="2"/>
+  <rect x="1086" y="632" width="444" height="126" fill="#ffffff" stroke="#adc7dc" stroke-width="2"/>
   <text x="1112.0" y="702.0" font-size="19" fill="#1b2026" text-anchor="start">受け入れる理由を書き添える</text>
   <path d="M290,592 L290,695 L632,695" fill="none" stroke="#6a7179" stroke-width="2.5" marker-end="url(#a)"/>
   <text x="302.0" y="620.0" font-size="18" font-weight="700" fill="#6a7179" text-anchor="start">いいえ</text>

@@ -1,6 +1,6 @@
 ---
 sidebarDepth: 4
-title: "ケーススタディ: 社内問い合わせへの生成AIの導入範囲"
+title: "ケーススタディ3: 社内問い合わせへの生成AIの導入範囲"
 author: フューチャー株式会社
 search: false
 head:
@@ -12,7 +12,7 @@ head:
 <!-- ケーススタディの相手向けの資料と、相手の発言の引用はですます調のため -->
 <!-- textlint-disable ja-technical-writing/no-mix-dearu-desumasu -->
 
-# ケーススタディ: 社内問い合わせへの生成AIの導入範囲
+# ケーススタディ3: 社内問い合わせへの生成AIの導入範囲
 
 ## 題材の設定
 

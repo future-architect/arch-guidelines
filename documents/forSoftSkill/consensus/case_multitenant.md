@@ -1,6 +1,6 @@
 ---
 sidebarDepth: 4
-title: "ケーススタディ: マルチテナントのデータ分離方式"
+title: "ケーススタディ1: マルチテナントのデータ分離方式"
 author: フューチャー株式会社
 search: false
 head:
@@ -12,7 +12,7 @@ head:
 <!-- ケーススタディの相手向けの資料と、相手の発言の引用はですます調のため -->
 <!-- textlint-disable ja-technical-writing/no-mix-dearu-desumasu -->
 
-# ケーススタディ: マルチテナントのデータ分離方式
+# ケーススタディ1: マルチテナントのデータ分離方式
 
 ## 題材の設定
 

@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1370 570" width="1370" height="570" font-family="Noto Sans CJK JP, sans-serif">
+  <defs>
+    <marker id="ao" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b5562a"/>
+    </marker>
+  </defs>
+  <rect width="1370" height="570" fill="#ffffff"/>
+
+  <!-- 大きな壁の手前は技術の言葉、以降は相手の価値判断の言葉で扱う -->
+  <g stroke="#6a7179" stroke-width="2" fill="none">
+    <path d="M14,46 V36 H590 V46"/>
+    <path d="M620,46 V36 H1356 V46"/>
+  </g>
+  <g font-size="19" font-weight="700" fill="#4a5568" text-anchor="middle">
+    <rect x="232" y="18" width="146" height="30" fill="#ffffff"/>
+    <text x="305" y="41">技術者視点</text>
+    <rect x="908" y="18" width="160" height="30" fill="#ffffff"/>
+    <text x="988" y="41">ビジネス視点</text>
+  </g>
+
+  <!-- 案の数の増減を帯の幅で表す。3 で広げ、4 で絞る。収束の終わりを大きな壁に合わせる -->
+  <polygon points="10,134 305,134 455,70 605,134 1290,134 1290,120 1333,150 1290,180 1290,166 605,166 455,230 305,166 10,166"
+           fill="#e4eef5" stroke="#a6c6da" stroke-width="2"/>
+  <text x="385" y="159" font-size="24" font-weight="700" fill="#2b5f83" text-anchor="middle">発散</text>
+  <text x="530" y="159" font-size="24" font-weight="700" fill="#2b5f83" text-anchor="middle">収束</text>
+  <g font-size="17" font-weight="700" fill="#2b5f83" text-anchor="middle">
+    <text x="155" y="118">テーマと仮説</text>
+    <text x="905" y="118">論点化とストーリー</text>
+    <text x="1205" y="118">反応を受けて</text>
+  </g>
+
+  <!-- 壁 -->
+  <line x1="605" y1="8" x2="605" y2="420" stroke="#b5562a" stroke-width="5"/>
+  <line x1="155" y1="232" x2="155" y2="420" stroke="#b5562a" stroke-width="2" stroke-dasharray="6 5"/>
+  <line x1="905" y1="232" x2="905" y2="420" stroke="#b5562a" stroke-width="2" stroke-dasharray="6 5"/>
+  <g font-size="15" font-weight="700" fill="#b5562a" text-anchor="middle">
+    <text x="155" y="444">小さな壁：覚悟</text>
+    <text x="605" y="444">大きな壁：翻訳</text>
+    <text x="905" y="444">小さな壁：論理構成</text>
+  </g>
+
+  <!-- 手続き番号 -->
+  <g font-size="17" font-weight="700" fill="#ffffff" text-anchor="middle">
+    <circle cx="80" cy="255" r="17" fill="#2b5f83"/><text x="80" y="261">1</text>
+    <circle cx="230" cy="255" r="17" fill="#2b5f83"/><text x="230" y="261">2</text>
+    <circle cx="380" cy="255" r="17" fill="#2b5f83"/><text x="380" y="261">3</text>
+    <circle cx="530" cy="255" r="17" fill="#2b5f83"/><text x="530" y="261">4</text>
+    <circle cx="680" cy="255" r="17" fill="#2b5f83"/><text x="680" y="261">5</text>
+    <circle cx="830" cy="255" r="17" fill="#2b5f83"/><text x="830" y="261">6</text>
+    <circle cx="980" cy="255" r="17" fill="#2b5f83"/><text x="980" y="261">7</text>
+    <circle cx="1130" cy="255" r="17" fill="#2b5f83"/><text x="1130" y="261">8</text>
+    <circle cx="1280" cy="255" r="17" fill="#2b5f83"/><text x="1280" y="261">9</text>
+  </g>
+
+  <!-- 手続き名 -->
+  <g font-size="14.5" fill="#1b2026" text-anchor="middle">
+    <text x="80" y="296">決めなければならない</text><text x="80" y="316">ことを洗い出す</text>
+    <text x="230" y="296">落としどころを</text><text x="230" y="316">考える</text>
+    <text x="380" y="296">取りうる案を</text><text x="380" y="316">考える</text>
+    <text x="530" y="296">各案を観点ごとに</text><text x="530" y="316">評価する</text>
+    <text x="680" y="296">相手が判断できる</text><text x="680" y="316">評価軸に組み替える</text>
+    <text x="830" y="288">評価軸から</text><text x="830" y="306">コンセプト別の</text><text x="830" y="324">選択肢を作る</text>
+    <text x="988" y="296">説明用のストーリーと</text><text x="988" y="316">伝え方を組み立てる</text>
+    <text x="1130" y="296">相手の反応を</text><text x="1130" y="316">引き出し合意する</text>
+    <text x="1280" y="296">クロージング</text>
+  </g>
+
+  <!-- アウトプット -->
+  <g fill="#fbfaf7" stroke="#d7dce1" stroke-width="1.5">
+    <rect x="14" y="338" width="132" height="72" rx="8"/>
+    <rect x="164" y="338" width="132" height="72" rx="8"/>
+    <rect x="314" y="338" width="132" height="72" rx="8"/>
+    <rect x="464" y="338" width="132" height="72" rx="8"/>
+    <rect x="614" y="338" width="132" height="72" rx="8"/>
+    <rect x="764" y="338" width="132" height="72" rx="8"/>
+    <rect x="914" y="338" width="132" height="72" rx="8"/>
+    <rect x="1064" y="338" width="132" height="72" rx="8"/>
+    <rect x="1214" y="338" width="132" height="72" rx="8"/>
+  </g>
+  <g font-size="15" font-weight="700" fill="#1b2026" text-anchor="middle">
+    <text x="80" y="380">検討テーマ</text>
+    <text x="230" y="370">落としどころ</text><text x="230" y="390">の仮説</text>
+    <text x="380" y="380">案の一覧</text>
+    <text x="530" y="380">比較表</text>
+    <text x="680" y="380">評価軸</text>
+    <text x="830" y="370">コンセプト別の</text><text x="830" y="390">選択肢</text>
+    <text x="980" y="370">ストーリー</text><text x="980" y="390">伝え方の計画</text>
+    <text x="1130" y="370">相手の価値基準</text><text x="1130" y="390">受け入れる弱み</text>
+    <text x="1280" y="380">合意事項</text>
+  </g>
+
+  <!-- 相手の反応で戻るループ。戻り先は 5 だけを描く -->
+  <path d="M1130,412 V510 H680 V418" fill="none" stroke="#b5562a" stroke-width="3" marker-end="url(#ao)"/>
+  <text x="905" y="540" font-size="16" font-weight="700" fill="#b5562a" text-anchor="middle">8 で想定と違えば、5 に戻って評価軸を組み替える</text>
+</svg>

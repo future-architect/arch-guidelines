@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1000" width="1400" height="1000" font-family="Noto Sans CJK JP, sans-serif">
+  <rect width="1400" height="1000" fill="#ffffff"/>
+  <rect x="15" y="15" width="92" height="44" rx="22" fill="#2b5f83"/>
+  <text x="61.0" y="46.0" font-size="24" font-weight="700" fill="#ffffff" text-anchor="middle">若手</text>
+  <text x="123.0" y="45.0" font-size="21" font-weight="700" fill="#2b5f83" text-anchor="start">技術評価の山から登り、翻訳して合意形成の山へ向かう</text>
+  <path d="M 430 159 Q 700.0 55 970 159" fill="none" stroke="#c0504d" stroke-width="4"/>
+  <polygon points="977.5,161.9 937.3,160.3 946.7,136.1" fill="#c0504d"/>
+  <rect x="490.0" y="63" width="420" height="72" rx="10" fill="#ffffff" stroke="#c0504d" stroke-width="2.5"/>
+  <text x="700.0" y="93.0" font-size="24" font-weight="700" fill="#c0504d" text-anchor="middle">翻訳（手続き5）</text>
+  <text x="700.0" y="121.0" font-size="18" fill="#c0504d" text-anchor="middle">評価を相手の判断軸に組み替える</text>
+  <text x="700.0" y="163.0" font-size="20" font-weight="700" fill="#c0504d" text-anchor="middle">So What?</text>
+  <polygon points="390,165 670.0,465 110.0,465" fill="#c9dcea" stroke="#2b5f83" stroke-width="2"/>
+  <text x="390.0" y="330.0" font-size="30" font-weight="700" fill="#2b5f83" text-anchor="middle">① 技術評価の山</text>
+  <text x="390.0" y="377.0" font-size="20" font-weight="700" fill="#1b2026" text-anchor="middle">手続き3〜4</text>
+  <text x="390.0" y="411.0" font-size="20" fill="#1b2026" text-anchor="middle">案を出し、観点ごとに評価する</text>
+  <polygon points="1010,165 1290.0,465 730.0,465" fill="#e4eef5" stroke="#2b5f83" stroke-width="2"/>
+  <text x="1010.0" y="330.0" font-size="30" font-weight="700" fill="#2b5f83" text-anchor="middle">② 合意形成の山</text>
+  <text x="1010.0" y="377.0" font-size="20" font-weight="700" fill="#1b2026" text-anchor="middle">手続き6〜7</text>
+  <text x="1010.0" y="411.0" font-size="20" fill="#1b2026" text-anchor="middle">選択肢とストーリーで合意する</text>
+  <line x1="15" y1="465" x2="1385" y2="465" stroke="#2b5f83" stroke-width="2"/>
+  <line x1="15" y1="500.0" x2="1385" y2="500.0" stroke="#e4eef5" stroke-width="2"/>
+  <rect x="15" y="515" width="144" height="44" rx="22" fill="#2b5f83"/>
+  <text x="87.0" y="546.0" font-size="24" font-weight="700" fill="#ffffff" text-anchor="middle">ベテラン</text>
+  <text x="175.0" y="545.0" font-size="21" font-weight="700" fill="#2b5f83" text-anchor="start">合意形成の山から登り、技術評価の山で根拠を固める</text>
+  <path d="M 970 659 Q 700.0 555 430 659" fill="none" stroke="#c0504d" stroke-width="4"/>
+  <polygon points="422.5,661.9 453.3,636.1 462.7,660.3" fill="#c0504d"/>
+  <rect x="490.0" y="563" width="420" height="72" rx="10" fill="#ffffff" stroke="#c0504d" stroke-width="2.5"/>
+  <text x="700.0" y="593.0" font-size="24" font-weight="700" fill="#c0504d" text-anchor="middle">遡る（手続き6→5）</text>
+  <text x="700.0" y="621.0" font-size="18" fill="#c0504d" text-anchor="middle">選択肢と評価軸が揃っているか確かめる</text>
+  <text x="700.0" y="663.0" font-size="20" font-weight="700" fill="#c0504d" text-anchor="middle">Why So?</text>
+  <polygon points="390,665 670.0,965 110.0,965" fill="#e4eef5" stroke="#2b5f83" stroke-width="2"/>
+  <text x="390.0" y="830.0" font-size="30" font-weight="700" fill="#2b5f83" text-anchor="middle">② 技術評価の山</text>
+  <text x="390.0" y="877.0" font-size="20" font-weight="700" fill="#1b2026" text-anchor="middle">手続き4</text>
+  <text x="390.0" y="911.0" font-size="20" fill="#1b2026" text-anchor="middle">主張を支えるファクトを確かめる</text>
+  <polygon points="1010,665 1290.0,965 730.0,965" fill="#c9dcea" stroke="#2b5f83" stroke-width="2"/>
+  <text x="1010.0" y="830.0" font-size="30" font-weight="700" fill="#2b5f83" text-anchor="middle">① 合意形成の山</text>
+  <text x="1010.0" y="877.0" font-size="20" font-weight="700" fill="#1b2026" text-anchor="middle">手続き7</text>
+  <text x="1010.0" y="911.0" font-size="20" fill="#1b2026" text-anchor="middle">相手がどこなら頷くかを先に決める</text>
+  <line x1="15" y1="965" x2="1385" y2="965" stroke="#2b5f83" stroke-width="2"/>
+</svg>

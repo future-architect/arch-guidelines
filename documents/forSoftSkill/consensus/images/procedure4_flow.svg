@@ -32,7 +32,7 @@
   <line x1="651.0" y1="160" x2="651.0" y2="194" stroke="#b5562a" stroke-width="1.5" stroke-dasharray="4 4"/>
   <rect x="535.8" y="194" width="230.4" height="117" rx="8" fill="#fbf3ee" stroke="#e2c3b2" stroke-width="1.5"/>
   <text x="551.8" y="220" font-size="14" font-weight="700" fill="#b5562a">躓き</text>
-  <text x="551.8" y="250" font-size="14.5" fill="#1b2026">一般論の◯△×のまま進む</text>
+  <text x="551.8" y="250" font-size="14.5" fill="#1b2026">一般論の✅⚠️❌のまま進む</text>
   <rect x="796.2" y="16" width="230.4" height="144" rx="10" fill="#e4eef5" stroke="#a6c6da" stroke-width="2"/>
   <rect x="887.4" y="28" width="48" height="26" rx="13" fill="#2b5f83"/>
   <text x="911.4" y="47" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">4-4</text>

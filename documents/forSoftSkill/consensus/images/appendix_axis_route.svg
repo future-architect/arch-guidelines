@@ -14,7 +14,7 @@
   <text x="456.0" y="134.0" font-size="15" font-weight="700" fill="#2b5f83" text-anchor="start">落とす</text>
   <rect x="586.0" y="99.0" width="548.0" height="90.0" rx="10" fill="#fbfaf7" stroke="#d7dce1" stroke-width="2"/>
   <text x="600.0" y="129.0" font-size="17" font-weight="700" fill="#1b2026" text-anchor="start">制約</text>
-  <text x="600.0" y="153.0" font-size="15" font-weight="400" fill="#6a7179" text-anchor="start">◯×の二値で判定し、×の案を落とす。技術制約と、相手の方針・法規制・</text>
+  <text x="600.0" y="153.0" font-size="15" font-weight="400" fill="#6a7179" text-anchor="start">✅❌の二値で判定し、❌の案を落とす。技術制約と、相手の方針・法規制・</text>
   <text x="600.0" y="175.0" font-size="15" font-weight="400" fill="#6a7179" text-anchor="start">契約のようなビジネス制約がある</text>
   <text x="260.0" y="202.0" font-size="15" font-weight="700" fill="#2b5f83" text-anchor="start">比べる（評価）</text>
   <line x1="246.0" y1="178.0" x2="246.0" y2="216.0" stroke="#2b5f83" stroke-width="2.5" marker-end="url(#a)"/>

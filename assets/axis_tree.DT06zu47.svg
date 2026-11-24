@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1348 700" width="1348" height="700" font-family="Noto Sans CJK JP, sans-serif">
+  <rect width="1348" height="700" fill="#ffffff"/>
+  <rect x="16" y="213.0" width="140" height="60" rx="8" fill="#ffffff" stroke="#c0c7ce" stroke-width="1.5"/>
+  <text x="26" y="238.0" font-size="15" font-weight="700" fill="#4a5568">観点</text>
+  <text x="26" y="260.0" font-size="12" fill="#6a7179">比較表の1行</text>
+  <path d="M156,243.0 H170" stroke="#a6c6da" stroke-width="2" fill="none"/>
+  <path d="M170,137.0 V349.0" stroke="#a6c6da" stroke-width="2" fill="none"/>
+  <path d="M170,137.0 H184" stroke="#a6c6da" stroke-width="2" fill="none"/>
+  <path d="M170,349.0 H184" stroke="#a6c6da" stroke-width="2" fill="none"/>
+  <rect x="184" y="117.0" width="140" height="40" rx="8" fill="#ffffff" stroke="#c0c7ce" stroke-width="1.5"/>
+  <text x="194" y="142.0" font-size="15" font-weight="700" fill="#4a5568">制約</text>
+  <path d="M324,137.0 H338" stroke="#a6c6da" stroke-width="2" fill="none"/>
+  <path d="M338,78.0 V196.0" stroke="#a6c6da" stroke-width="2" fill="none"/>
+  <path d="M338,78.0 H352" stroke="#a6c6da" stroke-width="2" fill="none"/>
+  <path d="M338,196.0 H352" stroke="#a6c6da" stroke-width="2" fill="none"/>
+  <rect x="352" y="16.0" width="140" height="124" rx="8" fill="#ffffff" stroke="#c0c7ce" stroke-width="1.5"/>
+  <text x="362" y="41.0" font-size="15" font-weight="700" fill="#4a5568">技術制約</text>
+  <text x="362" y="63.0" font-size="12" fill="#6a7179">相手の既存環境に</text>
+  <text x="362" y="79.0" font-size="12" fill="#6a7179">載らない、自分たちの</text>
+  <text x="362" y="95.0" font-size="12" fill="#6a7179">技術方針に反する。</text>
+  <text x="362" y="111.0" font-size="12" fill="#6a7179">例: 閉域網でつなが</text>
+  <text x="362" y="127.0" font-size="12" fill="#6a7179">るのは AWS だけ</text>
+  <rect x="352" y="150.0" width="140" height="92" rx="8" fill="#ffffff" stroke="#c0c7ce" stroke-width="1.5"/>
+  <text x="362" y="175.0" font-size="15" font-weight="700" fill="#4a5568">ビジネス制約</text>
+  <text x="362" y="197.0" font-size="12" fill="#6a7179">相手の方針、法規制、</text>
+  <text x="362" y="213.0" font-size="12" fill="#6a7179">契約。例: IT 方針で</text>
+  <text x="362" y="229.0" font-size="12" fill="#6a7179">GCP は使えない</text>
+  <rect x="184" y="329.0" width="140" height="40" rx="8" fill="#ffffff" stroke="#c0c7ce" stroke-width="1.5"/>
+  <text x="194" y="354.0" font-size="15" font-weight="700" fill="#4a5568">評価</text>
+  <path d="M324,349.0 H338" stroke="#a6c6da" stroke-width="2" fill="none"/>
+  <path d="M338,298.0 V400.0" stroke="#a6c6da" stroke-width="2" fill="none"/>
+  <path d="M338,298.0 H352" stroke="#a6c6da" stroke-width="2" fill="none"/>
+  <path d="M338,400.0 H352" stroke="#a6c6da" stroke-width="2" fill="none"/>
+  <rect x="352" y="252.0" width="140" height="92" rx="8" fill="#ffffff" stroke="#c0c7ce" stroke-width="1.5"/>
+  <text x="362" y="277.0" font-size="15" font-weight="700" fill="#4a5568">ボトムアップ</text>
+  <text x="362" y="299.0" font-size="12" fill="#6a7179">束ねる。手元の</text>
+  <text x="362" y="315.0" font-size="12" fill="#6a7179">評価項目を似たもの</text>
+  <text x="362" y="331.0" font-size="12" fill="#6a7179">同士でまとめる</text>
+  <path d="M492,298.0 H506" stroke="#a6c6da" stroke-width="2" fill="none"/>
+  <path d="M506,298.0 V298.0" stroke="#a6c6da" stroke-width="2" fill="none"/>
+  <path d="M506,298.0 H520" stroke="#a6c6da" stroke-width="2" fill="none"/>
+  <rect x="520" y="244.0" width="140" height="108" rx="8" fill="#fbfaf7" stroke="#d7dce1" stroke-width="1.5"/>
+  <text x="530" y="269.0" font-size="15" font-weight="700" fill="#1b2026">関心事</text>
+  <text x="530" y="291.0" font-size="12" fill="#6a7179">題材ごとに作る</text>
+  <text x="530" y="307.0" font-size="12" fill="#6a7179">小分類。相手が</text>
+  <text x="530" y="323.0" font-size="12" fill="#6a7179">読める最初の粒度。</text>
+  <text x="530" y="339.0" font-size="12" fill="#6a7179">MECE ではない</text>
+  <rect x="352" y="354.0" width="140" height="92" rx="8" fill="#ffffff" stroke="#c0c7ce" stroke-width="1.5"/>
+  <text x="362" y="379.0" font-size="15" font-weight="700" fill="#4a5568">トップダウン</text>
+  <text x="362" y="401.0" font-size="12" fill="#6a7179">借りる。題材と</text>
+  <text x="362" y="417.0" font-size="12" fill="#6a7179">無関係に先にある</text>
+  <text x="362" y="433.0" font-size="12" fill="#6a7179">既成の軸を当てる</text>
+  <path d="M492,400.0 H506" stroke="#a6c6da" stroke-width="2" fill="none"/>
+  <path d="M506,400.0 V400.0" stroke="#a6c6da" stroke-width="2" fill="none"/>
+  <path d="M506,400.0 H520" stroke="#a6c6da" stroke-width="2" fill="none"/>
+  <rect x="520" y="370.0" width="140" height="60" rx="8" fill="#ffffff" stroke="#c0c7ce" stroke-width="1.5"/>
+  <text x="530" y="395.0" font-size="15" font-weight="700" fill="#4a5568">QCD</text>
+  <text x="530" y="417.0" font-size="12" fill="#6a7179">品質、コスト、納期</text>
+  <path d="M660,400.0 H674" stroke="#a6c6da" stroke-width="2" fill="none"/>
+  <path d="M674,323.0 V477.0" stroke="#a6c6da" stroke-width="2" fill="none"/>
+  <path d="M674,323.0 H688" stroke="#a6c6da" stroke-width="2" fill="none"/>
+  <path d="M674,391.0 H688" stroke="#a6c6da" stroke-width="2" fill="none"/>
+  <path d="M674,477.0 H688" stroke="#a6c6da" stroke-width="2" fill="none"/>
+  <rect x="688" y="303.0" width="140" height="40" rx="8" fill="#e4eef5" stroke="#a6c6da" stroke-width="1.5"/>
+  <text x="698" y="328.0" font-size="15" font-weight="700" fill="#1b2026">Q 品質</text>
+  <path d="M828,323.0 H842" stroke="#a6c6da" stroke-width="2" fill="none"/>
+  <path d="M842,293.0 V353.0" stroke="#a6c6da" stroke-width="2" fill="none"/>
+  <path d="M842,293.0 H856" stroke="#a6c6da" stroke-width="2" fill="none"/>
+  <path d="M842,353.0 H856" stroke="#a6c6da" stroke-width="2" fill="none"/>
+  <rect x="856" y="263.0" width="140" height="60" rx="8" fill="#fbfaf7" stroke="#d7dce1" stroke-width="1.5"/>
+  <text x="866" y="288.0" font-size="15" font-weight="700" fill="#1b2026">機能要件</text>
+  <text x="866" y="310.0" font-size="12" fill="#6a7179">機能適合性</text>
+  <rect x="856" y="333.0" width="140" height="40" rx="8" fill="#fbfaf7" stroke="#d7dce1" stroke-width="1.5"/>
+  <text x="866" y="358.0" font-size="15" font-weight="700" fill="#1b2026">非機能要件</text>
+  <path d="M996,353.0 H1010" stroke="#a6c6da" stroke-width="2" fill="none"/>
+  <path d="M1010,216.0 V490.0" stroke="#a6c6da" stroke-width="2" fill="none"/>
+  <path d="M1010,216.0 H1024" stroke="#a6c6da" stroke-width="2" fill="none"/>
+  <path d="M1010,284.0 H1024" stroke="#a6c6da" stroke-width="2" fill="none"/>
+  <path d="M1010,352.0 H1024" stroke="#a6c6da" stroke-width="2" fill="none"/>
+  <path d="M1010,412.0 H1024" stroke="#a6c6da" stroke-width="2" fill="none"/>
+  <path d="M1010,490.0 H1024" stroke="#a6c6da" stroke-width="2" fill="none"/>
+  <rect x="1024" y="196.0" width="140" height="40" rx="8" fill="#fbfaf7" stroke="#d7dce1" stroke-width="1.5"/>
+  <text x="1034" y="221.0" font-size="15" font-weight="700" fill="#1b2026">性能効率性</text>
+  <rect x="1024" y="246.0" width="140" height="76" rx="8" fill="#fbfaf7" stroke="#d7dce1" stroke-width="1.5"/>
+  <text x="1034" y="271.0" font-size="15" font-weight="700" fill="#1b2026">信頼性</text>
+  <text x="1034" y="293.0" font-size="12" fill="#6a7179">可用性、障害許容性、</text>
+  <text x="1034" y="309.0" font-size="12" fill="#6a7179">回復性</text>
+  <rect x="1024" y="332.0" width="140" height="40" rx="8" fill="#fbfaf7" stroke="#d7dce1" stroke-width="1.5"/>
+  <text x="1034" y="357.0" font-size="15" font-weight="700" fill="#1b2026">セキュリティ</text>
+  <path d="M1164,352.0 H1178" stroke="#a6c6da" stroke-width="2" fill="none"/>
+  <path d="M1178,309.0 V395.0" stroke="#a6c6da" stroke-width="2" fill="none"/>
+  <path d="M1178,309.0 H1192" stroke="#a6c6da" stroke-width="2" fill="none"/>
+  <path d="M1178,395.0 H1192" stroke="#a6c6da" stroke-width="2" fill="none"/>
+  <rect x="1192" y="271.0" width="140" height="76" rx="8" fill="#fbfaf7" stroke="#d7dce1" stroke-width="1.5"/>
+  <text x="1202" y="296.0" font-size="15" font-weight="700" fill="#1b2026">外部脅威</text>
+  <text x="1202" y="318.0" font-size="12" fill="#6a7179">サイバー攻撃、</text>
+  <text x="1202" y="334.0" font-size="12" fill="#6a7179">不正侵入</text>
+  <rect x="1192" y="357.0" width="140" height="76" rx="8" fill="#fbfaf7" stroke="#d7dce1" stroke-width="1.5"/>
+  <text x="1202" y="382.0" font-size="15" font-weight="700" fill="#1b2026">内部脅威</text>
+  <text x="1202" y="404.0" font-size="12" fill="#6a7179">誤操作、内部不正、</text>
+  <text x="1202" y="420.0" font-size="12" fill="#6a7179">コンプライアンス</text>
+  <rect x="1024" y="382.0" width="140" height="60" rx="8" fill="#fbfaf7" stroke="#d7dce1" stroke-width="1.5"/>
+  <text x="1034" y="407.0" font-size="15" font-weight="700" fill="#1b2026">保守性</text>
+  <text x="1034" y="429.0" font-size="12" fill="#6a7179">改修や運用のしやすさ</text>
+  <rect x="1024" y="452.0" width="140" height="76" rx="8" fill="#fbfaf7" stroke="#d7dce1" stroke-width="1.5"/>
+  <text x="1034" y="477.0" font-size="15" font-weight="700" fill="#1b2026">その他</text>
+  <text x="1034" y="499.0" font-size="12" fill="#6a7179">互換性、使用性、</text>
+  <text x="1034" y="515.0" font-size="12" fill="#6a7179">移植性</text>
+  <rect x="688" y="353.0" width="140" height="76" rx="8" fill="#e4eef5" stroke="#a6c6da" stroke-width="1.5"/>
+  <text x="698" y="378.0" font-size="15" font-weight="700" fill="#1b2026">C コスト</text>
+  <text x="698" y="400.0" font-size="12" fill="#6a7179">初期費用、</text>
+  <text x="698" y="416.0" font-size="12" fill="#6a7179">運用費用、体制</text>
+  <rect x="688" y="439.0" width="140" height="76" rx="8" fill="#e4eef5" stroke="#a6c6da" stroke-width="1.5"/>
+  <text x="698" y="464.0" font-size="15" font-weight="700" fill="#1b2026">D 納期</text>
+  <text x="698" y="486.0" font-size="12" fill="#6a7179">導入期間、日程の</text>
+  <text x="698" y="502.0" font-size="12" fill="#6a7179">確実性</text>
+  <rect x="352" y="552.0" width="980" height="132" rx="10" fill="#ffffff" stroke="#a6c6da" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="364" y="582.0" font-size="15" font-weight="700" fill="#1b2026">重みの軸<tspan font-size="13" font-weight="400" fill="#4a5568">　分けた行ごとに添え、相手がどう重みを置くかの向きを見る。相手のモードが明確なら、大分類にも使える</tspan></text>
+  <rect x="364.0" y="596.0" width="181.6" height="76" rx="8" fill="#e4eef5" stroke="#a6c6da" stroke-width="1.5"/>
+  <text x="374.0" y="621.0" font-size="15" font-weight="700" fill="#1b2026">攻め・守り</text>
+  <text x="374.0" y="643.0" font-size="12" fill="#6a7179">事業を伸ばすか、リスクを</text>
+  <text x="374.0" y="659.0" font-size="12" fill="#6a7179">抑えるか</text>
+  <rect x="557.6" y="596.0" width="181.6" height="76" rx="8" fill="#e4eef5" stroke="#a6c6da" stroke-width="1.5"/>
+  <text x="567.6" y="621.0" font-size="15" font-weight="700" fill="#1b2026">短期・中期・長期</text>
+  <text x="567.6" y="643.0" font-size="12" fill="#6a7179">いつ効いてくるか</text>
+  <rect x="751.2" y="596.0" width="181.6" height="76" rx="8" fill="#e4eef5" stroke="#a6c6da" stroke-width="1.5"/>
+  <text x="761.2" y="621.0" font-size="15" font-weight="700" fill="#1b2026">フェーズ</text>
+  <text x="761.2" y="643.0" font-size="12" fill="#6a7179">設計・構築・保守運用。</text>
+  <text x="761.2" y="659.0" font-size="12" fill="#6a7179">どの工程で効くか</text>
+  <rect x="944.8" y="596.0" width="181.6" height="76" rx="8" fill="#e4eef5" stroke="#a6c6da" stroke-width="1.5"/>
+  <text x="954.8" y="621.0" font-size="15" font-weight="700" fill="#1b2026">戦略・戦術</text>
+  <text x="954.8" y="643.0" font-size="12" fill="#6a7179">事業の方向を決めるものか、</text>
+  <text x="954.8" y="659.0" font-size="12" fill="#6a7179">実行の巧拙か</text>
+  <rect x="1138.4" y="596.0" width="181.6" height="76" rx="8" fill="#e4eef5" stroke="#a6c6da" stroke-width="1.5"/>
+  <text x="1148.4" y="621.0" font-size="15" font-weight="700" fill="#1b2026">内部・外部</text>
+  <text x="1148.4" y="643.0" font-size="12" fill="#6a7179">社内に効くか、社外に効くか</text>
+  <rect x="16" y="552.0" width="24" height="18" rx="4" fill="#e4eef5" stroke="#a6c6da" stroke-width="1.5"/>
+  <text x="50" y="566.0" font-size="14" fill="#4a5568">大分類に使えそうな軸</text>
+  <rect x="16" y="578.0" width="24" height="18" rx="4" fill="#fbfaf7" stroke="#d7dce1" stroke-width="1.5"/>
+  <text x="50" y="592.0" font-size="14" fill="#4a5568">小分類・中分類に使えそうな軸</text>
+  <rect x="16" y="604.0" width="24" height="18" rx="4" fill="#ffffff" stroke="#c0c7ce" stroke-width="1.5"/>
+  <text x="50" y="618.0" font-size="14" fill="#4a5568">分け方の構造</text>
+</svg>

@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1520 325" width="1520" height="325" font-family="Noto Sans CJK JP, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2b5f83"/>
+    </marker>
+  </defs>
+  <rect width="1520" height="325" fill="#ffffff"/>
+  <rect x="15.0" y="16" width="230.4" height="144" rx="10" fill="#e4eef5" stroke="#a6c6da" stroke-width="2"/>
+  <rect x="106.2" y="28" width="48" height="26" rx="13" fill="#2b5f83"/>
+  <text x="130.2" y="47" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">4-1</text>
+  <text x="130.2" y="103.0" font-size="16" font-weight="700" fill="#1b2026" text-anchor="middle">制約で足切りし、</text>
+  <text x="130.2" y="127.0" font-size="16" font-weight="700" fill="#1b2026" text-anchor="middle">候補を絞る</text>
+  <line x1="247.4" y1="88.0" x2="272.4" y2="88.0" stroke="#2b5f83" stroke-width="2.5" marker-end="url(#a)"/>
+  <line x1="130.2" y1="160" x2="130.2" y2="194" stroke="#b5562a" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <rect x="15.0" y="194" width="230.4" height="117" rx="8" fill="#fbf3ee" stroke="#e2c3b2" stroke-width="1.5"/>
+  <text x="31.0" y="220" font-size="14" font-weight="700" fill="#b5562a">躓き</text>
+  <text x="31.0" y="250" font-size="14.5" fill="#1b2026">全候補を精緻に</text>
+  <text x="31.0" y="273" font-size="14.5" fill="#1b2026">比べようとして破綻する</text>
+  <rect x="275.4" y="16" width="230.4" height="144" rx="10" fill="#e4eef5" stroke="#a6c6da" stroke-width="2"/>
+  <rect x="366.6" y="28" width="48" height="26" rx="13" fill="#2b5f83"/>
+  <text x="390.6" y="47" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">4-2</text>
+  <text x="390.6" y="103.0" font-size="16" font-weight="700" fill="#1b2026" text-anchor="middle">観点を挙げ、技術的に</text>
+  <text x="390.6" y="127.0" font-size="16" font-weight="700" fill="#1b2026" text-anchor="middle">評価する</text>
+  <line x1="507.8" y1="88.0" x2="532.8" y2="88.0" stroke="#2b5f83" stroke-width="2.5" marker-end="url(#a)"/>
+  <rect x="535.8" y="16" width="230.4" height="144" rx="10" fill="#e4eef5" stroke="#a6c6da" stroke-width="2"/>
+  <rect x="627.0" y="28" width="48" height="26" rx="13" fill="#2b5f83"/>
+  <text x="651.0" y="47" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">4-3</text>
+  <text x="651.0" y="91.0" font-size="16" font-weight="700" fill="#1b2026" text-anchor="middle">前提を確かめ、</text>
+  <text x="651.0" y="115.0" font-size="16" font-weight="700" fill="#1b2026" text-anchor="middle">プロジェクト文脈を加えて</text>
+  <text x="651.0" y="139.0" font-size="16" font-weight="700" fill="#1b2026" text-anchor="middle">再評価する</text>
+  <line x1="768.2" y1="88.0" x2="793.2" y2="88.0" stroke="#2b5f83" stroke-width="2.5" marker-end="url(#a)"/>
+  <line x1="651.0" y1="160" x2="651.0" y2="194" stroke="#b5562a" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <rect x="535.8" y="194" width="230.4" height="117" rx="8" fill="#fbf3ee" stroke="#e2c3b2" stroke-width="1.5"/>
+  <text x="551.8" y="220" font-size="14" font-weight="700" fill="#b5562a">躓き</text>
+  <text x="551.8" y="250" font-size="14.5" fill="#1b2026">一般論の✅⚠️❌のまま進む</text>
+  <rect x="796.2" y="16" width="230.4" height="144" rx="10" fill="#e4eef5" stroke="#a6c6da" stroke-width="2"/>
+  <rect x="887.4" y="28" width="48" height="26" rx="13" fill="#2b5f83"/>
+  <text x="911.4" y="47" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">4-4</text>
+  <text x="911.4" y="103.0" font-size="16" font-weight="700" fill="#1b2026" text-anchor="middle">観点を、差・制約・</text>
+  <text x="911.4" y="127.0" font-size="16" font-weight="700" fill="#1b2026" text-anchor="middle">差なしに仕分ける</text>
+  <line x1="1028.6" y1="88.0" x2="1053.6" y2="88.0" stroke="#2b5f83" stroke-width="2.5" marker-end="url(#a)"/>
+  <line x1="911.4" y1="160" x2="911.4" y2="194" stroke="#b5562a" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <rect x="796.2" y="194" width="230.4" height="117" rx="8" fill="#fbf3ee" stroke="#e2c3b2" stroke-width="1.5"/>
+  <text x="812.2" y="220" font-size="14" font-weight="700" fill="#b5562a">躓き</text>
+  <text x="812.2" y="250" font-size="14.5" fill="#1b2026">差の出ない観点まで残し、</text>
+  <text x="812.2" y="273" font-size="14.5" fill="#1b2026">どこが論点かが埋もれる</text>
+  <rect x="1056.6" y="16" width="230.4" height="144" rx="10" fill="#e4eef5" stroke="#a6c6da" stroke-width="2"/>
+  <rect x="1147.8" y="28" width="48" height="26" rx="13" fill="#2b5f83"/>
+  <text x="1171.8" y="47" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">4-5</text>
+  <text x="1171.8" y="103.0" font-size="16" font-weight="700" fill="#1b2026" text-anchor="middle">推奨案について自分たちの</text>
+  <text x="1171.8" y="127.0" font-size="16" font-weight="700" fill="#1b2026" text-anchor="middle">仮説を検証する</text>
+  <line x1="1289.0" y1="88.0" x2="1314.0" y2="88.0" stroke="#2b5f83" stroke-width="2.5" marker-end="url(#a)"/>
+  <line x1="1171.8" y1="160" x2="1171.8" y2="194" stroke="#b5562a" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <rect x="1056.6" y="194" width="230.4" height="117" rx="8" fill="#fbf3ee" stroke="#e2c3b2" stroke-width="1.5"/>
+  <text x="1072.6" y="220" font-size="14" font-weight="700" fill="#b5562a">躓き</text>
+  <text x="1072.6" y="250" font-size="14.5" fill="#1b2026">推奨が無いため自分たちの</text>
+  <text x="1072.6" y="273" font-size="14.5" fill="#1b2026">意思が見えず、相手任せに</text>
+  <text x="1072.6" y="296" font-size="14.5" fill="#1b2026">見える</text>
+  <rect x="1317.0" y="16" width="188" height="144" rx="10" fill="#2b5f83" stroke="#2b5f83" stroke-width="2"/>
+  <text x="1411.0" y="47" font-size="14" font-weight="700" fill="#ffffff" fill-opacity="0.8" text-anchor="middle">アウトプット</text>
+  <text x="1411.0" y="115.0" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">比較表</text>
+</svg>

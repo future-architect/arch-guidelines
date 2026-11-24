@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 884" width="1200" height="884" font-family="Noto Sans CJK JP, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2b5f83"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="884" fill="#ffffff"/>
+  <rect x="56.0" y="16.0" width="380.0" height="54.0" rx="10" fill="#ffffff" stroke="#c0c7ce" stroke-width="2"/>
+  <text x="246.0" y="50.0" font-size="18" font-weight="700" fill="#1b2026" text-anchor="middle">観点（比較表の1行）</text>
+  <line x1="246.0" y1="72.0" x2="246.0" y2="110.0" stroke="#2b5f83" stroke-width="2.5" marker-end="url(#a)"/>
+  <rect x="56.0" y="112.0" width="380.0" height="64.0" rx="10" fill="#e4eef5" stroke="#a6c6da" stroke-width="2"/>
+  <text x="246.0" y="152.0" font-size="18" font-weight="700" fill="#1b2026" text-anchor="middle">案を落とすか、比べるか</text>
+  <line x1="438.0" y1="144.0" x2="582.0" y2="144.0" stroke="#2b5f83" stroke-width="2.5" marker-end="url(#a)"/>
+  <text x="456.0" y="134.0" font-size="15" font-weight="700" fill="#2b5f83" text-anchor="start">落とす</text>
+  <rect x="586.0" y="99.0" width="548.0" height="90.0" rx="10" fill="#fbfaf7" stroke="#d7dce1" stroke-width="2"/>
+  <text x="600.0" y="129.0" font-size="17" font-weight="700" fill="#1b2026" text-anchor="start">制約</text>
+  <text x="600.0" y="153.0" font-size="15" font-weight="400" fill="#6a7179" text-anchor="start">✅❌の二値で判定し、❌の案を落とす。技術制約と、相手の方針・法規制・</text>
+  <text x="600.0" y="175.0" font-size="15" font-weight="400" fill="#6a7179" text-anchor="start">契約のようなビジネス制約がある</text>
+  <text x="260.0" y="202.0" font-size="15" font-weight="700" fill="#2b5f83" text-anchor="start">比べる（評価）</text>
+  <line x1="246.0" y1="178.0" x2="246.0" y2="216.0" stroke="#2b5f83" stroke-width="2.5" marker-end="url(#a)"/>
+  <rect x="56.0" y="218.0" width="380.0" height="64.0" rx="10" fill="#e4eef5" stroke="#a6c6da" stroke-width="2"/>
+  <text x="246.0" y="258.0" font-size="18" font-weight="700" fill="#1b2026" text-anchor="middle">案の間で差が出るか</text>
+  <line x1="438.0" y1="250.0" x2="582.0" y2="250.0" stroke="#2b5f83" stroke-width="2.5" marker-end="url(#a)"/>
+  <text x="456.0" y="240.0" font-size="15" font-weight="700" fill="#2b5f83" text-anchor="start">出ない</text>
+  <rect x="586.0" y="227.0" width="548.0" height="46.0" rx="10" fill="#fbfaf7" stroke="#d7dce1" stroke-width="2"/>
+  <text x="600.0" y="257.0" font-size="17" font-weight="700" fill="#1b2026" text-anchor="start">表から外す</text>
+  <text x="260.0" y="308.0" font-size="15" font-weight="700" fill="#2b5f83" text-anchor="start">出る</text>
+  <line x1="246.0" y1="284.0" x2="246.0" y2="322.0" stroke="#2b5f83" stroke-width="2.5" marker-end="url(#a)"/>
+  <rect x="56.0" y="324.0" width="380.0" height="64.0" rx="10" fill="#e4eef5" stroke="#a6c6da" stroke-width="2"/>
+  <text x="246.0" y="364.0" font-size="18" font-weight="700" fill="#1b2026" text-anchor="middle">相手の言葉に直せるか</text>
+  <line x1="438.0" y1="356.0" x2="582.0" y2="356.0" stroke="#2b5f83" stroke-width="2.5" marker-end="url(#a)"/>
+  <text x="456.0" y="346.0" font-size="15" font-weight="700" fill="#2b5f83" text-anchor="start">直せない</text>
+  <rect x="586.0" y="322.0" width="548.0" height="68.0" rx="10" fill="#fbfaf7" stroke="#d7dce1" stroke-width="2"/>
+  <text x="600.0" y="352.0" font-size="17" font-weight="700" fill="#1b2026" text-anchor="start">技術の差</text>
+  <text x="600.0" y="376.0" font-size="15" font-weight="400" fill="#6a7179" text-anchor="start">自分たちで決めて報告する</text>
+  <text x="260.0" y="414.0" font-size="15" font-weight="700" fill="#2b5f83" text-anchor="start">直せる（QCD や攻め・守りの軸に載る）</text>
+  <line x1="246.0" y1="390.0" x2="246.0" y2="428.0" stroke="#2b5f83" stroke-width="2.5" marker-end="url(#a)"/>
+  <rect x="56.0" y="430.0" width="380.0" height="64.0" rx="10" fill="#e4eef5" stroke="#a6c6da" stroke-width="2"/>
+  <text x="246.0" y="470.0" font-size="18" font-weight="700" fill="#1b2026" text-anchor="middle">意思決定の決め手になるか</text>
+  <line x1="438.0" y1="462.0" x2="582.0" y2="462.0" stroke="#2b5f83" stroke-width="2.5" marker-end="url(#a)"/>
+  <text x="456.0" y="452.0" font-size="15" font-weight="700" fill="#2b5f83" text-anchor="start">ならない</text>
+  <rect x="586.0" y="417.0" width="548.0" height="90.0" rx="10" fill="#fbfaf7" stroke="#d7dce1" stroke-width="2"/>
+  <text x="600.0" y="447.0" font-size="17" font-weight="700" fill="#1b2026" text-anchor="start">論点にしない</text>
+  <text x="600.0" y="471.0" font-size="15" font-weight="400" fill="#6a7179" text-anchor="start">差はあるが、相手の前提や他の行で結論が決まっていて、今回の文脈では</text>
+  <text x="600.0" y="493.0" font-size="15" font-weight="400" fill="#6a7179" text-anchor="start">重視されない</text>
+  <text x="260.0" y="520.0" font-size="15" font-weight="700" fill="#2b5f83" text-anchor="start">なる</text>
+  <line x1="246.0" y1="496.0" x2="246.0" y2="534.0" stroke="#2b5f83" stroke-width="2.5" marker-end="url(#a)"/>
+  <rect x="56.0" y="536.0" width="380.0" height="64.0" rx="10" fill="#e4eef5" stroke="#a6c6da" stroke-width="2"/>
+  <text x="246.0" y="576.0" font-size="18" font-weight="700" fill="#1b2026" text-anchor="middle">だれが決められるか</text>
+  <rect x="16.0" y="640.0" width="1168.0" height="228.0" rx="12" fill="#ffffff" stroke="#9aa3ab" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="32.0" y="854.0" font-size="16" font-weight="700" fill="#2b5f83" text-anchor="start">相手へのコミュニケーション（5形式）</text>
+  <path d="M246.0,602.0 V620.0 H117.0 V652.0" stroke="#2b5f83" stroke-width="2.5" fill="none" marker-end="url(#a)"/>
+  <rect x="32.0" y="656.0" width="170.0" height="96.0" rx="10" fill="#fbfaf7" stroke="#d7dce1" stroke-width="2"/>
+  <text x="117.0" y="688.0" font-size="18" font-weight="700" fill="#1b2026" text-anchor="middle">報告</text>
+  <text x="117.0" y="710.0" font-size="13" font-weight="400" fill="#6a7179" text-anchor="middle">自分たちで決められる</text>
+  <path d="M246.0,602.0 V620.0 H303.0 V652.0" stroke="#2b5f83" stroke-width="2.5" fill="none" marker-end="url(#a)"/>
+  <rect x="218.0" y="656.0" width="170.0" height="96.0" rx="10" fill="#fbfaf7" stroke="#d7dce1" stroke-width="2"/>
+  <text x="303.0" y="688.0" font-size="18" font-weight="700" fill="#1b2026" text-anchor="middle">確認</text>
+  <text x="303.0" y="710.0" font-size="13" font-weight="400" fill="#6a7179" text-anchor="middle">別の場ですでに</text>
+  <text x="303.0" y="728.0" font-size="13" font-weight="400" fill="#6a7179" text-anchor="middle">決まっている</text>
+  <path d="M246.0,602.0 V620.0 H786.0 V652.0" stroke="#2b5f83" stroke-width="2.5" fill="none" marker-end="url(#a)"/>
+  <rect x="404.0" y="656.0" width="764.0" height="168.0" rx="10" fill="#2b5f83" stroke="#2b5f83" stroke-width="2"/>
+  <text x="786.0" y="688.0" font-size="18" font-weight="700" fill="#ffffff" text-anchor="middle">論点</text>
+  <text x="786.0" y="710.0" font-size="13" font-weight="400" fill="#dfe8ef" text-anchor="middle">相手の価値判断が要る</text>
+  <rect x="416.0" y="724.0" width="241.3" height="88.0" rx="8" fill="#ffffff" stroke="#ffffff" stroke-width="2"/>
+  <text x="536.7" y="756.0" font-size="16" font-weight="700" fill="#2b5f83" text-anchor="middle">基準への同意</text>
+  <text x="536.7" y="780.0" font-size="13" font-weight="400" fill="#1b2026" text-anchor="middle">落とす条件、振り分ける条件</text>
+  <rect x="665.3" y="724.0" width="241.3" height="88.0" rx="8" fill="#ffffff" stroke="#ffffff" stroke-width="2"/>
+  <text x="786.0" y="756.0" font-size="16" font-weight="700" fill="#2b5f83" text-anchor="middle">重みの選択</text>
+  <text x="786.0" y="780.0" font-size="13" font-weight="400" fill="#1b2026" text-anchor="middle">優先する軸</text>
+  <rect x="914.7" y="724.0" width="241.3" height="88.0" rx="8" fill="#ffffff" stroke="#ffffff" stroke-width="2"/>
+  <text x="1035.3" y="756.0" font-size="16" font-weight="700" fill="#2b5f83" text-anchor="middle">弱みの許容</text>
+  <text x="1035.3" y="780.0" font-size="13" font-weight="400" fill="#1b2026" text-anchor="middle">推奨案の弱み</text>
+  <path d="M1136.0,144.0 H1154.0 V652.0" stroke="#2b5f83" stroke-width="2.5" stroke-dasharray="7 5" fill="none" marker-end="url(#a)"/>
+  <text x="1146.0" y="211.0" font-size="14" font-weight="700" fill="#2b5f83" text-anchor="end">線を相手の価値判断で引くなら、基準への同意の論点へ</text>
+</svg>

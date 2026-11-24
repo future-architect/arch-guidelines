@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1520 278" width="1520" height="278" font-family="Noto Sans CJK JP, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2b5f83"/>
+    </marker>
+  </defs>
+  <rect width="1520" height="278" fill="#ffffff"/>
+  <rect x="15.0" y="16" width="295.5" height="120" rx="10" fill="#e4eef5" stroke="#a6c6da" stroke-width="2"/>
+  <rect x="138.8" y="28" width="48" height="26" rx="13" fill="#2b5f83"/>
+  <text x="162.8" y="47" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">6-1</text>
+  <text x="162.8" y="91.0" font-size="16" font-weight="700" fill="#1b2026" text-anchor="middle">差が出ない評価軸を、論点から</text>
+  <text x="162.8" y="115.0" font-size="16" font-weight="700" fill="#1b2026" text-anchor="middle">省けないか見極める</text>
+  <line x1="312.5" y1="76.0" x2="337.5" y2="76.0" stroke="#2b5f83" stroke-width="2.5" marker-end="url(#a)"/>
+  <line x1="162.8" y1="136" x2="162.8" y2="170" stroke="#b5562a" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <rect x="15.0" y="170" width="295.5" height="94" rx="8" fill="#fbf3ee" stroke="#e2c3b2" stroke-width="1.5"/>
+  <text x="31.0" y="196" font-size="14" font-weight="700" fill="#b5562a">躓き</text>
+  <text x="31.0" y="226" font-size="14.5" fill="#1b2026">翻訳できない技術の差を論点に残し、</text>
+  <text x="31.0" y="249" font-size="14.5" fill="#1b2026">相手の価値判断が要る差を落とす</text>
+  <rect x="340.5" y="16" width="295.5" height="120" rx="10" fill="#e4eef5" stroke="#a6c6da" stroke-width="2"/>
+  <rect x="464.2" y="28" width="48" height="26" rx="13" fill="#2b5f83"/>
+  <text x="488.2" y="47" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">6-2</text>
+  <text x="488.2" y="91.0" font-size="16" font-weight="700" fill="#1b2026" text-anchor="middle">決め手になる行だけ、文脈を</text>
+  <text x="488.2" y="115.0" font-size="16" font-weight="700" fill="#1b2026" text-anchor="middle">注入して評価の精度を上げる</text>
+  <line x1="638.0" y1="76.0" x2="663.0" y2="76.0" stroke="#2b5f83" stroke-width="2.5" marker-end="url(#a)"/>
+  <rect x="666.0" y="16" width="295.5" height="120" rx="10" fill="#e4eef5" stroke="#a6c6da" stroke-width="2"/>
+  <rect x="789.8" y="28" width="48" height="26" rx="13" fill="#2b5f83"/>
+  <text x="813.8" y="47" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">6-3</text>
+  <text x="813.8" y="91.0" font-size="16" font-weight="700" fill="#1b2026" text-anchor="middle">案にコンセプト名をつけ、</text>
+  <text x="813.8" y="115.0" font-size="16" font-weight="700" fill="#1b2026" text-anchor="middle">デメリットを整理する</text>
+  <line x1="963.5" y1="76.0" x2="988.5" y2="76.0" stroke="#2b5f83" stroke-width="2.5" marker-end="url(#a)"/>
+  <line x1="813.8" y1="136" x2="813.8" y2="170" stroke="#b5562a" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <rect x="666.0" y="170" width="295.5" height="94" rx="8" fill="#fbf3ee" stroke="#e2c3b2" stroke-width="1.5"/>
+  <text x="682.0" y="196" font-size="14" font-weight="700" fill="#b5562a">躓き</text>
+  <text x="682.0" y="226" font-size="14.5" fill="#1b2026">案1、案2 のまま並べ、</text>
+  <text x="682.0" y="249" font-size="14.5" fill="#1b2026">「どれがよいですか」と聞く</text>
+  <rect x="991.5" y="16" width="295.5" height="120" rx="10" fill="#e4eef5" stroke="#a6c6da" stroke-width="2"/>
+  <rect x="1115.2" y="28" width="48" height="26" rx="13" fill="#2b5f83"/>
+  <text x="1139.2" y="47" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">6-4</text>
+  <text x="1139.2" y="103.0" font-size="16" font-weight="700" fill="#1b2026" text-anchor="middle">推奨の仮説を添えた問いにする</text>
+  <line x1="1289.0" y1="76.0" x2="1314.0" y2="76.0" stroke="#2b5f83" stroke-width="2.5" marker-end="url(#a)"/>
+  <line x1="1139.2" y1="136" x2="1139.2" y2="170" stroke="#b5562a" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <rect x="991.5" y="170" width="295.5" height="94" rx="8" fill="#fbf3ee" stroke="#e2c3b2" stroke-width="1.5"/>
+  <text x="1007.5" y="196" font-size="14" font-weight="700" fill="#b5562a">躓き</text>
+  <text x="1007.5" y="226" font-size="14.5" fill="#1b2026">「どうですか」とだけ問い、自分たちが</text>
+  <text x="1007.5" y="249" font-size="14.5" fill="#1b2026">何を良いと考えているかを言わない</text>
+  <rect x="1317.0" y="16" width="188" height="120" rx="10" fill="#2b5f83" stroke="#2b5f83" stroke-width="2"/>
+  <text x="1411.0" y="47" font-size="14" font-weight="700" fill="#ffffff" fill-opacity="0.8" text-anchor="middle">アウトプット</text>
+  <text x="1411.0" y="91.0" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">コンセプト別の</text>
+  <text x="1411.0" y="115.0" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">選択肢</text>
+</svg>
